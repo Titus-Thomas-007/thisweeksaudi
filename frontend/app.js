@@ -51,7 +51,7 @@ function niceDate(ev){
   return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
 }
 function previewURL(ev){
-  return '/api/preview?url=' + encodeURIComponent(ev.reg_url || ev.source_url || '');
+  return '/api/preview?url=' + encodeURIComponent(ev.reg_url || ev.source_url || ev.url || '');
 }
 function initials(title){
   const w = String(title||'').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
@@ -610,12 +610,8 @@ function hideUndo(){
   $('#btn-undo').classList.add('hidden');
 }
 function expireUndo(){
-  // countdown elapsed: restore the last event back into the stack
-  if(state.undo) state.stack.unshift(state.undo.ev);
+  // countdown elapsed: the save/pass decision stands; just dismiss the pill
   hideUndo();
-  renderStack();
-  const prog = $('#deck-progress');
-  prog.textContent = state.stack.length ? '1 of ' + state.stack.length : '';
 }
 function undo(){
   if(!state.undo) return;
@@ -718,7 +714,7 @@ function buildSheetBody(ev){
         '<div><div class="k">Price</div><div class="v" style="color:var(--gold);font-weight:600">' + esc(fmtPrice(ev)) + '</div></div>' +
       '</div>' +
       (desc ? '<p class="sheet-desc">' + esc(desc) + '</p>' : '') +
-      ((ev.reg_url || ev.source_url) ? '<a class="btn-register" href="' + esc(ev.reg_url || ev.source_url) + '" target="_blank" rel="noopener">' +
+      ((ev.reg_url || ev.source_url || ev.url) ? '<a class="btn-register" href="' + esc(ev.reg_url || ev.source_url || ev.url) + '" target="_blank" rel="noopener">' +
         '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>' +
         (ev.reg_url ? 'Register / Event page' : 'Event page') + '</a>' : '') +
       '<div style="display:flex;gap:10px;margin:6px 0 4px">' +
@@ -799,7 +795,7 @@ function downloadICS(ev){
     ds ? 'DTSTART:' + ds : null, de ? 'DTEND:' + de : null,
     'SUMMARY:' + String(ev.title||'').replace(/[,;]/g,' '),
     'LOCATION:' + String((ev.venue||'') + ', ' + (ev.city||'')).replace(/[,;]/g,' '),
-    'DESCRIPTION:' + String(ev.reg_url || ev.source_url || '').replace(/[,;]/g,' '),
+    'DESCRIPTION:' + String(ev.reg_url || ev.source_url || ev.url || '').replace(/[,;]/g,' '),
     'END:VEVENT','END:VCALENDAR'].filter(Boolean).join('\r\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
@@ -1124,8 +1120,8 @@ function openMap(fromHist){
     if(!map){
       map = L.map('map', {zoomControl: false}).setView([24.6, 46.7], 6);
       L.control.zoom({position:'bottomright'}).addTo(map);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; Esri',
         maxZoom: 19
       }).addTo(map);
       markers = L.markerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, maxClusterRadius: 48});
