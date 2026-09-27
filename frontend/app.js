@@ -108,6 +108,7 @@ function buildDeck(skip) {
   const deck = state.filtered.filter(e => !state.saved[e.id]);
   state.deck = deck; state.idx = 0;
   state.mapPlottedFor = null; // force map replot with new prefs
+  state.mapCat = null; // reset the in-map type filter
   saveLocal();
   renderStack();
   showView('#view-deck');
@@ -399,6 +400,46 @@ function userLocation() {
   });
 }
 
+// ---------- map ----------
+// Map-local event-type filter (single select, null = all). The map always
+// starts from the deck's current event set; the chips narrow it further
+// without leaving the map.
+function mapBaseEvents() {
+  return state.filtered && state.filtered.length ? state.filtered : state.all;
+}
+
+function renderMapFilters() {
+  const bar = $('#map-filters');
+  bar.innerHTML = '';
+  const cats = [...new Set(mapBaseEvents().map(e => e.category).filter(Boolean))].sort();
+  const mk = (val, label) => {
+    const b = document.createElement('button');
+    b.className = 'chip' + (state.mapCat === val ? ' on' : '');
+    b.textContent = label;
+    b.onclick = () => {
+      if (state.mapCat === val) return;
+      state.mapCat = val;
+      renderMapFilters();
+      plotMapMarkers(false); // replot in place, keep the user's current view
+    };
+    bar.appendChild(b);
+  };
+  mk(null, 'All');
+  cats.forEach(c => mk(c, CAT_LABELS[c] || c));
+  bar.style.display = cats.length ? '' : 'none';
+}
+
+// Luma-style pins: circular event-image thumbnails, gold dot when imageless.
+function evIcon(ev) {
+  if (ev.image && /^https?:\/\//.test(ev.image)) {
+    return L.divIcon({ className: 'ev-pin-wrap',
+      html: `<div class="ev-pin" style="background-image:url(&quot;${esc(ev.image)}&quot;)"></div>`,
+      iconSize: [38, 38], iconAnchor: [19, 19] });
+  }
+  return L.divIcon({ className: 'ev-dot-wrap', html: '<div class="ev-dot"></div>',
+    iconSize: [16, 16], iconAnchor: [8, 8] });
+}
+
 async function openMap() {
   $('#map-modal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -410,18 +451,11 @@ async function openMap() {
     state.youLayer = L.layerGroup().addTo(state.map);
   }
   setTimeout(() => state.map.invalidateSize(), 100);
-  const sig = [...state.cities].sort().join(',') + '|' + [...state.cats].sort().join(',');
-  const status = $('#map-status');
-  if (state.mapPlottedFor === sig) { status.style.opacity = '0'; return; }
-  if (state.markers) state.markers.clearLayers();
-  else state.markers = (L.markerClusterGroup
-    ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 48 })
-    : L.layerGroup()).addTo(state.map);
-  state.mapPlottedFor = sig;
-  const events = state.filtered && state.filtered.length ? state.filtered : state.all;
-  status.style.opacity = '1';
+  renderMapFilters();
 
   // Center on the user when they share their location.
+  const status = $('#map-status');
+  status.style.opacity = '1';
   status.textContent = 'Finding you…';
   const you = await userLocation();
   state.youLayer.clearLayers();
@@ -430,33 +464,47 @@ async function openMap() {
     L.circleMarker(you, { radius: 8, color: '#4aa3ff', weight: 3, fillColor: '#4aa3ff', fillOpacity: 0.9 })
       .addTo(state.youLayer).bindPopup('You are here');
   }
+  await plotMapMarkers(!you);
+}
 
+async function plotMapMarkers(refit) {
+  const status = $('#map-status');
+  const sig = [...state.cities].sort().join(',') + '|' + [...state.cats].sort().join(',')
+    + '|' + (state.mapCat || '');
+  if (state.mapPlottedFor === sig) { status.style.opacity = '0'; return; }
+  if (state.markers) state.markers.clearLayers();
+  else state.markers = (L.markerClusterGroup
+    ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 56 })
+    : L.layerGroup()).addTo(state.map);
+  state.mapPlottedFor = sig;
+  let events = mapBaseEvents();
+  if (state.mapCat) events = events.filter(e => e.category === state.mapCat);
+  status.style.opacity = '1';
   status.textContent = 'Plotting events…';
   const results = await geoPool(events, 6,
     n => { status.textContent = `Plotting events… ${n}/${events.length}`; });
   let plotted = 0;
   const bounds = [];
   for (const { ev, g } of results) {
-    if (g.lat) {
-      plotted++;
-      bounds.push([g.lat, g.lng]);
-      const m = L.marker([g.lat, g.lng], {
-        icon: L.divIcon({ className: 'ev-dot-wrap', html: '<div class="ev-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })
-      }).addTo(state.markers);
-      m.bindPopup(`<div class="map-pop-title">${esc(ev.title)}</div>
-        <div class="map-pop-meta">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}</div>
-        <button class="map-pop-open" data-id="${esc(ev.id)}">View details</button>`);
-      m.on('popupopen', e => {
-        const btn = e.popup.getElement().querySelector('.map-pop-open');
-        if (btn) btn.onclick = () => {
-          const found = state.all.find(x => x.id === btn.dataset.id);
-          if (found) { closeMap(); openDetail(found, { fromMap: true }); }
-        };
-      });
-    }
+    if (g.lat == null) continue;
+    plotted++;
+    bounds.push([g.lat, g.lng]);
+    const m = L.marker([g.lat, g.lng], { icon: evIcon(ev) }).addTo(state.markers);
+    const img = ev.image && /^https?:\/\//.test(ev.image)
+      ? `<div class="map-pop-img" style="background-image:url(&quot;${esc(ev.image)}&quot;)"></div>` : '';
+    m.bindPopup(`<div class="map-pop">${img}<div class="map-pop-title">${esc(ev.title)}</div>
+      <div class="map-pop-meta">${esc(fmtRange(ev.start, ev.end))} \u00b7 ${esc(ev.city)}</div>
+      <button class="map-pop-open" data-id="${esc(ev.id)}">View details</button></div>`);
+    m.on('popupopen', e => {
+      const btn = e.popup.getElement().querySelector('.map-pop-open');
+      if (btn) btn.onclick = () => {
+        const found = state.all.find(x => x.id === btn.dataset.id);
+        if (found) { closeMap(); openDetail(found, { fromMap: true }); }
+      };
+    });
   }
-  if (!you && bounds.length) state.map.fitBounds(bounds, { padding: [40, 40] });
-  status.textContent = `${plotted} events plotted`;
+  if (refit && bounds.length) state.map.fitBounds(bounds, { padding: [40, 40] });
+  status.textContent = `${plotted} event${plotted === 1 ? '' : 's'} plotted`;
   setTimeout(() => status.style.opacity = '0', 2200);
 }
 
