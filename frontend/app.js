@@ -1,1377 +1,1258 @@
-/* ThisWeekSaudi — client app. No framework, one file. */
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
+/* ThisWeekSaudi — swipeable events directory. Apple-HIG dark UI. */
+(function(){
+'use strict';
 
-/* ================= i18n ================= */
-const STR = {
-en: {
-  tagline1: 'Every event in Saudi.', tagline2: 'Yours to swipe.',
-  onboardSub: 'Conferences, expos, concerts, meetups — across the Kingdom. Tell us where and what, and we\'ll build your deck.',
-  where: 'Where in Saudi?', detectCity: 'Detect my city', detecting: 'Detecting…',
-  cityDetected: 'City detected', cityDetectFail: 'Could not detect your city',
-  interests: 'What are you into?', proField: 'Professional field',
-  proFieldHint: 'For conferences & meetups — pick your profession',
-  build: 'Build My Deck', skip: 'Skip — show me everything', installApp: 'Install app',
-  listEvent: '+ List an event',
-  pickHint: 'Pick at least one city or interest',
-  matchEvents: '{n} events match your picks',
-  map: 'Map', saved: 'Saved', back: 'Back', allEvents: 'All events', eventMap: 'Event map',
-  deckHint: 'Swipe right to save · left to pass · tap a card for details',
-  deckDone: 'Deck\'s done.', deckDoneSub: 'You\'ve been through them all. Check your saved, or widen your preferences.',
-  adjustPrefs: 'Adjust preferences', undo: 'Undo',
-  searchPh: 'Search events…', savedSearchPh: 'Search saved events…',
-  today: 'Today', thisWeek: 'This week', thisWeekend: 'This weekend', allDates: 'All dates',
-  freeOnly: 'Free', field: 'Field', cityLabel: 'City',
-  sortDate: 'Sort: Date', sortPrice: 'Sort: Price', sortNearest: 'Sort: Nearest',
-  tonight: 'Tonight', happeningSoon: 'Happening soon', allSaved: 'All saved',
-  share: 'Share', report: 'Report wrong info', reportTitle: 'What\'s wrong?',
-  reportThanks: 'Thanks — we\'ll check it.', wrongDate: 'Wrong date', wrongVenue: 'Wrong venue',
-  wrongPrice: 'Wrong price', cancelled: 'Event cancelled', other: 'Other',
-  reportDetailPh: 'Tell us more (optional)', send: 'Send',
-  register: 'Register / Event page', addCal: 'Add to calendar', gCal: 'Google Calendar',
-  gMaps: 'Open in Google Maps', venue: 'Venue', price: 'Price', organizer: 'Organizer',
-  via: 'via', added: 'added',
-  noResults: 'No events match', noResultsHint: 'Try clearing filters or broadening your search.',
-  clearFilters: 'Clear filters', recent: 'Recent searches', linkCopied: 'Link copied',
-  saveStamp: 'SAVE', passStamp: 'PASS',
-  relToday: 'Today', relTomorrow: 'Tomorrow', relYesterday: 'Yesterday',
-  inDays: 'in {n} days', daysAgo: '{n} days ago',
-  seeDetails: 'See details', checkEventPage: 'Check the event page', checkSaved: 'Swipe right on anything you like and it will live here.',
-  nothingSaved: 'Nothing saved yet.', noMatchSaved: 'No saved events match your search.',
-  viewEvent: 'View event', details: 'Details', needLocation: 'Location needed for nearest sort',
-  eventsCount: '{n} events', ofLabel: '{a} of {b}',
-},
-ar: {
-  tagline1: 'كل فعاليات السعودية.', tagline2: 'مرّر واكتشف.',
-  onboardSub: 'مؤتمرات ومعارض وحفلات ولقاءات في جميع أنحاء المملكة. أخبرنا بالمكان والاهتمام وسنجهز لك مجموعتك.',
-  where: 'وين في السعودية؟', detectCity: 'حدّد مدينتي تلقائيًا', detecting: 'جارٍ التحديد…',
-  cityDetected: 'تم تحديد مدينتك', cityDetectFail: 'تعذّر تحديد مدينتك',
-  interests: 'وش اهتماماتك؟', proField: 'المجال المهني',
-  proFieldHint: 'للمؤتمرات واللقاءات المهنية — اختر مجالك',
-  build: 'جهّز مجموعتي', skip: 'تخطَّ — اعرض كل شيء', installApp: 'ثبّت التطبيق',
-  listEvent: '+ أضف فعاليتك',
-  pickHint: 'اختر مدينة أو اهتمامًا واحدًا على الأقل',
-  matchEvents: '{n} فعالية تطابق اختياراتك',
-  map: 'الخريطة', saved: 'المحفوظة', back: 'رجوع', allEvents: 'كل الفعاليات', eventMap: 'خريطة الفعاليات',
-  deckHint: 'اسحب يمين للحفظ · يسار للتجاوز · اضغط على البطاقة للتفاصيل',
-  deckDone: 'خلصت المجموعة.', deckDoneSub: 'شفتها كلها. راجع المحفوظة أو وسّع اختياراتك.',
-  adjustPrefs: 'عدّل التفضيلات', undo: 'تراجع',
-  searchPh: 'ابحث عن فعاليات…', savedSearchPh: 'ابحث في المحفوظة…',
-  today: 'اليوم', thisWeek: 'هذا الأسبوع', thisWeekend: 'نهاية الأسبوع', allDates: 'كل التواريخ',
-  freeOnly: 'مجاني', field: 'المجال', cityLabel: 'المدينة',
-  sortDate: 'الترتيب: التاريخ', sortPrice: 'الترتيب: السعر', sortNearest: 'الترتيب: الأقرب',
-  tonight: 'الليلة', happeningSoon: 'قريبًا', allSaved: 'كل المحفوظة',
-  share: 'مشاركة', report: 'الإبلاغ عن خطأ', reportTitle: 'وش الخطأ؟',
-  reportThanks: 'شكرًا، سنراجعها.', wrongDate: 'التاريخ خطأ', wrongVenue: 'المكان خطأ',
-  wrongPrice: 'السعر خطأ', cancelled: 'أُلغيت الفعالية', other: 'أخرى',
-  reportDetailPh: 'أخبرنا بالمزيد (اختياري)', send: 'إرسال',
-  register: 'التسجيل / صفحة الفعالية', addCal: 'أضف للتقويم', gCal: 'تقويم Google',
-  gMaps: 'افتح في خرائط Google', venue: 'المكان', price: 'السعر', organizer: 'المنظم',
-  via: 'عبر', added: 'أُضيفت',
-  noResults: 'لا توجد فعاليات مطابقة', noResultsHint: 'جرّب مسح الفلاتر أو توسيع البحث.',
-  clearFilters: 'مسح الفلاتر', recent: 'عمليات بحث سابقة', linkCopied: 'تم نسخ الرابط',
-  saveStamp: 'حفظ', passStamp: 'تجاوز',
-  relToday: 'اليوم', relTomorrow: 'غدًا', relYesterday: 'أمس',
-  inDays: 'بعد {n} أيام', daysAgo: 'قبل {n} أيام',
-  seeDetails: 'شاهد التفاصيل', checkEventPage: 'راجع صفحة الفعالية', checkSaved: 'اسحب يمين على أي فعالية تعجبك وستظهر هنا.',
-  nothingSaved: 'لا شيء محفوظ بعد.', noMatchSaved: 'لا توجد فعاليات محفوظة تطابق بحثك.',
-  viewEvent: 'عرض الفعالية', details: 'التفاصيل', needLocation: 'نحتاج موقعك للترتيب حسب الأقرب',
-  eventsCount: '{n} فعالية', ofLabel: '{a} من {b}',
-}};
-const CAT_AR = { conference: 'مؤتمر', expo: 'معرض', workshop: 'ورشة عمل', meetup: 'لقاء', sports: 'رياضة', arts: 'فنون وثقافة', music: 'موسيقى', food: 'طعام وشراب', concert: 'حفل', comedy: 'كوميديا', festival: 'مهرجان', other: 'المزيد' };
-const CAT_LABELS = {
-  conference: 'Conference', expo: 'Expo', workshop: 'Workshop', meetup: 'Meetup',
-  sports: 'Sports', arts: 'Arts & Culture', music: 'Music', food: 'Food & Drink',
-  concert: 'Concert', comedy: 'Comedy', festival: 'Festival', other: 'More',
+/* ---------- constants ---------- */
+const PROFESSIONS = [
+  { key:'engineering', label:'Engineering', domains:['tech','industry','build','energy','space','auto'] },
+  { key:'medicine',    label:'Medicine',    domains:['health'] },
+  { key:'business',    label:'Business',    domains:['business','finance','startup','retail','hr','marketing'] },
+  { key:'design',      label:'Design',      domains:['marketing','build'] },
+  { key:'education',   label:'Education',   domains:['education'] },
+  { key:'law',         label:'Law',         domains:['legal','gov'] },
+  { key:'other',       label:'Other',       domains:[] }
+];
+const CATEGORY_ICONS = {
+  arts:      '<circle cx="12" cy="12" r="9"/><path d="M12 3c3 3.5 3 6.5 0 9-3-2.5-3-5.5 0-9z"/>',
+  comedy:    '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1 1.4 2.2 2 3.5 2s2.5-.6 3.5-2M9 9.5h.01M15 9.5h.01"/>',
+  concert:   '<path d="M9 18V6l10-2v11"/><circle cx="7" cy="18" r="2.5"/><circle cx="17" cy="15" r="2.5"/>',
+  conference:'<rect x="4" y="4" width="16" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  expo:      '<path d="M4 9l8-5 8 5v9l-8 5-8-5z"/><path d="M4 9l8 5 8-5M12 14v9"/>',
+  festival:  '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/>',
+  meetup:    '<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="10" r="2.5"/><path d="M16 15.2c2.6.6 5 2.6 5 4.8"/>',
+  sports:    '<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M5.8 5.8c4 3 8.4 3 12.4 0M5.8 18.2c4-3 8.4-3 12.4 0"/>',
+  workshop:  '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4L14.5 12l-2.5-2.5z"/>'
 };
-const t = (k, n, b) => {
-  let s = (STR[state.lang] && STR[state.lang][k]) ?? STR.en[k] ?? k;
-  if (n !== undefined) {
-    if (state.lang === 'ar' && (k === 'inDays' || k === 'daysAgo') && n === 2)
-      return k === 'inDays' ? 'بعد يومين' : 'قبل يومين';
-    s = s.replace('{n}', n).replace('{a}', n).replace('{b}', b ?? '');
-  }
-  return s;
-};
-const catLabel = c => state.lang === 'ar' ? (CAT_AR[c] || CAT_LABELS[c] || c) : (CAT_LABELS[c] || c);
-const domLabel = key => {
-  const d = (state.meta && state.meta.domains || []).find(x => x.key === key);
-  if (d) return state.lang === 'ar' ? d.ar : d.en;
-  return key;
-};
-function setLang(l, rerender = true) {
-  state.lang = l === 'ar' ? 'ar' : 'en';
-  localStorage.setItem('wain_lang', state.lang);
-  document.documentElement.lang = state.lang;
-  document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
-  $$('.lang-btn').forEach(b => b.textContent = state.lang === 'ar' ? 'EN' : 'عربي');
-  applyI18n();
-  if (rerender) rerenderAll();
+const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- utils ---------- */
+const $ = (s, r) => (r||document).querySelector(s);
+const $$ = (s, r) => Array.from((r||document).querySelectorAll(s));
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const money = n => Number(n).toLocaleString('en-US');
+function fmtPrice(ev){
+  if(!ev) return 'TBA';
+  if(ev.is_free || ev.price_min==null) return 'Free';
+  let v = Number(ev.price_min), c = (ev.currency||'').toUpperCase();
+  if(!isFinite(v) || v<=0) return 'TBA';
+  if(c==='USD') v = v*3.75; else if(c==='EUR') v = v*4.05; else if(c==='GBP') v = v*4.75;
+  return 'SAR ' + money(Math.round(v));
 }
-function applyI18n() {
-  $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-  $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+const beacon = (t, d) => { try{ navigator.sendBeacon('/api/analytics', JSON.stringify({t, d:d||{}, ts:Date.now()})); }catch(e){} };
+window.addEventListener('error', e => beacon('jserror', {msg:String(e.message).slice(0,200)}));
+function dstr(ev){ return (ev.date_start||'').slice(0,10); }
+function niceDate(ev){
+  if(!ev || !ev.date_start) return 'Date TBA';
+  const d = new Date(ev.date_start);
+  if(isNaN(d)) return 'Date TBA';
+  return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
+}
+function previewURL(ev){
+  return '/api/preview?url=' + encodeURIComponent(ev.reg_url || ev.source_url || '');
+}
+function initials(title){
+  const w = String(title||'').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+  return w || '•';
+}
+function catLabel(key){
+  const c = state.meta.categories.find(c => c.key === key);
+  return c ? c.label : key;
+}
+function domainLabel(key){
+  const d = state.meta.domains.find(d => d.key === key);
+  return d ? d.label : key;
 }
 
-/* ================= state ================= */
+/* ---------- state ---------- */
 const state = {
-  all: [], meta: null, lang: 'en',
-  cities: new Set(), cats: new Set(), domains: new Set(),
-  deck: [], idx: 0,
-  saved: {},           // id -> savedAt
-  imgCache: new Map(), // url -> image|null (null = tried, none)
-  geoCache: new Map(), // "venue|city" -> {lat,lng}
-  map: null, mapPlotted: false,
-  recent: [],          // recent search strings
-  undoStack: [],
-  youLoc: null,
-  remind: [],          // event ids with day-before web-push reminder
+  events: [], meta: {cities:[], categories:[], domains:[]},
+  cities: [], interests: [], domains: [],
+  saved: [], remind: {}, stack: [], undo: null,
+  detail: null, detailFrom: 'deck', sheetOpen: false,
+  fQ:'', fDate:'', fDom:'', fCity:'', sort:'date',
+  recent: [],
+  ob: { step:1, cities:[], cats:[], prof:null }
 };
-try { state.remind = JSON.parse(localStorage.getItem('wain_remind') || '[]'); } catch { state.remind = []; }
-try { state.saved = JSON.parse(localStorage.getItem('wain_saved') || '{}'); } catch { state.saved = {}; }
-try {
-  const p = JSON.parse(localStorage.getItem('wain_prefs') || '{}');
-  (p.cities || []).forEach(c => state.cities.add(c));
-  (p.cats || []).forEach(c => state.cats.add(c));
-  (p.domains || []).forEach(d => state.domains.add(d));
-} catch {}
-try { state.recent = JSON.parse(localStorage.getItem('wain_recent') || '[]'); } catch { state.recent = []; }
-try { state.lang = 'en'; localStorage.setItem('wain_lang', 'en'); } catch {} // Arabic hidden until proofread
-const saveLocal = () => {
-  localStorage.setItem('wain_saved', JSON.stringify(state.saved));
-  localStorage.setItem('wain_prefs', JSON.stringify({ cities: [...state.cities], cats: [...state.cats], domains: [...state.domains] }));
-  localStorage.setItem('wain_recent', JSON.stringify(state.recent.slice(0, 6)));
-  localStorage.setItem('wain_remind', JSON.stringify(state.remind.slice(0, 200)));
-};
-const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch {} };
+try{ state.saved = JSON.parse(localStorage.getItem('wain_saved')||'[]'); }catch(e){ state.saved=[]; }
+try{ state.remind = JSON.parse(localStorage.getItem('wain_remind')||'{}'); }catch(e){ state.remind={}; }
+try{ state.recent = JSON.parse(localStorage.getItem('wain_recent')||'[]'); }catch(e){ state.recent=[]; }
+let prefs = {};
+try{ prefs = JSON.parse(localStorage.getItem('wain_prefs')||'{}'); }catch(e){ prefs={}; }
+prefs = Object.assign({cities:[], interests:[], domains:[], profession:null, ahaSeen:false}, prefs);
+const savePrefs = () => localStorage.setItem('wain_prefs', JSON.stringify(prefs));
+const saveSaved = () => localStorage.setItem('wain_saved', JSON.stringify(state.saved));
+const saveRemind = () => localStorage.setItem('wain_remind', JSON.stringify(state.remind));
+const saveRecent = () => localStorage.setItem('wain_recent', JSON.stringify(state.recent));
 
-/* ================= helpers ================= */
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const pad2 = n => String(n).padStart(2, '0');
-const isoOf = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
-const todayNoon = () => { const d = new Date(); d.setHours(12, 0, 0, 0); return d; };
-const todayStr = () => isoOf(todayNoon());
-const fmtDate = iso => {
-  if (!iso) return '';
-  return new Date(iso + 'T12:00:00').toLocaleDateString(state.lang === 'ar' ? 'ar-SA' : 'en-US', { month: 'short', day: 'numeric' });
-};
-const fmtRange = (s, e) => {
-  if (!s) return '';
-  if (!e || e === s) return fmtDate(s);
-  const sameMonth = s.slice(0, 7) === e.slice(0, 7);
-  return sameMonth ? `${fmtDate(s)} – ${new Date(e + 'T12:00:00').getDate()}` : `${fmtDate(s)} – ${fmtDate(e)}`;
-};
-function relDay(iso) {
-  if (!iso) return '';
-  const days = Math.round((new Date(iso + 'T12:00:00') - todayNoon()) / 864e5);
-  if (days === 0) return t('relToday');
-  if (days === 1) return t('relTomorrow');
-  if (days === -1) return t('relYesterday');
-  if (days > 1) return t('inDays', days);
-  return t('daysAgo', -days);
-}
-const pinSVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-const tagSVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg>';
-// Prices are stored in USD ("From $18.40"); the site is Saudi-first, so
-// display SAR at the pegged rate, rounded to whole riyals.
-const USD_SAR = 3.75, EUR_SAR = 4.07, GBP_SAR = 5.00;
-const fmtPrice = p => p ? String(p)
-  .replace(/\$(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * USD_SAR))
-  .replace(/€(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * EUR_SAR))
-  .replace(/£(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * GBP_SAR)) : p;
-const priceNum = p => { // numeric SAR value for sorting; Infinity when unknown/free-last
-  if (!p) return Infinity;
-  if (/free/i.test(String(p))) return 0;
-  const m = String(fmtPrice(p)).match(/SAR\s*([\d,]+)/);
-  return m ? parseFloat(m[1].replace(/,/g, '')) : Infinity;
-};
-let toastT;
-function toast(msg) {
-  const el = $('#toast');
-  el.textContent = msg;
-  el.classList.remove('hidden');
+/* ---------- toast ---------- */
+let toastT = null;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg; t.classList.remove('hidden');
   clearTimeout(toastT);
-  toastT = setTimeout(() => el.classList.add('hidden'), 2600);
+  toastT = setTimeout(()=> t.classList.add('hidden'), 2600);
 }
 
-async function api(path, opts) {
-  const r = await fetch(path, opts);
-  if (!r.ok) throw new Error('api ' + r.status);
-  return r.json();
-}
-// Privacy-friendly usage beacons: no identity, just aggregate counts.
-function beacon(type, ref = '', meta = '') {
-  try {
-    const body = JSON.stringify({ type, ref: String(ref).slice(0, 64), meta: String(meta).slice(0, 256) });
-    if (navigator.sendBeacon) navigator.sendBeacon('/api/analytics', body);
-    else fetch('/api/analytics', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }).catch(() => {});
-  } catch {}
-}
-// remote diagnostics: surface client-side JS errors (esp. iOS) via analytics
-window.addEventListener('error', e => {
-  try { beacon('jserror', String(e.filename || '').split('/').pop() || 'inline', String(e.message || '').slice(0, 180) + ' @' + (e.lineno || 0)); } catch {}
-});
-window.addEventListener('unhandledrejection', e => {
-  try { beacon('jserror', 'promise', String((e.reason && e.reason.message) || e.reason || '').slice(0, 200)); } catch {}
-});
-
-/* ================= fuzzy search ================= */
-const norm = s => (s || '').toLowerCase().normalize('NFKD')
-  .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\u0600-\u06ff ]/g, ' ').replace(/\s+/g, ' ').trim();
-const isSubseq = (tok, txt) => {
-  let i = 0;
-  for (const ch of txt) { if (ch === tok[i]) i++; if (i === tok.length) return true; }
-  return i === tok.length;
-};
-// Weighted AND search: every query token must match at least one field.
-function searchScore(ev, tokens) {
-  const F = [
-    [ev.title, 5], [ev.venue, 3], [ev.organizer, 3], [ev.city, 2],
-    [domLabel(ev.domain), 2], [catLabel(ev.category), 2],
-  ].map(([txt, w]) => [norm(txt), w]);
-  let score = 0;
-  for (const tok of tokens) {
-    let best = 0;
-    for (const [txt, w] of F) {
-      if (!txt) continue;
-      if (txt.includes(tok)) best = Math.max(best, w * (tok.length >= 4 ? 2 : 1));
-      else if (tok.length >= 3 && isSubseq(tok, txt)) best = Math.max(best, w * 0.5);
-    }
-    if (!best) return 0;
-    score += best;
-  }
-  if (norm(ev.title).startsWith(tokens[0])) score += 3;
-  return score;
-}
-function fuzzyFilter(pool, q) {
-  const tokens = norm(q).split(' ').filter(x => x.length);
-  if (!tokens.length) return pool.map(ev => ({ ev, score: 1 }));
-  return pool
-    .map(ev => ({ ev, score: searchScore(ev, tokens) }))
-    .filter(x => x.score > 0)
-    .sort((a, b) => b.score - a.score || (a.ev.start || '').localeCompare(b.ev.start || ''));
-}
-function hi(text, q) { // highlight query tokens in escaped HTML
-  let out = esc(text);
-  norm(q).split(' ').filter(x => x.length > 1).forEach(tok => {
-    const e = esc(tok).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    out = out.replace(new RegExp('(' + e + ')', 'gi'), '<mark>$1</mark>');
-  });
-  return out;
-}
-function pushRecent(q) {
-  q = q.trim();
-  if (!q) return;
-  state.recent = [q, ...state.recent.filter(x => x.toLowerCase() !== q.toLowerCase())].slice(0, 6);
-  saveLocal();
-}
-
-/* ================= view switching + history ================= */
-function showView(id, mode = 'push') {
-  $$('.view').forEach(v => v.classList.remove('active'));
-  const el = $(id);
-  el.classList.add('active');
-  // re-trigger the entrance animation
-  if (!reducedMotion()) { el.classList.remove('view-enter'); void el.offsetWidth; el.classList.add('view-enter'); }
-  window.scrollTo(0, 0);
-  beacon('view', _viewHash(id));
-  if (mode === 'push') _pushHist({ view: id });
-  else if (mode === 'replace') _replaceHist({ view: id });
-}
-let _histLock = false;
-const _viewHash = id => ({ '#view-onboard': 'onboard', '#view-deck': 'deck', '#view-list': 'list', '#view-saved': 'saved' }[id] || 'onboard');
-function _pushHist(s) {
-  if (_histLock) return;
-  try { history.pushState(s, '', '#' + (s.modal || _viewHash(s.view))); } catch (e) {}
-}
-function _replaceHist(s) {
-  try { history.replaceState(s, '', '#' + (s.modal || _viewHash(s.view))); } catch (e) {}
-}
-function _topIsModal(name) {
-  return !_histLock && history.state && history.state.modal === name;
-}
-function rerenderAll() {
-  // re-render whichever dynamic views exist after a language switch
-  if ($('#view-deck').classList.contains('active')) renderStack(false);
-  if ($('#view-list').classList.contains('active')) { buildListFilters(); renderList(); }
-  if ($('#view-saved').classList.contains('active')) renderSaved($('#saved-search').value);
-  if ($('#view-onboard').classList.contains('active')) buildOnboardChips();
-  if (!$('#map-modal').classList.contains('hidden')) renderMapFilters();
-  refreshOnboard();
-  renderDeckProgress();
-}
-
-/* ================= onboarding ================= */
-function chipToggle(parent, set, value, label, onChange) {
-  const b = document.createElement('button');
-  b.className = 'chip' + (set.has(value) ? ' on' : '');
-  b.textContent = label;
-  b.onclick = () => {
-    buzz(8);
-    set.has(value) ? set.delete(value) : set.add(value);
-    b.classList.toggle('on');
-    onChange && onChange();
-    refreshOnboard();
-  };
-  parent.appendChild(b);
-}
-function skeletonChips(el, n = 8) {
-  el.innerHTML = '';
-  for (let i = 0; i < n; i++) {
-    const s = document.createElement('div');
-    s.className = 'chip skeleton';
-    s.style.width = (60 + Math.random() * 70) + 'px';
-    s.innerHTML = '&nbsp;';
-    el.appendChild(s);
-  }
-}
-function buildOnboardChips() {
-  const meta = state.meta;
-  if (!meta) return;
-  const cc = $('#city-chips'); cc.innerHTML = '';
-  meta.cities.forEach(c => chipToggle(cc, state.cities, c, c));
-  const ic = $('#interest-chips'); ic.innerHTML = '';
-  meta.categories.forEach(c => chipToggle(ic, state.cats, c, catLabel(c)));
-  const dc = $('#domain-chips'); dc.innerHTML = '';
-  // professional domains first (by event count), entertainment last
-  const prof = meta.domains.filter(d => d.key !== 'entertainment');
-  const ent = meta.domains.find(d => d.key === 'entertainment');
-  [...prof, ...(ent ? [ent] : [])].forEach(d =>
-    chipToggle(dc, state.domains, d.key, `${state.lang === 'ar' ? d.ar : d.en} · ${d.count}`));
-  $('#domain-group').style.display = prof.length ? '' : 'none';
-}
-async function initOnboard() {
-  skeletonChips($('#city-chips')); skeletonChips($('#interest-chips')); skeletonChips($('#domain-chips'));
-  const meta = state.meta = await api('/api/meta');
-  buildOnboardChips();
-  $('#btn-build').onclick = () => buildDeck();
-  $('#btn-skip').onclick = buildList;
-  $('#btn-detect').onclick = detectCity;
-  refreshOnboard();
-}
-function filteredEvents() {
-  return state.all.filter(e =>
-    (!state.cities.size || state.cities.has(e.city)) &&
-    (!state.cats.size || state.cats.has(e.category)) &&
-    (!state.domains.size || state.domains.has(e.domain || 'business')));
-}
-function refreshOnboard() {
-  const n = filteredEvents().length;
-  const anySel = state.cities.size + state.cats.size + state.domains.size > 0;
-  $('#btn-build').disabled = !anySel;
-  $('#onboard-count').textContent = anySel ? t('matchEvents', n) : t('pickHint');
-  saveLocal();
-}
-async function detectCity() {
-  const btn = $('#btn-detect');
-  btn.textContent = t('detecting'); btn.disabled = true;
-  try {
-    const pos = await new Promise((res, rej) =>
-      navigator.geolocation.getCurrentPosition(res, rej, { timeout: 9000 }));
-    const { latitude: lat, longitude: lon } = pos.coords;
-    const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=en`);
-    const j = await r.json();
-    const a = j.address || {};
-    const name = a.city || a.town || a.village || a.state || a.county || '';
-    const nn = norm(name);
-    const hit = state.meta.cities.find(c => { const cc = norm(c); return nn && (cc.includes(nn) || nn.includes(cc)); });
-    if (hit && !state.cities.has(hit)) {
-      state.cities.add(hit); saveLocal(); buildOnboardChips(); refreshOnboard();
-      toast(`${t('cityDetected')}: ${hit}`);
-    } else if (hit) toast(`${t('cityDetected')}: ${hit}`);
-    else toast(t('cityDetectFail'));
-  } catch { toast(t('cityDetectFail')); }
-  btn.textContent = t('detectCity'); btn.disabled = false;
-}
-function buildDeck() {
-  state.filtered = filteredEvents();
-  const deck = state.filtered.filter(e => !state.saved[e.id]);
-  state.deck = deck; state.idx = 0;
-  state.undoStack = [];
-  state.mapPlottedFor = null;
-  state.mapCat = null;
-  saveLocal();
-  renderStack(false);
-  showView('#view-deck');
-  warmGeoCache(state.filtered);
-}
-
-/* ================= deck ================= */
-function cardImage(el, ev) {
-  const setFallback = () => {
-    el.classList.add('fallback');
-    el.innerHTML = `<div class="wm">${esc((ev.category || 'EV').toUpperCase().slice(0, 4))}</div>`;
-  };
-  const setImage = img => {
-    el.classList.remove('fallback'); el.innerHTML = '';
-    el.style.backgroundImage = `url("${img}")`;
-  };
-  if (ev.image) return setImage(ev.image);
-  if (!ev.url) return setFallback();
-  if (state.imgCache.has(ev.url)) {
-    const img = state.imgCache.get(ev.url);
-    img ? setImage(img) : setFallback();
+/* ---------- boot ---------- */
+let booted = false;
+async function boot(){
+  if(booted) return; booted = true;
+  try{
+    const [er, mr] = await Promise.all([
+      fetch('/api/events?limit=2000'),
+      fetch('/api/meta')
+    ]);
+    const ed = await er.json(), md = await mr.json();
+    state.events = ed.events || [];
+    state.meta = md || {cities:[], categories:[], domains:[]};
+  }catch(e){
+    toast('Could not load events — check your connection.');
     return;
   }
-  setFallback();
-  el.dataset.url = ev.url;
-  fetch('/api/preview?url=' + encodeURIComponent(ev.url))
-    .then(r => r.json()).then(d => {
-      state.imgCache.set(ev.url, d.image || null);
-      if (d.image && el.isConnected && el.dataset.url === ev.url) setImage(d.image);
-    }).catch(() => state.imgCache.set(ev.url, null));
+  state.cities = prefs.cities || [];
+  state.interests = prefs.interests || [];
+  state.domains = prefs.domains || [];
+  const hasPrefs = (prefs.cities && prefs.cities.length) || (prefs.interests && prefs.interests.length);
+  wireGlobal();
+  wireOnboard(); wireDeck(); wireList(); wireSaved(); wireSheet(); wireMap(); wirePWA();
+  const deep = location.hash.match(/#e=([\w-]+)/);
+  if(deep){
+    const ev = state.events.find(e => e.id === deep[1]);
+    enterDeck(true);
+    if(ev) openDetail(ev, 'deck');
+  } else if(hasPrefs){
+    enterDeck(true);
+  } else {
+    showView('view-onboard');
+    initOnboard();
+  }
+  bootPush();
+  beacon('pageview', {n: state.events.length});
 }
-function cardEl(ev, depth) {
+
+/* ---------- history + direction-aware view transitions ---------- */
+let hist = [];
+function _pushHist(entry){
+  hist.push(entry);
+  try{ history.pushState({h: hist.length}, '', '#v'+hist.length); }catch(e){}
+}
+function _replaceHist(entry){
+  if(!hist.length){
+    hist.push(entry);
+    try{ history.pushState({h: 1}, '', '#v1'); }catch(e){}
+    return;
+  }
+  hist[hist.length-1] = entry;
+  try{ history.replaceState({h: hist.length}, '', '#v'+hist.length); }catch(e){}
+}
+function showView(id, dir){
+  dir = dir || 'fwd';
+  $$('.view').forEach(v => v.classList.remove('active','enter-fwd','enter-back'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  if(!reduceMotion()){
+    void el.offsetWidth;
+    el.classList.add(dir === 'back' ? 'enter-back' : 'enter-fwd');
+  }
+  beacon('view', {id});
+}
+function navTo(id, dir){
+  _pushHist({kind:'view', id});
+  showView(id, dir || 'fwd');
+}
+function enterDeck(first, replace){
+  buildDeck();
+  if(first || !hist.length){ _replaceHist({kind:'view', id:'view-deck'}); }
+  else if(replace){ _replaceHist({kind:'view', id:'view-deck'}); }
+  else _pushHist({kind:'view', id:'view-deck'});
+  showView('view-deck', first ? 'fwd' : 'back');
+}
+const mapModal = () => document.getElementById('map-modal');
+window.addEventListener('popstate', () => {
+  if(state.sheetOpen){ closeDetail(true); hist.pop(); return; }
+  if(!mapModal().classList.contains('hidden')){ closeMap(true); hist.pop(); return; }
+  hist.pop();
+  const top = hist[hist.length-1];
+  if(!top){ enterDeck(true); return; }
+  if(top.kind === 'view'){ showView(top.id, 'back'); if(top.id==='view-deck') buildDeck(); }
+  else if(top.kind === 'map'){ openMap(true); }
+  else if(top.kind === 'detail'){
+    const ev = state.events.find(e=>e.id===top.evId);
+    if(ev) openDetail(ev, top.from, true);
+  }
+});
+
+/* ---------- onboarding: 3 steps ---------- */
+function setObStep(n, back){
+  state.ob.step = n;
+  [1,2,3].forEach(i => {
+    const el = $('#ob-step-'+i);
+    el.classList.toggle('hidden', i !== n);
+    el.classList.remove('slide-back');
+    if(i === n && back && !reduceMotion()){ void el.offsetWidth; el.classList.add('slide-back'); }
+  });
+}
+function checkSVG(){
+  return '<svg class="check" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+}
+function obStep1Count(){
+  const n = state.ob.cities.length;
+  $('#ob-count-1').textContent = n ? n + ' selected' : '';
+  $('#ob-next-1').disabled = !n;
+}
+function obStep2Count(){
+  const n = state.ob.cats.length;
+  $('#ob-count-2').textContent = n ? n + ' selected' : '';
+  $('#ob-next-2').disabled = !n;
+}
+function renderObCities(filter){
+  const box = $('#ob-city-list');
+  const q = (filter||'').trim().toLowerCase();
+  const cities = state.meta.cities.filter(c => !q || c.toLowerCase().includes(q));
+  box.innerHTML = cities.length ? cities.map(c =>
+    '<button class="ob-row' + (state.ob.cities.includes(c) ? ' on' : '') + '" data-city="' + esc(c) + '">' +
+    '<span class="ob-row-label">' + esc(c) + '</span>' + checkSVG() + '</button>'
+  ).join('') : '<div class="ev-empty">No cities match.</div>';
+}
+function renderObCats(){
+  const box = $('#ob-cat-grid');
+  box.innerHTML = state.meta.categories.map(c =>
+    '<button class="cat-tile' + (state.ob.cats.includes(c.key) ? ' on' : '') + '" data-cat="' + esc(c.key) + '">' +
+    '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+    (CATEGORY_ICONS[c.key] || '<circle cx="12" cy="12" r="9"/>') + '</svg>' +
+    '<span class="tile-label">' + esc(c.label) + '</span></button>'
+  ).join('');
+}
+function renderObProfs(filter){
+  const box = $('#ob-prof-list');
+  const q = (filter||'').trim().toLowerCase();
+  const list = PROFESSIONS.filter(p => !q || p.label.toLowerCase().includes(q));
+  box.innerHTML = list.length ? list.map(p =>
+    '<button class="ob-row' + (state.ob.prof === p.key ? ' on' : '') + '" data-prof="' + esc(p.key) + '">' +
+    '<span class="ob-row-label">' + esc(p.label) + '</span>' + checkSVG() + '</button>'
+  ).join('') : '<div class="ev-empty">No professions match.</div>';
+  $('#ob-count-3').textContent = state.ob.prof ? PROFESSIONS.find(p=>p.key===state.ob.prof).label : '';
+}
+function initOnboard(){
+  state.ob = { step:1, cities: state.cities.slice(), cats: state.interests.slice(), prof: prefs.profession || null };
+  setObStep(1);
+  renderObCities(''); renderObCats(); renderObProfs('');
+  obStep1Count(); obStep2Count();
+  $('#ob-city-search').value = ''; $('#ob-prof-search').value = '';
+}
+function finishOnboarding(){
+  const seenBefore = !!prefs.ahaSeen;
+  state.cities = state.ob.cities.slice();
+  state.interests = state.ob.cats.slice();
+  const prof = PROFESSIONS.find(p => p.key === state.ob.prof);
+  state.domains = prof ? prof.domains.slice() : [];
+  prefs = { cities: state.cities, interests: state.interests, domains: state.domains,
+            profession: state.ob.prof, ahaSeen: true };
+  savePrefs();
+  buildDeck();
+  if(seenBefore || reduceMotion()){
+    enterDeck(false);
+    return;
+  }
+  navTo('view-aha', 'fwd');
+  runAha();
+}
+function wireOnboard(){
+  $('#ob-city-search').addEventListener('input', e => renderObCities(e.target.value));
+  $('#ob-city-list').addEventListener('click', e => {
+    const row = e.target.closest('[data-city]');
+    if(!row) return;
+    const c = row.getAttribute('data-city');
+    const i = state.ob.cities.indexOf(c);
+    if(i >= 0) state.ob.cities.splice(i,1); else state.ob.cities.push(c);
+    row.classList.toggle('on', i < 0);
+    obStep1Count();
+  });
+  $('#ob-locate').addEventListener('click', async () => {
+    const btn = $('#ob-locate');
+    if(!navigator.geolocation){ toast('Location not available on this device.'); return; }
+    btn.disabled = true;
+    const label = btn.querySelector('span');
+    const orig = label.textContent;
+    label.textContent = 'Locating…';
+    try{
+      const pos = await new Promise((res, rej) => navigator.geolocation.getCurrentPosition(res, rej, {timeout:8000}));
+      const r = await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + pos.coords.latitude +
+        '&longitude=' + pos.coords.longitude + '&localityLanguage=en');
+      const j = await r.json();
+      const cityName = (j.city || j.locality || '').toLowerCase();
+      const match = state.meta.cities.find(c => cityName.includes(c.toLowerCase()) || c.toLowerCase().includes(cityName));
+      if(match){
+        if(!state.ob.cities.includes(match)) state.ob.cities.push(match);
+        renderObCities($('#ob-city-search').value); obStep1Count();
+        toast('Found you in ' + match);
+      } else toast('Could not match your city — pick from the list.');
+    }catch(e){ toast('Could not detect location.'); }
+    label.textContent = orig; btn.disabled = false;
+  });
+  $('#ob-next-1').addEventListener('click', () => setObStep(2));
+  $('#ob-back-2').addEventListener('click', () => setObStep(1, true));
+  $('#ob-next-2').addEventListener('click', () => setObStep(3));
+  $('#ob-back-3').addEventListener('click', () => setObStep(2, true));
+  $('#ob-skip-3').addEventListener('click', () => finishOnboarding());
+  $('#ob-next-3').addEventListener('click', finishOnboarding);
+  $('#ob-cat-grid').addEventListener('click', e => {
+    const tile = e.target.closest('[data-cat]');
+    if(!tile) return;
+    const k = tile.getAttribute('data-cat');
+    const i = state.ob.cats.indexOf(k);
+    if(i >= 0) state.ob.cats.splice(i,1); else state.ob.cats.push(k);
+    tile.classList.toggle('on', i < 0);
+    obStep2Count();
+  });
+  $('#ob-prof-search').addEventListener('input', e => renderObProfs(e.target.value));
+  $('#ob-prof-list').addEventListener('click', e => {
+    const row = e.target.closest('[data-prof]');
+    if(!row) return;
+    const k = row.getAttribute('data-prof');
+    state.ob.prof = (state.ob.prof === k) ? null : k;
+    renderObProfs($('#ob-prof-search').value);
+  });
+  $('#btn-skip').addEventListener('click', () => {
+    state.ob.cities = []; state.ob.cats = []; state.ob.prof = null;
+    finishOnboarding();
+  });
+  wireInstall();
+}
+
+/* ---------- filtering + ranking ---------- */
+function filteredEvents(){
+  let list = state.events.filter(ev => {
+    if(state.saved.includes(ev.id)) return false;
+    if(state.cities.length && !state.cities.includes(ev.city)) return false;
+    if(state.interests.length && !state.interests.includes(ev.category)) return false;
+    return true;
+  });
+  return list;
+}
+function rankedEvents(){
+  const boost = new Set(state.domains);
+  return filteredEvents().map(ev => {
+    let score = 0;
+    if(boost.size && (ev.domains||[]).some(d => boost.has(d))) score += 2;
+    if(state.interests.includes(ev.category)) score += 1;
+    return {ev, score};
+  }).sort((a,b) => (b.score - a.score) || (a.ev.date_start||'zzzz').localeCompare(b.ev.date_start||'zzzz'))
+    .map(x => x.ev);
+}
+
+/* ---------- AHA moment ---------- */
+let ahaToken = 0;
+async function runAha(){
+  const my = ++ahaToken;
+  const stage = $('#aha-cards'), sentence = $('#aha-sentence'),
+        countEl = $('#aha-count'), go = $('#aha-go'), replay = $('#aha-replay');
+  stage.innerHTML = ''; sentence.classList.remove('show'); countEl.classList.remove('show');
+  go.classList.add('hidden'); go.classList.remove('show');
+  replay.classList.add('hidden'); replay.classList.remove('show');
+  const evs = rankedEvents();
+  const n = evs.length;
+  const catNames = state.interests.map(catLabel);
+  const cityNames = state.cities.length ? state.cities : ['Everywhere'];
+  const place = state.cities.length ? 'in ' + cityNames.join(', ') : 'across Saudi Arabia';
+  const what = catNames.length ? '<strong>' + esc(catNames.join(' · ')) + '</strong>' : '<strong>Everything</strong>';
+  sentence.innerHTML = what + ' — ' + esc(place);
+  sentence.classList.add('show');
+  if(reduceMotion()){ countEl.innerHTML = '<span class="n">' + n + '</span> events this week'; countEl.classList.add('show'); go.classList.remove('hidden'); go.classList.add('show'); return; }
+  await wait(380); if(my !== ahaToken) return;
+  countEl.classList.add('show');
+  const dur = 650, t0 = performance.now();
+  await new Promise(res => {
+    (function tick(t){
+      if(my !== ahaToken) return res();
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1-p, 3);
+      countEl.innerHTML = '<span class="n">' + Math.round(n*e) + '</span> events this week';
+      if(p < 1) requestAnimationFrame(tick); else res();
+    })(t0);
+  });
+  if(my !== ahaToken) return;
+  const cards = evs.slice(0,3);
+  cards.forEach((ev, i) => {
+    const d = document.createElement('div');
+    d.className = 'aha-card'; d.style.zIndex = 10 - i;
+    d.style.backgroundImage = 'url("' + previewURL(ev).replace(/"/g,'') + '")';
+    d.innerHTML = '<div class="aha-card-info"><div class="t">' + esc(ev.title) + '</div>' +
+      '<div class="s">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + '</div></div>';
+    stage.appendChild(d);
+    const img = new Image();
+    img.onerror = () => { if(d.isConnected) d.style.backgroundImage = 'none'; };
+    img.src = previewURL(ev);
+  });
+  const nodes = Array.from(stage.children);
+  for(let i=0; i<nodes.length; i++){
+    if(my !== ahaToken) return;
+    nodes[nodes.length-1-i].animate(
+      [{opacity:0, transform:'translateY(70px) scale(.96)'}, {opacity:1, transform:'translateY(0) scale(1)'}],
+      {duration:420, easing:'cubic-bezier(.32,.72,0,1)', fill:'forwards'});
+    await wait(90);
+  }
+  await wait(420); if(my !== ahaToken) return;
+  // fan into a mini deck
+  const fan = [[0,0,0,1],[-16,-8,-7,.96],[16,-8,7,.96]];
+  nodes.forEach((el, i) => {
+    const f = fan[Math.min(i, fan.length-1)];
+    el.animate([{transform:'translate(0,0) rotate(0) scale(1)'},
+      {transform:'translate(' + f[0] + 'px,' + f[1] + 'px) rotate(' + f[2] + 'deg) scale(' + f[3] + ')'}],
+      {duration:380, easing:'cubic-bezier(.32,.72,0,1)', fill:'forwards'});
+  });
+  await wait(460); if(my !== ahaToken) return;
+  // top card lifts and settles
+  const top = nodes[nodes.length-1];
+  await top.animate([
+    {transform:'translate(0,0) rotate(0) scale(1)'},
+    {transform:'translate(0,-12px) rotate(4deg) scale(1.02)', offset:.45},
+    {transform:'translate(0,0) rotate(0) scale(1)'}
+  ], {duration:560, easing:'cubic-bezier(.32,.72,0,1)', fill:'forwards'}).finished.catch(()=>{});
+  if(my !== ahaToken) return;
+  go.classList.remove('hidden'); go.classList.add('show');
+  replay.classList.remove('hidden'); replay.classList.add('show');
+  await wait(900); if(my !== ahaToken) return;
+  enterDeck(false, true);
+}
+function wireAha(){
+  $('#aha-go').addEventListener('click', () => { ahaToken++; enterDeck(false, true); });
+  $('#aha-replay').addEventListener('click', () => runAha());
+}
+
+/* ---------- deck ---------- */
+function topCard(){ return $('.swipe-card.top'); }
+function deckList(){ return state.stack; }
+
+function buildDeck(){
+  state.stack = rankedEvents();
+  state.undo = null;
+  renderStack();
+  updateSavedBadge();
+  const prog = $('#deck-progress');
+  prog.textContent = state.stack.length ? '1 of ' + state.stack.length : '';
+  $('#deck-empty').classList.toggle('hidden', state.stack.length > 0);
+  hideUndo();
+}
+function updateSavedBadge(){
+  const b = $('#saved-count');
+  b.textContent = state.saved.length;
+  b.style.display = state.saved.length ? 'flex' : 'none';
+  b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+}
+function renderStack(){
+  const wrap = $('#card-stack');
+  wrap.innerHTML = '';
+  const vis = state.stack.slice(0, 3);
+  vis.forEach((ev, depth) => wrap.appendChild(cardEl(ev, depth)));
+  const top = $('.swipe-card.top', wrap);
+  if(top) attachDrag(top);
+}
+function cardEl(ev, depth){
   const el = document.createElement('div');
   el.className = 'swipe-card' + (depth === 0 ? ' top' : '');
   el.dataset.id = ev.id;
-  const scale = 1 - depth * 0.045, dy = depth * 12;
-  el.style.transform = `translateY(${dy}px) scale(${scale})`;
-  el.style.zIndex = 50 - depth;
-  el.innerHTML = `
-    <div class="card-img"></div>
-    <div class="stamp save">${esc(t('saveStamp'))}</div>
-    <div class="stamp pass">${esc(t('passStamp'))}</div>
-    <div class="card-body">
-      <div class="card-cats">
-        <span class="cat-pill">${esc(catLabel(ev.category) || '')}</span>
-        <span class="cat-pill date-pill" title="${esc(relDay(ev.start))}">${esc(fmtRange(ev.start, ev.end))}</span>
-      </div>
-      <h3 class="card-title">${esc(ev.title)}</h3>
-      <div class="card-meta">
-        ${ev.venue ? `<div class="row">${pinSVG}<span>${esc(ev.venue)} · ${esc(ev.city)}</span></div>` : `<div class="row">${pinSVG}<span>${esc(ev.city)}</span></div>`}
-        <div class="row">${tagSVG}<span class="card-price">${esc(fmtPrice(ev.price) || t('seeDetails'))}</span></div>
-      </div>
-    </div>`;
-  cardImage(el.querySelector('.card-img'), ev);
+  const s = depth === 0 ? 1 : depth === 1 ? 0.94 : 0.88;
+  const y = depth * 14;
+  el.style.transform = 'translateY(' + y + 'px) scale(' + s + ')';
+  el.style.zIndex = 10 - depth;
+  el.style.opacity = depth >= 3 ? 0 : 1;
+  const imgUrl = previewURL(ev);
+  el.innerHTML =
+    '<div class="card-img" style="background-image:url(\'' + imgUrl.replace(/'/g,'') + '\')"></div>' +
+    '<div class="card-date-pill">' + esc(niceDate(ev)).toUpperCase() + '</div>' +
+    '<button class="card-bookmark' + (state.saved.includes(ev.id) ? ' saved' : '') + '" aria-label="Save">' +
+    '<svg viewBox="0 0 24 24" width="19" height="19" fill="' + (state.saved.includes(ev.id) ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>' +
+    '<div class="card-panel"><h3>' + esc(ev.title) + '</h3>' +
+    '<div class="venue">' + esc(ev.venue || ev.city || '') + (ev.city && ev.venue ? ' · ' + esc(ev.city) : '') + '</div>' +
+    '<div class="price">' + esc(fmtPrice(ev)) + '</div></div>' +
+    '<div class="stamp save">SAVE</div><div class="stamp pass">PASS</div>';
+  const imgDiv = $('.card-img', el);
+  const probe = new Image();
+  probe.onerror = () => {
+    imgDiv.style.backgroundImage = 'none';
+    imgDiv.classList.add('fallback');
+    imgDiv.innerHTML = '<div class="wm">7</div>';
+  };
+  probe.src = imgUrl;
+  $('.card-bookmark', el).addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSave(ev.id);
+    const b = e.currentTarget;
+    const on = state.saved.includes(ev.id);
+    b.classList.toggle('saved', on);
+    b.querySelector('svg').setAttribute('fill', on ? 'currentColor' : 'none');
+  });
+  el.addEventListener('click', e => {
+    if(e.target.closest('.card-bookmark') || el.dataset.moved) return;
+    openDetail(ev, 'deck');
+  });
   return el;
 }
-// FLIP: cards that survive a re-render glide to their new slot instead of popping.
-function renderStack(flip = true) {
-  const stack = $('#card-stack');
-  const oldRects = new Map();
-  if (flip && !reducedMotion())
-    stack.querySelectorAll('.swipe-card').forEach(el => { if (el.dataset.id) oldRects.set(el.dataset.id, el.getBoundingClientRect()); });
-  stack.innerHTML = '';
-  const empty = state.idx >= state.deck.length;
-  $('#deck-empty').classList.toggle('hidden', !empty);
-  renderDeckProgress();
-  if (empty) { updateSavedCount(); return; }
-  for (let d = 2; d >= 0; d--) {
-    const ev = state.deck[state.idx + d];
-    if (ev) stack.appendChild(cardEl(ev, d));
-  }
-  if (flip && !reducedMotion()) stack.querySelectorAll('.swipe-card').forEach(el => {
-    const old = oldRects.get(el.dataset.id);
-    if (!old) return;
-    const r = el.getBoundingClientRect();
-    const dx = old.left - r.left, dy = old.top - r.top;
-    if (dx || dy) el.animate(
-      [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: el.style.transform || 'none' }],
-      { duration: 260, easing: 'cubic-bezier(.3,.7,.3,1)' });
-  });
-  attachDrag(stack.querySelector('.swipe-card.top'));
-  updateSavedCount();
-}
-function renderDeckProgress() {
-  const el = $('#deck-progress');
-  if (!state.deck.length) { el.textContent = ''; return; }
-  const a = Math.min(state.idx + 1, state.deck.length);
-  el.textContent = t('ofLabel', a, state.deck.length);
-}
-function updateSavedCount() { $('#saved-count').textContent = Object.keys(state.saved).length; }
-function topCard() { return $('#card-stack .swipe-card.top'); }
-function topEvent() { return state.deck[state.idx]; }
-function flyOut(dir, done) {
-  const el = topCard();
-  if (!el) return done && done();
-  const w = el.offsetWidth;
-  el.style.transition = 'transform .32s cubic-bezier(.3,.7,.3,1), opacity .32s';
-  el.style.transform = `translate(${dir * w * 1.7}px, ${dir * 60}px) rotate(${dir * 28}deg)`;
-  el.style.opacity = '0';
-  setTimeout(() => done && done(), reducedMotion() ? 0 : 330);
-}
-function decide(save) {
-  const ev = topEvent();
-  if (!ev) return;
-  buzz(save ? 18 : 10);
-  state.undoStack.push({ ev, saved: !!state.saved[ev.id] });
-  if (state.undoStack.length > 8) state.undoStack.shift();
-  if (save) {
-    state.saved[ev.id] = Date.now();
-    beacon('save', ev.id, ev.title);
-    saveBurst(topCard());
-  } else beacon('unsave', ev.id, 'pass');
-  saveLocal();
-  state.idx++;
-  showUndo();
-  renderStack();
-}
-let undoT;
-function showUndo() {
-  const b = $('#btn-undo');
-  b.classList.remove('hidden');
-  clearTimeout(undoT);
-  undoT = setTimeout(() => b.classList.add('hidden'), 6000);
-}
-function undo() {
-  const last = state.undoStack.pop();
-  if (!last || state.idx === 0) return;
-  buzz(12);
-  state.idx--;
-  if (last.saved) state.saved[last.ev.id] = Date.now();
-  else delete state.saved[last.ev.id];
-  beacon('undo', last.ev.id);
-  saveLocal();
-  if (!state.undoStack.length) $('#btn-undo').classList.add('hidden');
-  renderStack();
-}
-// heart-dot flies from the card to the Saved badge
-function saveBurst(fromEl) {
-  if (reducedMotion() || !fromEl) { popBadge(); return; }
-  const a = fromEl.getBoundingClientRect();
-  const b = $('#btn-saved').getBoundingClientRect();
-  const dot = document.createElement('div');
-  dot.className = 'fly-dot';
-  dot.style.left = (a.left + a.width / 2) + 'px';
-  dot.style.top = (a.top + a.height / 2) + 'px';
-  document.body.appendChild(dot);
-  const dx = (b.left + b.width / 2) - (a.left + a.width / 2);
-  const dy = (b.top + b.height / 2) - (a.top + a.height / 2);
-  const anim = dot.animate([
-    { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
-    { transform: `translate(calc(-50% + ${dx * .5}px), calc(-50% + ${dy * .5 - 70}px)) scale(.85)`, opacity: 1, offset: .55 },
-    { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.25)`, opacity: .85 },
-  ], { duration: 620, easing: 'cubic-bezier(.3,.7,.3,1)' });
-  anim.onfinish = () => { dot.remove(); popBadge(); };
-}
-function popBadge() {
-  const badge = $('#saved-count');
-  badge.classList.remove('pop'); void badge.offsetWidth; badge.classList.add('pop');
-}
-function attachDrag(el) {
-  if (!el) return;
-  let sx = 0, dx = 0, dragging = false, moved = 0, t0 = 0;
-  const saveStamp = el.querySelector('.stamp.save'), passStamp = el.querySelector('.stamp.pass');
+function attachDrag(el){
+  let sx=0, sy=0, dx=0, dy=0, dragging=false, pid=null;
+  const zone = $('#deck-zone');
   el.addEventListener('pointerdown', e => {
-    dragging = true; moved = 0; t0 = Date.now(); sx = e.clientX;
-    el.classList.add('dragging'); el.setPointerCapture(e.pointerId);
+    if(!el.classList.contains('top')) return;
+    dragging = true; pid = e.pointerId; sx = e.clientX; sy = e.clientY;
+    el.classList.add('dragging'); el.setPointerCapture(pid);
   });
   el.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx));
-    const rot = dx / 16;
-    el.style.transform = `translate(${dx}px, ${Math.abs(dx) * 0.12}px) rotate(${rot}deg)`;
-    const k = Math.min(1, Math.abs(dx) / 90);
-    saveStamp.style.opacity = dx > 0 ? k : 0;
-    passStamp.style.opacity = dx < 0 ? k : 0;
+    if(!dragging || e.pointerId !== pid) return;
+    dx = e.clientX - sx; dy = e.clientY - sy;
+    if(Math.abs(dx) + Math.abs(dy) > 6) el.dataset.moved = '1';
+    const rot = dx / 14;
+    el.style.transform = 'translate(' + dx + 'px,' + (dy*0.6) + 'px) rotate(' + rot + 'deg)';
+    const sS = $('.stamp.save', el), sP = $('.stamp.pass', el);
+    sS.style.opacity = Math.min(1, Math.max(0, dx/90));
+    sP.style.opacity = Math.min(1, Math.max(0, -dx/90));
   });
-  const end = () => {
-    if (!dragging) return;
+  const end = e => {
+    if(!dragging || e.pointerId !== pid) return;
     dragging = false;
     el.classList.remove('dragging');
-    const quickTap = moved < 10 && Date.now() - t0 < 350;
-    if (quickTap) { el.style.transform = ''; openDetail(topEvent(), { fromCard: el }); return; }
-    if (Math.abs(dx) > 110) flyOut(Math.sign(dx), () => decide(dx > 0));
+    if(Math.abs(dx) > 110){ decide(dx > 0 ? 'save' : 'pass'); }
     else {
-      el.style.transition = 'transform .3s cubic-bezier(.3,.7,.3,1)';
-      el.style.transform = '';
-      saveStamp.style.opacity = passStamp.style.opacity = 0;
-      setTimeout(() => el.style.transition = '', 320);
+      el.style.transition = 'transform .34s cubic-bezier(.32,.72,0,1)';
+      el.style.transform = 'translateY(0px) scale(1)';
+      $('.stamp.save', el).style.opacity = 0;
+      $('.stamp.pass', el).style.opacity = 0;
+      setTimeout(() => { el.style.transition=''; delete el.dataset.moved; }, 360);
     }
-    dx = 0;
+    dx = dy = 0;
   };
   el.addEventListener('pointerup', end);
   el.addEventListener('pointercancel', end);
 }
-
-/* ================= all-events list ================= */
-const listF = { q: '', date: 'all', free: false, sort: 'date', domains: new Set(), cities: new Set() };
-function buildList() {
-  state.cities.clear(); state.cats.clear(); state.domains.clear(); saveLocal();
-  state.filtered = [...state.all];
-  state.mapCat = null; state.mapPlottedFor = null;
-  listF.q = ''; listF.date = 'all'; listF.free = false; listF.sort = 'date';
-  listF.domains.clear(); listF.cities.clear();
-  $('#list-search').value = '';
-  $('#sort-sel').value = 'date';
-  buildListFilters();
-  renderList();
-  showView('#view-list');
+function flyOut(el, dir, done){
+  const dist = Math.max(window.innerWidth, window.innerHeight);
+  const anim = el.animate([
+    {transform: getComputedStyle(el).transform},
+    {transform: 'translate(' + (dir*dist) + 'px,-60px) rotate(' + (dir*24) + 'deg)', opacity:.9}
+  ], {duration: reduceMotion() ? 1 : 340, easing:'cubic-bezier(.32,.72,0,1)', fill:'forwards'});
+  const fin = () => { if(done){ const d = done; done = null; d(); } };
+  if(anim.finished && typeof anim.finished.then === 'function') anim.finished.then(fin, fin);
+  else anim.onfinish = fin;
 }
-function buildListFilters() {
-  // date quick filters
-  const dc = $('#date-chips'); dc.innerHTML = '';
-  [['all', t('allDates')], ['today', t('today')], ['week', t('thisWeek')], ['weekend', t('thisWeekend')]]
-    .forEach(([v, label]) => {
-      const b = document.createElement('button');
-      b.className = 'chip' + (listF.date === v ? ' on' : '');
-      b.textContent = label;
-      b.onclick = () => { buzz(8); listF.date = v; buildListFilters(); renderList(); };
-      dc.appendChild(b);
-    });
-  const free = document.createElement('button');
-  free.className = 'chip' + (listF.free ? ' on' : '');
-  free.textContent = '✓ ' + t('freeOnly');
-  free.onclick = () => { buzz(8); listF.free = !listF.free; buildListFilters(); renderList(); };
-  dc.appendChild(free);
-  // professional domain chips
-  const mc = $('#domain-chips-list'); mc.innerHTML = '';
-  const lab = document.createElement('span'); lab.className = 'row-label'; lab.textContent = t('field');
-  mc.appendChild(lab);
-  (state.meta.domains || []).forEach(d => {
-    const b = document.createElement('button');
-    b.className = 'chip sm' + (listF.domains.has(d.key) ? ' on' : '');
-    b.textContent = state.lang === 'ar' ? d.ar : d.en;
-    b.onclick = () => { buzz(8); listF.domains.has(d.key) ? listF.domains.delete(d.key) : listF.domains.add(d.key); buildListFilters(); renderList(); };
-    mc.appendChild(b);
-  });
-  // city chips
-  const cc = $('#city-chips-list'); cc.innerHTML = '';
-  const lab2 = document.createElement('span'); lab2.className = 'row-label'; lab2.textContent = t('cityLabel');
-  cc.appendChild(lab2);
-  state.meta.cities.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'chip sm' + (listF.cities.has(c) ? ' on' : '');
-    b.textContent = c;
-    b.onclick = () => { buzz(8); listF.cities.has(c) ? listF.cities.delete(c) : listF.cities.add(c); buildListFilters(); renderList(); };
-    cc.appendChild(b);
-  });
+function flySaveDot(fromRect){
+  if(reduceMotion()) return;
+  const target = $('#btn-saved').getBoundingClientRect();
+  const dot = document.createElement('div');
+  dot.className = 'fly-dot';
+  dot.style.left = (fromRect.left + fromRect.width/2 - 9) + 'px';
+  dot.style.top = (fromRect.top + fromRect.height/2 - 9) + 'px';
+  document.body.appendChild(dot);
+  dot.animate([
+    {transform:'translate(0,0) scale(1)', opacity:1},
+    {transform:'translate(' + (target.left + target.width/2 - (fromRect.left + fromRect.width/2)) + 'px,' +
+      (target.top + target.height/2 - (fromRect.top + fromRect.height/2)) + 'px) scale(.35)', opacity:.6}
+  ], {duration:520, easing:'cubic-bezier(.32,.72,0,1)'}).onfinish = () => dot.remove();
 }
-function weekendRange() {
-  const d = todayNoon(), dow = d.getDay();
-  if (dow === 6) return [todayStr(), todayStr()]; // Saturday: today is the weekend
-  const fri = new Date(d); fri.setDate(d.getDate() + ((5 - dow + 7) % 7));
-  const sat = new Date(fri); sat.setDate(fri.getDate() + 1);
-  return [isoOf(fri), isoOf(sat)];
-}
-const overlaps = (ev, a, b) => (ev.start || '') <= b && (ev.end || ev.start || '') >= a;
-function applyListFilters(pool) {
-  let evs = pool;
-  if (listF.q.trim()) evs = fuzzyFilter(evs, listF.q).map(x => x.ev);
-  const ts = todayStr();
-  if (listF.date === 'today') evs = evs.filter(e => overlaps(e, ts, ts));
-  else if (listF.date === 'week') {
-    const w = new Date(todayNoon()); w.setDate(w.getDate() + 7);
-    evs = evs.filter(e => overlaps(e, ts, isoOf(w)));
-  } else if (listF.date === 'weekend') { const [f, s] = weekendRange(); evs = evs.filter(e => overlaps(e, f, s)); }
-  if (listF.free) evs = evs.filter(e => /free/i.test(e.price || ''));
-  if (listF.domains.size) evs = evs.filter(e => listF.domains.has(e.domain || 'business'));
-  if (listF.cities.size) evs = evs.filter(e => listF.cities.has(e.city));
-  return evs;
-}
-const hav = (a, b, c, d) => {
-  const R = 6371, r = x => x * Math.PI / 180;
-  const h = Math.sin(r(c - a) / 2) ** 2 + Math.cos(r(a)) * Math.cos(r(c)) * Math.sin(r(d - b) / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-};
-function sortEvents(evs) {
-  const arr = [...evs];
-  if (listF.sort === 'price') arr.sort((a, b) => priceNum(a.price) - priceNum(b.price) || (a.start || '').localeCompare(b.start || ''));
-  else if (listF.sort === 'nearest' && state.youLoc) {
-    arr.sort((a, b) => {
-      const ga = a._g, gb = b._g;
-      if (!ga && !gb) return 0; if (!ga) return 1; if (!gb) return -1;
-      return hav(state.youLoc[0], state.youLoc[1], ga.lat, ga.lng) - hav(state.youLoc[0], state.youLoc[1], gb.lat, gb.lng);
-    });
-  } else arr.sort((a, b) => (a.start || '').localeCompare(b.start || '') || (a.title || '').localeCompare(b.title || ''));
-  return arr;
-}
-function eventRow(ev, q, i) {
-  const r = document.createElement('div');
-  r.className = 'saved-row';
-  r.style.setProperty('--i', i);
-  r.innerHTML = `
-    <div class="saved-thumb">${esc((ev.category || 'E').slice(0, 1).toUpperCase())}</div>
-    <div class="saved-info">
-      <div class="saved-title">${q ? hi(ev.title, q) : esc(ev.title)}</div>
-      <div class="saved-sub">${esc(relDay(ev.start))} · ${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
-      <div class="saved-sub saved-venue">${q ? hi(ev.venue || '', q) : esc(ev.venue || '')}${ev.venue ? ' · ' : ''}${esc(domLabel(ev.domain))}</div>
-    </div>
-    <div class="row-chev" aria-hidden="true">›</div>`;
-  cardImageThumb(r.querySelector('.saved-thumb'), ev);
-  r.onclick = () => openDetail(ev, { fromList: true });
-  return r;
-}
-function renderRails() {
-  const box = $('#rails');
-  const showRails = !listF.q.trim() && listF.date === 'all' && !listF.free && !listF.domains.size && !listF.cities.size;
-  box.innerHTML = '';
-  if (!showRails) { box.style.display = 'none'; return; }
-  box.style.display = '';
-  const ts = todayStr();
-  const mk = (label, evs) => {
-    if (!evs.length) return;
-    const sec = document.createElement('div');
-    sec.className = 'rail';
-    sec.innerHTML = `<div class="rail-title">${esc(label)}</div>`;
-    const track = document.createElement('div'); track.className = 'rail-track';
-    evs.slice(0, 12).forEach(ev => {
-      const c = document.createElement('div');
-      c.className = 'rail-card';
-      c.innerHTML = `<div class="rail-thumb">${esc((ev.category || 'E').slice(0, 1).toUpperCase())}</div>
-        <div class="rail-info"><div class="rail-t">${esc(ev.title)}</div>
-        <div class="rail-s">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}</div></div>`;
-      cardImageThumb(c.querySelector('.rail-thumb'), ev);
-      c.onclick = () => openDetail(ev, { fromList: true });
-      track.appendChild(c);
-    });
-    sec.appendChild(track);
-    box.appendChild(sec);
-  };
-  mk(t('tonight'), state.all.filter(e => overlaps(e, ts, ts)).sort((a, b) => (a.start || '').localeCompare(b.start || '')));
-  const [f, s] = weekendRange();
-  mk(t('thisWeekend'), state.all.filter(e => overlaps(e, f, s) && !overlaps(e, ts, ts)).sort((a, b) => (a.start || '').localeCompare(b.start || '')));
-}
-function renderList() {
-  renderRails();
-  const list = $('#event-list');
-  const evs = sortEvents(applyListFilters(state.all));
-  $('#list-count').textContent = t('eventsCount', evs.length);
-  if (!evs.length) {
-    list.innerHTML = `<div class="saved-empty"><div style="font-weight:800;color:var(--text);margin-bottom:6px">${esc(t('noResults'))}</div>${esc(t('noResultsHint'))}<br><br><button class="chip on" id="btn-clear-f">${esc(t('clearFilters'))}</button></div>`;
-    $('#btn-clear-f').onclick = () => {
-      listF.q = ''; listF.date = 'all'; listF.free = false; listF.domains.clear(); listF.cities.clear();
-      $('#list-search').value = ''; buildListFilters(); renderList();
-    };
-    return;
-  }
-  list.innerHTML = '';
-  evs.forEach((ev, i) => list.appendChild(eventRow(ev, listF.q, i)));
-}
-function renderRecent() {
-  const box = $('#recent-searches');
-  const q = $('#list-search').value.trim();
-  if (q || !state.recent.length) { box.classList.add('hidden'); return; }
-  box.classList.remove('hidden');
-  box.innerHTML = `<span class="row-label">${esc(t('recent'))}</span>`;
-  state.recent.forEach(s => {
-    const b = document.createElement('button');
-    b.className = 'chip sm'; b.textContent = s;
-    b.onclick = () => { $('#list-search').value = s; listF.q = s; box.classList.add('hidden'); renderList(); };
-    box.appendChild(b);
-  });
-}
-let searchT;
-function onListSearch(v) {
-  clearTimeout(searchT);
-  searchT = setTimeout(() => {
-    listF.q = v;
-    renderRecent();
-    renderList();
-    if (v.trim()) beacon('search', '', v.trim().slice(0, 60));
-  }, 220);
-}
-
-/* ================= saved ================= */
-function savedRow(ev, q, i) {
-  const r = document.createElement('div');
-  r.className = 'saved-row';
-  r.style.setProperty('--i', i);
-  const future = (ev.start || '') >= todayStr();
-  const reminded = state.remind.includes(ev.id);
-  const bell = `<svg viewBox="0 0 24 24" width="16" height="16" fill="${reminded ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`;
-  r.innerHTML = `
-    <div class="saved-thumb">${esc((ev.category || 'E').slice(0, 1).toUpperCase())}</div>
-    <div class="saved-info">
-      <div class="saved-title">${q ? hi(ev.title, q) : esc(ev.title)}</div>
-      <div class="saved-sub">${esc(relDay(ev.start))} · ${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
-      <div class="saved-sub saved-venue">${q ? hi(ev.venue || '', q) : esc(ev.venue || '')}${ev.venue ? ' · ' : ''}${esc(domLabel(ev.domain))}</div>
-    </div>
-    ${future ? `<button class="remind-btn${reminded ? ' on' : ''}" aria-label="Remind me">${bell}</button>` : ''}
-    <button class="saved-unsave" aria-label="Remove">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>`;
-  cardImageThumb(r.querySelector('.saved-thumb'), ev);
-  r.onclick = e => { if (!e.target.closest('.saved-unsave') && !e.target.closest('.remind-btn')) openDetail(ev, { fromSaved: true }); };
-  const rb = r.querySelector('.remind-btn');
-  if (rb) rb.onclick = () => toggleRemind(ev, rb);
-  r.querySelector('.saved-unsave').onclick = async () => {
-    delete state.saved[ev.id]; saveLocal(); updateSavedCount();
-    beacon('unsave', ev.id);
-    if (state.remind.includes(ev.id)) {
-      state.remind = state.remind.filter(id => id !== ev.id);
-      saveLocal(); syncPushServer();
+function decide(action){
+  const el = topCard();
+  if(!el) return;
+  const id = el.dataset.id;
+  const ev = state.stack.find(e => e.id === id);
+  if(!ev) return;
+  const rect = el.getBoundingClientRect();
+  flyOut(el, action === 'save' ? 1 : -1, () => {
+    state.stack = state.stack.filter(e => e.id !== id);
+    if(action === 'save' && !state.saved.includes(id)){
+      state.saved.unshift(id); saveSaved(); updateSavedBadge();
+      beacon('save', {id});
+      flySaveDot(rect);
     }
-    renderSaved($('#saved-search').value);
-  };
-  return r;
+    beacon('swipe', {id, action});
+    showUndo(ev, action);
+    renderStack();
+    const prog = $('#deck-progress');
+    prog.textContent = state.stack.length ? '1 of ' + state.stack.length : '';
+    $('#deck-empty').classList.toggle('hidden', state.stack.length > 0);
+  });
 }
-function renderSaved(filter = '') {
-  const list = $('#saved-list');
-  const ids = Object.keys(state.saved).sort((a, b) => state.saved[b] - state.saved[a]);
-  let rows = ids.map(id => state.all.find(e => e.id === id)).filter(Boolean);
-  const q = filter.trim();
-  if (q) rows = fuzzyFilter(rows, q).map(x => x.ev);
-  if (!rows.length) {
-    list.innerHTML = `<div class="saved-empty">${q ? esc(t('noMatchSaved')) : esc(t('nothingSaved')) + '<br>' + esc(t('checkSaved'))}</div>`;
-    return;
+let undoTimer = null, undoTick = null;
+function showUndo(ev, action){
+  clearTimeout(undoTimer); clearInterval(undoTick);
+  state.undo = {ev, action, left: 7};
+  const pill = $('#btn-undo');
+  pill.classList.remove('hidden');
+  const paint = () => { pill.querySelector('span').textContent = 'Undo · ' + state.undo.left + 's'; };
+  paint();
+  undoTick = setInterval(() => {
+    if(!state.undo) return;
+    state.undo.left--;
+    if(state.undo.left <= 0){ expireUndo(); } else paint();
+  }, 1000);
+  undoTimer = setTimeout(expireUndo, 7100);
+}
+function hideUndo(){
+  clearTimeout(undoTimer); clearInterval(undoTick);
+  state.undo = null;
+  $('#btn-undo').classList.add('hidden');
+}
+function expireUndo(){
+  // countdown elapsed: restore the last event back into the stack
+  if(state.undo) state.stack.unshift(state.undo.ev);
+  hideUndo();
+  renderStack();
+  const prog = $('#deck-progress');
+  prog.textContent = state.stack.length ? '1 of ' + state.stack.length : '';
+}
+function undo(){
+  if(!state.undo) return;
+  const {ev, action} = state.undo;
+  if(action === 'save'){
+    state.saved = state.saved.filter(id => id !== ev.id);
+    saveSaved(); updateSavedBadge();
+    if(state.remind[ev.id]) toggleRemind(ev.id, false);
   }
-  list.innerHTML = '';
-  const ts = todayStr();
-  const soonD = new Date(todayNoon()); soonD.setDate(soonD.getDate() + 7);
-  const soon = q ? [] : rows.filter(e => overlaps(e, ts, isoOf(soonD)))
-    .sort((a, b) => (a.start || '').localeCompare(b.start || ''));
-  const rest = rows.filter(e => !soon.includes(e));
-  const sec = label => {
-    const h = document.createElement('div');
-    h.className = 'saved-sec'; h.textContent = label;
-    list.appendChild(h);
-  };
-  if (soon.length) { sec(`🔥 ${t('happeningSoon')}`); soon.forEach((ev, i) => list.appendChild(savedRow(ev, q, i))); }
-  if (!q && soon.length && rest.length) sec(t('allSaved'));
-  (q ? rows : rest).forEach((ev, i) => list.appendChild(savedRow(ev, q, i)));
+  state.stack.unshift(ev);
+  hideUndo();
+  renderStack();
+  const prog = $('#deck-progress');
+  prog.textContent = state.stack.length ? '1 of ' + state.stack.length : '';
+  toast('Back in your deck');
+  beacon('undo', {id: ev.id});
 }
-function cardImageThumb(el, ev) {
-  const apply = img => { if (img && el.isConnected) { el.style.backgroundImage = `url("${img}")`; el.textContent = ''; } };
-  if (ev.image) return apply(ev.image);
-  if (!ev.url) return;
-  if (state.imgCache.has(ev.url)) return apply(state.imgCache.get(ev.url));
-  fetch('/api/preview?url=' + encodeURIComponent(ev.url)).then(r => r.json())
-    .then(d => { state.imgCache.set(ev.url, d.image || null); apply(d.image); })
-    .catch(() => state.imgCache.set(ev.url, null));
+function toggleSave(id){
+  const i = state.saved.indexOf(id);
+  if(i >= 0){ state.saved.splice(i,1); if(state.remind[id]) toggleRemind(id, false); }
+  else state.saved.unshift(id);
+  saveSaved(); updateSavedBadge();
+  beacon(i >= 0 ? 'unsave' : 'save', {id});
+}
+function wireDeck(){
+  $('#btn-like').addEventListener('click', () => decide('save'));
+  $('#btn-pass').addEventListener('click', () => decide('pass'));
+  $('#btn-undo').addEventListener('click', undo);
+  $('#btn-saved').addEventListener('click', () => { buildSaved(); navTo('view-saved', 'fwd'); });
+  $('#btn-map').addEventListener('click', () => openMap());
+  $('#btn-prefs').addEventListener('click', () => { initOnboard(); navTo('view-onboard', 'back'); });
+  $('#btn-rebuild').addEventListener('click', () => { initOnboard(); navTo('view-onboard', 'back'); });
+  $('#deck-browse-all').addEventListener('click', () => { buildList(); navTo('view-list', 'fwd'); });
+  document.addEventListener('keydown', e => {
+    if(!$('#view-deck').classList.contains('active') || state.sheetOpen) return;
+    if(e.key === 'ArrowRight') decide('save');
+    else if(e.key === 'ArrowLeft') decide('pass');
+    else if(e.key === 'ArrowUp'){ const t = topCard(); if(t) openDetail(state.stack.find(x=>x.id===t.dataset.id), 'deck'); }
+  });
 }
 
-/* ================= detail sheet ================= */
-async function geoFor(ev) {
-  const key = `${ev.venue || ''}|${ev.city || ''}`;
-  if (state.geoCache.has(key)) return state.geoCache.get(key);
-  try {
-    const g = await api('/api/geocode?venue=' + encodeURIComponent(ev.venue || '') + '&city=' + encodeURIComponent(ev.city || ''));
-    state.geoCache.set(key, g);
-    if (g && g.lat != null) ev._g = g;
-    return g;
-  } catch { return { lat: null, lng: null }; }
-}
-async function shareEvent(ev) {
-  const url = location.origin + '/e/' + ev.id;
-  const text = `${ev.title} — ${fmtRange(ev.start, ev.end)} · ${ev.city}`;
-  beacon('share', ev.id);
-  buzz(10);
-  if (navigator.share) {
-    try { await navigator.share({ title: ev.title, text, url }); } catch {}
-    return;
-  }
-  window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + url), '_blank');
-}
-function copyLink(ev) {
-  const url = location.origin + '/e/' + ev.id;
-  (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject())
-    .then(() => toast(t('linkCopied')))
-    .catch(() => window.prompt(url, url));
-  beacon('share', ev.id, 'copy');
-}
-function gcalURL(ev) {
-  const dt = s => s.replace(/-/g, '');
-  const end = ev.end && ev.end !== ev.start
-    ? isoOf(new Date(new Date(ev.end + 'T12:00:00').getTime() + 864e5)) : ev.start;
-  return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-    '&text=' + encodeURIComponent(ev.title) +
-    '&dates=' + dt(ev.start) + '/' + dt(end) +
-    '&details=' + encodeURIComponent(ev.url || '') +
-    '&location=' + encodeURIComponent([ev.venue, ev.city].filter(Boolean).join(', '));
-}
-async function openDetail(ev, opts = {}) {
-  if (!ev) return;
-  $('#sheet-backdrop').classList.remove('hidden');
+/* ---------- detail sheet ---------- */
+function openDetail(ev, from, fromHist){
+  state.detail = ev; state.detailFrom = from || 'deck'; state.sheetOpen = true;
+  if(!fromHist) _pushHist({kind:'detail', evId: ev.id, from: state.detailFrom});
+  buildSheetBody(ev);
   const sheet = $('#detail-sheet');
-  sheet.classList.remove('hidden');
-  const backBtn = $('#sheet-back'), backLabel = backBtn.querySelector('span');
-  backBtn.classList.remove('hidden');
-  const backName = opts.fromMap ? t('map') : opts.fromList ? t('allEvents') : opts.fromSaved ? t('saved') : t('back');
-  backLabel.textContent = backName;
-  backBtn.setAttribute('aria-label', t('back') + (backName === t('back') ? '' : ': ' + backName));
-  backBtn.onclick = closeDetail;
-  _pushHist({ modal: 'sheet', eid: ev.id });
+  sheet.classList.remove('hidden', 'closing');
+  if(!reduceMotion()){ void sheet.offsetWidth; }
+  $('#sheet-backdrop').classList.remove('hidden');
+  const back = $('#sheet-back');
+  if(state.detailFrom === 'map'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'Map'; }
+  else if(state.detailFrom === 'list'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'All events'; }
+  else if(state.detailFrom === 'saved'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'Saved'; }
+  else back.classList.add('hidden');
   document.body.style.overflow = 'hidden';
+  beacon('detail', {id: ev.id, from: state.detailFrom});
+}
+function closeDetail(animate){
+  const sheet = $('#detail-sheet');
+  const done = () => {
+    sheet.classList.add('hidden');
+    $('#sheet-backdrop').classList.add('hidden');
+    state.sheetOpen = false; state.detail = null;
+    document.body.style.overflow = '';
+    if(state.detailFrom === 'map') openMap(true);
+  };
+  if(animate === false || reduceMotion()){ done(); return; }
+  sheet.classList.add('closing');
+  setTimeout(done, 240);
+}
+function buildSheetBody(ev){
   const body = $('#sheet-body');
+  const imgUrl = previewURL(ev);
+  const mapsQ = encodeURIComponent((ev.venue ? ev.venue + ', ' : '') + (ev.city || 'Saudi Arabia'));
+  const isSaved = state.saved.includes(ev.id);
+  const reminded = !!state.remind[ev.id];
+  const desc = (ev.description || '').trim();
+  body.innerHTML =
+    '<div class="sheet-hero" id="sheet-hero">' +
+      '<div class="hero-scrim"></div>' +
+      '<div class="sheet-meta-pills" style="position:absolute;top:56px;left:22px;right:22px;padding:0">' +
+        '<span class="meta-pill">' + esc(niceDate(ev)) + '</span>' +
+        (ev.city ? '<span class="meta-pill">' + esc(ev.city) + '</span>' : '') +
+      '</div>' +
+      '<h2 class="sheet-title">' + esc(ev.title) + '</h2>' +
+    '</div>' +
+    '<div class="sheet-content">' +
+      '<div class="detail-row">' +
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>' +
+        '<div><div class="k">Date</div><div class="v">' + esc(niceDate(ev)) + (ev.date_end && ev.date_end.slice(0,10) !== dstr(ev) ? ' — ' + esc(new Date(ev.date_end).toLocaleDateString('en-US',{month:'short',day:'numeric'})) : '') + '</div></div>' +
+      '</div>' +
+      '<div class="detail-row">' +
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>' +
+        '<div><div class="k">Venue</div><div class="v">' + esc(ev.venue || 'Venue TBA') + (ev.city ? ' · ' + esc(ev.city) : '') + '</div>' +
+        '<a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=' + mapsQ + '" target="_blank" rel="noopener">Open in Maps</a></div>' +
+      '</div>' +
+      '<div class="detail-row">' +
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 6.5c0-2-2.2-3-5-3s-5 1-5 3 2 2.5 5 3 5 1 5 3-2.2 3-5 3-5-1-5-3"/></svg>' +
+        '<div><div class="k">Price</div><div class="v" style="color:var(--gold);font-weight:600">' + esc(fmtPrice(ev)) + '</div></div>' +
+      '</div>' +
+      (desc ? '<p class="sheet-desc">' + esc(desc) + '</p>' : '') +
+      ((ev.reg_url || ev.source_url) ? '<a class="btn-register" href="' + esc(ev.reg_url || ev.source_url) + '" target="_blank" rel="noopener">' +
+        '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>' +
+        (ev.reg_url ? 'Register / Event page' : 'Event page') + '</a>' : '') +
+      '<div style="display:flex;gap:10px;margin:6px 0 4px">' +
+        '<button class="btn-register" id="sheet-save-btn" style="margin:0">' + (isSaved ? 'Saved ✓' : 'Save this event') + '</button>' +
+        '<button class="btn-register" id="sheet-remind-btn" style="margin:0;flex:0 0 52px" aria-label="Remind me">' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" fill="' + (reminded ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:' + (reminded ? 'var(--gold)' : 'inherit') + '"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg>' +
+        '</button>' +
+      '</div>' +
+      '<div class="sheet-source">Listed via ' + esc(ev.source || 'event source') + '</div>' +
+      '<button class="link-quiet" id="sheet-report-toggle" style="margin:10px auto">Report a problem</button>' +
+      '<div class="report-form hidden" id="sheet-report-form">' +
+        '<div class="report-title">Report this event</div>' +
+        '<input class="rep-input" id="rep-name" placeholder="Your name (optional)">' +
+        '<input class="rep-input" id="rep-contact" placeholder="Contact (optional)">' +
+        '<textarea class="rep-input" id="rep-msg" rows="3" placeholder="What is wrong?"></textarea>' +
+        '<button class="btn-gold" id="rep-send">Send report</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sheet-bottombar">' +
+      '<button class="btn-gold" id="sheet-ics">Add to Calendar</button>' +
+      '<button class="share-fab" id="sheet-share" aria-label="Share">' +
+        '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>' +
+      '</button>' +
+    '</div>';
+  const hero = $('#sheet-hero', body);
+  hero.style.backgroundImage = 'url("' + imgUrl.replace(/"/g,'') + '")';
+  const probe = new Image();
+  probe.onerror = () => { hero.classList.add('fallback'); hero.style.backgroundImage='none'; hero.insertAdjacentHTML('afterbegin','<div class="wm">7</div>'); };
+  probe.src = imgUrl;
+  $('#sheet-save-btn', body).addEventListener('click', () => {
+    toggleSave(ev.id);
+    const on = state.saved.includes(ev.id);
+    $('#sheet-save-btn', body).textContent = on ? 'Saved ✓' : 'Save this event';
+    toast(on ? 'Saved' : 'Removed from saved');
+  });
+  $('#sheet-remind-btn', body).addEventListener('click', () => toggleRemind(ev.id, !state.remind[ev.id]));
+  $('#sheet-ics', body).addEventListener('click', () => downloadICS(ev));
+  $('#sheet-share', body).addEventListener('click', () => shareEvent(ev));
+  $('#sheet-report-toggle', body).addEventListener('click', () => $('#sheet-report-form', body).classList.toggle('hidden'));
+  $('#rep-send', body).addEventListener('click', () => sendReport(ev));
   body.scrollTop = 0;
-  const srcName = (ev.sources && ev.sources[0]) || '';
-  const srcPretty = srcName ? srcName.charAt(0).toUpperCase() + srcName.slice(1) : '';
-  body.innerHTML = `
-    <div class="sheet-hero" id="sheet-hero"></div>
-    <div class="sheet-content">
-      <div class="card-cats">
-        <span class="cat-pill">${esc(catLabel(ev.category) || '')}</span>
-        <span class="cat-pill domain-pill">${esc(domLabel(ev.domain))}</span>
-        <span class="cat-pill date-pill">${esc(fmtRange(ev.start, ev.end))} · ${esc(relDay(ev.start))}</span>
-      </div>
-      <h2>${esc(ev.title)}</h2>
-      ${ev.description ? `<p class="sheet-desc">${esc(ev.description)}</p>` : ''}
-      <div class="detail-rows">
-        <div class="detail-row">${pinSVG}<div><div class="k">${esc(t('venue'))}</div>${esc(ev.venue || ev.city)}${ev.venue ? `<br><span style="color:var(--faint)">${esc(ev.city)}</span>` : ''}</div></div>
-        <div class="detail-row">${tagSVG}<div><div class="k">${esc(t('price'))}</div>${esc(fmtPrice(ev.price) || t('checkEventPage'))}</div></div>
-        ${ev.organizer ? `<div class="detail-row"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><div><div class="k">${esc(t('organizer'))}</div>${esc(ev.organizer)}</div></div>` : ''}
-      </div>
-      <div class="sheet-actions">
-        ${ev.url ? `<a class="btn go" href="${esc(ev.url)}" target="_blank" rel="noopener" id="sheet-reg">${esc(t('register'))}</a>` : ''}
-        <button class="btn ghost" id="sheet-share">${esc(t('share'))}</button>
-        <button class="btn ghost" id="sheet-cal">${esc(t('addCal'))}</button>
-        <button class="btn ghost" id="sheet-gmaps">${esc(t('gMaps'))}</button>
-        <button class="btn ghost" id="sheet-report">${esc(t('report'))}</button>
-      </div>
-      ${srcPretty ? `<div class="sheet-source">${esc(t('via'))} ${esc(srcPretty)}${ev.added_at ? ' · ' + esc(t('added')) + ' ' + esc(relDay(ev.added_at)) : ''}</div>` : ''}
-      <div id="report-form" class="report-form hidden">
-        <div class="report-title">${esc(t('reportTitle'))}</div>
-        <select id="rep-issue" class="rep-input">
-          <option value="wrong_date">${esc(t('wrongDate'))}</option>
-          <option value="wrong_venue">${esc(t('wrongVenue'))}</option>
-          <option value="wrong_price">${esc(t('wrongPrice'))}</option>
-          <option value="cancelled">${esc(t('cancelled'))}</option>
-          <option value="other">${esc(t('other'))}</option>
-        </select>
-        <textarea id="rep-detail" class="rep-input" rows="2" placeholder="${esc(t('reportDetailPh'))}"></textarea>
-        <button class="btn go" id="rep-send">${esc(t('send'))}</button>
-      </div>
-      <div class="map-embed" id="sheet-mapwrap" style="display:none"><iframe id="sheet-map" loading="lazy" title="Venue map"></iframe></div>
-    </div>`;
-  const hero = $('#sheet-hero');
-  cardImage(hero, ev);
-  // shared-element morph: the tapped card's image flies into the sheet hero
-  if (opts.fromCard && !reducedMotion()) {
-    const srcImg = opts.fromCard.querySelector('.card-img');
-    const bg = srcImg && srcImg.style.backgroundImage;
-    const m = bg && bg.match(/url\("?(.*?)"?\)/);
-    if (m && m[1] && srcImg.getBoundingClientRect().width > 0) {
-      const a = srcImg.getBoundingClientRect();
-      setTimeout(() => {
-        if (!hero.isConnected) return;
-        const b = hero.getBoundingClientRect();
-        const ghost = document.createElement('div');
-        ghost.className = 'hero-ghost';
-        ghost.style.backgroundImage = `url("${m[1]}")`;
-        Object.assign(ghost.style, { left: a.left + 'px', top: a.top + 'px', width: a.width + 'px', height: a.height + 'px' });
-        document.body.appendChild(ghost);
-        hero.style.visibility = 'hidden';
-        const anim = ghost.animate([
-          { left: a.left + 'px', top: a.top + 'px', width: a.width + 'px', height: a.height + 'px', borderRadius: '24px' },
-          { left: b.left + 'px', top: b.top + 'px', width: b.width + 'px', height: b.height + 'px', borderRadius: '0px' },
-        ], { duration: 300, easing: 'cubic-bezier(.32,.72,.28,1)' });
-        anim.onfinish = () => { ghost.remove(); hero.style.visibility = ''; };
-      }, 290); // after the sheet's slide-up finishes
-    }
-  }
-  const reg = $('#sheet-reg');
-  if (reg) reg.onclick = () => beacon('register', ev.id, ev.title);
-  $('#sheet-cal').onclick = () => { downloadICS(ev); buzz(10); };
-  $('#sheet-share').onclick = () => shareEvent(ev);
-  $('#sheet-report').onclick = () => { buzz(8); $('#report-form').classList.toggle('hidden'); };
-  $('#rep-send').onclick = async () => {
-    const issue = $('#rep-issue').value, detail = $('#rep-detail').value.trim();
-    try {
-      await api('/api/report', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event_id: ev.id, issue, detail }) });
-      beacon('report', ev.id, issue);
-      $('#report-form').classList.add('hidden');
-      toast(t('reportThanks'));
-    } catch { toast('…'); }
-  };
-  $('#sheet-gmaps').onclick = async () => {
-    const g = await geoFor(ev);
-    const q = g.lat ? `${g.lat},${g.lng}` : `${ev.venue || ''} ${ev.city} Saudi Arabia`;
-    window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q), '_blank');
-  };
-  const g = await geoFor(ev);
-  if (g.lat && body.isConnected) {
-    $('#sheet-mapwrap').style.display = 'block';
-    $('#sheet-map').src = `https://maps.google.com/maps?q=${g.lat},${g.lng}&z=15&output=embed`;
-  }
 }
-function _closeDetailUI() {
-  $('#sheet-backdrop').classList.add('hidden');
-  $('#detail-sheet').classList.add('hidden');
-  document.body.style.overflow = '';
+function wireSheet(){
+  // close controls go through browser history so popstate owns the close path
+  $('#sheet-close').addEventListener('click', () => history.back());
+  $('#sheet-backdrop').addEventListener('click', () => history.back());
+  $('#sheet-back').addEventListener('click', () => history.back());
+  let startY = null;
+  const sheet = $('#detail-sheet');
+  sheet.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, {passive:true});
+  sheet.addEventListener('touchmove', e => {
+    if(startY === null) return;
+    const dy = e.touches[0].clientY - startY;
+    if(dy > 0 && $('#sheet-body').scrollTop <= 0) sheet.style.transform = 'translateY(' + Math.min(dy, 160) + 'px)';
+  }, {passive:true});
+  sheet.addEventListener('touchend', e => {
+    if(startY === null) return;
+    const dy = (e.changedTouches[0]||{}).clientY - startY;
+    startY = null; sheet.style.transform = '';
+    if(dy > 110) history.back();
+  });
 }
-function closeDetail() {
-  if (_topIsModal('sheet')) history.back();
-  else _closeDetailUI();
-}
-
-/* ================= web-push day-before reminders ================= */
-const pushSupported = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
-const urlB64ToU8 = s => {
-  const pad = '='.repeat((4 - s.length % 4) % 4);
-  const b = atob(s.replace(/-/g, '+').replace(/_/g, '/') + pad);
-  const a = new Uint8Array(b.length);
-  for (let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i);
-  return a;
-};
-async function getPushSub() {
-  try {
-    const r = await navigator.serviceWorker.ready;
-    return await r.pushManager.getSubscription();
-  } catch { return null; }
-}
-async function ensurePushSub() {
-  let sub = await getPushSub();
-  if (sub) return sub;
-  const { public_key } = await api('/api/push/vapid-public');
-  const r = await navigator.serviceWorker.ready;
-  return r.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToU8(public_key) });
-}
-async function syncPushServer() {
-  // re-register subscription + reminded ids; self-heals after server DB wipes
-  try {
-    const sub = await getPushSub();
-    if (!sub || !state.remind.length) return;
-    await api('/api/push/subscribe', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subscription: sub.toJSON(), event_ids: state.remind }),
-    });
-  } catch {}
-}
-async function toggleRemind(ev, btn) {
-  if (!pushSupported()) { toast('Notifications are not supported in this browser'); return; }
-  buzz(8);
-  if (state.remind.includes(ev.id)) {
-    state.remind = state.remind.filter(id => id !== ev.id);
-    saveLocal();
-    if (!state.remind.length) {
-      const sub = await getPushSub();
-      if (sub) {
-        try { await sub.unsubscribe(); } catch {}
-        try {
-          await api('/api/push/unsubscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ endpoint: sub.endpoint }) });
-        } catch {}
-      }
-    } else syncPushServer();
-    renderSaved($('#saved-search').value);
-    return;
-  }
-  btn.disabled = true;
-  try {
-    if (Notification.permission === 'denied') { toast('Notifications are blocked — enable them in browser settings'); return; }
-    if (Notification.permission === 'default' && await Notification.requestPermission() !== 'granted') return;
-    const sub = await ensurePushSub();
-    if (!state.remind.includes(ev.id)) state.remind.push(ev.id);
-    saveLocal();
-    await api('/api/push/subscribe', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subscription: sub.toJSON(), event_ids: state.remind }),
-    });
-    beacon('remind', ev.id);
-    toast("We'll remind you the day before");
-  } catch { toast('Could not set the reminder'); }
-  finally { renderSaved($('#saved-search').value); }
-}
-
-function downloadICS(ev) {
-  const dt = s => s ? s.replace(/-/g, '') : '';
-  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ThisWeekSaudi//Events//EN', 'BEGIN:VEVENT',
-    `UID:${ev.id}@thisweeksaudi`, `DTSTART;VALUE=DATE:${dt(ev.start)}`,
-    ev.end && ev.end !== ev.start ? `DTEND;VALUE=DATE:${dt(ev.end)}` : null,
-    `SUMMARY:${ev.title.replace(/[,;]/g, ' ')}`,
-    `LOCATION:${[ev.venue, ev.city].filter(Boolean).join(', ').replace(/[,;]/g, ' ')}`,
-    ev.url ? `URL:${ev.url}` : null,
-    'END:VEVENT', 'END:VCALENDAR'].filter(Boolean).join('\r\n');
+function downloadICS(ev){
+  const dt = s => { const d = new Date(s); return isNaN(d) ? null :
+    d.getUTCFullYear() + String(d.getUTCMonth()+1).padStart(2,'0') + String(d.getUTCDate()).padStart(2,'0') + 'T' +
+    String(d.getUTCHours()).padStart(2,'0') + String(d.getUTCMinutes()).padStart(2,'0') + '00Z'; };
+  const ds = dt(ev.date_start), de = dt(ev.date_end) || ds;
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ThisWeekSaudi//EN','BEGIN:VEVENT',
+    'UID:' + ev.id + '@thisweeksaudi',
+    'DTSTAMP:' + dt(new Date().toISOString()),
+    ds ? 'DTSTART:' + ds : null, de ? 'DTEND:' + de : null,
+    'SUMMARY:' + String(ev.title||'').replace(/[,;]/g,' '),
+    'LOCATION:' + String((ev.venue||'') + ', ' + (ev.city||'')).replace(/[,;]/g,' '),
+    'DESCRIPTION:' + String(ev.reg_url || ev.source_url || '').replace(/[,;]/g,' '),
+    'END:VEVENT','END:VCALENDAR'].filter(Boolean).join('\r\n');
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
-  a.download = ev.id + '.ics';
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
+  a.download = 'event-' + ev.id + '.ics';
+  document.body.appendChild(a); a.click(); a.remove();
+  beacon('ics', {id: ev.id});
+  toast('Calendar file downloaded');
+}
+async function shareEvent(ev){
+  const url = location.origin + location.pathname + '#e=' + ev.id;
+  const data = {title: ev.title, text: ev.title + ' — ' + niceDate(ev), url};
+  if(navigator.share){
+    try{ await navigator.share(data); beacon('share', {id: ev.id, via:'native'}); }catch(e){}
+  } else {
+    try{ await navigator.clipboard.writeText(url); toast('Link copied to clipboard'); beacon('share', {id: ev.id, via:'copy'}); }
+    catch(e){ toast('Copy this link: ' + url); }
+  }
+}
+async function sendReport(ev){
+  const msg = $('#rep-msg').value.trim();
+  if(!msg){ toast('Please describe the problem.'); return; }
+  try{
+    await fetch('/api/report', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({event_id: ev.id, name: $('#rep-name').value, contact: $('#rep-contact').value, message: msg})});
+    toast('Thanks — report sent.');
+    $('#sheet-report-form').classList.add('hidden');
+    beacon('report', {id: ev.id});
+  }catch(e){ toast('Could not send — try again later.'); }
 }
 
-/* ================= map ================= */
-function geoPool(events, concurrency, onProgress) {
-  const queue = events.slice();
-  const results = [];
-  const workers = Array.from({ length: concurrency }, async () => {
-    while (queue.length) {
-      const ev = queue.shift();
-      let g;
-      try { g = await geoFor(ev); } catch { g = { lat: null, lng: null }; }
-      results.push({ ev, g });
-      if (onProgress) onProgress(results.length);
+/* ---------- all events list ---------- */
+function buildList(){
+  buildListFilters();
+  renderRails();
+  renderRecent();
+  renderList();
+}
+function buildListFilters(){
+  const dates = [
+    {k:'', label:'All dates'}, {k:'today', label:'Today'}, {k:'weekend', label:'This weekend'},
+    {k:'week', label:'This week'}, {k:'month', label:'This month'}
+  ];
+  $('#date-chips').innerHTML = dates.map(d =>
+    '<button class="chip sm' + (state.fDate===d.k?' on':'') + '" data-fdate="' + d.k + '">' + d.label + '</button>').join('');
+  $('#domain-chips-list').innerHTML = '<button class="chip sm' + (!state.fDom?' on':'') + '" data-fdom="">All topics</button>' +
+    state.meta.domains.map(d =>
+      '<button class="chip sm' + (state.fDom===d.key?' on':'') + '" data-fdom="' + esc(d.key) + '">' + esc(d.label.split(' &')[0]) + '</button>').join('');
+  $('#city-chips-list').innerHTML = '<button class="chip sm' + (!state.fCity?' on':'') + '" data-fcity="">All cities</button>' +
+    state.meta.cities.map(c =>
+      '<button class="chip sm' + (state.fCity===c?' on':'') + '" data-fcity="' + esc(c) + '">' + esc(c) + '</button>').join('');
+}
+function renderRails(){
+  const rails = $('#rails');
+  const now = new Date();
+  const upcoming = state.events.filter(e => !state.saved.includes(e.id) && e.date_start && new Date(e.date_start) >= now)
+    .sort((a,b)=>a.date_start.localeCompare(b.date_start));
+  const cheap = state.events.filter(e => !state.saved.includes(e.id) && (e.is_free || (e.price_min!=null && Number(e.price_min) <= 50)))
+    .sort((a,b)=>(a.date_start||'zzzz').localeCompare(b.date_start||'zzzz'));
+  const mk = (title, list) => list.length ?
+    '<div class="rail"><div class="rail-title">' + esc(title) + '</div><div class="rail-track">' +
+    list.slice(0,10).map((ev,i) =>
+      '<button class="rail-card" data-rail="' + ev.id + '">' +
+      '<div class="rail-thumb" data-thumb="' + ev.id + '">' + esc(initials(ev.title)) + '</div>' +
+      '<div class="rail-info"><div class="rail-t">' + esc(ev.title) + '</div>' +
+      '<div class="rail-s">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + '</div></div></button>').join('') +
+    '</div></div>' : '';
+  rails.innerHTML = mk('Happening soon', upcoming) + mk('Free & under SAR 50', cheap);
+  $$('.rail-card', rails).forEach(c => c.addEventListener('click', () => {
+    const ev = state.events.find(e => e.id === c.getAttribute('data-rail'));
+    if(ev) openDetail(ev, 'list');
+  }));
+  $$('[data-thumb]', rails).forEach(t => {
+    const ev = state.events.find(e => e.id === t.getAttribute('data-thumb'));
+    if(!ev) return;
+    const img = new Image();
+    img.onload = () => { t.style.backgroundImage = 'url("' + previewURL(ev).replace(/"/g,'') + '")'; t.textContent=''; };
+    img.src = previewURL(ev);
+  });
+}
+function matchesList(ev){
+  if(state.fCity && ev.city !== state.fCity) return false;
+  if(state.fDom && !(ev.domains||[]).includes(state.fDom)) return false;
+  if(state.fDate){
+    const ds = dstr(ev), now = new Date();
+    const iso = d => d.toISOString().slice(0,10);
+    if(state.fDate === 'today' && ds !== iso(now)) return false;
+    if(state.fDate === 'week'){
+      const end = new Date(now); end.setDate(end.getDate()+7);
+      if(!ds || ds < iso(now) || ds > iso(end)) return false;
     }
+    if(state.fDate === 'month'){
+      const end = new Date(now); end.setDate(end.getDate()+30);
+      if(!ds || ds < iso(now) || ds > iso(end)) return false;
+    }
+    if(state.fDate === 'weekend'){
+      const sat = new Date(now), sun = new Date(now);
+      sat.setDate(sat.getDate() + ((6 - sat.getDay() + 7) % 7));
+      sun.setDate(sun.getDate() + ((7 - sun.getDay()) % 7));
+      if(!ds || ds < iso(sat) || ds > iso(sun)) return false;
+    }
+  }
+  if(state.fQ){
+    const q = state.fQ.toLowerCase();
+    const hay = (ev.title + ' ' + (ev.venue||'') + ' ' + (ev.city||'') + ' ' + (ev.description||'')).toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+function hi(text, q){
+  if(!q) return esc(text);
+  const i = String(text).toLowerCase().indexOf(q.toLowerCase());
+  if(i < 0) return esc(text);
+  return esc(String(text).slice(0,i)) + '<mark>' + esc(String(text).slice(i, i+q.length)) + '</mark>' + esc(String(text).slice(i+q.length));
+}
+function renderList(){
+  const list = state.events.filter(matchesList);
+  if(state.sort === 'date') list.sort((a,b)=>(a.date_start||'zzzz').localeCompare(b.date_start||'zzzz'));
+  else if(state.sort === 'price') list.sort((a,b)=>(a.is_free?0:Number(a.price_min)||1e9)-(b.is_free?0:Number(b.price_min)||1e9));
+  else if(state.sort === 'nearest' && state._geo) list.sort((a,b)=>dist(a)-dist(b));
+  $('#list-count').textContent = list.length + ' event' + (list.length===1?'':'s');
+  const box = $('#event-list');
+  if(!list.length){ box.innerHTML = '<div class="ev-empty">No events match.<br>Try widening your filters.</div>'; return; }
+  let lastSec = '';
+  box.innerHTML = list.map((ev, i) => {
+    const sec = state.sort === 'date' && ev.date_start
+      ? new Date(ev.date_start).toLocaleDateString('en-US',{month:'long', year:'numeric'}) : '';
+    const secHtml = (sec && sec !== lastSec) ? '<div class="ev-sec">' + esc(sec) + '</div>' : '';
+    lastSec = sec || lastSec;
+    return secHtml + eventRow(ev, i, 'list');
+  }).join('');
+  wireRows(box, 'list');
+}
+function dist(ev){
+  if(!state._geo || !ev._lat) return 1e9;
+  const R=6371, dLa=(ev._lat-state._geo.lat)*Math.PI/180, dLo=(ev._lon-state._geo.lon)*Math.PI/180;
+  const a=Math.sin(dLa/2)**2 + Math.cos(state._geo.lat*Math.PI/180)*Math.cos(ev._lat*Math.PI/180)*Math.sin(dLo/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
+function eventRow(ev, i, from){
+  return '<div class="ev-row" data-row="' + ev.id + '" data-from="' + from + '" style="--i:' + Math.min(i,12) + '">' +
+    '<div class="ev-thumb" data-ethumb="' + ev.id + '">' + esc(initials(ev.title)) + '</div>' +
+    '<div class="ev-info"><div class="ev-title">' + hi(ev.title, state.fQ) + '</div>' +
+    '<div class="ev-sub">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + ' · ' + esc(fmtPrice(ev)) + '</div></div>' +
+    '<div class="row-chev">›</div></div>';
+}
+function wireRows(box, from){
+  $$('.ev-row', box).forEach(r => r.addEventListener('click', () => {
+    const ev = state.events.find(e => e.id === r.getAttribute('data-row'));
+    if(ev) openDetail(ev, r.getAttribute('data-from') || from);
+  }));
+  $$('[data-ethumb]', box).forEach(t => {
+    const ev = state.events.find(e => e.id === t.getAttribute('data-ethumb'));
+    if(!ev) return;
+    const img = new Image();
+    img.onload = () => { t.style.backgroundImage = 'url("' + previewURL(ev).replace(/"/g,'') + '")'; t.textContent=''; };
+    img.src = previewURL(ev);
   });
-  return Promise.all(workers).then(() => results);
 }
-function warmGeoCache(events) {
-  if (!events || !events.length) return;
-  geoPool(events, 4, null).catch(() => {});
+function renderRecent(){
+  const box = $('#recent-searches');
+  if(!state.recent.length){ box.classList.add('hidden'); box.innerHTML=''; return; }
+  box.classList.remove('hidden');
+  box.innerHTML = '<span class="row-label">Recent</span>' + state.recent.slice(0,6).map(q =>
+    '<button class="chip sm" data-recent="' + esc(q) + '">' + esc(q) + '</button>').join('');
+  $$('[data-recent]', box).forEach(b => b.addEventListener('click', () => {
+    $('#list-search').value = b.getAttribute('data-recent');
+    state.fQ = b.getAttribute('data-recent');
+    renderList();
+  }));
 }
-function userLocation() {
-  return new Promise(resolve => {
-    let settled = false;
-    const done = v => { if (!settled) { settled = true; resolve(v); } };
-    if (!navigator.geolocation) return done(null);
-    try {
-      navigator.geolocation.getCurrentPosition(
-        p => done([p.coords.latitude, p.coords.longitude]),
-        () => done(null),
-        { timeout: 7000, maximumAge: 900000 });
-    } catch { return done(null); }
-    setTimeout(() => done(null), 8000);
+let listSearchT = null;
+function wireList(){
+  $('#btn-list-back').addEventListener('click', () => history.back());
+  $('#list-search').addEventListener('input', e => {
+    clearTimeout(listSearchT);
+    listSearchT = setTimeout(() => {
+      const q = e.target.value.trim();
+      if(q && !state.recent.includes(q)){ state.recent.unshift(q); state.recent = state.recent.slice(0,8); saveRecent(); renderRecent(); }
+      state.fQ = q;
+      renderList();
+    }, 220);
   });
+  $('#date-chips').addEventListener('click', e => {
+    const c = e.target.closest('[data-fdate]'); if(!c) return;
+    state.fDate = c.getAttribute('data-fdate');
+    $$('#date-chips .chip').forEach(x => x.classList.toggle('on', x === c));
+    renderList();
+  });
+  $('#domain-chips-list').addEventListener('click', e => {
+    const c = e.target.closest('[data-fdom]'); if(!c) return;
+    state.fDom = c.getAttribute('data-fdom');
+    $$('#domain-chips-list .chip').forEach(x => x.classList.toggle('on', x === c));
+    renderList();
+  });
+  $('#city-chips-list').addEventListener('click', e => {
+    const c = e.target.closest('[data-fcity]'); if(!c) return;
+    state.fCity = c.getAttribute('data-fcity');
+    $$('#city-chips-list .chip').forEach(x => x.classList.toggle('on', x === c));
+    renderList();
+  });
+  $('#sort-sel').addEventListener('change', e => { state.sort = e.target.value; renderList(); });
 }
-function mapBaseEvents() {
-  return state.filtered && state.filtered.length ? state.filtered : state.all;
+
+/* ---------- saved ---------- */
+function buildSaved(){
+  renderSaved($('#saved-search').value.trim());
 }
-function renderMapFilters() {
-  const bar = $('#map-filters');
-  bar.innerHTML = '';
-  const cats = [...new Set(mapBaseEvents().map(e => e.category).filter(Boolean))].sort();
-  const mk = (val, label) => {
-    const b = document.createElement('button');
-    b.className = 'chip' + (state.mapCat === val ? ' on' : '');
-    b.textContent = label;
-    b.onclick = () => {
-      if (state.mapCat === val) return;
-      state.mapCat = val;
-      renderMapFilters();
-      plotMapMarkers(false);
-    };
-    bar.appendChild(b);
-  };
-  mk(null, t('allDates') === 'All dates' ? 'All' : 'الكل');
-  cats.forEach(c => mk(c, catLabel(c)));
-  bar.style.display = cats.length ? '' : 'none';
+function savedRow(ev, i){
+  const id = ev.id;
+  const reminded = !!state.remind[id];
+  const future = ev.date_start && new Date(ev.date_start) > new Date();
+  return '<div class="ev-row" data-row="' + id + '" data-from="saved" style="--i:' + Math.min(i,12) + '">' +
+    '<div class="ev-thumb" data-ethumb="' + id + '">' + esc(initials(ev.title)) + '</div>' +
+    '<div class="ev-info"><div class="ev-title">' + esc(ev.title) + '</div>' +
+    '<div class="ev-sub">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + ' · ' + esc(fmtPrice(ev)) + '</div></div>' +
+    '<div class="ev-actions">' +
+    (future ? '<button class="remind-btn' + (reminded?' on':'') + '" data-remind="' + id + '" aria-label="Remind me">' +
+      '<svg viewBox="0 0 24 24" width="17" height="17" fill="' + (reminded?'currentColor':'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg></button>' : '') +
+    '<button class="ev-unsave" data-unsave="' + id + '" aria-label="Remove">' +
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+    '</div></div>';
 }
-function evIcon(ev) {
-  if (ev.image && /^https?:\/\//.test(ev.image)) {
-    return L.divIcon({ className: 'ev-pin-wrap',
-      html: `<div class="ev-pin" style="background-image:url(&quot;${esc(ev.image)}&quot;)"></div>`,
-      iconSize: [38, 38], iconAnchor: [19, 19] });
-  }
-  return L.divIcon({ className: 'ev-dot-wrap', html: '<div class="ev-dot"></div>',
-    iconSize: [16, 16], iconAnchor: [8, 8] });
-}
-async function openMap(hist = true) {
-  $('#map-modal').classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  if (hist) _pushHist({ modal: 'map' });
-  if (!state.map) {
-    state.map = L.map('map').setView([24.0, 45.0], 5);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18, attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(state.map);
-    state.youLayer = L.layerGroup().addTo(state.map);
-  }
-  setTimeout(() => state.map.invalidateSize(), 100);
-  renderMapFilters();
-  const status = $('#map-status');
-  status.style.opacity = '1';
-  status.textContent = 'Finding you…';
-  const you = await userLocation();
-  state.youLayer.clearLayers();
-  if (you) {
-    state.youLayer.clearLayers();
-    state.map.setView(you, 10);
-    L.circleMarker(you, { radius: 8, color: '#4aa3ff', weight: 3, fillColor: '#4aa3ff', fillOpacity: 0.9 })
-      .addTo(state.youLayer).bindPopup('You are here');
-  }
-  await plotMapMarkers(!you);
-}
-async function plotMapMarkers(refit) {
-  const status = $('#map-status');
-  const sig = [...state.cities].sort().join(',') + '|' + [...state.cats].sort().join(',')
-    + '|' + [...state.domains].sort().join(',') + '|' + (state.mapCat || '');
-  if (state.mapPlottedFor === sig) {
-    onMapSearch($('#map-search').value || '');
-    status.style.opacity = '0';
+function renderSaved(q){
+  const box = $('#saved-list');
+  const ql = (q||'').toLowerCase();
+  const list = state.saved.map(id => state.events.find(e => e.id === id)).filter(Boolean)
+    .filter(ev => !ql || (ev.title + ' ' + (ev.venue||'') + ' ' + (ev.city||'')).toLowerCase().includes(ql))
+    .sort((a,b)=>(a.date_start||'zzzz').localeCompare(b.date_start||'zzzz'));
+  if(!list.length){
+    box.innerHTML = '<div class="ev-empty">' + (ql ? 'Nothing saved matches.' : 'Nothing saved yet.<br>Swipe right or tap the heart on anything you like.') + '</div>';
     return;
   }
-  if (state.markers) state.markers.clearLayers();
-  else state.markers = (L.markerClusterGroup
-    ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 56 })
-    : L.layerGroup()).addTo(state.map);
-  state.mapPlottedFor = sig;
-  state.plotted = [];
-  let events = mapBaseEvents();
-  if (state.mapCat) events = events.filter(e => e.category === state.mapCat);
-  status.style.opacity = '1';
-  status.textContent = 'Plotting events…';
-  const results = await geoPool(events, 6,
-    n => { status.textContent = `Plotting events… ${n}/${events.length}`; });
-  let plotted = 0;
-  const bounds = [];
-  for (const { ev, g } of results) {
-    if (g.lat == null) continue;
-    plotted++;
-    bounds.push([g.lat, g.lng]);
-    const m = L.marker([g.lat, g.lng], { icon: evIcon(ev) }).addTo(state.markers);
-    state.plotted.push({ m, ev });
-    const img = ev.image && /^https?:\/\//.test(ev.image)
-      ? `<div class="map-pop-img" style="background-image:url(&quot;${esc(ev.image)}&quot;)"></div>` : '';
-    const viewBtn = ev.url
-      ? `<a class="map-pop-open primary" href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(t('viewEvent'))}</a>` : '';
-    m.bindPopup(`<div class="map-pop">${img}<div class="map-pop-title">${esc(ev.title)}</div>
-      <div class="map-pop-meta">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}</div>
-      <div class="map-pop-actions">${viewBtn}<button class="map-pop-open" data-id="${esc(ev.id)}">${esc(t('details'))}</button></div></div>`);
-    m.on('popupopen', e => {
-      const btn = e.popup.getElement().querySelector('button.map-pop-open');
-      if (btn) btn.onclick = () => {
-        const found = state.all.find(x => x.id === btn.dataset.id);
-        if (found) { closeMap(); openDetail(found, { fromMap: true }); }
-      };
-    });
-  }
-  if (refit && bounds.length) state.map.fitBounds(bounds, { padding: [40, 40] });
-  onMapSearch($('#map-search').value); // re-apply the search filter
-  if (!$('#map-search').value.trim()) {
-    const unverified = events.length - plotted;
-    if (unverified > 0) status.textContent = `${plotted} of ${events.length} events have verified map locations`;
-    else {
-      status.textContent = `${plotted} event${plotted === 1 ? '' : 's'} plotted`;
-      setTimeout(() => status.style.opacity = '0', 2200);
-    }
-  }
+  box.innerHTML = list.map((ev,i) => savedRow(ev, i)).join('');
+  wireRows(box, 'saved');
+  $$('[data-unsave]', box).forEach(b => b.addEventListener('click', async e => {
+    e.stopPropagation();
+    const id = b.getAttribute('data-unsave');
+    if(state.remind[id]) await toggleRemind(id, false);
+    state.saved = state.saved.filter(x => x !== id);
+    saveSaved(); updateSavedBadge(); renderSaved($('#saved-search').value.trim());
+    syncPushServer();
+    toast('Removed');
+  }));
+  $$('[data-remind]', box).forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    const id = b.getAttribute('data-remind');
+    toggleRemind(id, !state.remind[id]);
+    renderSaved($('#saved-search').value.trim());
+  }));
 }
-let mapSearchT;
-function onMapSearch(v) {
-  clearTimeout(mapSearchT);
-  mapSearchT = setTimeout(() => {
-    if (!state.plotted || !state.markers) return;
-    const tokens = norm(v).split(' ').filter(x => x.length);
-    const status = $('#map-status');
-    let shown = 0;
-    state.plotted.forEach(({ m, ev }) => {
-      const hit = !tokens.length || searchScore(ev, tokens) > 0;
-      const on = state.markers.hasLayer(m);
-      if (hit && !on) state.markers.addLayer(m);
-      if (!hit && on) state.markers.removeLayer(m);
-      if (hit) shown++;
-    });
-    if (tokens.length) {
-      status.style.opacity = '1';
-      status.textContent = `${shown} match${shown === 1 ? '' : 'es'}`;
-    } else status.style.opacity = '0';
-  }, tokens0(v));
-}
-const tokens0 = v => v.trim() ? 200 : 0;
-function mapSearchGo() {
-  const tokens = norm($('#map-search').value).split(' ').filter(x => x.length);
-  if (!tokens.length || !state.plotted) return;
-  const scored = state.plotted
-    .map(p => ({ p, s: searchScore(p.ev, tokens) }))
-    .filter(x => x.s > 0).sort((a, b) => b.s - a.s)[0];
-  if (scored) {
-    state.map.flyTo(scored.p.m.getLatLng(), 13, { duration: .8 });
-    setTimeout(() => scored.p.m.openPopup(), 850);
-  }
-}
-function closeMap() {
-  $('#map-modal').classList.add('hidden');
-  document.body.style.overflow = '';
-}
-function closeMapUI() {
-  if (_topIsModal('map')) history.back();
-  else closeMap();
+function wireSaved(){
+  $('#btn-saved-back').addEventListener('click', () => history.back());
+  $('#saved-search').addEventListener('input', e => renderSaved(e.target.value.trim()));
 }
 
-/* ================= PWA ================= */
+/* ---------- push ---------- */
+function urlB64(s){
+  const b = atob(s.replace(/-/g,'+').replace(/_/g,'/'));
+  const a = new Uint8Array(b.length);
+  for(let i=0;i<b.length;i++) a[i] = b.charCodeAt(i);
+  return a;
+}
+async function bootPush(){
+  if(!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  try{
+    const reg = await navigator.serviceWorker.register('sw.js');
+    const sub = await reg.pushManager.getSubscription();
+    if(sub) syncPushServer(sub);
+    // re-sync remind flags for saved events
+    for(const id of state.saved){ if(state.remind[id]) await toggleRemind(id, true, true); }
+  }catch(e){}
+}
+async function syncPushServer(sub){
+  try{
+    if(!sub){
+      const reg = await navigator.serviceWorker.ready;
+      sub = await reg.pushManager.getSubscription();
+    }
+    if(!sub) return;
+    const ids = Object.keys(state.remind).filter(id => state.remind[id] && state.saved.includes(id));
+    const key = await fetch('/api/push/vapid-public').then(r=>r.json()).then(j=>j.key).catch(()=>null);
+    await fetch('/api/push/sync', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({subscription: sub.toJSON(), event_ids: ids})});
+  }catch(e){}
+}
+async function toggleRemind(id, on, silent){
+  if(on && !state.saved.includes(id)){ state.saved.unshift(id); saveSaved(); updateSavedBadge(); }
+  try{
+    const reg = await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    if(on && !sub){
+      const {key} = await fetch('/api/push/vapid-public').then(r=>r.json());
+      sub = await reg.pushManager.subscribe({userVisibleOnly:true, applicationServerKey: urlB64(key)});
+      try{ await Notification.requestPermission(); }catch(e){}
+    }
+    if(!on && sub && !Object.keys(state.remind).some(k => k !== id && state.remind[k])){
+      await sub.unsubscribe();
+      try{ await fetch('/api/push/sync', {method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({subscription: null, event_ids: []})}); }catch(e){}
+    }
+    if(on){ state.remind[id] = Date.now(); }
+    else delete state.remind[id];
+    saveRemind();
+    await syncPushServer(sub);
+    if(!silent) toast(on ? 'Reminder set' : 'Reminder off');
+    beacon('remind', {id, on: !!on});
+  }catch(e){
+    if(!silent) toast('Notifications unavailable here.');
+  }
+}
+
+/* ---------- map ---------- */
+let map = null, markers = null, mapState = { plotted: 0 };
+function openMap(fromHist){
+  if(!fromHist) _pushHist({kind:'map'});
+  mapModal().classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  renderMapFilters();
+  setTimeout(() => {
+    if(!map){
+      map = L.map('map', {zoomControl: false}).setView([24.6, 46.7], 6);
+      L.control.zoom({position:'bottomright'}).addTo(map);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 19
+      }).addTo(map);
+      markers = L.markerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, maxClusterRadius: 48});
+      map.addLayer(markers);
+      map.on('popupopen', e => {
+        const btn = e.popup.getElement().querySelector('[data-pop]');
+        if(btn) btn.addEventListener('click', () => {
+          const ev = state.events.find(x => x.id === btn.getAttribute('data-pop'));
+          if(ev){ closeMap(true); openDetail(ev, 'map'); }
+        });
+      });
+    }
+    map.invalidateSize();
+    plotMapMarkers($('#map-search').value.trim());
+  }, 60);
+  beacon('map_open', {});
+}
+function closeMap(fromHist){
+  mapModal().classList.add('hidden');
+  document.body.style.overflow = '';
+}
+function renderMapFilters(){
+  const box = $('#map-filters');
+  box.innerHTML = '<button class="chip on" data-mcat="">All</button>' +
+    state.meta.categories.map(c =>
+      '<button class="chip' + (mapState.cat === c.key ? ' on' : '') + '" data-mcat="' + esc(c.key) + '">' + esc(c.label) + '</button>').join('');
+  $$('[data-mcat]', box).forEach(b => b.addEventListener('click', () => {
+    mapState.cat = b.getAttribute('data-mcat') || null;
+    $$('[data-mcat]', box).forEach(x => x.classList.toggle('on', x === b));
+    plotMapMarkers($('#map-search').value.trim());
+  }));
+}
+function mapFiltered(){
+  const q = $('#map-search').value.trim().toLowerCase();
+  return state.events.filter(ev => {
+    if(mapState.cat && ev.category !== mapState.cat) return false;
+    if(q && !(ev.title + ' ' + (ev.venue||'') + ' ' + (ev.city||'')).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+async function plotMapMarkers(){
+  const status = $('#map-status');
+  status.style.opacity = 1;
+  status.textContent = 'Plotting events…';
+  const list = mapFiltered();
+  markers.clearLayers();
+  let n = 0;
+  const queue = list.slice();
+  const workers = Array.from({length: 4}, async () => {
+    while(queue.length){
+      const ev = queue.shift();
+      const ll = await geocode(ev);
+      if(!ll) continue;
+      n++;
+      const usePin = ev._imgOk;
+      const icon = L.divIcon({
+        className: usePin ? 'ev-pin-wrap' : 'ev-dot-wrap',
+        html: usePin
+          ? '<div class="ev-pin" style="background-image:url(\'' + previewURL(ev).replace(/'/g,'') + '\')"></div>'
+          : '<div class="ev-dot"></div>',
+        iconSize: usePin ? [38,38] : [14,14],
+        iconAnchor: usePin ? [19,19] : [7,7]
+      });
+      const popImg = ev._imgOk
+        ? '<div class="map-pop-img" style="background-image:url(\'' + previewURL(ev).replace(/'/g,'') + '\')"></div>' : '';
+      const m = L.marker([ll.lat, ll.lon], {icon});
+      m.bindPopup('<div class="map-pop">' + popImg +
+        '<div class="map-pop-title">' + esc(ev.title) + '</div>' +
+        '<div class="map-pop-meta">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + '</div>' +
+        '<div class="map-pop-actions"><button class="map-pop-open primary" data-pop="' + ev.id + '">Details</button></div></div>',
+        {closeButton: true});
+      markers.addLayer(m);
+      if(n % 25 === 0) status.textContent = 'Plotting… ' + n;
+    }
+  });
+  await Promise.all(workers);
+  mapState.plotted = n;
+  if(n && markers.getBounds().isValid()) map.fitBounds(markers.getBounds().pad(0.15));
+  status.textContent = n ? n + ' events on the map' : 'No events to plot';
+  setTimeout(() => { status.style.opacity = 0; }, 2200);
+  beacon('map_plot', {n});
+}
+const geoCache = {};
+async function geocode(ev){
+  const key = (ev.venue || '') + '|' + (ev.city || '');
+  if(geoCache[key] !== undefined) return geoCache[key];
+  try{
+    const q = encodeURIComponent((ev.venue ? ev.venue + ', ' : '') + (ev.city || 'Saudi Arabia'));
+    const r = await fetch('/api/geocode?q=' + q);
+    const j = await r.json();
+    const ll = (j && j.lat != null) ? {lat: j.lat, lon: j.lon} : null;
+    geoCache[key] = ll;
+    return ll;
+  }catch(e){ geoCache[key] = null; return null; }
+}
+function warmGeocode(){
+  // background pre-warm so the map opens fast
+  const list = state.events.slice(0, 400);
+  let i = 0;
+  const workers = Array.from({length: 4}, async () => {
+    while(i < list.length){ const ev = list[i++]; await geocode(ev); }
+  });
+  Promise.all(workers).catch(()=>{});
+  // probe preview images so map pins know whether to use photo pins
+  state.events.forEach(ev => {
+    const img = new Image();
+    img.onload = () => { ev._imgOk = true; };
+    img.src = previewURL(ev);
+  });
+}
+let mapSearchT = null;
+function wireMap(){
+  $('#map-close').addEventListener('click', () => history.back());
+  $('#map-search').addEventListener('input', () => {
+    clearTimeout(mapSearchT);
+    mapSearchT = setTimeout(() => { if(!mapModal().classList.contains('hidden')) plotMapMarkers(); }, 300);
+  });
+}
+
+/* ---------- PWA install ---------- */
 let deferredPrompt = null;
-function initPWA() {
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+function wireInstall(){
   window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredPrompt = e;
+    e.preventDefault(); deferredPrompt = e;
     $('#btn-install').classList.remove('hidden');
   });
-  $('#btn-install').onclick = async () => {
-    if (!deferredPrompt) return;
+  $('#btn-install').addEventListener('click', async () => {
+    if(!deferredPrompt) return;
     deferredPrompt.prompt();
-    try { await deferredPrompt.userChoice; } catch {}
+    await deferredPrompt.userChoice;
     deferredPrompt = null;
     $('#btn-install').classList.add('hidden');
-  };
+  });
+}
+function wirePWA(){
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  }
 }
 
-/* ================= wire up & boot ================= */
-$('#btn-pass').onclick = () => flyOut(-1, () => decide(false));
-$('#btn-like').onclick = () => flyOut(1, () => decide(true));
-$('#btn-undo').onclick = undo;
-$('#btn-map').onclick = () => openMap();
-$('#map-close').onclick = closeMapUI;
-$('#btn-saved').onclick = () => { renderSaved(''); $('#saved-search').value = ''; showView('#view-saved'); };
-const _inAppBack = fallback => {
-  if (window.history.length > 1) history.back();
-  else showView(fallback, 'replace');
-};
-$('#btn-saved-back').onclick = () => _inAppBack('#view-deck');
-$('#btn-list-back').onclick = () => _inAppBack('#view-onboard');
-$('#saved-search').oninput = e => renderSaved(e.target.value);
-$('#btn-prefs').onclick = () => { initOnboard(); showView('#view-onboard', 'replace'); };
-$('#btn-rebuild').onclick = () => $('#btn-prefs').click();
-$('#sheet-close').onclick = closeDetail;
-$('#sheet-backdrop').onclick = closeDetail;
-$$('.lang-btn').forEach(b => b.onclick = () => { buzz(8); setLang(state.lang === 'ar' ? 'en' : 'ar'); });
-$('#list-search').addEventListener('input', e => onListSearch(e.target.value));
-$('#list-search').addEventListener('focus', renderRecent);
-$('#list-search').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { pushRecent(e.target.value); $('#recent-searches').classList.add('hidden'); e.target.blur(); }
-});
-$('#sort-sel').addEventListener('change', async e => {
-  listF.sort = e.target.value; buzz(8);
-  if (listF.sort === 'nearest') {
-    const loc = await userLocation();
-    if (!loc) { toast(t('needLocation')); e.target.value = 'date'; listF.sort = 'date'; return; }
-    state.youLoc = loc;
-    await geoPool(state.all, 6, null).catch(() => {});
+/* ---------- global wiring ---------- */
+function wireGlobal(){
+  wireAha();
+  // geolocation for "nearest" sort
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(p => {
+      state._geo = {lat: p.coords.latitude, lon: p.coords.longitude};
+    }, ()=>{}, {timeout: 6000});
   }
-  renderList();
-});
-$('#map-search').addEventListener('input', e => onMapSearch(e.target.value));
-$('#map-search').addEventListener('keydown', e => { if (e.key === 'Enter') mapSearchGo(); });
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeDetail(); closeMapUI(); return; }
-  const typing = /INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '');
-  if (e.key === '/' && !typing) {
-    if ($('#view-list').classList.contains('active')) { e.preventDefault(); $('#list-search').focus(); }
-    else if ($('#view-saved').classList.contains('active')) { e.preventDefault(); $('#saved-search').focus(); }
-    return;
-  }
-  if (!$('#view-deck').classList.contains('active') || !$('#detail-sheet').classList.contains('hidden')) return;
-  if (e.key === 'ArrowRight') $('#btn-like').click();
-  if (e.key === 'ArrowLeft') $('#btn-pass').click();
-});
-window.addEventListener('popstate', e => {
-  const s = e.state || {};
-  _histLock = true;
-  try {
-    _closeDetailUI();
-    closeMap();
-    if (s.modal === 'map') openMap(false);
-    else if (s.modal === 'sheet' && s.eid) {
-      const ev = (state.all || []).find(x => x.id === s.eid);
-      if (ev) openDetail(ev, {});
-    } else if (s.view === '#view-deck' && !(state.filtered && state.filtered.length)) {
-      showView('#view-onboard', 'none');
-    } else if (s.view) {
-      if (s.view === '#view-list') { buildListFilters(); renderList(); }
-      if (s.view === '#view-saved') renderSaved(($('#saved-search') || {}).value || '');
-      showView(s.view, 'none');
-    } else showView('#view-onboard', 'none');
-  } finally { _histLock = false; }
-});
-_replaceHist({ view: '#view-onboard' });
+  // warm caches after first paint
+  setTimeout(warmGeocode, 2500);
+}
 
-(async function boot() {
-  setLang(state.lang, false);
-  applyI18n();
-  initPWA();
-  try {
-    const data = await api('/api/events?limit=2000');
-    state.all = data.events;
-    await initOnboard();
-    updateSavedCount();
-    // re-register push subscription after server DB wipes (free tier redeploys)
-    if (pushSupported() && Notification.permission === 'granted' && state.remind.length) syncPushServer();
-    // deep link: /#e=<id> (the /e/<id> page redirects here for crawlers' sake)
-    const m = location.hash.match(/^#e=([a-z0-9]+)/i);
-    if (m) {
-      const ev = state.all.find(x => x.id === m[1]);
-      if (ev) {
-        state.filtered = [...state.all];
-        buildListFilters();
-        renderList();
-        showView('#view-list', 'replace');
-        openDetail(ev, {});
-      }
-    }
-  } catch (err) {
-    document.body.innerHTML = '<div style="padding:60px 24px;text-align:center;color:#9aa1ad;font-family:sans-serif">Could not reach the events server.<br>Please try again in a moment.</div>';
-  }
+/* ---------- go ---------- */
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
+
 })();
