@@ -209,7 +209,7 @@ def geocode(venue: str = Query(""), city: str = Query("")):
     # VENUE_COORDS (baked by geocode_seed.py) uses raw sha256 keys, no prefix.
     raw = key[5:]
     if raw in VENUE_COORDS:
-        lat, lng = VENUE_COORDS[raw]
+        lat, lng = VENUE_COORDS[raw][:2]  # entries may carry a provenance note as 3rd element
         return {"lat": lat, "lng": lng}
     with _db_lock, db() as con:
         row = con.execute("SELECT v, ts FROM kv WHERE k=?", (key,)).fetchone()
