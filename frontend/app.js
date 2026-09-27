@@ -79,11 +79,16 @@ const state = {
 const _memStore = {};
 const storeGet = k => { try{ return localStorage.getItem(k); }catch(e){ return (_memStore[k] !== undefined ? _memStore[k] : null); } };
 const storeSet = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){ try{ _memStore[k] = String(v); }catch(_){} } };
-try{ state.saved = JSON.parse(storeGet('wain_saved')||'[]'); }catch(e){ state.saved=[]; }
-try{ state.remind = JSON.parse(storeGet('wain_remind')||'{}'); }catch(e){ state.remind={}; }
-try{ state.recent = JSON.parse(storeGet('wain_recent')||'[]'); }catch(e){ state.recent=[]; }
+const storeJSON = (k, fb) => { try{ const v = JSON.parse(storeGet(k) || 'null'); return (v === null || v === undefined) ? fb : v; }catch(e){ return fb; } };
+state.saved = storeJSON('wain_saved', []);
+if(!Array.isArray(state.saved)) state.saved = [];
+state.remind = storeJSON('wain_remind', {});
+if(typeof state.remind !== 'object' || state.remind === null || Array.isArray(state.remind)) state.remind = {};
+state.recent = storeJSON('wain_recent', []);
+if(!Array.isArray(state.recent)) state.recent = [];
 let prefs = {};
-try{ prefs = JSON.parse(storeGet('wain_prefs')||'{}'); }catch(e){ prefs={}; }
+try{ prefs = storeJSON('wain_prefs', {}); }catch(e){ prefs={}; }
+if(typeof prefs !== 'object' || prefs === null || Array.isArray(prefs)) prefs = {};
 prefs = Object.assign({cities:[], interests:[], domains:[], profession:null, ahaSeen:false}, prefs);
 const savePrefs = () => storeSet('wain_prefs', JSON.stringify(prefs));
 const saveSaved = () => storeSet('wain_saved', JSON.stringify(state.saved));
