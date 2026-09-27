@@ -411,7 +411,9 @@ async function openMap() {
   const status = $('#map-status');
   if (state.mapPlottedFor === sig) { status.style.opacity = '0'; return; }
   if (state.markers) state.markers.clearLayers();
-  else state.markers = L.layerGroup().addTo(state.map);
+  else state.markers = (L.markerClusterGroup
+    ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 48 })
+    : L.layerGroup()).addTo(state.map);
   state.mapPlottedFor = sig;
   const events = state.filtered && state.filtered.length ? state.filtered : state.all;
   status.style.opacity = '1';
@@ -435,8 +437,8 @@ async function openMap() {
     if (g.lat) {
       plotted++;
       bounds.push([g.lat, g.lng]);
-      const m = L.circleMarker([g.lat, g.lng], {
-        radius: 7, color: '#e8b44a', weight: 2, fillColor: '#e8b44a', fillOpacity: 0.85
+      const m = L.marker([g.lat, g.lng], {
+        icon: L.divIcon({ className: 'ev-dot-wrap', html: '<div class="ev-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })
       }).addTo(state.markers);
       m.bindPopup(`<div class="map-pop-title">${esc(ev.title)}</div>
         <div class="map-pop-meta">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}</div>

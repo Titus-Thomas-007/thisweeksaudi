@@ -399,5 +399,27 @@ if _table_count() == 0 and SEED_SNAPSHOT and Path(SEED_SNAPSHOT).exists():
         from seed import seed_db
     seed_db(DB_PATH, Path(SEED_SNAPSHOT))
     print(f"seeded {_table_count()} events from snapshot")
+# Cache-busting: index.html references assets as app.js?v=__V__ / styles.css?v=__V__.
+# __V__ is a hash of the asset contents, so every deploy with changed JS/CSS
+# gets fresh URLs and phones stop showing stale cached code.
+def _asset_version():
+    h = hashlib.sha256()
+    for name in ("app.js", "styles.css"):
+        p = FRONTEND_DIR / name
+        if p.exists():
+            h.update(p.read_bytes())
+    return h.hexdigest()[:10]
+
+
+ASSET_V = _asset_version()
+
 if FRONTEND_DIR.exists():
+    from fastapi.responses import HTMLResponse
+
+    @app.get("/", response_class=HTMLResponse, include_in_schema=False)
+    @app.get("/index.html", response_class=HTMLResponse, include_in_schema=False)
+    def _index():
+        html = (FRONTEND_DIR / "index.html").read_text().replace("__V__", ASSET_V)
+        return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
+
     app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
