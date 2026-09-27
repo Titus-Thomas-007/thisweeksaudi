@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: wain
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    healthCheckPath: /api/health
+    envVars:
+      - key: INGEST_KEY
+        generateValue: true

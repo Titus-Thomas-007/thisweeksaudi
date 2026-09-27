@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+backend/events.db
+backend/.ingest_key
+.DS_Store

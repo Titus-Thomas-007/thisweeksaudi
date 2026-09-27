@@ -1,0 +1,4406 @@
+{
+ "synced_at": "2026-09-27T14:45:00+03:00",
+ "window": [
+  "2026-09-27",
+  "2026-12-31"
+ ],
+ "count": 291,
+ "events": [
+  {
+   "title": "Okhtabotiya",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "arts",
+   "price": "From $26.40",
+   "url": "https://webook.com/en/SA/RUH/theater-and-performing-arts/events/okhtabotiya-show-tickets26",
+   "organizer": null,
+   "start": "2026-07-04",
+   "end": "2026-10-31",
+   "sources": [
+    "webook"
+   ],
+   "id": "adaf3a0fff77"
+  },
+  {
+   "title": "CONTINUUM '26 - Diriyah Art Futures Emerging New Media Artists Programme",
+   "city": "Riyadh",
+   "venue": "Diriyah Art Futures",
+   "category": "arts",
+   "price": "Free",
+   "url": "https://webook.com/en/SA/RUH/activities-adventures/events/continuum-26-moc876-diriyah-art-futures",
+   "organizer": null,
+   "start": "2026-09-03",
+   "end": "2026-11-07",
+   "sources": [
+    "webook"
+   ],
+   "id": "8869099b5da3"
+  },
+  {
+   "title": "Kings League MENA",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $20",
+   "url": "https://webook.com/en/SA/RUH/activities-adventures/events/kings-league-mena-round2-rs26-tickets",
+   "organizer": null,
+   "start": "2026-09-18",
+   "end": "2026-10-30",
+   "sources": [
+    "webook"
+   ],
+   "id": "3a4397b90ef2"
+  },
+  {
+   "title": "Okhtabotiya Kids",
+   "city": "Riyadh",
+   "venue": "Sard Cultural Centre",
+   "category": "arts",
+   "price": "From $17.33",
+   "url": "https://webook.com/en/SA/RUH/theater-and-performing-arts/events/okhtabotiya-kids-tickets26",
+   "organizer": null,
+   "start": "2026-09-25",
+   "end": "2026-10-30",
+   "sources": [
+    "webook"
+   ],
+   "id": "222bf714d112"
+  },
+  {
+   "title": "BattleKart - Riyadh",
+   "city": "Riyadh",
+   "venue": "BattleKart, Ishbiliyah",
+   "category": "sports",
+   "price": "From $27.19",
+   "url": "https://riyadh.platinumlist.net/event-tickets/90506/battlekart",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-09-30",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "f283546a9631"
+  },
+  {
+   "title": "Certified Information Privacy Professional (CIPP)",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-10-01",
+   "sources": [
+    "10times"
+   ],
+   "id": "efd7dd9b8b00"
+  },
+  {
+   "title": "Contract Excellence for Non Legal Professionals",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "sources": [
+    "10times"
+   ],
+   "id": "c7a377070417"
+  },
+  {
+   "title": "IGDA Jeddah",
+   "city": "Jeddah",
+   "venue": "Dopamine",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/igda-jeddah-tickets-2001777152349",
+   "organizer": "IGDA Saudi Arabia",
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "a727fc3823d3"
+  },
+  {
+   "title": "Kids & Toys Expo Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1hf-zp53-kgd4-7",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-09-29",
+   "sources": [
+    "10times"
+   ],
+   "id": "ab7a6cac40d0"
+  },
+  {
+   "title": "Riyadh 2026 Saudi Corporate Compliance, Governance & Legal Advisory Summit",
+   "city": "Riyadh",
+   "venue": "The Ritz-Carlton",
+   "category": "conference",
+   "price": "From $107.48",
+   "url": "https://www.eventbrite.com/e/riyadh-2026-saudi-corporate-compliance-governance-legal-advisory-summit-tickets-1999017187219",
+   "organizer": "Bin Hammad Law Firm",
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "255d5a2d087b"
+  },
+  {
+   "title": "SaudiFood Manufacturing (3rd edition)",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.saudifoodmanufacturing.com/faqs",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-09-29",
+   "sources": [
+    "eyeofriyadh",
+    "10times"
+   ],
+   "id": "221d61aca389"
+  },
+  {
+   "title": "Saudi eLeague Fighting 2026 in Riyadh",
+   "city": "Riyadh",
+   "venue": "SEF Arena in Boulevard",
+   "category": "sports",
+   "price": "From $2.75",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108287/saudi-eleague-fighting-2026",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-09-27",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "fb565430c77d"
+  },
+  {
+   "title": "The Saudi Food Show 2026",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.thesaudifoodshow.com/visit-jeddah",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-09-29",
+   "sources": [
+    "eyeofriyadh"
+   ],
+   "id": "5769aa17a183"
+  },
+  {
+   "title": "Zain, Queen of all Hearts - Theatre Show",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "arts",
+   "price": "From $40",
+   "url": "https://webook.com/en/SA/RUH/theater-and-performing-arts/events/zain-queen-of-all-hearts",
+   "organizer": null,
+   "start": "2026-09-27",
+   "end": "2026-10-02",
+   "sources": [
+    "webook"
+   ],
+   "id": "2e51f70a9fca"
+  },
+  {
+   "title": "Battlekart Ladies Night - Jeddah",
+   "city": "Jeddah",
+   "venue": "Alandalus Mall",
+   "category": "sports",
+   "price": "From $32.87",
+   "url": "https://jeddah.platinumlist.net/event-tickets/battlekart-jeddah",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "6d71dc57aa97"
+  },
+  {
+   "title": "Battlekart Ladies Night - Riyadh",
+   "city": "Riyadh",
+   "venue": "BattleKart, Ishbiliyah",
+   "category": "sports",
+   "price": "From $21.70",
+   "url": "https://riyadh.platinumlist.net/event-tickets/99763/battlekart-ladies-night-riyadh",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "fe90c09d6175"
+  },
+  {
+   "title": "Cross-Border Fundraising | Global Investors | Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/cross-border-fundraising-global-investors-saudi-arabia-tickets-1985792992296",
+   "organizer": "Tablon INC",
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "02607ebe424c"
+  },
+  {
+   "title": "Damage Mechanisms Affecting Fixed Equipment in the Refining Industry",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-10-02",
+   "sources": [
+    "10times"
+   ],
+   "id": "5fa628a8cb5b"
+  },
+  {
+   "title": "Extension of Time Entitlement During Contractor Delay: A Causation Approach",
+   "city": "Riyadh",
+   "venue": "Centro Olaya",
+   "category": "workshop",
+   "price": "From £0.00",
+   "url": "https://www.eventbrite.co.uk/e/extension-of-time-entitlement-during-contractor-delay-a-causation-approach-tickets-1999740670176",
+   "organizer": "CIOB Middle East & North Africa",
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "a70e5182d3c9"
+  },
+  {
+   "title": "IDC CIO Summit Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://event.idc.com/event/idc-cio-summit-ksa/",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-09-29",
+   "sources": [
+    "saudicon",
+    "10times"
+   ],
+   "id": "ed4487420e3a"
+  },
+  {
+   "title": "Meet Investors 1-1 | Inperson Online | Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/meet-investors-1-1-inperson-online-saudi-arabia-tickets-1985792991293",
+   "organizer": "Tablon INC",
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "e78e721f313d"
+  },
+  {
+   "title": "Mergers and Acquisition (M&A)",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "10times"
+   ],
+   "id": "b5822b15f701"
+  },
+  {
+   "title": "Natchi Monday in Jeddah",
+   "city": "Jeddah",
+   "venue": "Natchi Beach Club",
+   "category": "concert",
+   "price": "From $24.65",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108562/natchi-monday-in-jeddah",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-09-28",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "914020b6d2f7"
+  },
+  {
+   "title": "Saudi Mega Projects 2026",
+   "city": "Riyadh",
+   "venue": "The Venue by ROSHN Group",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://events.meed.com/event/saudimegaprojects/event-gallery/",
+   "organizer": null,
+   "start": "2026-09-28",
+   "end": "2026-09-30",
+   "sources": [
+    "saudicon",
+    "eyeofriyadh"
+   ],
+   "id": "e14082099342"
+  },
+  {
+   "title": "GESS Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "The Arena Riyadh",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.gess-saudiarabia.com/travel-information",
+   "organizer": null,
+   "start": "2026-09-29",
+   "end": "2026-10-01",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "ce708da494b8"
+  },
+  {
+   "title": "Give & Take Improv Games Show from Thmanyah Exit",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "comedy",
+   "price": "From $14.67",
+   "url": "https://webook.com/en/SA/RUH/theater-and-performing-arts/events/take-give-0226-comedypod-2",
+   "organizer": null,
+   "start": "2026-09-29",
+   "end": "2026-09-29",
+   "sources": [
+    "webook"
+   ],
+   "id": "58249da9424b"
+  },
+  {
+   "title": "HR Leaders Conference Riyadh",
+   "city": "Riyadh",
+   "venue": "Hyatt Regency Riyadh Olaya",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/e1r2-6r06-rsrs",
+   "organizer": null,
+   "start": "2026-09-29",
+   "end": "2026-09-29",
+   "sources": [
+    "10times"
+   ],
+   "id": "ab3269d5ec02"
+  },
+  {
+   "title": "Saudi Medtech 2026",
+   "city": "Riyadh",
+   "venue": "voco Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://saudi-medtech.com/",
+   "organizer": null,
+   "start": "2026-09-29",
+   "end": "2026-09-30",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "a62b7bffdd92"
+  },
+  {
+   "title": "VCs across the Globe | In person - Online | Jeddah",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/vcs-across-the-globe-in-person-online-jeddah-tickets-1990861084095",
+   "organizer": "Tablon INC",
+   "start": "2026-09-29",
+   "end": "2026-09-29",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "a1a60442d61a"
+  },
+  {
+   "title": "A Trace of Saudi Memory (workshop)",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "workshop",
+   "price": "From $45.33",
+   "url": "https://webook.com/en/SA/RUH/experience/events/a-trace-of-saudi-memory-workshop-231",
+   "organizer": null,
+   "start": "2026-09-30",
+   "end": "2026-09-30",
+   "sources": [
+    "webook"
+   ],
+   "id": "c9371e3b2169"
+  },
+  {
+   "title": "Fontana Circus in Riyadh",
+   "city": "Riyadh",
+   "venue": "Circus Tent, Al Nakheel Mall",
+   "category": "festival",
+   "price": "From $30.21",
+   "url": "https://riyadh.platinumlist.net/event-tickets/fontana-circus-riyadh",
+   "organizer": null,
+   "start": "2026-09-30",
+   "end": "2026-10-24",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "eca78c1aad34"
+  },
+  {
+   "title": "New Jokes Comedy Show from Exit Thmanyah (weekly)",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "comedy",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/RUH/theater-and-performing-arts/events/new-jokes-night-109877",
+   "organizer": null,
+   "start": "2026-09-30",
+   "end": "2026-12-31",
+   "sources": [
+    "webook"
+   ],
+   "id": "4130aadc391c"
+  },
+  {
+   "title": "Open mic for talents",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "concert",
+   "price": "From $18.40",
+   "url": "https://webook.com/en/SA/RUH/music-events/events/open-mic-for-talents-tickets26-wh26",
+   "organizer": null,
+   "start": "2026-09-30",
+   "end": "2026-09-30",
+   "sources": [
+    "webook"
+   ],
+   "id": "b0d8719ef830"
+  },
+  {
+   "title": "SunRise Arabia Clean Energy Conference 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "From SAR 2,500",
+   "url": "https://www.sunrise-arabia.com/etn/sunrise-arabia-clean-energy-conference-2026/",
+   "organizer": null,
+   "start": "2026-09-30",
+   "end": "2026-09-30",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "49ec6c680359"
+  },
+  {
+   "title": "The Global Leaders Forum",
+   "city": "Riyadh",
+   "venue": "JW Marriott Hotel Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/e1h5-057z-kxsd-g-global-leaders-forum",
+   "organizer": null,
+   "start": "2026-09-30",
+   "end": "2026-09-30",
+   "sources": [
+    "10times"
+   ],
+   "id": "7ea2ac8849cd"
+  },
+  {
+   "title": "The Saudi-Nigeria Industrial Deal Room",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "From $427.60",
+   "url": "https://www.eventbrite.co.uk/e/the-saudi-nigeria-industrial-deal-room-tickets-1992996265480",
+   "organizer": "Welcome2Africa International",
+   "start": "2026-09-30",
+   "end": "2026-09-30",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "cf6fcc53fd27"
+  },
+  {
+   "title": "43rd KKESH&RC International Conference 2026",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh RDC Hotel & Convention",
+   "category": "conference",
+   "price": "From SAR 50",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b74dc0b0788b"
+  },
+  {
+   "title": "Aramco F4 Saudi Arabian Championship",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "sports",
+   "price": "From $6.67",
+   "url": "https://webook.com/en/SA/JED/sports-event/events/aramco-f4-saudi-arabian-championship-2",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-11-07",
+   "sources": [
+    "webook"
+   ],
+   "id": "905d645849f6"
+  },
+  {
+   "title": "Badel - Al-Farabi Night",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "concert",
+   "price": "From $21.33",
+   "url": "https://webook.com/en/SA/JED/music-events/events/badel-al-farabi-night-32153",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-03",
+   "sources": [
+    "webook"
+   ],
+   "id": "80ad76303bab"
+  },
+  {
+   "title": "Healthon Digital Health Innovation 2026",
+   "city": "Riyadh",
+   "venue": "King Saud University Main Hall",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://saudiarabianewsexpress.com/king-saud-university-to-host-healthon-2026-with-prizes-exceeding-sar1-million/",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "fc59272721c4"
+  },
+  {
+   "title": "International Saudi Falcons and Hunting Exhibition 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center (Malham)",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://sfc.org.sa/sa/en/home/",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-10",
+   "sources": [
+    "saudicon",
+    "eyeofriyadh"
+   ],
+   "id": "65d03ec40811"
+  },
+  {
+   "title": "Safarjal in Jeddah",
+   "city": "Jeddah",
+   "venue": "The Storytellers",
+   "category": "concert",
+   "price": "From $16.44",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108673/safarjal-in-jeddah",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-01",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "bf8ad23f9ce9"
+  },
+  {
+   "title": "The International Dental Conference & Exhibition",
+   "city": "Jeddah",
+   "venue": "Ritz-Carlton Jeddah",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/e1hf-0hh8-rk1x-8",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-03",
+   "sources": [
+    "10times"
+   ],
+   "id": "8710e02a15fb"
+  },
+  {
+   "title": "Tony Abou Jaoude Live in Riyadh",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh RDC Hotel & Convention Center",
+   "category": "concert",
+   "price": "From $32.96",
+   "url": "https://riyadh.platinumlist.net/event-tickets/107888/tony-abou-jaoude-live-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-01",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "0456bfa6aa72"
+  },
+  {
+   "title": "URX Presents Rootech | Jewel Kid in Riyadh",
+   "city": "Riyadh",
+   "venue": "Beast House",
+   "category": "concert",
+   "price": "From $41.20",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108386/urx-presents-rootech-jewel-kid-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-01",
+   "end": "2026-10-01",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "f010b30c5c02"
+  },
+  {
+   "title": "4th International Conference on Educational Administration and Leadership 2026",
+   "city": "Taif",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c32ce100aa55"
+  },
+  {
+   "title": "Al Ahli x Al Nassr",
+   "city": "Jeddah",
+   "venue": "Al-Ahly Club Stadium",
+   "category": "sports",
+   "price": "From $2.74",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108534/al-ahli-x-al-nassr",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "79f6865d18e1"
+  },
+  {
+   "title": "Aleph and his orchestra",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "concert",
+   "price": "From $93.33",
+   "url": "https://webook.com/en/SA/RUH/music-events/events/aleph-and-his-international-ban-tickets26",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "webook"
+   ],
+   "id": "0e6e9b0b1470"
+  },
+  {
+   "title": "Bd House in Jeddah",
+   "city": "Jeddah",
+   "venue": "BD Warehouse",
+   "category": "concert",
+   "price": "From $41.09",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108519/bd-house-in-jeddah-2-oct",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "63209896c1c1"
+  },
+  {
+   "title": "Comedy Night in Al-Qassim from Thmanyah Exit",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "comedy",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/qas/theater-and-performing-arts/events/comedy-night-in-al-qassim-20-26",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "webook"
+   ],
+   "id": "5184dbfcdac3"
+  },
+  {
+   "title": "Couplet Sessions in Riyadh",
+   "city": "Riyadh",
+   "venue": "Jeem Space",
+   "category": "concert",
+   "price": "From $35.43",
+   "url": "https://riyadh.platinumlist.net/event-tickets/couplet-sessions-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "502d09fa2cac"
+  },
+  {
+   "title": "Desert Sound presents Indira Paganotto in Riyadh",
+   "city": "Riyadh",
+   "venue": "Riyadh Golf Club",
+   "category": "concert",
+   "price": "From $82.40",
+   "url": "https://riyadh.platinumlist.net/event-tickets/107117/desert-sound",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "a4a7d45dc74f"
+  },
+  {
+   "title": "FAWERHA",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "concert",
+   "price": "From $52.27",
+   "url": "https://webook.com/en/SA/JED/music-events/events/fawerha-jeddah-concert-2026-tickets",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "webook"
+   ],
+   "id": "3f7f4e84b673"
+  },
+  {
+   "title": "PFL MENA 11: Last Man Standing",
+   "city": "Riyadh",
+   "venue": "Boulevard Riyadh",
+   "category": "sports",
+   "price": "From $53.56",
+   "url": "https://riyadh.platinumlist.net/event-tickets/107214/pfl-mena-11",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "22f7ca28d655"
+  },
+  {
+   "title": "Stand-up Comedy Night in Jeddah",
+   "city": "Jeddah",
+   "venue": "The Storytellers",
+   "category": "comedy",
+   "price": "From $20.55",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108675/stand-up-comedy-night-in-jeddah-2-oct",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "a6beb6757783"
+  },
+  {
+   "title": "Talwihat Nay Night in Riyadh",
+   "city": "Riyadh",
+   "venue": "Threads Culture",
+   "category": "concert",
+   "price": "From $52.19",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108551/talwihat-nay-night-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "7e0e7e5f1fe0"
+  },
+  {
+   "title": "The Container presents Fideles",
+   "city": "Jeddah",
+   "venue": "The Container, North Obhur",
+   "category": "concert",
+   "price": "From $68.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108593/the-container-presents-fideles",
+   "organizer": null,
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "6c00b1aaefa0"
+  },
+  {
+   "title": "Ghida Knio Night",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "concert",
+   "price": "From $32",
+   "url": "https://webook.com/en/SA/RUH/music-events/events/ghida-knio-night-wh26-tickets26",
+   "organizer": null,
+   "start": "2026-10-03",
+   "end": "2026-10-03",
+   "sources": [
+    "webook"
+   ],
+   "id": "1a5d275d1b9c"
+  },
+  {
+   "title": "Tech Day0 >> Riyadh",
+   "city": "Riyadh",
+   "venue": "TrustPoint, Al-Nuzha, Riyadh",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://luma.com/9y5mzs4c",
+   "organizer": "Ebrahim Aldesouky Elmehsnawy",
+   "start": "2026-10-03",
+   "end": "2026-10-03",
+   "sources": [
+    "luma"
+   ],
+   "id": "c138f92f5542"
+  },
+  {
+   "title": "Melwah Racing 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "Free",
+   "url": "https://sfc.org.sa/sa/en/Event/Details?id=4",
+   "organizer": null,
+   "start": "2026-10-04",
+   "end": "2026-10-04",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "aca8300fec80"
+  },
+  {
+   "title": "Middle East Poultry Expo 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.mep-expo.com/",
+   "organizer": null,
+   "start": "2026-10-04",
+   "end": "2026-10-06",
+   "sources": [
+    "10times",
+    "saudicon",
+    "eyeofriyadh"
+   ],
+   "id": "a96bb7690e27"
+  },
+  {
+   "title": "Middle East Education & Training Exhibition (MEETES)",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://e.meetes-sa.com",
+   "organizer": null,
+   "start": "2026-10-05",
+   "end": "2026-10-07",
+   "sources": [
+    "10times"
+   ],
+   "id": "52ab3dd9f10e"
+  },
+  {
+   "title": "The Global CSR Forum 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://entarabi.com/en/2026/09/second-edition-of-the-global-csr-forum-to-convene-world-leaders-in-riyadh-moving-corporate-responsibility-from-commitment-to-impact/",
+   "organizer": null,
+   "start": "2026-10-05",
+   "end": "2026-10-05",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "845bd75405ad"
+  },
+  {
+   "title": "Discover the Manchester MBA Information Session, Jeddah",
+   "city": "Jeddah",
+   "venue": "Crowne Plaza Jeddah al Salam by IHG",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.co.uk/e/discover-the-manchester-mba-information-session-jeddah-registration-1998343837211",
+   "organizer": "The University of Manchester - Dubai",
+   "start": "2026-10-06",
+   "end": "2026-10-06",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "9d3840df7d4f"
+  },
+  {
+   "title": "International Family Medicine Symposium",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/riyadh-sa/wellness-healthcare/conferences",
+   "organizer": null,
+   "start": "2026-10-06",
+   "end": "2026-10-07",
+   "sources": [
+    "10times"
+   ],
+   "id": "90b8537d4eb4"
+  },
+  {
+   "title": "International Port Development Conference",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/e1h5-k0f5-d0kf-k-international-port-development-conference",
+   "organizer": null,
+   "start": "2026-10-06",
+   "end": "2026-10-07",
+   "sources": [
+    "10times"
+   ],
+   "id": "3cae9dbc19b2"
+  },
+  {
+   "title": "SAJEX",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://gjepc.org/sajex",
+   "organizer": null,
+   "start": "2026-10-06",
+   "end": "2026-10-08",
+   "sources": [
+    "10times"
+   ],
+   "id": "623e124c6ed2"
+  },
+  {
+   "title": "Saudi Conversation",
+   "city": "Riyadh",
+   "venue": "Salon Sudds Riyadh",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://luma.com/rakolxha",
+   "organizer": "The Offline Club",
+   "start": "2026-10-06",
+   "end": "2026-10-06",
+   "sources": [
+    "luma"
+   ],
+   "id": "07963b572438"
+  },
+  {
+   "title": "CFO Leadership Summit Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Marriott Hotel",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/e12z-kg8g-2dx3",
+   "organizer": null,
+   "start": "2026-10-07",
+   "end": "2026-10-07",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "d9759b62f2f6"
+  },
+  {
+   "title": "Energy Hackathon 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.saudiarabiapr.com/business-news/193582-ministry-of-energy-launches-first-energy-hackathon-ahead-of-25th-wpc-energy-cong",
+   "organizer": null,
+   "start": "2026-10-07",
+   "end": "2026-10-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "9def74b7752d"
+  },
+  {
+   "title": "GCF Annual Meeting 2026",
+   "city": "Riyadh",
+   "venue": "The Ritz-Carlton Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.tahawultech.com/news/gcf-launches-women-in-cyber-awards-with-support-of-itu-and-un-women/",
+   "organizer": null,
+   "start": "2026-10-07",
+   "end": "2026-10-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c5b990580bb6"
+  },
+  {
+   "title": "International ARCH+DESN Conference",
+   "city": "Jeddah",
+   "venue": "Effat University",
+   "category": "conference",
+   "price": "Paid",
+   "url": "https://10times.com/e1r5-2r35-pssr",
+   "organizer": null,
+   "start": "2026-10-07",
+   "end": "2026-10-08",
+   "sources": [
+    "10times"
+   ],
+   "id": "9b30abc0e6b3"
+  },
+  {
+   "title": "Retail Show Saudi 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Airport Marriott Hotel",
+   "category": "expo",
+   "price": "From $497",
+   "url": "https://www.cantonfair.net/event/63319-retail-show-saudi",
+   "organizer": null,
+   "start": "2026-10-07",
+   "end": "2026-10-08",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "f8e8009caab0"
+  },
+  {
+   "title": "Saudi 6th Procurement Conference 2026",
+   "city": "Riyadh",
+   "venue": "DoubleTree by Hilton Riyadh Financial District",
+   "category": "conference",
+   "price": "From SAR 5,750",
+   "url": "http://mail.eyeofriyadh.com/events/details/saudi-procurement-conference-2026",
+   "organizer": null,
+   "start": "2026-10-07",
+   "end": "2026-10-08",
+   "sources": [
+    "saudicon",
+    "eyeofriyadh"
+   ],
+   "id": "409033d89898"
+  },
+  {
+   "title": "Ahmed Amin - Stand Up Comedy Show in Riyadh",
+   "city": "Riyadh",
+   "venue": "InterContinental Riyadh",
+   "category": "comedy",
+   "price": "From $82.40",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108385/ahmed-amin-stand-up-comedy-show-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-08",
+   "end": "2026-10-08",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "a0fef04d907d"
+  },
+  {
+   "title": "HR World Summit 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Marriott Hotel",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eyeofriyadh.com/events/details/hr-world-summit-1758190370",
+   "organizer": null,
+   "start": "2026-10-08",
+   "end": "2026-10-08",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "66ec274cee3d"
+  },
+  {
+   "title": "Photographing Distance - Matilde Marin",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "arts",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/JED/activities-adventures/events/photographing-86distance-moc89",
+   "organizer": null,
+   "start": "2026-10-08",
+   "end": "2026-12-31",
+   "sources": [
+    "webook"
+   ],
+   "id": "aa9f3fbb0a1e"
+  },
+  {
+   "title": "Bd House in Jeddah",
+   "city": "Jeddah",
+   "venue": "BD Warehouse",
+   "category": "concert",
+   "price": "From $68.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108512/bd-house-in-jeddah-9-oct",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "d4bc4f0e479e"
+  },
+  {
+   "title": "Couplet Sessions in Riyadh",
+   "city": "Riyadh",
+   "venue": "Jeem Space",
+   "category": "concert",
+   "price": "From $38.18",
+   "url": "https://riyadh.platinumlist.net/event-tickets/couplet-sessions-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "1a75c05ddec4"
+  },
+  {
+   "title": "IN ACT - Innellea, Rafael Cerato, Dish Dash in Riyadh",
+   "city": "Riyadh",
+   "venue": "Plot K, JAX District",
+   "category": "concert",
+   "price": "From $68.67",
+   "url": "https://riyadh.platinumlist.net/event-tickets/106478/in-act-act-x-in-riyadh-9-oct",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "25d98bd0cf9c"
+  },
+  {
+   "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Alkhobar",
+   "city": "Khobar",
+   "venue": "",
+   "category": "comedy",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/khb/theater-and-performing-arts/events/lahd-yadri-osama-bazaid-in-alkhobar-0207",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "webook"
+   ],
+   "id": "c15805bc90d4"
+  },
+  {
+   "title": "Octania Pulse Portal005 in Jeddah",
+   "city": "Jeddah",
+   "venue": "Galu Beach Club",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108556/octania-pulse-portal005-in-jeddah",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "a962066daac9"
+  },
+  {
+   "title": "RSL 26/27 - Al Fateh vs Al Ahli",
+   "city": "Al Ahsa",
+   "venue": "",
+   "category": "sports",
+   "price": "From $0.27",
+   "url": "https://webook.com/en/SA/ahs/sports-event/events/rsl-r11-al-fateh-vs-al-shabab-10582",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "webook"
+   ],
+   "id": "578348546021"
+  },
+  {
+   "title": "RSL 26/27 - Al Kholood vs Al Qadsiah",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/qas/sports-event/events/rsl-r8-al-kholood-vs-al-qadsiah-20562",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "webook"
+   ],
+   "id": "67215e461f74"
+  },
+  {
+   "title": "RSL 26/27 - Al Nassr vs Diriyah",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $8",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/rsl-26-27-nassr-vs-diriyah-n5g9d7o3",
+   "organizer": null,
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "webook"
+   ],
+   "id": "41212cb35238"
+  },
+  {
+   "title": "Where to Drink Coffee in Al Hamra: Rimthan + Coffee Reviews",
+   "city": "Riyadh",
+   "venue": "Rimthan + Coffee",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/where-to-drink-coffee-in-al-hamra-rimthan-coffee-reviews-tickets-1999197057215",
+   "organizer": "Riyadh Top Places Guide",
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "0c36f423b4d6"
+  },
+  {
+   "title": "Ahmed Amin - Stand Up Comedy Show in Jeddah",
+   "city": "Jeddah",
+   "venue": "Dar Al-Hekma University",
+   "category": "comedy",
+   "price": "From $68.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108424/ahmed-amin-stand-up-comedy-show-in-jeddah",
+   "organizer": null,
+   "start": "2026-10-10",
+   "end": "2026-10-10",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "6a64ae56c71c"
+  },
+  {
+   "title": "CUBS Theater Club",
+   "city": "Jeddah",
+   "venue": "CUBS Theater Club",
+   "category": "arts",
+   "price": "From $532.27",
+   "url": "https://webook.com/en/SA/JED/activities-adventures/events/cubs-preforming-arts-club-2026-351",
+   "organizer": null,
+   "start": "2026-10-10",
+   "end": "2026-10-10",
+   "sources": [
+    "webook"
+   ],
+   "id": "2279bbbd62c8"
+  },
+  {
+   "title": "RSL 26/27 - Al Ettifaq vs Al Khaleej",
+   "city": "Dammam",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/dam/sports-event/events/al-ettifaq-vs-al-khaleej-rsl-2627-r8",
+   "organizer": null,
+   "start": "2026-10-10",
+   "end": "2026-10-10",
+   "sources": [
+    "webook"
+   ],
+   "id": "34860716912d"
+  },
+  {
+   "title": "RSL 26/27 - Al Hazem vs Neom SC",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/qas/sports-event/events/rsl-r8-al-hazem-vs-neom-sc-94332",
+   "organizer": null,
+   "start": "2026-10-10",
+   "end": "2026-10-10",
+   "sources": [
+    "webook"
+   ],
+   "id": "8136c065263f"
+  },
+  {
+   "title": "Riyadh Youth Literary Festival",
+   "city": "Riyadh",
+   "venue": "British International School Riyadh, Al Waha Campus",
+   "category": "festival",
+   "price": "From $55.20",
+   "url": "https://www.eventbrite.com/e/riyadh-youth-literary-festival-tickets-1998773090118",
+   "organizer": "SLKY World LLC",
+   "start": "2026-10-10",
+   "end": "2026-10-10",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "bccbfa1e93b2"
+  },
+  {
+   "title": "25th WPC Energy Congress 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://wpcenergy2026.org/",
+   "organizer": null,
+   "start": "2026-10-11",
+   "end": "2026-10-15",
+   "sources": [
+    "saudicon",
+    "10times"
+   ],
+   "id": "6f72df497a72"
+  },
+  {
+   "title": "7th International Conference on Disability and Rehabilitation (ICDR 2026)",
+   "city": "Riyadh",
+   "venue": "King Faisal Conference Hall",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://icdr.org.sa/en/",
+   "organizer": null,
+   "start": "2026-10-11",
+   "end": "2026-10-11",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "15b3d9adf001"
+  },
+  {
+   "title": "FABEX Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.fabxsaudi.com",
+   "organizer": null,
+   "start": "2026-10-11",
+   "end": "2026-10-14",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "8d50f2c86a45"
+  },
+  {
+   "title": "RSL 26/27 - Abha vs Al Faisaly",
+   "city": "Khamis Mushait",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/khm/sports-event/events/abha-vs-al-faisaly-rsl-2627-r8",
+   "organizer": null,
+   "start": "2026-10-11",
+   "end": "2026-10-11",
+   "sources": [
+    "webook"
+   ],
+   "id": "626b2ab30b0b"
+  },
+  {
+   "title": "RSL 26/27 - Al Fayha vs Al Riyadh",
+   "city": "Al Majma'a",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/mjm/sports-event/events/rsl-r8-al-fayha-vs-al-riyadh-25355",
+   "organizer": null,
+   "start": "2026-10-11",
+   "end": "2026-10-11",
+   "sources": [
+    "webook"
+   ],
+   "id": "269c6c98cc5d"
+  },
+  {
+   "title": "RSL 26/27 - Al Shabab vs Al Taawoun",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/al-shabab-vs-al-taawoun-rsl-2627-r8",
+   "organizer": null,
+   "start": "2026-10-11",
+   "end": "2026-10-11",
+   "sources": [
+    "webook"
+   ],
+   "id": "8594645537bc"
+  },
+  {
+   "title": "2nd Desert Architecture KSA Forum",
+   "city": "Riyadh",
+   "venue": "Radisson Blu Hotel & Convention Center, Riyadh Minhal",
+   "category": "conference",
+   "price": "From SAR 189.68",
+   "url": "https://www.eyeofriyadh.com/events/details/2nd-desert-architecture-ksa-forum-2026",
+   "organizer": "Great Minds Events Management",
+   "start": "2026-10-12",
+   "end": "2026-10-13",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "98d81fe2db37"
+  },
+  {
+   "title": "AFC Elite 26/27 - Al Nassr vs Neftchi Fergana",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/afc-elite-26-27-al-nassr-vs-neftichi-a8s9d2r4",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-12",
+   "sources": [
+    "webook"
+   ],
+   "id": "76e658a644bb"
+  },
+  {
+   "title": "Artificial Intelligence (AI) in Oil & Gas Operations",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-16",
+   "sources": [
+    "10times"
+   ],
+   "id": "0028c931b694"
+  },
+  {
+   "title": "CSWIP Welding Quality Control Coordinator",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/engineering",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-16",
+   "sources": [
+    "10times"
+   ],
+   "id": "ee127c9dbfbb"
+  },
+  {
+   "title": "Global Space Connectivity and Sustainability Event 2026",
+   "city": "Riyadh",
+   "venue": "CST Headquarters",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.cst.gov.sa/en/media-center/events/global-space-connectivity-and-sustainability-2026",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-12",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "f2532ac0980c"
+  },
+  {
+   "title": "ISA Saudi Automation Conference 2026",
+   "city": "Khobar",
+   "venue": "Kempinski Al Othman Hotel Al Khobar",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://isasaudiconference.com/",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-12",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "41becc502a95"
+  },
+  {
+   "title": "Industrial Special Welding Applications",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-16",
+   "sources": [
+    "10times"
+   ],
+   "id": "096ad29900b6"
+  },
+  {
+   "title": "Riyadh Economic Forum 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eyeofriyadh.com/events/details/riyadh-economic-forum-1785984416",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-12",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "26af174906fc"
+  },
+  {
+   "title": "Saudi International Pharma Expo",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://saudipharmaexpo.com/",
+   "organizer": null,
+   "start": "2026-10-12",
+   "end": "2026-10-14",
+   "sources": [
+    "10times"
+   ],
+   "id": "c04da4b8103e"
+  },
+  {
+   "title": "Global Industrial Waste to Value Expo 2026",
+   "city": "Dammam",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.tradefairdates.com/Global-Industrial-Waste-to-Value-Expo-M6575/Dammam.html",
+   "organizer": null,
+   "start": "2026-10-13",
+   "end": "2026-10-13",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b774398fa0ac"
+  },
+  {
+   "title": "Google Cloud Summit Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-13",
+   "end": "2026-10-13",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "3eac257360e9"
+  },
+  {
+   "title": "12th Middle East Banking AI & Analytics Summit 2026",
+   "city": "Riyadh",
+   "venue": "Hyatt Regency Riyadh Olaya",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/12th-middle-east-banking-ai-analytics-summit-2026-tickets-1992107636567",
+   "organizer": "LetstalkB2b",
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "974822fb048b"
+  },
+  {
+   "title": "3rd Annual International Geotechnical Innovation Conference (IGIC 2026)",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "conference",
+   "price": "From $25",
+   "url": "https://www.eyeofriyadh.com/events/details/international-geotechnical-innovation-conference-igic",
+   "organizer": "Great Minds Events Management",
+   "start": "2026-10-14",
+   "end": "2026-10-15",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b91d1464e5c2"
+  },
+  {
+   "title": "AI & Data Centers Summit",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-14",
+   "end": "2026-10-15",
+   "sources": [
+    "10times"
+   ],
+   "id": "3f195aed80e2"
+  },
+  {
+   "title": "Athlete 360 Summit 2026",
+   "city": "Riyadh",
+   "venue": "Hilton Riyadh Hotel & Residences",
+   "category": "conference",
+   "price": "From $49",
+   "url": "https://www.industryevents.com/events/athlete-360",
+   "organizer": null,
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "7e822c1c1f41"
+  },
+  {
+   "title": "International Trenchless Tunnelling Exhibition and Conference (ITTEC 2026)",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://saudiarabianewsnetwork.com/riyadh-infrastructure-projects-center-to-host-international-trenchless-tunnelling-conference-in-riyadh/",
+   "organizer": null,
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "943655a68e8a"
+  },
+  {
+   "title": "Retail World Forum 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Marriott Hotel",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://retailworldforum.com/riyadh/",
+   "organizer": null,
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b266b3860c55"
+  },
+  {
+   "title": "Riyadh Product Leaders Dinner",
+   "city": "Riyadh",
+   "venue": "Venue on registration",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://luma.com/aw4a50ch",
+   "organizer": "Product People",
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "sources": [
+    "luma"
+   ],
+   "id": "3ef17dc8028a"
+  },
+  {
+   "title": "World Stadiums and Arenas Summit 2026",
+   "city": "Riyadh",
+   "venue": "Hilton Riyadh Hotel & Residences",
+   "category": "conference",
+   "price": "From $49",
+   "url": "https://stadiumsandarenassummit.com",
+   "organizer": null,
+   "start": "2026-10-14",
+   "end": "2026-10-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c97d62559e8b"
+  },
+  {
+   "title": "Alaa El Sheikh Live in Riyadh",
+   "city": "Riyadh",
+   "venue": "Literary Club in Riyadh",
+   "category": "concert",
+   "price": "From $48.07",
+   "url": "https://riyadh.platinumlist.net/event-tickets/107606/alla-el-sheikh-live-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "3dd7b3753a64"
+  },
+  {
+   "title": "Annual Conference of the Saudi Heart Association 2026",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh RDC Hotel & Convention",
+   "category": "conference",
+   "price": "From SAR 200",
+   "url": "https://conference.saudi-heart.com/",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "5cb80a9afcaa"
+  },
+  {
+   "title": "Between the Strange and the Prevailing - Jeddah",
+   "city": "Jeddah",
+   "venue": "University of Business and Technology",
+   "category": "concert",
+   "price": "From $41.09",
+   "url": "https://jeddah.platinumlist.net/event-tickets/between-the-strange-and-the-prevailing-jeddah",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "d839ad3241b6"
+  },
+  {
+   "title": "Boosh Bashasha - Stand Up Comedy Show in Riyadh",
+   "city": "Riyadh",
+   "venue": "Sard Cultural Centre",
+   "category": "comedy",
+   "price": "From $40.93",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108546/boosh-bashasha-stand-up-comedy-show-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "e4374521f1bc"
+  },
+  {
+   "title": "RSL 26/27 - Al Faisaly vs Al Kholood",
+   "city": "Al Majma'a",
+   "venue": "",
+   "category": "sports",
+   "price": "From $5.33",
+   "url": "https://webook.com/en/SA/mjm/sports-event/events/rsl-r9-al-faisaly-vs-al-kholood-45698",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "webook"
+   ],
+   "id": "5ea1be602672"
+  },
+  {
+   "title": "RSL 26/27 - Al Hazem vs Al Fateh",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/qas/sports-event/events/rsl-r9-al-hazem-vs-al-fateh-48698",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "webook"
+   ],
+   "id": "96b22bbd953d"
+  },
+  {
+   "title": "RSL 26/27 - Al Khaleej vs Al Fayha",
+   "city": "Dammam",
+   "venue": "",
+   "category": "sports",
+   "price": "From $1.33",
+   "url": "https://webook.com/en/SA/dam/sports-event/events/rsl-al-khaleej-vs-al-fayha-15102026",
+   "organizer": null,
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "webook"
+   ],
+   "id": "5092d86f0de6"
+  },
+  {
+   "title": "Al Ittihad x Al Hilal",
+   "city": "Jeddah",
+   "venue": "Al-Ittihad Club's Reserve Field No. 1",
+   "category": "sports",
+   "price": "From $2.74",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108554/al-ittihad-x-al-hilal",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "34df6841ad3d"
+  },
+  {
+   "title": "Al Nasser x Jeddah United Academy",
+   "city": "Riyadh",
+   "venue": "Al-Nasr Club's Reserve Team Stadium",
+   "category": "sports",
+   "price": "From $2.75",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108550/al-nasser-vs-jeddah-united-academy",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "96dd1d1b9303"
+  },
+  {
+   "title": "Alaa El Sheikh Live in Jeddah",
+   "city": "Jeddah",
+   "venue": "The Storytellers",
+   "category": "concert",
+   "price": "From $47.94",
+   "url": "https://jeddah.platinumlist.net/event-tickets/107605/alla-el-sheikh-live-in-jeddah",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "9a3e4f12bcba"
+  },
+  {
+   "title": "FIFAe Finals 26",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "sports",
+   "price": "From $10.67",
+   "url": "https://webook.com/en/SA/JED/sports-event/events/fifae-finals-26",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-25",
+   "sources": [
+    "webook"
+   ],
+   "id": "46a6f4fb0952"
+  },
+  {
+   "title": "Najmat Jeddah x Al Qadisiyah",
+   "city": "Jeddah",
+   "venue": "O15 Academy Stadium",
+   "category": "sports",
+   "price": "From $2.74",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108555/najmat-jeddah-x-al-qadisiyah",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "ddbdf5bfa091"
+  },
+  {
+   "title": "RSL 26/27 - Al Qadsiah vs Abha",
+   "city": "Dammam",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/dam/sports-event/events/alqadsiah-vs-abha-tickets-26-27",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "webook"
+   ],
+   "id": "c34fd14a5cfc"
+  },
+  {
+   "title": "RSL 26/27 - Al Riyadh vs Al Hilal",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/al-riyadh-vs-al-hilal-rsl-2627-r9",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "webook"
+   ],
+   "id": "b76864aeefea"
+  },
+  {
+   "title": "Stand-Up Comedy Show with Salah Al-Dali in Jeddah",
+   "city": "Jeddah",
+   "venue": "Jeddah Society of Culture and Arts",
+   "category": "comedy",
+   "price": "From $29.86",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108273/stand-up-comedy-show-with-salah-al-dali-in-jeddah",
+   "organizer": null,
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "ec3a307590a1"
+  },
+  {
+   "title": "RSL 26/27 - Neom SC vs Al Ettifaq",
+   "city": "Tabuk",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/tab/sports-event/events/rsl-26-27-neom-vs-al-ettifaq-17102026",
+   "organizer": null,
+   "start": "2026-10-17",
+   "end": "2026-10-17",
+   "sources": [
+    "webook"
+   ],
+   "id": "897a50b6726a"
+  },
+  {
+   "title": "EVS Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "Riyadh Front",
+   "category": "expo",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-18",
+   "end": "2026-10-20",
+   "sources": [
+    "10times"
+   ],
+   "id": "08282575ec40"
+  },
+  {
+   "title": "RSL 26/27 - Al Fateh vs Al Khaleej",
+   "city": "Al Ahsa",
+   "venue": "",
+   "category": "sports",
+   "price": "From $0.27",
+   "url": "https://webook.com/en/SA/ahs/sports-event/events/rsl-r10-al-fateh-vs-al-khaleej-89243",
+   "organizer": null,
+   "start": "2026-10-18",
+   "end": "2026-10-18",
+   "sources": [
+    "webook"
+   ],
+   "id": "e6075d6c6de6"
+  },
+  {
+   "title": "Solar PV System Design",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-10-18",
+   "end": "2026-10-22",
+   "sources": [
+    "10times"
+   ],
+   "id": "2ef5e289500c"
+  },
+  {
+   "title": "ASME Sec IX: Welding and Brazing Training",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/e1g0-55d1-fkpf-d-asme-sec-ix-welding-brazing-training",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-23",
+   "sources": [
+    "10times"
+   ],
+   "id": "8f4af7a083d3"
+  },
+  {
+   "title": "Climate Change and Green Finance in International Development",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-19",
+   "sources": [
+    "10times"
+   ],
+   "id": "07eaa868d423"
+  },
+  {
+   "title": "Desert Architecture Forum",
+   "city": "Riyadh",
+   "venue": "JW Marriott Hotel Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-20",
+   "sources": [
+    "10times"
+   ],
+   "id": "7d0b1fed854b"
+  },
+  {
+   "title": "Drafting of Legal Documents Including Contracts for Attorneys",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/education-training",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-19",
+   "sources": [
+    "10times"
+   ],
+   "id": "a99e2d635b75"
+  },
+  {
+   "title": "Effective Revenue Collection Strategies",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-19",
+   "sources": [
+    "10times"
+   ],
+   "id": "3d4ac7c35d79"
+  },
+  {
+   "title": "IEEE International Microwave and Antenna Symposium (IMAS)",
+   "city": "Jeddah",
+   "venue": "Jeddah Street Circuit",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://imas-ieee.org/welcome/",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-22",
+   "sources": [
+    "10times"
+   ],
+   "id": "435ba113cf92"
+  },
+  {
+   "title": "RSL 26/27 - Al Fayha vs Al Ahli",
+   "city": "Al Majma'a",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/mjm/sports-event/events/rsl-r10-al-fayha-vs-al-ahli-86472",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-19",
+   "sources": [
+    "webook"
+   ],
+   "id": "d049eb9d74bd"
+  },
+  {
+   "title": "RSL 26/27 - Al Shabab vs Al Faisaly",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/al-shabab-vs-al-faisaly-rsl-2627-r10",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-19",
+   "sources": [
+    "webook"
+   ],
+   "id": "445900e4703d"
+  },
+  {
+   "title": "Saudi Agriculture 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://saudi-agriculture.com/conference/",
+   "organizer": null,
+   "start": "2026-10-19",
+   "end": "2026-10-22",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "cb317be71fd6"
+  },
+  {
+   "title": "MIPIM Middle East 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "expo",
+   "price": "From SAR 8,250",
+   "url": "https://www.mipim.com/en-gb/mipim-middle-east/Media/mipim-middle-east-launch-release1.html",
+   "organizer": null,
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "a4217f4bc757"
+  },
+  {
+   "title": "RSL 26/27 - Al Nassr vs Neom",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $8",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/rsl-26-27-nassr-vs-neom-a7m5b3x9",
+   "organizer": null,
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "webook"
+   ],
+   "id": "0f5a3630a34d"
+  },
+  {
+   "title": "RSL 26/27 - Al Taawoun vs Al Qadsiah",
+   "city": "Buraydah",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/bur/sports-event/events/rsl-r10-al-taawoun-vs-al-qadsiah-46320",
+   "organizer": null,
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "webook"
+   ],
+   "id": "cf669445ebe1"
+  },
+  {
+   "title": "Riyadh 2026 Venture Capital World Summit",
+   "city": "Riyadh",
+   "venue": "King Abdullah Financial District",
+   "category": "conference",
+   "price": "From €336.68",
+   "url": "https://www.eventbrite.com/e/riyadh-2026-venture-capital-world-summit-tickets-1978898742409",
+   "organizer": "Venture Capital World Summit OU",
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "e3ac3c08bd64"
+  },
+  {
+   "title": "Shaping Saudi Arabia's Future: The Next Step in Architectural Leadership",
+   "city": "Riyadh",
+   "venue": "IE University Center for Leadership & Innovation in the Middle East",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/shaping-saudi-arabias-future-the-next-step-in-architectural-leadership-tickets-1996626146552",
+   "organizer": "IE University - Recruitment Design & Architecture",
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "0f490d3bad86"
+  },
+  {
+   "title": "Portfolio Night 2026 - Riyadh",
+   "city": "Riyadh",
+   "venue": "Tawuniya Towers",
+   "category": "meetup",
+   "price": "From $23.18",
+   "url": "https://www.eventbrite.com/e/portfolio-night-2026-riyadh-tickets-1995718003271",
+   "organizer": "The One Club for Creativity",
+   "start": "2026-10-21",
+   "end": "2026-10-21",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "1453ae778f09"
+  },
+  {
+   "title": "Saudi Maritime & Logistics Congress 2026",
+   "city": "Jeddah",
+   "venue": "Jeddah Superdome",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/saudi-maritime-logistics-congress-2026-tickets-1995633585776",
+   "organizer": "Tahaluf",
+   "start": "2026-10-21",
+   "end": "2026-10-21",
+   "sources": [
+    "saudicon",
+    "eventbrite"
+   ],
+   "id": "5364e18ca32a"
+  },
+  {
+   "title": "Feena Nehke? Stand Up Comedy by John Achkar in Riyadh",
+   "city": "Riyadh",
+   "venue": "Riyadh Schools Theater",
+   "category": "comedy",
+   "price": "From $54.93",
+   "url": "https://riyadh.platinumlist.net/event-tickets/106073/feena-nehke-stand-up-comedy-by-john-achkar-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-22",
+   "end": "2026-10-22",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "f10e75758747"
+  },
+  {
+   "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Jeddah",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "comedy",
+   "price": "From $22.67",
+   "url": "https://webook.com/en/SA/JED/theater-and-performing-arts/events/lahd-yadri-jeddah-osama-bazaid-comedy-pod-tickets-2266",
+   "organizer": null,
+   "start": "2026-10-22",
+   "end": "2026-10-22",
+   "sources": [
+    "webook"
+   ],
+   "id": "9885a646ea3d"
+  },
+  {
+   "title": "RSL 26/27 - Al Fateh vs Al Shabab",
+   "city": "Al Ahsa",
+   "venue": "",
+   "category": "sports",
+   "price": "From $0.27",
+   "url": "https://webook.com/en/SA/ahs/sports-event/events/rsl-r11-al-fateh-vs-al-shabab-10582",
+   "organizer": null,
+   "start": "2026-10-22",
+   "end": "2026-10-22",
+   "sources": [
+    "webook"
+   ],
+   "id": "1e7e5a31b595"
+  },
+  {
+   "title": "RSL 26/27 - Al Hazem vs Al Fayha",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/qas/sports-event/events/rsl-r11-al-hazem-vs-al-fayha-52532",
+   "organizer": null,
+   "start": "2026-10-22",
+   "end": "2026-10-22",
+   "sources": [
+    "webook"
+   ],
+   "id": "0a46efe3fbbb"
+  },
+  {
+   "title": "Workforce Strategy & Leadership Conference",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://exito-e.com/wsl/",
+   "organizer": null,
+   "start": "2026-10-22",
+   "end": "2026-10-22",
+   "sources": [
+    "10times"
+   ],
+   "id": "0a23c9a3f4fd"
+  },
+  {
+   "title": "Explore Riyadh",
+   "city": "Riyadh",
+   "venue": "Meeting point to be confirmed",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://luma.com/f0k12jvt",
+   "organizer": "The Offline Club",
+   "start": "2026-10-23",
+   "end": "2026-10-23",
+   "sources": [
+    "luma"
+   ],
+   "id": "6a9cd8c8334e"
+  },
+  {
+   "title": "Feena Nehke? Stand Up Comedy by John Achkar in Jeddah",
+   "city": "Jeddah",
+   "venue": "Dar Al-Hekma University",
+   "category": "comedy",
+   "price": "From $68.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/106065/feena-nehke-stand-up-comedy-by-john-achkar-in-jeddah",
+   "organizer": null,
+   "start": "2026-10-23",
+   "end": "2026-10-23",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "27a0c1e2caaf"
+  },
+  {
+   "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Abha",
+   "city": "Abha",
+   "venue": "",
+   "category": "comedy",
+   "price": "From $20",
+   "url": "https://webook.com/en/SA/abh/theater-and-performing-arts/events/lahd-yadri-osama-al-abhaa-2026",
+   "organizer": null,
+   "start": "2026-10-23",
+   "end": "2026-10-23",
+   "sources": [
+    "webook"
+   ],
+   "id": "c3eab244f0ff"
+  },
+  {
+   "title": "MDLBEAST Presents X IN ACT - Black Coffee in Jeddah",
+   "city": "Jeddah",
+   "venue": "Onyx Arena",
+   "category": "concert",
+   "price": "From $68.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/108544/mdlbeast-presents-x-in-act-black-coffee",
+   "organizer": null,
+   "start": "2026-10-23",
+   "end": "2026-10-23",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "9c2e0d430440"
+  },
+  {
+   "title": "RSL 26/27 - Al Qadsiah vs Al Hilal",
+   "city": "Dammam",
+   "venue": "",
+   "category": "sports",
+   "price": "From $8",
+   "url": "https://webook.com/en/SA/dam/sports-event/events/alqadsiah-vs-al-hilal-tickets-26-27",
+   "organizer": null,
+   "start": "2026-10-23",
+   "end": "2026-10-23",
+   "sources": [
+    "webook"
+   ],
+   "id": "03d3344914c3"
+  },
+  {
+   "title": "RSL 26/27 - Al Kholood vs Al Ettifaq",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2",
+   "url": "https://webook.com/en/SA/qas/sports-event/events/rsl-r11-al-kholood-vs-al-ettifaq-24206",
+   "organizer": null,
+   "start": "2026-10-24",
+   "end": "2026-10-24",
+   "sources": [
+    "webook"
+   ],
+   "id": "2e4cac11bc09"
+  },
+  {
+   "title": "RSL 26/27 - Neom SC vs Abha",
+   "city": "Tabuk",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/tab/sports-event/events/rsl-26-27-neom-vs-abha-24102026",
+   "organizer": null,
+   "start": "2026-10-24",
+   "end": "2026-10-24",
+   "sources": [
+    "webook"
+   ],
+   "id": "d4e3977b512b"
+  },
+  {
+   "title": "Digital Health Evening 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "meetup",
+   "price": "From AED 1,800",
+   "url": "https://zimam-ngo.org/events/digital-health-evening/",
+   "organizer": null,
+   "start": "2026-10-25",
+   "end": "2026-10-25",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "849fa7cd3896"
+  },
+  {
+   "title": "Environmental Monitoring and Modelling",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-10-25",
+   "end": "2026-10-29",
+   "sources": [
+    "10times"
+   ],
+   "id": "1fbf5ca79ff6"
+  },
+  {
+   "title": "Global PropTech Summit 2026",
+   "city": "Riyadh",
+   "venue": "Mandarin Oriental Al Faisaliah",
+   "category": "conference",
+   "price": "Free",
+   "url": "http://mail.eyeofriyadh.com/events/details/global-proptech-summit-2026",
+   "organizer": null,
+   "start": "2026-10-25",
+   "end": "2026-10-26",
+   "sources": [
+    "saudicon",
+    "eyeofriyadh"
+   ],
+   "id": "a6d25b53a5b4"
+  },
+  {
+   "title": "AFC Elite 26/27 - Al Nassr vs Al Wasl",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/afc-elite-26-27-al-nassr-vs-al-wasl-m5d2a9q7",
+   "organizer": null,
+   "start": "2026-10-26",
+   "end": "2026-10-26",
+   "sources": [
+    "webook"
+   ],
+   "id": "d07e53f9f08f"
+  },
+  {
+   "title": "AFC Elite 26/27 - Al Qadsiah FC vs Al Sadd",
+   "city": "Dammam",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/dam/sports-event/events/afc-elite-26-27-al-qadsiah-fc-vs-al-sadd-qat",
+   "organizer": null,
+   "start": "2026-10-26",
+   "end": "2026-10-26",
+   "sources": [
+    "webook"
+   ],
+   "id": "26df9f2fb30f"
+  },
+  {
+   "title": "E3 Customer Experience Conference 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "From $899",
+   "url": "http://mail.eyeofriyadh.com/events/details/e3-customer-experience-conference-2026",
+   "organizer": null,
+   "start": "2026-10-26",
+   "end": "2026-10-27",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "b95ac5bc5e52"
+  },
+  {
+   "title": "Effective Debt Collection Strategies and Process Optimization",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-10-26",
+   "end": "2026-10-26",
+   "sources": [
+    "10times"
+   ],
+   "id": "43e617feb189"
+  },
+  {
+   "title": "Executive Afterwork: Decision-Making in Times of Uncertainty",
+   "city": "Khobar",
+   "venue": "IE Saudi Arabia",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/executive-afterwork-decision-making-in-times-of-uncertainty-tickets-2002294931039",
+   "organizer": "IE University - Executive Education",
+   "start": "2026-10-26",
+   "end": "2026-10-26",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "f4bbb446580e"
+  },
+  {
+   "title": "FII 10th Edition 2026",
+   "city": "Riyadh",
+   "venue": "King Abdulaziz International Conference Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "http://fii-institute.org/press/the-future-investment-initiative-announces-landmark-10th-anniversary-edition-in-riyadh/",
+   "organizer": null,
+   "start": "2026-10-26",
+   "end": "2026-10-26",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "d1b8af76d4cd"
+  },
+  {
+   "title": "Global Health Exhibition 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center (Malham)",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/global-health-exhibition",
+   "organizer": null,
+   "start": "2026-10-26",
+   "end": "2026-10-29",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "f6b4e6ab0caa"
+  },
+  {
+   "title": "International Trade Exchange Exhibition (ITEE)",
+   "city": "Jeddah",
+   "venue": "Jeddah Center for Exhibitions and Events",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1h2-8r0x-1xzp-r-international-trade-exchange-exhibition",
+   "organizer": null,
+   "start": "2026-10-27",
+   "end": "2026-10-29",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "4f5deaccea09"
+  },
+  {
+   "title": "Landmarks in Logistics Summit KSA",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/lils-ksa",
+   "organizer": null,
+   "start": "2026-10-27",
+   "end": "2026-10-28",
+   "sources": [
+    "10times"
+   ],
+   "id": "e960f3db15c2"
+  },
+  {
+   "title": "OT Security Jubail 2026",
+   "city": "Jubail",
+   "venue": "InterContinental Al Jubail Resort",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://saudicon.app/en/events/ot-security-first-jubail-2026",
+   "organizer": null,
+   "start": "2026-10-27",
+   "end": "2026-10-27",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "38d8a9328384"
+  },
+  {
+   "title": "15th Middle East Enterprise AI & Analytics Summit",
+   "city": "Riyadh",
+   "venue": "Radisson Blu Hotel & Convention Center, Riyadh Minhal",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/15th-middle-east-enterprise-ai-analytics-summit-tickets-1991914835895",
+   "organizer": "Letstalkb2b",
+   "start": "2026-10-28",
+   "end": "2026-10-28",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "57a90340e47a"
+  },
+  {
+   "title": "CIPS MENA Procurement & Supply Chain Futures Forum 2026",
+   "city": "Riyadh",
+   "venue": "Mandarin Oriental Al Faisaliah",
+   "category": "conference",
+   "price": "Free",
+   "url": "http://mail.eyeofriyadh.com/events/details/the-cips-mena-excellence-in-procurement-supply-awards-1770538838",
+   "organizer": null,
+   "start": "2026-10-28",
+   "end": "2026-10-29",
+   "sources": [
+    "saudicon",
+    "eyeofriyadh"
+   ],
+   "id": "4eb8d825c847"
+  },
+  {
+   "title": "Cyber Revolution Summit - Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "Radisson Blu Hotel & Convention Center, Riyadh Minhal",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/cyber-revolution-summit-saudi-arabia-tickets-1999009208354",
+   "organizer": "TraiCon Events",
+   "start": "2026-10-28",
+   "end": "2026-10-28",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "c0c4efe408e4"
+  },
+  {
+   "title": "Real Estate Supply Chain Forum 2026",
+   "city": "Riyadh",
+   "venue": "Mandarin Oriental Al Faisaliah",
+   "category": "conference",
+   "price": "Free",
+   "url": "http://mail.eyeofriyadh.com/events/details/rscforum-com",
+   "organizer": null,
+   "start": "2026-10-28",
+   "end": "2026-10-29",
+   "sources": [
+    "eyeofriyadh",
+    "saudicon"
+   ],
+   "id": "eb715a6896c1"
+  },
+  {
+   "title": "Marilyne Naaman Live Concert in Riyadh",
+   "city": "Riyadh",
+   "venue": "Teatro Riyadh",
+   "category": "concert",
+   "price": "From $108.49",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108220/marilyne-naaman-live-concert-in-riyadh",
+   "organizer": null,
+   "start": "2026-10-29",
+   "end": "2026-10-29",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "3506151f3207"
+  },
+  {
+   "title": "RSL 26/27 - Al Khaleej vs Al Hazem",
+   "city": "Dammam",
+   "venue": "",
+   "category": "sports",
+   "price": "From $2.67",
+   "url": "https://webook.com/en/SA/dam/sports-event/events/rsl-al-khaleej-vs-al-hazem-29102026",
+   "organizer": null,
+   "start": "2026-10-29",
+   "end": "2026-10-29",
+   "sources": [
+    "webook"
+   ],
+   "id": "219f851bd3b6"
+  },
+  {
+   "title": "RSL 26/27 - Al Nassr vs Al Kholood",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $8",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/rsl-26-27-nassr-vs-al-kholood-g7k2l5f1",
+   "organizer": null,
+   "start": "2026-10-29",
+   "end": "2026-10-29",
+   "sources": [
+    "webook"
+   ],
+   "id": "21949d576452"
+  },
+  {
+   "title": "New Global Sport Conference 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "conference",
+   "price": "From SAR 9,999",
+   "url": "https://newglobalsportconference.com/new/the-new-global-sport-conference-returns-to-riyadh-october-30-november-1/",
+   "organizer": null,
+   "start": "2026-10-30",
+   "end": "2026-10-30",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "a1278e5b4ef2"
+  },
+  {
+   "title": "RSL 26/27 - Al Shabab vs Al Ahli",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "From $8",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/al-shabab-vs-al-ahli-rsl-2627-r12",
+   "organizer": null,
+   "start": "2026-10-30",
+   "end": "2026-10-30",
+   "sources": [
+    "webook"
+   ],
+   "id": "854a2cb020bd"
+  },
+  {
+   "title": "RSL 26/27 - Al Taawoun vs Al Ettifaq",
+   "city": "Buraydah",
+   "venue": "",
+   "category": "sports",
+   "price": "From $1.33",
+   "url": "https://webook.com/en/SA/bur/sports-event/events/rsl-r12-al-taawoun-vs-al-ettifaq-86580",
+   "organizer": null,
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "sources": [
+    "webook"
+   ],
+   "id": "af614d7a0b32"
+  },
+  {
+   "title": "IDRA World Congress 2026",
+   "city": "Riyadh",
+   "venue": "King Faisal Conference Hall",
+   "category": "conference",
+   "price": "From $750",
+   "url": "https://www.iwmi.org/events/idra-world-congress-2026/",
+   "organizer": null,
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "7960bb4053ee"
+  },
+  {
+   "title": "MILSET Expo-Sciences Asia 2026",
+   "city": "Unaizah",
+   "venue": "Abdullah H. Al Zamil Science Oasis",
+   "category": "expo",
+   "price": "From $450",
+   "url": "https://milset.org/milset/web/index.php/node/20",
+   "organizer": null,
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c13de9493076"
+  },
+  {
+   "title": "Water Regulation Forum 2026",
+   "city": "Riyadh",
+   "venue": "King Faisal Conference Hall",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://mailchi.mp/idrawater/announcing-the-inaugural-swa-water-regulation-exchange",
+   "organizer": null,
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "2fc640395730"
+  },
+  {
+   "title": "ISO 37001 Lead Implementer",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-11-02",
+   "end": "2026-11-02",
+   "sources": [
+    "10times"
+   ],
+   "id": "f9ca1b5c98e9"
+  },
+  {
+   "title": "Professional Business Development Skills",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "workshop",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/workshops",
+   "organizer": null,
+   "start": "2026-11-02",
+   "end": "2026-11-02",
+   "sources": [
+    "10times"
+   ],
+   "id": "9d37c934ea1d"
+  },
+  {
+   "title": "SEED Business School Festival 2026 - Jeddah",
+   "city": "Jeddah",
+   "venue": "Jeddah Marriott Hotel, Madinah Road",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.eventbrite.co.uk/e/seed-business-school-festival-2026-jeddah-tickets-1997969841580",
+   "organizer": "SEED Global Education",
+   "start": "2026-11-02",
+   "end": "2026-11-02",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "e78c0dc39732"
+  },
+  {
+   "title": "Saudi Build (36th edition)",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/saudi-build",
+   "organizer": null,
+   "start": "2026-11-02",
+   "end": "2026-11-05",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "3c9656e8094c"
+  },
+  {
+   "title": "Saudi Elenex 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://saudielenex.com",
+   "organizer": null,
+   "start": "2026-11-02",
+   "end": "2026-11-02",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "217c96f9c954"
+  },
+  {
+   "title": "QS Discover Master's Fair",
+   "city": "Jeddah",
+   "venue": "Ritz-Carlton Jeddah",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://qs.topuniversities.com/events/masters/jeddah?partnerid=13112",
+   "organizer": null,
+   "start": "2026-11-03",
+   "end": "2026-11-03",
+   "sources": [
+    "10times"
+   ],
+   "id": "813c8976812d"
+  },
+  {
+   "title": "Saudi Thoracic Society International Conference",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/riyadh-sa/medical-pharma",
+   "organizer": null,
+   "start": "2026-11-03",
+   "end": "2026-11-07",
+   "sources": [
+    "10times"
+   ],
+   "id": "effcef175b00"
+  },
+  {
+   "title": "Fintech Revolution Summit Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Radisson Blu Hotel & Convention Center, Riyadh Minhal",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-11-04",
+   "end": "2026-11-04",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "2417306975e3"
+  },
+  {
+   "title": "International Conference on Innovation in AI and IoT",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/jeddah-sa/technology-education/workshops",
+   "organizer": null,
+   "start": "2026-11-04",
+   "end": "2026-11-05",
+   "sources": [
+    "10times"
+   ],
+   "id": "2db3bdf6bbc2"
+  },
+  {
+   "title": "Jewellery Salon",
+   "city": "Riyadh",
+   "venue": "ANB Arena",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/jewellerysalon",
+   "organizer": null,
+   "start": "2026-11-04",
+   "end": "2026-11-08",
+   "sources": [
+    "10times"
+   ],
+   "id": "a41e92ab8798"
+  },
+  {
+   "title": "Middle East CFO Summit",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh Palace",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://10times.com/e1xz-zf10-0sf3",
+   "organizer": null,
+   "start": "2026-11-05",
+   "end": "2026-11-05",
+   "sources": [
+    "10times"
+   ],
+   "id": "1778e9ae377d"
+  },
+  {
+   "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Al-Qassim",
+   "city": "Al Qassim",
+   "venue": "",
+   "category": "comedy",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/qas/theater-and-performing-arts/events/lahd-yadri-al-qassim-osama-0206",
+   "organizer": null,
+   "start": "2026-11-06",
+   "end": "2026-11-06",
+   "sources": [
+    "webook"
+   ],
+   "id": "cc7c35bc90ac"
+  },
+  {
+   "title": "Wagef! Nemr Live Comedy Show in Riyadh",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh RDC Hotel & Convention Center",
+   "category": "comedy",
+   "price": "From $53.56",
+   "url": "https://riyadh.platinumlist.net/event-tickets/107280/wagef-nemr-live-comedy-show-in-riyadh",
+   "organizer": null,
+   "start": "2026-11-06",
+   "end": "2026-11-06",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "6c6b45108f23"
+  },
+  {
+   "title": "Wagef! Nemr Live Comedy Show in Jeddah",
+   "city": "Jeddah",
+   "venue": "Dar Al-Hekma University",
+   "category": "comedy",
+   "price": "From $41.09",
+   "url": "https://jeddah.platinumlist.net/event-tickets/107450/wagef-nemr-live-comedy-show-in-jeddah",
+   "organizer": null,
+   "start": "2026-11-07",
+   "end": "2026-11-07",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "2440d7c03363"
+  },
+  {
+   "title": "3rd International Port & Marine Development Conference 2026",
+   "city": "Jeddah",
+   "venue": "Jeddah Hilton",
+   "category": "conference",
+   "price": "From $25",
+   "url": "https://www.eyeofriyadh.com/events/details/international-port-marine-development-conference-1758540019",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "7af5e184e4d4"
+  },
+  {
+   "title": "Cat Show 3rd season in Saudi Pet & Vet Expo",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "From $20.60",
+   "url": "https://www.eventbrite.com/e/cat-show-3rd-season-in-saudi-pet-vet-expo-tickets-1991972724040",
+   "organizer": "City Events",
+   "start": "2026-11-09",
+   "end": "2026-11-11",
+   "sources": [
+    "eventbrite",
+    "platinumlist"
+   ],
+   "id": "1c35c6966dd3"
+  },
+  {
+   "title": "Connected World KSA 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "conference",
+   "price": "From $100",
+   "url": "https://www.terrapinn.com/conference/connected-world-ksa/our-story.stm",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "0e337673a9d3"
+  },
+  {
+   "title": "Dog Village 2026 - Participants in Riyadh",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "From $63.17",
+   "url": "https://riyadh.platinumlist.net/event-tickets/dog-village-participants",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-11",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "65a6520e3d56"
+  },
+  {
+   "title": "Dog Village 2026 - Visitors in Riyadh",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "From $17.85",
+   "url": "https://riyadh.platinumlist.net/event-tickets/dog-village",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-11",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "f06e06e56a5c"
+  },
+  {
+   "title": "EV Auto Show",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1rp-00kd-2r3p",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-11",
+   "sources": [
+    "10times"
+   ],
+   "id": "8b1f287b0bc3"
+  },
+  {
+   "title": "Hyperscale Live KSA 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "conference",
+   "price": "From $100",
+   "url": "https://www.terrapinn.com/conference/hyperscale-ksa/",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "475801606db5"
+  },
+  {
+   "title": "SADEX 2026 - Saudi Drone & UAS Exhibition",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://sadex-sa.com",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "e01cca03eb10"
+  },
+  {
+   "title": "Saudi Pet & Vet Expo 5th Edition 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/saudi-pet-vet-expo-5th-edition-2026-tickets-1991971432176",
+   "organizer": "City Events",
+   "start": "2026-11-09",
+   "end": "2026-11-11",
+   "sources": [
+    "saudicon",
+    "eventbrite",
+    "10times"
+   ],
+   "id": "e720cd724ac2"
+  },
+  {
+   "title": "Seamless Saudi Arabia (9th edition)",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1zz-2p8g-4d1z",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-10",
+   "sources": [
+    "10times"
+   ],
+   "id": "07ba3eb128de"
+  },
+  {
+   "title": "Seamless Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.terrapinn.com/exhibition/seamless-saudi-arabia/index.stm",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "82279231218f"
+  },
+  {
+   "title": "Second Saudi Statistics Forum 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eyeofriyadh.com/events/details/second-saudi-statistics-forum-2026",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b505b55518d5"
+  },
+  {
+   "title": "UN World Data Forum 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://unstats.un.org/unsd/undataforum/blog/data-relay-Nairobi-Riyadh/",
+   "organizer": null,
+   "start": "2026-11-09",
+   "end": "2026-11-09",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "87bca95463da"
+  },
+  {
+   "title": "Build Your House Exhibition Saudi 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "http://mail.eyeofriyadh.com/news/details/build-your-house-saudi-inspire-for-home-ksa-launch-in-riyadh-bringing-qatar-s-premier-home-lifestyle-exhibitions-to-the-kingdom",
+   "organizer": null,
+   "start": "2026-11-10",
+   "end": "2026-11-10",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "ab78f96bd3f8"
+  },
+  {
+   "title": "GBB Investment Summit - Saudi Arabia 2026",
+   "city": "Jeddah",
+   "venue": "The Ritz-Carlton Jeddah",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://gbbinvestmentsummit.com/",
+   "organizer": null,
+   "start": "2026-11-10",
+   "end": "2026-11-10",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "61398ded3407"
+  },
+  {
+   "title": "Inspire for Home KSA 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://inspireforhome-ksa.com/",
+   "organizer": null,
+   "start": "2026-11-10",
+   "end": "2026-11-10",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "3da092ee5957"
+  },
+  {
+   "title": "Misk Global Forum 2026",
+   "city": "Riyadh",
+   "venue": "Al-Malfa Hall",
+   "category": "conference",
+   "price": "Free",
+   "url": "http://mail.eyeofriyadh.com/events/details/misk-global-forum-2026-1781419549",
+   "organizer": null,
+   "start": "2026-11-11",
+   "end": "2026-11-12",
+   "sources": [
+    "10times",
+    "saudicon"
+   ],
+   "id": "0e8c70b7e31b"
+  },
+  {
+   "title": "Real Estate Development Summit - Saudi Arabia 2026",
+   "city": "Jeddah",
+   "venue": "The Ritz-Carlton Jeddah",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://saudiarabia.redevelopmentsummit.com/",
+   "organizer": null,
+   "start": "2026-11-11",
+   "end": "2026-11-11",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "a463c2c37d06"
+  },
+  {
+   "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Madinah",
+   "city": "Medina",
+   "venue": "",
+   "category": "comedy",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/mad/theater-and-performing-arts/events/lahd-yadri-osama-al-madinah-0262-0",
+   "organizer": null,
+   "start": "2026-11-13",
+   "end": "2026-11-13",
+   "sources": [
+    "webook"
+   ],
+   "id": "49b7232c813f"
+  },
+  {
+   "title": "Origins by Weekends Experience in Jeddah",
+   "city": "Jeddah",
+   "venue": "Natchi Beach Club",
+   "category": "concert",
+   "price": "From $26.30",
+   "url": "https://jeddah.platinumlist.net/event-tickets/weekends-experience",
+   "organizer": null,
+   "start": "2026-11-13",
+   "end": "2026-11-13",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "4b0353a7f827"
+  },
+  {
+   "title": "Saudi Indoor Rowing Championship 2026 in Jeddah",
+   "city": "Jeddah",
+   "venue": "NASA International Schools",
+   "category": "sports",
+   "price": "From $41.09",
+   "url": "https://jeddah.platinumlist.net/event-tickets/saudi-indoor-rowing-championship-in-jeddah",
+   "organizer": null,
+   "start": "2026-11-13",
+   "end": "2026-11-13",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "a281ca63c158"
+  },
+  {
+   "title": "Saudi Indoor Rowing Championship 2026 in Riyadh",
+   "city": "Riyadh",
+   "venue": "Riyadh Schools Boys, Misk City",
+   "category": "sports",
+   "price": "From $32.96",
+   "url": "https://riyadh.platinumlist.net/event-tickets/saudi-indoor-rowing-championship-in-riyadh",
+   "organizer": null,
+   "start": "2026-11-13",
+   "end": "2026-11-13",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "e3702d295309"
+  },
+  {
+   "title": "Visitor of Saudi Indoor Rowing Championship 2026 in Jeddah",
+   "city": "Jeddah",
+   "venue": "NASA International Schools",
+   "category": "sports",
+   "price": "From $5.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/visitor-of-saudi-indoor-rowing-championship-in-jeddah",
+   "organizer": null,
+   "start": "2026-11-13",
+   "end": "2026-11-14",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "0c74f71275c1"
+  },
+  {
+   "title": "Visitor of Saudi Indoor Rowing Championship 2026 in Riyadh",
+   "city": "Riyadh",
+   "venue": "Riyadh Schools Boys, Misk City",
+   "category": "sports",
+   "price": "From $5.49",
+   "url": "https://riyadh.platinumlist.net/event-tickets/visitor-of-saudi-indoor-rowing-championship-in-riyadh",
+   "organizer": null,
+   "start": "2026-11-13",
+   "end": "2026-11-14",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "5cece638d6a4"
+  },
+  {
+   "title": "Cityscape Global Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center (Malham)",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://cityscapeglobal.com/welcome-to-cityscape-global-2026",
+   "organizer": null,
+   "start": "2026-11-16",
+   "end": "2026-11-19",
+   "sources": [
+    "eyeofriyadh",
+    "saudicon"
+   ],
+   "id": "d637f41508c0"
+  },
+  {
+   "title": "HR Tech Saudi Summit 2026",
+   "city": "Riyadh",
+   "venue": "voco Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://hrtechsaudi.com/",
+   "organizer": null,
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "3f8d0848119f"
+  },
+  {
+   "title": "Intersec Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://intersec-saudiarabia.ksa.messefrankfurt.com/ksa/en/press/press-releases/2026/11052026.html",
+   "organizer": null,
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "8df34042b4b1"
+  },
+  {
+   "title": "PAPER-ME/KSA",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1xg-g484-4hks",
+   "organizer": null,
+   "start": "2026-11-16",
+   "end": "2026-11-18",
+   "sources": [
+    "10times"
+   ],
+   "id": "cc97d7cfa0d8"
+  },
+  {
+   "title": "Print2Pack Saudi Arabia 2026",
+   "city": "Jeddah",
+   "venue": "Jeddah Center for Exhibitions and Events",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.paperindex.com/pulp-and-paper-industry-events?ref=tradefest.io&utm_campaign=tradefest.io&utm_source=tradefest.io&utm_medium=tradefest.io",
+   "organizer": null,
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "5ef9307529d5"
+  },
+  {
+   "title": "Third UN World Geospatial Information Congress (UNWGIC 2026)",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.un.org/globalgeospatial/en/events/2026/3unwgic",
+   "organizer": null,
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "3bf5292aeba3"
+  },
+  {
+   "title": "AEI Autumn Series: CityScape Week Networking Breakfast",
+   "city": "Riyadh",
+   "venue": "ARC Compound",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.co.uk/e/aei-autumn-series-cityscape-week-networking-breakfast-tickets-1996365851001",
+   "organizer": "AEI Saudi",
+   "start": "2026-11-18",
+   "end": "2026-11-18",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "440fe7ea5ab2"
+  },
+  {
+   "title": "Comedy Show by Mario Yazbeck in Riyadh",
+   "city": "Riyadh",
+   "venue": "Sard Cultural Centre",
+   "category": "comedy",
+   "price": "From $61.80",
+   "url": "https://riyadh.platinumlist.net/event-tickets/108560/comedy-show-by-mario-yazbeck-in-riyadh",
+   "organizer": null,
+   "start": "2026-11-18",
+   "end": "2026-11-18",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "f14787b2b999"
+  },
+  {
+   "title": "Saudi Trade Finance Summit 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://sauditradefinance.com",
+   "organizer": null,
+   "start": "2026-11-18",
+   "end": "2026-11-18",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c0e628522303"
+  },
+  {
+   "title": "Dunes - The Ultimate Outdoor Adventure Show 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/dunes-the-ultimate-outdoor-adventure-show-2026-tickets-1980387124199",
+   "organizer": "ArabiaFairs",
+   "start": "2026-11-19",
+   "end": "2026-11-19",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "a4d543e549e3"
+  },
+  {
+   "title": "Saudi Retail Forum 2026",
+   "city": "Riyadh",
+   "venue": "voco Riyadh",
+   "category": "conference",
+   "price": "From $1,000",
+   "url": null,
+   "organizer": null,
+   "start": "2026-11-19",
+   "end": "2026-11-19",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "8ae8d51cdfae"
+  },
+  {
+   "title": "Connected Banking Summit Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "From $2,799",
+   "url": "https://connected-banking.com/summit/saudi-arabia/",
+   "organizer": null,
+   "start": "2026-11-21",
+   "end": "2026-11-21",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "ddb3a6962bc3"
+  },
+  {
+   "title": "Foodex Saudi 2026",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.foodexsaudiexpo.com/en?gad_source=2&gad_campaignid=22441455319",
+   "organizer": null,
+   "start": "2026-11-23",
+   "end": "2026-11-25",
+   "sources": [
+    "10times",
+    "eyeofriyadh"
+   ],
+   "id": "11de8201a6da"
+  },
+  {
+   "title": "Foodex Saudi 2026 - Jeddah",
+   "city": "Jeddah",
+   "venue": "Jeddah Center for Exhibitions and Events",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/foodexsaudi",
+   "organizer": null,
+   "start": "2026-11-23",
+   "end": "2026-11-23",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b2e16c1a43fc"
+  },
+  {
+   "title": "MOVE Riyadh 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1xr-2h8z-2sf6",
+   "organizer": null,
+   "start": "2026-11-23",
+   "end": "2026-11-23",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "937fbb3b6691"
+  },
+  {
+   "title": "Saudi Franchise Expo 2026",
+   "city": "Jeddah",
+   "venue": "Jeddah Center for Exhibitions and Events",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.saudifranchiseexpo.com/",
+   "organizer": null,
+   "start": "2026-11-23",
+   "end": "2026-11-23",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "2d6f33596efd"
+  },
+  {
+   "title": "Solar & Storage Live Riyadh 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://10times.com/e1r3-r9x3-0gkf",
+   "organizer": null,
+   "start": "2026-11-23",
+   "end": "2026-11-23",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "166e0c419d5b"
+  },
+  {
+   "title": "AFC Elite 26/27 - Al Nassr vs Al Sadd",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/afc-elite-26-27-al-nassr-vs-al-sadd-z2g9y1d4",
+   "organizer": null,
+   "start": "2026-11-24",
+   "end": "2026-11-24",
+   "sources": [
+    "webook"
+   ],
+   "id": "deaa8b243833"
+  },
+  {
+   "title": "Family Offices & VCs Investment Summit Riyadh: Invite Only",
+   "city": "Riyadh",
+   "venue": "The Garage",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eventbrite.co.uk/e/family-offices-vcs-investment-summit-riyadh-invite-only-tickets-1242155363129",
+   "organizer": "Morse Bridge",
+   "start": "2026-11-24",
+   "end": "2026-11-24",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "6d32920b8210"
+  },
+  {
+   "title": "SAIF - Security and Innovation Fair 2026",
+   "city": "Riyadh",
+   "venue": "Tuwaiq Academy",
+   "category": "expo",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-11-24",
+   "end": "2026-11-24",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "909ea3a20c8a"
+  },
+  {
+   "title": "LIFT CITY EXPO Riyadh (4th edition) 2026",
+   "city": "Riyadh",
+   "venue": "The Arena by Live Show Arabia",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://liftcityexpo.com/sa/?ref=cantonfair.net",
+   "organizer": null,
+   "start": "2026-11-26",
+   "end": "2026-11-26",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "056bdec0f8c5"
+  },
+  {
+   "title": "In Act Anniversary - Act XI in Jeddah",
+   "city": "Jeddah",
+   "venue": "Venue TBA",
+   "category": "concert",
+   "price": "From $68.48",
+   "url": "https://jeddah.platinumlist.net/event-tickets/106479/in-act-anniversary-act-xi-in-jeddah-13-nov",
+   "organizer": null,
+   "start": "2026-11-27",
+   "end": "2026-11-27",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "e79a3ebd209f"
+  },
+  {
+   "title": "NextGen2030 2.0 | Youth & AI Summit Riyadh 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "From $23.32",
+   "url": "https://www.eventbrite.co.uk/e/nextgen2030-20-youth-ai-summit-riyadh-2026-registration-1999518280001",
+   "organizer": "Teaching Pakistan",
+   "start": "2026-11-27",
+   "end": "2026-11-27",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "c32d8baab0a3"
+  },
+  {
+   "title": "Global Logistics Forum 2026",
+   "city": "Riyadh",
+   "venue": "King Abdulaziz International Conference Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://aapnews.aap.com.au/aapreleases/globenewswire1001257946",
+   "organizer": null,
+   "start": "2026-11-29",
+   "end": "2026-11-29",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c3458f229e05"
+  },
+  {
+   "title": "UNCTAD Global Supply Chain Forum 2026",
+   "city": "Riyadh",
+   "venue": "King Abdulaziz International Conference Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://unctad.org/meeting/global-supply-chain-forum-2026",
+   "organizer": null,
+   "start": "2026-11-29",
+   "end": "2026-11-29",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "5a4ebd6815e5"
+  },
+  {
+   "title": "Fire Middle East Conference 2026",
+   "city": "Riyadh",
+   "venue": "voco Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.eyeofriyadh.com/events/details/the-fire-middle-east-conference-1758540235",
+   "organizer": null,
+   "start": "2026-11-30",
+   "end": "2026-11-30",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "55d223a33b5c"
+  },
+  {
+   "title": "Global Airports Forum 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://globalairportsforum.com/plan-your-visit/",
+   "organizer": null,
+   "start": "2026-11-30",
+   "end": "2026-11-30",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "1f32d9e6dc2a"
+  },
+  {
+   "title": "Global Sources Saudi Arabia Expo 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/global-sources-saudi-arabia-expo-2026-tickets-1999482783831",
+   "organizer": "Global Sources",
+   "start": "2026-11-30",
+   "end": "2026-11-30",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "7d92add5c461"
+  },
+  {
+   "title": "Industrial Transformation Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://industrialtransformationsaudi.com/automation-advanced-manufacturing/",
+   "organizer": null,
+   "start": "2026-11-30",
+   "end": "2026-11-30",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "88e26d8ed50c"
+  },
+  {
+   "title": "Saudi Intermobility Expo 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://informaconnect.com/saudi-intermobility-expo/sponsors/qoad/",
+   "organizer": null,
+   "start": "2026-11-30",
+   "end": "2026-11-30",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "fb624dc354d7"
+  },
+  {
+   "title": "Black Hat MEA 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center (Malham)",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://blackhatmea.com",
+   "organizer": null,
+   "start": "2026-12-01",
+   "end": "2026-12-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "4726412c02c8"
+  },
+  {
+   "title": "International Coffee & Chocolate Exhibition 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "Free",
+   "url": "http://www.tradingchem.com/exhibitions/detail47599.html",
+   "organizer": null,
+   "start": "2026-12-01",
+   "end": "2026-12-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "ebc1647e9063"
+  },
+  {
+   "title": "King's Cup 26/27 - Round of 16 - Al Nassr vs Al Kholood",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/RUH/sports-event/events/kc-26-27-al-nassr-vs-al-kholood-s4f2y7k6",
+   "organizer": null,
+   "start": "2026-12-01",
+   "end": "2026-12-01",
+   "sources": [
+    "webook"
+   ],
+   "id": "e41a461c0a6f"
+  },
+  {
+   "title": "Kingdom of Gaming 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center (Malham)",
+   "category": "festival",
+   "price": "From $349",
+   "url": "https://kingdomofgaming.com/",
+   "organizer": null,
+   "start": "2026-12-01",
+   "end": "2026-12-01",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "be4ae37cf18c"
+  },
+  {
+   "title": "Saudi International Exhibition for Disability and Rehabilitation Requirements 2026",
+   "city": "Riyadh",
+   "venue": "The Arena by Live Show Arabia",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.saudirehabexpo.com/wp-content/uploads/2026/01/Registration-Form-En-2026-3.pdf",
+   "organizer": null,
+   "start": "2026-12-02",
+   "end": "2026-12-02",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "c13c12773c1d"
+  },
+  {
+   "title": "Contractors Financing Conference 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://fpf.sa/en",
+   "organizer": null,
+   "start": "2026-12-07",
+   "end": "2026-12-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "9cd425521d89"
+  },
+  {
+   "title": "EDUGATE Riyadh 2nd Edition - International Universities & Career Path Fair",
+   "city": "Riyadh",
+   "venue": "Madareem Hotel",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/edugate-riyadh-2nd-edition-international-universities-career-path-fair-tickets-2001672529419",
+   "organizer": "EDUGATE-EG",
+   "start": "2026-12-07",
+   "end": "2026-12-07",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "5c8747caeb4a"
+  },
+  {
+   "title": "Global Future Projects Forum & Exhibition 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://fpf.sa/en",
+   "organizer": null,
+   "start": "2026-12-07",
+   "end": "2026-12-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "b8d502909b2d"
+  },
+  {
+   "title": "National Construction Festival 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "festival",
+   "price": "Free",
+   "url": "https://fpf.sa/en",
+   "organizer": null,
+   "start": "2026-12-07",
+   "end": "2026-12-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "0619b25f79e4"
+  },
+  {
+   "title": "Saudi HORECA Riyadh 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.saudihoreca.com/Riyadh/EN/index.html",
+   "organizer": null,
+   "start": "2026-12-07",
+   "end": "2026-12-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "2cbc710b1d94"
+  },
+  {
+   "title": "GDX Summit 2026 - Government Digital Transformation Summit",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-12-08",
+   "end": "2026-12-08",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "cde73a143a2a"
+  },
+  {
+   "title": "MEP International Conference Saudi Arabia (MEPIC) 2026",
+   "city": "Jeddah",
+   "venue": "Jeddah Hilton",
+   "category": "conference",
+   "price": "From $25",
+   "url": "https://www.eyeofriyadh.com/events/details/mep-international-conference-mepic-2026",
+   "organizer": null,
+   "start": "2026-12-08",
+   "end": "2026-12-08",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "4c66417deb0f"
+  },
+  {
+   "title": "IBRAM Conference for Government Procurement and Projects 2026",
+   "city": "Riyadh",
+   "venue": "DoubleTree by Hilton Riyadh Financial District",
+   "category": "conference",
+   "price": "From SAR 2,470",
+   "url": "http://mail.eyeofriyadh.com/events/details/ibram-conference-for-government-procurement-projects-2026",
+   "organizer": null,
+   "start": "2026-12-13",
+   "end": "2026-12-13",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "d197ee370929"
+  },
+  {
+   "title": "4th International Engineering Conference (IECE 2026)",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://www.saudiarabiapr.com/technology-news/193094-riyadh-to-host-international-engineering-conference-in-december",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "16db7021fb7c"
+  },
+  {
+   "title": "BIO Middle East 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center (Malham)",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://biomiddleeast.com/",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "a3ab4c7e093a"
+  },
+  {
+   "title": "CIDEX 2026",
+   "city": "Khobar",
+   "venue": "Dhahran International Exhibitions Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://cidex-sa.com/",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "8202e4bfbddd"
+  },
+  {
+   "title": "CPHI Middle East 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Exhibition & Convention Center - Malham",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/cphi-middle-east-tickets-1998730583981",
+   "organizer": "Tahaluf",
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "eventbrite",
+    "saudicon"
+   ],
+   "id": "22231c668920"
+  },
+  {
+   "title": "CTW Saudi Arabia 2026",
+   "city": "Khobar",
+   "venue": "Dhahran International Exhibitions Center",
+   "category": "expo",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "6b8486e48df7"
+  },
+  {
+   "title": "Construction Technology ConFeX KSA 2026",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh RDC Hotel & Convention",
+   "category": "conference",
+   "price": "From $395",
+   "url": "https://ctf-ksa.com/",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "1af57f7883f3"
+  },
+  {
+   "title": "EVS Saudi Arabia 2026",
+   "city": "Khobar",
+   "venue": "Dhahran International Exhibitions Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://evs-saudi.com/event-information/",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "a713f08960fc"
+  },
+  {
+   "title": "Gulf 4P Saudi Arabia 2026",
+   "city": "Khobar",
+   "venue": "Dhahran International Exhibitions Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "http://www.gulf4p.com/channels/465.html",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "0d9000694977"
+  },
+  {
+   "title": "Innovation Driven Water Sustainability Conference 2026",
+   "city": "Jeddah",
+   "venue": "The Ritz-Carlton Jeddah",
+   "category": "conference",
+   "price": "From $50",
+   "url": "https://www.eventbrite.com/e/innovation-driven-water-sustainability-conference-2026-tickets-2001164320352",
+   "organizer": "Tahaluf",
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon",
+    "eventbrite"
+   ],
+   "id": "3dfb9347d068"
+  },
+  {
+   "title": "Natural World Expo Saudi 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://naturalworldexpo.com/",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "ce6b610823fa"
+  },
+  {
+   "title": "Saudi Arabia Smart Grid Conference (SASG) 2026",
+   "city": "Riyadh",
+   "venue": "Sofitel Riyadh Hotel & Convention Centre",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://saudi-sg.com",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "f3a4db45f7c1"
+  },
+  {
+   "title": "Saudi Makes Future 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "http://www.saudimakesfuture.com/exhibitors/",
+   "organizer": null,
+   "start": "2026-12-14",
+   "end": "2026-12-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "d14a8f243fa4"
+  },
+  {
+   "title": "Global Security & Technology Summit (GSTS) 2026",
+   "city": "Riyadh",
+   "venue": "King Abdulaziz International Conference Center",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://oananews.org/node/709820",
+   "organizer": null,
+   "start": "2026-12-18",
+   "end": "2026-12-18",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "daf1cfcfbbbd"
+  },
+  {
+   "title": "Jeddah E-Prix 2026 - EMOTION Club",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "sports",
+   "price": "From $5,980",
+   "url": "https://webook.com/en/SA/JED/sports-event/events/jeddah-e-prix-2027--season--27",
+   "organizer": null,
+   "start": "2026-12-18",
+   "end": "2026-12-19",
+   "sources": [
+    "webook"
+   ],
+   "id": "13dc6df0829a"
+  },
+  {
+   "title": "Jeddah E-Prix 2027 - Day 1",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://webook.com/en/SA/JED/sports-event/events/e-prix-2027-day-1",
+   "organizer": null,
+   "start": "2026-12-18",
+   "end": "2026-12-18",
+   "sources": [
+    "webook"
+   ],
+   "id": "990660bd4c2d"
+  },
+  {
+   "title": "Jeddah E-Prix 2027 - Day 2",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "sports",
+   "price": "From $25.60",
+   "url": "https://webook.com/en/SA/JED/sports-event/events/e-prix-2027-day-2",
+   "organizer": null,
+   "start": "2026-12-19",
+   "end": "2026-12-19",
+   "sources": [
+    "webook"
+   ],
+   "id": "dab615bef956"
+  },
+  {
+   "title": "Jeddah International Beauty Expo 2026",
+   "city": "Jeddah",
+   "venue": "Jeddah Superdome",
+   "category": "expo",
+   "price": "Free",
+   "url": "http://mail.eyeofriyadh.com/events/details/jeddah-international-beauty-expo-2026",
+   "organizer": null,
+   "start": "2026-12-19",
+   "end": "2026-12-19",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "a8b074952cd6"
+  },
+  {
+   "title": "China Homelife Saudi Arabia Expo 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://www.tradechina.com/chinahomelifeSaudiArabia",
+   "organizer": null,
+   "start": "2026-12-20",
+   "end": "2026-12-20",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "9e1e5d737da4"
+  },
+  {
+   "title": "Next Generation IoT Expo 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://ngiotex.com",
+   "organizer": null,
+   "start": "2026-12-21",
+   "end": "2026-12-21",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "8fa82689faa4"
+  },
+  {
+   "title": "Deal EXPO - The Mega Outlet & Shoppers Exhibition 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "Free",
+   "url": "https://deal-riyadh.com",
+   "organizer": null,
+   "start": "2026-12-26",
+   "end": "2026-12-26",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "1302d1aae5ed"
+  },
+  {
+   "title": "IN ACT - Act XII - New Year's Eve in Riyadh",
+   "city": "Riyadh",
+   "venue": "Plot K, JAX District",
+   "category": "concert",
+   "price": "From $68.67",
+   "url": "https://riyadh.platinumlist.net/event-tickets/106480/in-act-act-xii-new-years-eve-in-riyadh-31-dec",
+   "organizer": null,
+   "start": "2026-12-31",
+   "end": "2026-12-31",
+   "sources": [
+    "platinumlist"
+   ],
+   "id": "e1713bb84fa6"
+  }
+ ]
+}

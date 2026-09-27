@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Wain — Every event in Saudi, swipeable</title>
+<meta name="description" content="Swipe through every conference, expo, concert and meetup happening across Saudi Arabia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ ONBOARDING ============ -->
+<section id="view-onboard" class="view active">
+  <div class="onboard-wrap">
+    <div class="brand">
+      <div class="brand-mark">و</div>
+      <div class="brand-name">Wain</div>
+    </div>
+    <h1 class="onboard-title">Every event in Saudi.<br><span>Yours to swipe.</span></h1>
+    <p class="onboard-sub">Conferences, expos, concerts, meetups — across the Kingdom. Tell us where and what, and we'll build your deck.</p>
+
+    <div class="pref-group">
+      <div class="pref-label">Where in Saudi?</div>
+      <div id="city-chips" class="chips"></div>
+    </div>
+
+    <div class="pref-group">
+      <div class="pref-label">What are you into?</div>
+      <div id="interest-chips" class="chips"></div>
+    </div>
+
+    <div class="cta-row">
+      <button id="btn-build" class="btn-primary" disabled>Build My Deck</button>
+    </div>
+    <button id="btn-skip" class="link-quiet">Skip — show me everything</button>
+    <div id="onboard-count" class="onboard-count"></div>
+  </div>
+</section>
+
+<!-- ============ DECK ============ -->
+<section id="view-deck" class="view">
+  <header class="app-header">
+    <div class="brand small">
+      <div class="brand-mark">و</div>
+      <div class="brand-name">Wain</div>
+    </div>
+    <div class="header-actions">
+      <button id="btn-map" class="icon-btn" aria-label="Map">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
+        <span>Map</span>
+      </button>
+      <button id="btn-saved" class="icon-btn" aria-label="Saved">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        <span id="saved-count">0</span>
+      </button>
+      <button id="btn-prefs" class="icon-btn" aria-label="Preferences">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="deck-zone">
+    <div id="deck-empty" class="deck-empty hidden">
+      <div class="deck-empty-title">Deck's done.</div>
+      <p id="deck-empty-sub">You've been through them all. Check your saved, or widen your preferences.</p>
+      <button id="btn-rebuild" class="btn-primary">Adjust preferences</button>
+    </div>
+    <div id="card-stack"></div>
+  </div>
+
+  <div class="deck-controls">
+    <button id="btn-pass" class="ctrl-btn pass" aria-label="Pass">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <button id="btn-like" class="ctrl-btn like" aria-label="Save">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+    </button>
+  </div>
+  <div class="deck-hint">Swipe right to save · left to pass · tap a card for details</div>
+</section>
+
+<!-- ============ SAVED ============ -->
+<section id="view-saved" class="view">
+  <header class="app-header">
+    <button id="btn-saved-back" class="icon-btn" aria-label="Back">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="header-title">Saved</div>
+    <div style="width:76px"></div>
+  </header>
+  <div class="saved-search-wrap">
+    <input id="saved-search" type="search" placeholder="Search saved events…" autocomplete="off">
+  </div>
+  <div id="saved-list" class="saved-list"></div>
+</section>
+
+<!-- ============ DETAIL SHEET ============ -->
+<div id="sheet-backdrop" class="sheet-backdrop hidden"></div>
+<div id="detail-sheet" class="sheet hidden" role="dialog" aria-modal="true">
+  <div class="sheet-handle"></div>
+  <button id="sheet-close" class="sheet-close" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <div id="sheet-body" class="sheet-body"></div>
+</div>
+
+<!-- ============ MAP MODAL ============ -->
+<div id="map-modal" class="map-modal hidden">
+  <div class="map-topbar">
+    <button id="map-close" class="icon-btn" aria-label="Close map">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>Back</span>
+    </button>
+    <div class="header-title">Event map</div>
+    <div style="width:76px"></div>
+  </div>
+  <div id="map"></div>
+  <div id="map-status" class="map-status">Plotting events…</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
