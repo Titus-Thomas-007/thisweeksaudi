@@ -377,10 +377,13 @@ def _vapid_public() -> str | None:
         return None
     try:
         import base64
-        from ecdsa import SigningKey, NIST256p
+        # cryptography ships with pywebpush; ecdsa is NOT a pywebpush dep
+        from cryptography.hazmat.primitives.asymmetric import ec
+        from cryptography.hazmat.backends import default_backend
         raw = base64.urlsafe_b64decode(priv + "=" * (-len(priv) % 4))
-        sk = SigningKey.from_string(raw, curve=NIST256p)
-        pub = b"\x04" + sk.get_verifying_key().to_string()
+        privkey = ec.derive_private_key(int.from_bytes(raw, "big"), ec.SECP256R1(), default_backend())
+        nums = privkey.public_key().public_numbers()
+        pub = b"\x04" + nums.x.to_bytes(32, "big") + nums.y.to_bytes(32, "big")
         return base64.urlsafe_b64encode(pub).rstrip(b"=").decode()
     except Exception:
         return None
