@@ -120,6 +120,11 @@ function cardImage(el, ev) {
     el.classList.add('fallback');
     el.innerHTML = `<div class="wm">${esc((ev.category || 'EV').toUpperCase().slice(0, 4))}</div>`;
   };
+  const setImage = (img) => {
+    el.classList.remove('fallback'); el.innerHTML = '';
+    el.style.backgroundImage = `url("${img}")`;
+  };
+  if (ev.image) return setImage(ev.image); // baked offline: instant
   if (!ev.url) return setFallback();
   if (state.imgCache.has(ev.url)) {
     const img = state.imgCache.get(ev.url);
@@ -131,10 +136,7 @@ function cardImage(el, ev) {
   fetch('/api/preview?url=' + encodeURIComponent(ev.url))
     .then(r => r.json()).then(d => {
       state.imgCache.set(ev.url, d.image || null);
-      if (d.image && el.isConnected && el.dataset.url === ev.url) {
-        el.classList.remove('fallback'); el.innerHTML = '';
-        el.style.backgroundImage = `url("${d.image}")`;
-      }
+      if (d.image && el.isConnected && el.dataset.url === ev.url) setImage(d.image);
     }).catch(() => state.imgCache.set(ev.url, null));
 }
 
@@ -349,8 +351,9 @@ function renderSaved(filter = '') {
 }
 
 function cardImageThumb(el, ev) {
-  if (!ev.url) return;
   const apply = img => { if (img && el.isConnected) { el.style.backgroundImage = `url("${img}")`; el.textContent = ''; } };
+  if (ev.image) return apply(ev.image); // baked offline: instant
+  if (!ev.url) return;
   if (state.imgCache.has(ev.url)) return apply(state.imgCache.get(ev.url));
   fetch('/api/preview?url=' + encodeURIComponent(ev.url)).then(r => r.json())
     .then(d => { state.imgCache.set(ev.url, d.image || null); apply(d.image); })
