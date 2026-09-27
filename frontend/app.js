@@ -50,9 +50,11 @@ const tagSVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stro
 // display SAR at the pegged rate, rounded to whole riyals.
 const USD_SAR = 3.75;
 const EUR_SAR = 4.07; // approx EUR peg; display-only conversion
+const GBP_SAR = 5.00; // approx GBP peg; display-only conversion
 const fmtPrice = p => p ? String(p)
   .replace(/\$(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * USD_SAR))
-  .replace(/€(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * EUR_SAR)) : p;
+  .replace(/€(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * EUR_SAR))
+  .replace(/£(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * GBP_SAR)) : p;
 
 async function api(path) {
   const r = await fetch(path);
@@ -313,19 +315,17 @@ async function openDetail(ev, opts = {}) {
   const sheet = $('#detail-sheet');
   sheet.classList.remove('hidden');
   // Back button: returns to wherever the sheet was opened from.
+  // The label and accessible name both reflect the origin context.
   const backBtn = $('#sheet-back'), backLabel = backBtn.querySelector('span');
   backBtn.classList.remove('hidden');
-  if (opts.fromMap) {
-    backLabel.textContent = 'Map';
-    backBtn.onclick = () => { _closeDetailUI(); openMap(false); _replaceHist({ modal: 'map' }); };
-  } else {
-    backLabel.textContent = opts.fromList ? 'List' : opts.fromSaved ? 'Saved' : 'Back';
-    backBtn.onclick = closeDetail;
-  }
+  const backName = opts.fromMap ? 'Map' : opts.fromList ? 'List' : opts.fromSaved ? 'Saved' : 'Back';
+  backLabel.textContent = backName;
+  backBtn.setAttribute('aria-label', backName === 'Back' ? 'Back' : 'Back to ' + backName.toLowerCase());
+  // All origins walk browser history: the sheet pushed a modal entry, so
+  // Back closes it and popstate restores the map/list/saved/deck beneath.
+  backBtn.onclick = closeDetail;
   // Push a modal history entry so the native Back button closes the sheet.
-  // From the map we replace the map's entry; the sheet-back restores it.
-  if (opts.replaceModal) _replaceHist({ modal: 'sheet', eid: ev.id });
-  else _pushHist({ modal: 'sheet', eid: ev.id });
+  _pushHist({ modal: 'sheet', eid: ev.id });
   document.body.style.overflow = 'hidden';
   const body = $('#sheet-body');
   body.scrollTop = 0;
@@ -579,7 +579,7 @@ async function plotMapMarkers(refit) {
       const btn = e.popup.getElement().querySelector('button.map-pop-open');
       if (btn) btn.onclick = () => {
         const found = state.all.find(x => x.id === btn.dataset.id);
-        if (found) { closeMap(); openDetail(found, { fromMap: true, replaceModal: true }); }
+        if (found) { closeMap(); openDetail(found, { fromMap: true }); }
       };
     });
   }
