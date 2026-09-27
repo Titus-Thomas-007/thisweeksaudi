@@ -125,7 +125,9 @@ const state = {
   recent: [],          // recent search strings
   undoStack: [],
   youLoc: null,
+  remind: [],          // event ids with day-before web-push reminder
 };
+try { state.remind = JSON.parse(localStorage.getItem('wain_remind') || '[]'); } catch { state.remind = []; }
 try { state.saved = JSON.parse(localStorage.getItem('wain_saved') || '{}'); } catch { state.saved = {}; }
 try {
   const p = JSON.parse(localStorage.getItem('wain_prefs') || '{}');
@@ -134,11 +136,12 @@ try {
   (p.domains || []).forEach(d => state.domains.add(d));
 } catch {}
 try { state.recent = JSON.parse(localStorage.getItem('wain_recent') || '[]'); } catch { state.recent = []; }
-try { state.lang = localStorage.getItem('wain_lang') || 'en'; } catch {}
+try { state.lang = 'en'; localStorage.setItem('wain_lang', 'en'); } catch {} // Arabic hidden until proofread
 const saveLocal = () => {
   localStorage.setItem('wain_saved', JSON.stringify(state.saved));
   localStorage.setItem('wain_prefs', JSON.stringify({ cities: [...state.cities], cats: [...state.cats], domains: [...state.domains] }));
   localStorage.setItem('wain_recent', JSON.stringify(state.recent.slice(0, 6)));
+  localStorage.setItem('wain_remind', JSON.stringify(state.remind.slice(0, 200)));
 };
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const buzz = ms => { try { navigator.vibrate && navigator.vibrate(ms); } catch {} };
@@ -205,6 +208,13 @@ function beacon(type, ref = '', meta = '') {
     else fetch('/api/analytics', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }).catch(() => {});
   } catch {}
 }
+// remote diagnostics: surface client-side JS errors (esp. iOS) via analytics
+window.addEventListener('error', e => {
+  try { beacon('jserror', String(e.filename || '').split('/').pop() || 'inline', String(e.message || '').slice(0, 180) + ' @' + (e.lineno || 0)); } catch {}
+});
+window.addEventListener('unhandledrejection', e => {
+  try { beacon('jserror', 'promise', String((e.reason && e.reason.message) || e.reason || '').slice(0, 200)); } catch {}
+});
 
 /* ================= fuzzy search ================= */
 const norm = s => (s || '').toLowerCase().normalize('NFKD')
@@ -759,6 +769,9 @@ function savedRow(ev, q, i) {
   const r = document.createElement('div');
   r.className = 'saved-row';
   r.style.setProperty('--i', i);
+  const future = (ev.start || '') >= todayStr();
+  const reminded = state.remind.includes(ev.id);
+  const bell = `<svg viewBox="0 0 24 24" width="16" height="16" fill="${reminded ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>`;
   r.innerHTML = `
     <div class="saved-thumb">${esc((ev.category || 'E').slice(0, 1).toUpperCase())}</div>
     <div class="saved-info">
@@ -766,14 +779,21 @@ function savedRow(ev, q, i) {
       <div class="saved-sub">${esc(relDay(ev.start))} · ${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
       <div class="saved-sub saved-venue">${q ? hi(ev.venue || '', q) : esc(ev.venue || '')}${ev.venue ? ' · ' : ''}${esc(domLabel(ev.domain))}</div>
     </div>
+    ${future ? `<button class="remind-btn${reminded ? ' on' : ''}" aria-label="Remind me">${bell}</button>` : ''}
     <button class="saved-unsave" aria-label="Remove">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>`;
   cardImageThumb(r.querySelector('.saved-thumb'), ev);
-  r.onclick = e => { if (!e.target.closest('.saved-unsave')) openDetail(ev, { fromSaved: true }); };
-  r.querySelector('.saved-unsave').onclick = () => {
+  r.onclick = e => { if (!e.target.closest('.saved-unsave') && !e.target.closest('.remind-btn')) openDetail(ev, { fromSaved: true }); };
+  const rb = r.querySelector('.remind-btn');
+  if (rb) rb.onclick = () => toggleRemind(ev, rb);
+  r.querySelector('.saved-unsave').onclick = async () => {
     delete state.saved[ev.id]; saveLocal(); updateSavedCount();
     beacon('unsave', ev.id);
+    if (state.remind.includes(ev.id)) {
+      state.remind = state.remind.filter(id => id !== ev.id);
+      saveLocal(); syncPushServer();
+    }
     renderSaved($('#saved-search').value);
   };
   return r;
@@ -887,9 +907,7 @@ async function openDetail(ev, opts = {}) {
       <div class="sheet-actions">
         ${ev.url ? `<a class="btn go" href="${esc(ev.url)}" target="_blank" rel="noopener" id="sheet-reg">${esc(t('register'))}</a>` : ''}
         <button class="btn ghost" id="sheet-share">${esc(t('share'))}</button>
-        <button class="btn ghost" id="sheet-copy">⧉</button>
         <button class="btn ghost" id="sheet-cal">${esc(t('addCal'))}</button>
-        <button class="btn ghost" id="sheet-gcal">${esc(t('gCal'))}</button>
         <button class="btn ghost" id="sheet-gmaps">${esc(t('gMaps'))}</button>
         <button class="btn ghost" id="sheet-report">${esc(t('report'))}</button>
       </div>
@@ -937,9 +955,7 @@ async function openDetail(ev, opts = {}) {
   const reg = $('#sheet-reg');
   if (reg) reg.onclick = () => beacon('register', ev.id, ev.title);
   $('#sheet-cal').onclick = () => { downloadICS(ev); buzz(10); };
-  $('#sheet-gcal').onclick = () => window.open(gcalURL(ev), '_blank');
   $('#sheet-share').onclick = () => shareEvent(ev);
-  $('#sheet-copy').onclick = () => copyLink(ev);
   $('#sheet-report').onclick = () => { buzz(8); $('#report-form').classList.toggle('hidden'); };
   $('#rep-send').onclick = async () => {
     const issue = $('#rep-issue').value, detail = $('#rep-detail').value.trim();
@@ -971,6 +987,76 @@ function closeDetail() {
   if (_topIsModal('sheet')) history.back();
   else _closeDetailUI();
 }
+
+/* ================= web-push day-before reminders ================= */
+const pushSupported = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+const urlB64ToU8 = s => {
+  const pad = '='.repeat((4 - s.length % 4) % 4);
+  const b = atob(s.replace(/-/g, '+').replace(/_/g, '/') + pad);
+  const a = new Uint8Array(b.length);
+  for (let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i);
+  return a;
+};
+async function getPushSub() {
+  try {
+    const r = await navigator.serviceWorker.ready;
+    return await r.pushManager.getSubscription();
+  } catch { return null; }
+}
+async function ensurePushSub() {
+  let sub = await getPushSub();
+  if (sub) return sub;
+  const { public_key } = await api('/api/push/vapid-public');
+  const r = await navigator.serviceWorker.ready;
+  return r.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToU8(public_key) });
+}
+async function syncPushServer() {
+  // re-register subscription + reminded ids; self-heals after server DB wipes
+  try {
+    const sub = await getPushSub();
+    if (!sub || !state.remind.length) return;
+    await api('/api/push/subscribe', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subscription: sub.toJSON(), event_ids: state.remind }),
+    });
+  } catch {}
+}
+async function toggleRemind(ev, btn) {
+  if (!pushSupported()) { toast('Notifications are not supported in this browser'); return; }
+  buzz(8);
+  if (state.remind.includes(ev.id)) {
+    state.remind = state.remind.filter(id => id !== ev.id);
+    saveLocal();
+    if (!state.remind.length) {
+      const sub = await getPushSub();
+      if (sub) {
+        try { await sub.unsubscribe(); } catch {}
+        try {
+          await api('/api/push/unsubscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoint: sub.endpoint }) });
+        } catch {}
+      }
+    } else syncPushServer();
+    renderSaved($('#saved-search').value);
+    return;
+  }
+  btn.disabled = true;
+  try {
+    if (Notification.permission === 'denied') { toast('Notifications are blocked — enable them in browser settings'); return; }
+    if (Notification.permission === 'default' && await Notification.requestPermission() !== 'granted') return;
+    const sub = await ensurePushSub();
+    if (!state.remind.includes(ev.id)) state.remind.push(ev.id);
+    saveLocal();
+    await api('/api/push/subscribe', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subscription: sub.toJSON(), event_ids: state.remind }),
+    });
+    beacon('remind', ev.id);
+    toast("We'll remind you the day before");
+  } catch { toast('Could not set the reminder'); }
+  finally { renderSaved($('#saved-search').value); }
+}
+
 function downloadICS(ev) {
   const dt = s => s ? s.replace(/-/g, '') : '';
   const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ThisWeekSaudi//Events//EN', 'BEGIN:VEVENT',
@@ -1271,6 +1357,8 @@ _replaceHist({ view: '#view-onboard' });
     state.all = data.events;
     await initOnboard();
     updateSavedCount();
+    // re-register push subscription after server DB wipes (free tier redeploys)
+    if (pushSupported() && Notification.permission === 'granted' && state.remind.length) syncPushServer();
     // deep link: /#e=<id> (the /e/<id> page redirects here for crawlers' sake)
     const m = location.hash.match(/^#e=([a-z0-9]+)/i);
     if (m) {

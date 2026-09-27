@@ -13,7 +13,7 @@ import threading
 import time
 import urllib.parse
 import urllib.request
-from datetime import date
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
@@ -63,6 +63,10 @@ def init_db():
         con.execute("""CREATE TABLE IF NOT EXISTS reports(
             ts REAL NOT NULL, event_id TEXT NOT NULL, issue TEXT NOT NULL,
             detail TEXT, contact TEXT)""")
+        # web-push subscriptions for day-before reminders
+        con.execute("""CREATE TABLE IF NOT EXISTS push_subs(
+            endpoint TEXT PRIMARY KEY, sub TEXT NOT NULL,
+            event_ids TEXT NOT NULL DEFAULT '[]', ts REAL NOT NULL)""")
 
 
 # Precise venue coordinates, geocoded offline (backend/geocode_seed.py) and
@@ -317,7 +321,7 @@ class Beacon(BaseModel):
 def analytics(b: Beacon):
     """Privacy-friendly usage beacons (no user identity stored)."""
     if b.type not in {"view", "save", "unsave", "register", "share",
-                      "search", "undo", "report"}:
+                      "search", "undo", "report", "remind", "jserror"}:
         raise HTTPException(400, "bad beacon type")
     with _db_lock, db() as con:
         con.execute("INSERT INTO analytics(ts,type,ref,meta) VALUES(?,?,?,?)",
@@ -343,6 +347,136 @@ def report(r: Report):
             "INSERT INTO reports(ts,event_id,issue,detail,contact) VALUES(?,?,?,?,?)",
             (time.time(), r.event_id[:64], r.issue, r.detail[:500], r.contact[:120]))
     return {"ok": True}
+
+
+# ---------------- web-push reminders (day-before) ----------------
+def _vapid_private() -> str | None:
+    k = os.environ.get("VAPID_PRIVATE_KEY", "").strip()
+    if k:
+        return k
+    try:
+        p = Path(__file__).resolve().parent / ".vapid_private"
+        if p.exists():
+            return p.read_text().strip()
+    except Exception:
+        pass
+    return None
+
+
+def _vapid_public() -> str | None:
+    # public key is baked next to the private one for local dev; on Render it
+    # is derived from the private key (ecdsa ships with pywebpush)
+    try:
+        p = Path(__file__).resolve().parent / ".vapid_public"
+        if p.exists():
+            return p.read_text().strip()
+    except Exception:
+        pass
+    priv = _vapid_private()
+    if not priv:
+        return None
+    try:
+        import base64
+        from ecdsa import SigningKey, NIST256p
+        raw = base64.urlsafe_b64decode(priv + "=" * (-len(priv) % 4))
+        sk = SigningKey.from_string(raw, curve=NIST256p)
+        pub = b"\x04" + sk.get_verifying_key().to_string()
+        return base64.urlsafe_b64encode(pub).rstrip(b"=").decode()
+    except Exception:
+        return None
+
+
+class PushSub(BaseModel):
+    subscription: dict
+    event_ids: list[str] = []
+
+
+@app.get("/api/push/vapid-public")
+def push_vapid_public():
+    pub = _vapid_public()
+    if not pub:
+        raise HTTPException(503, "push not configured")
+    return {"public_key": pub}
+
+
+@app.post("/api/push/subscribe")
+def push_subscribe(b: PushSub):
+    ep = (b.subscription.get("endpoint") or "")[:500]
+    if not ep.startswith("https://"):
+        raise HTTPException(400, "bad subscription")
+    ids = [str(i)[:64] for i in b.event_ids[:200]]
+    with _db_lock, db() as con:
+        con.execute(
+            "INSERT INTO push_subs(endpoint,sub,event_ids,ts) VALUES(?,?,?,?) "
+            "ON CONFLICT(endpoint) DO UPDATE SET sub=excluded.sub, event_ids=excluded.event_ids, ts=excluded.ts",
+            (ep, json.dumps(b.subscription), json.dumps(ids), time.time()))
+    return {"ok": True, "events": len(ids)}
+
+
+@app.post("/api/push/unsubscribe")
+def push_unsubscribe(b: dict):
+    ep = str(b.get("endpoint") or "")[:500]
+    with _db_lock, db() as con:
+        con.execute("DELETE FROM push_subs WHERE endpoint=?", (ep,))
+    return {"ok": True}
+
+
+class PushDue(BaseModel):
+    key: str = ""
+
+
+@app.post("/api/push/send-due")
+def push_send_due(b: PushDue):
+    """Send day-before reminders. Called by the daily cron with the ingest key."""
+    if not INGEST_KEY or b.key != INGEST_KEY:
+        raise HTTPException(403, "bad key")
+    priv = _vapid_private()
+    if not priv:
+        raise HTTPException(503, "push not configured")
+    from pywebpush import webpush, WebPushException
+    from zoneinfo import ZoneInfo
+    tomorrow = (datetime.now(ZoneInfo("Asia/Riyadh")) + timedelta(days=1)).date().isoformat()
+    with _db_lock, db() as con:
+        subs = con.execute("SELECT endpoint,sub,event_ids FROM push_subs").fetchall()
+        ev_rows = {r[0]: json.loads(r[1]) for r in
+                   con.execute("SELECT id,data FROM events").fetchall()}
+    sent, pruned = 0, 0
+    claims = {"sub": "https://thisweeksaudi.onrender.com"}
+    for endpoint, sub_json, ids_json in subs:
+        try:
+            ids = json.loads(ids_json)
+        except Exception:
+            ids = []
+        due = [ev_rows[i] for i in ids
+               if i in ev_rows and str(ev_rows[i].get("start", ""))[:10] == tomorrow]
+        if not due:
+            continue
+        try:
+            sub = json.loads(sub_json)
+        except Exception:
+            continue
+        dead = False
+        for ev in due:
+            payload = json.dumps({
+                "title": "Tomorrow: " + str(ev.get("title", "Your event"))[:80],
+                "body": f"{ev.get('venue') or ev.get('city', '')} · {ev.get('city', '')}".strip(" ·")[:120],
+                "event_id": ev.get("id", ""),
+                "url": "/#e=" + ev.get("id", ""),
+            })
+            try:
+                webpush(sub, payload, vapid_private_key=priv, vapid_claims=claims)
+                sent += 1
+            except WebPushException as e:
+                if e.response is not None and e.response.status_code in (404, 410):
+                    dead = True
+                    break
+            except Exception:
+                pass
+        if dead:
+            with _db_lock, db() as con:
+                con.execute("DELETE FROM push_subs WHERE endpoint=?", (endpoint,))
+                pruned += 1
+    return {"ok": True, "sent": sent, "pruned": pruned, "for_date": tomorrow}
 
 
 @app.get("/e/{event_id}", response_class=None, include_in_schema=False)

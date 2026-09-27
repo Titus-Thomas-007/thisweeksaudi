@@ -5,3 +5,5 @@ backend/events.db
 backend/.ingest_key
 .DS_Store
 backend/.render_key
+backend/.vapid_private
+backend/.vapid_public

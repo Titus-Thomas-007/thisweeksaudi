@@ -32,3 +32,25 @@ self.addEventListener('fetch', e => {
     return r;
   })));
 });
+
+/* ---------- web-push reminders ---------- */
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch {}
+  const title = d.title || 'ThisWeekSaudi';
+  e.waitUntil(self.registration.showNotification(title, {
+    body: d.body || '',
+    icon: '/icon-512.png',
+    badge: '/icon-512.png',
+    data: { url: d.url || '/' },
+    tag: 'tws-reminder-' + (d.event_id || Date.now()),
+  }));
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = (e.notification.data && e.notification.data.url) || '/';
+  e.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(ws => {
+    for (const w of ws) { if ('focus' in w) { w.navigate(url); return w.focus(); } }
+    return clients.openWindow(url);
+  }));
+});
