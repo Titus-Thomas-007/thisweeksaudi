@@ -83,8 +83,8 @@ async function initOnboard() {
     b.onclick = () => { state.cats.has(c) ? state.cats.delete(c) : state.cats.add(c); b.classList.toggle('on'); refreshOnboard(); };
     ic.appendChild(b);
   });
-  $('#btn-build').onclick = () => buildDeck(false);
-  $('#btn-skip').onclick = () => buildDeck(true);
+  $('#btn-build').onclick = () => buildDeck();
+  $('#btn-skip').onclick = buildList;
   refreshOnboard();
 }
 
@@ -102,8 +102,7 @@ function refreshOnboard() {
   saveLocal();
 }
 
-function buildDeck(skip) {
-  if (skip) { state.cities.clear(); state.cats.clear(); }
+function buildDeck() {
   state.filtered = filteredEvents();
   const deck = state.filtered.filter(e => !state.saved[e.id]);
   state.deck = deck; state.idx = 0;
@@ -240,6 +239,41 @@ function attachDrag(el) {
   el.addEventListener('pointercancel', end);
 }
 
+/* ---------- all-events list ---------- */
+function buildList() {
+  state.cities.clear(); state.cats.clear(); persistPrefs();
+  state.filtered = [...state.all]; // "everything": list, deck state and map agree
+  state.mapCat = null; state.mapPlottedFor = null;
+  renderList();
+  showView('#view-list');
+}
+
+function renderList() {
+  const list = $('#event-list');
+  const events = [...state.all].sort((a, b) =>
+    (a.start || '').localeCompare(b.start || '') || (a.title || '').localeCompare(b.title || ''));
+  $('#list-count').textContent = `${events.length} events`;
+  if (!events.length) {
+    list.innerHTML = '<div class="saved-empty">No events right now.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  events.forEach(ev => {
+    const r = document.createElement('div');
+    r.className = 'saved-row';
+    r.innerHTML = `
+      <div class="saved-thumb">${esc((ev.category || 'E').slice(0, 1).toUpperCase())}</div>
+      <div class="saved-info">
+        <div class="saved-title">${esc(ev.title)}</div>
+        <div class="saved-sub">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
+      </div>
+      <div class="row-chev" aria-hidden="true">›</div>`;
+    cardImageThumb(r.querySelector('.saved-thumb'), ev);
+    r.onclick = () => openDetail(ev, { fromList: true });
+    list.appendChild(r);
+  });
+}
+
 /* ---------- detail sheet ---------- */
 async function geoFor(ev) {
   const key = `${ev.venue || ''}|${ev.city || ''}`;
@@ -256,10 +290,19 @@ async function openDetail(ev, opts = {}) {
   $('#sheet-backdrop').classList.remove('hidden');
   const sheet = $('#detail-sheet');
   sheet.classList.remove('hidden');
-  // When opened from the map, offer a way back to the map.
-  $('#sheet-back').classList.toggle('hidden', !opts.fromMap);
+  // Back button: returns to wherever the sheet was opened from.
+  const backBtn = $('#sheet-back'), backLabel = backBtn.querySelector('span');
+  backBtn.classList.remove('hidden');
+  if (opts.fromMap) {
+    backLabel.textContent = 'Map';
+    backBtn.onclick = () => { closeDetail(); openMap(); };
+  } else {
+    backLabel.textContent = 'Back';
+    backBtn.onclick = closeDetail;
+  }
   document.body.style.overflow = 'hidden';
   const body = $('#sheet-body');
+  body.scrollTop = 0;
   body.innerHTML = `
     <div class="sheet-hero" id="sheet-hero"></div>
     <div class="sheet-content">
@@ -492,11 +535,13 @@ async function plotMapMarkers(refit) {
     const m = L.marker([g.lat, g.lng], { icon: evIcon(ev) }).addTo(state.markers);
     const img = ev.image && /^https?:\/\//.test(ev.image)
       ? `<div class="map-pop-img" style="background-image:url(&quot;${esc(ev.image)}&quot;)"></div>` : '';
+    const viewBtn = ev.url
+      ? `<a class="map-pop-open primary" href="${esc(ev.url)}" target="_blank" rel="noopener">View event</a>` : '';
     m.bindPopup(`<div class="map-pop">${img}<div class="map-pop-title">${esc(ev.title)}</div>
       <div class="map-pop-meta">${esc(fmtRange(ev.start, ev.end))} \u00b7 ${esc(ev.city)}</div>
-      <button class="map-pop-open" data-id="${esc(ev.id)}">View details</button></div>`);
+      <div class="map-pop-actions">${viewBtn}<button class="map-pop-open" data-id="${esc(ev.id)}">Details</button></div></div>`);
     m.on('popupopen', e => {
-      const btn = e.popup.getElement().querySelector('.map-pop-open');
+      const btn = e.popup.getElement().querySelector('button.map-pop-open');
       if (btn) btn.onclick = () => {
         const found = state.all.find(x => x.id === btn.dataset.id);
         if (found) { closeMap(); openDetail(found, { fromMap: true }); }
@@ -504,8 +549,14 @@ async function plotMapMarkers(refit) {
     });
   }
   if (refit && bounds.length) state.map.fitBounds(bounds, { padding: [40, 40] });
-  status.textContent = `${plotted} event${plotted === 1 ? '' : 's'} plotted`;
-  setTimeout(() => status.style.opacity = '0', 2200);
+  // Honest count: only genuinely verified venue locations get pins.
+  const unverified = events.length - plotted;
+  if (unverified > 0) {
+    status.textContent = `${plotted} of ${events.length} events have verified map locations`;
+  } else {
+    status.textContent = `${plotted} event${plotted === 1 ? '' : 's'} plotted`;
+    setTimeout(() => status.style.opacity = '0', 2200);
+  }
 }
 
 function closeMap() {
@@ -520,11 +571,12 @@ $('#btn-map').onclick = openMap;
 $('#map-close').onclick = closeMap;
 $('#btn-saved').onclick = () => { renderSaved(''); $('#saved-search').value = ''; showView('#view-saved'); };
 $('#btn-saved-back').onclick = () => showView('#view-deck');
+$('#btn-list-back').onclick = () => showView('#view-onboard');
 $('#saved-search').oninput = e => renderSaved(e.target.value);
 $('#btn-prefs').onclick = () => { $('#city-chips').innerHTML = ''; $('#interest-chips').innerHTML = ''; initOnboard(); showView('#view-onboard'); };
 $('#btn-rebuild').onclick = () => $('#btn-prefs').click();
 $('#sheet-close').onclick = closeDetail;
-$('#sheet-back').onclick = () => { closeDetail(); openMap(); };
+
 $('#sheet-backdrop').onclick = closeDetail;
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeDetail(); closeMap(); return; }

@@ -54,31 +54,6 @@ def init_db():
             k TEXT PRIMARY KEY, v TEXT NOT NULL, ts REAL NOT NULL)""")
 
 
-# Static city coordinates — instant fallback so the map always plots markers,
-# even when Nominatim blocks or rate-limits the server's egress IP.
-# (Venue-precision is attempted first via Nominatim; this is the backstop.)
-CITY_COORDS = {
-    "Riyadh": (24.6389, 46.7160), "Jeddah": (21.4858, 39.1925),
-    "Dammam": (26.4207, 50.0888), "Khobar": (26.2172, 50.1971),
-    "Mecca": (21.3891, 39.8579), "Medina": (24.5247, 39.5692),
-    "Taif": (21.2703, 40.4158), "Abha": (18.2164, 42.5053),
-    "Tabuk": (28.3835, 36.5662), "Buraydah": (26.3260, 43.9750),
-    "Buraidah": (26.3260, 43.9750), "Al Qassim": (26.3260, 43.9750),
-    "Unaizah": (26.0840, 43.9934), "Al Ahsa": (25.3643, 49.5875),
-    "Al Majma'a": (25.9042, 45.3428), "Jubail": (27.0046, 49.6455),
-    "Khamis Mushait": (18.3000, 42.7333), "Hail": (27.5219, 41.6907),
-    "AlUla": (26.6086, 37.9235), "Yanbu": (24.0232, 38.0472),
-    "Jazan": (16.8892, 42.5706), "Najran": (17.4933, 44.1277),
-}
-
-
-def city_fallback(city: str) -> tuple[float, float] | None:
-    # No jitter: an approximate-but-honest city-center pin beats a
-    # confidently-wrong one.
-    base = CITY_COORDS.get((city or "").strip())
-    return (float(base[0]), float(base[1])) if base else None
-
-
 # Precise venue coordinates, geocoded offline (backend/geocode_seed.py) and
 # baked into the image — Render's egress IP is rate-limited by Nominatim,
 # so live venue geocoding from the server is unreliable.
@@ -225,11 +200,14 @@ def geocode(venue: str = Query(""), city: str = Query("")):
     """Return cached {lat, lng} for a venue.
 
     Resolution order: baked offline-geocoded venue table -> kv cache ->
-    live Nominatim (venue precision) -> city-center fallback. Precise hits
-    cache forever; fallback/null results are retried after 24h."""
-    key = "geo:" + hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()
+    live Nominatim (venue precision). Unresolved venues return nulls: we
+    never invent coordinates, so the map only plots genuinely verified
+    venue locations. (Cache namespace bumped to geo2: to drop stale
+    city-center fallback entries.) Precise hits cache forever; nulls are
+    retried after 24h."""
+    key = "geo2:" + hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()
     # VENUE_COORDS (baked by geocode_seed.py) uses raw sha256 keys, no prefix.
-    raw = key[4:]
+    raw = key[5:]
     if raw in VENUE_COORDS:
         lat, lng = VENUE_COORDS[raw]
         return {"lat": lat, "lng": lng}
@@ -237,18 +215,12 @@ def geocode(venue: str = Query(""), city: str = Query("")):
         row = con.execute("SELECT v, ts FROM kv WHERE k=?", (key,)).fetchone()
     if row:
         d = json.loads(row["v"])
-        if d.get("lat") is not None and not d.get("fb"):
+        if d.get("lat") is not None:
             return {"lat": d["lat"], "lng": d["lng"]}
         if time.time() - row["ts"] < 86400:
-            return {"lat": d.get("lat"), "lng": d.get("lng")}
+            return {"lat": None, "lng": None}
     res = geocode_nominatim(venue, city)
-    if res:
-        payload = {"lat": res[0], "lng": res[1]}
-    else:
-        fb = city_fallback(city)
-        payload = {"lat": fb[0] if fb else None,
-                   "lng": fb[1] if fb else None,
-                   **({"fb": True} if fb else {})}
+    payload = {"lat": res[0], "lng": res[1]} if res else {"lat": None, "lng": None}
     kv_set(key, json.dumps(payload))
     return {"lat": payload["lat"], "lng": payload["lng"]}
 
