@@ -30,14 +30,12 @@ body{
 #view-onboard{align-items:center;justify-content:center;padding:32px 20px 48px}
 .onboard-wrap{width:100%;max-width:560px}
 .brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-.brand-mark{
-  width:46px;height:46px;border-radius:14px;flex:none;
-  background:linear-gradient(135deg,#f2c95c,#d99a26);
-  color:#221a06;font-weight:800;font-size:26px;
-  display:flex;align-items:center;justify-content:center;
+img.brand-mark{
+  width:46px;height:46px;border-radius:14px;flex:none;display:block;
 }
 .brand-name{font-size:26px;font-weight:800;letter-spacing:-.5px}
-.brand.small .brand-mark{width:34px;height:34px;font-size:19px;border-radius:10px}
+.brand-name span{color:var(--accent)}
+.brand.small img.brand-mark{width:34px;height:34px;border-radius:10px}
 .brand.small .brand-name{font-size:19px}
 .brand.small{margin:0}
 .onboard-title{font-size:34px;line-height:1.12;letter-spacing:-1px;margin:0 0 10px;font-weight:800}

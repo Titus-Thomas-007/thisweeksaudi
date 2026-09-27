@@ -32,7 +32,7 @@ SEED_SNAPSHOT = os.environ.get("SEED_SNAPSHOT", "")
 REQUIRED_FIELDS = ["id", "title", "city", "venue", "price", "url",
                    "organizer", "sources", "start", "end", "category"]
 
-app = FastAPI(title="Saudi Events Directory")
+app = FastAPI(title="ThisWeekSaudi")
 _db_lock = threading.Lock()
 
 
@@ -89,7 +89,7 @@ def geocode_nominatim(venue: str, city: str) -> tuple[float, float] | None:
             {"q": q, "format": "json", "limit": 1})
         req = urllib.request.Request(
             f"https://nominatim.openstreetmap.org/search?{params}",
-            headers={"User-Agent": "WainEvents/1.0"})
+            headers={"User-Agent": "ThisWeekSaudi/1.0"})
         with urllib.request.urlopen(req, timeout=12) as r:
             items = json.loads(r.read().decode("utf-8"))
         if items:

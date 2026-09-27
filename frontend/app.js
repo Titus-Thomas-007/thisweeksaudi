@@ -1,4 +1,4 @@
-/* Wain — client app. No framework, one file. */
+/* ThisWeekSaudi — client app. No framework, one file. */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 
@@ -17,6 +17,8 @@ const state = {
   geoCache: new Map(), // "venue|city" -> {lat,lng}
   map: null, mapPlotted: false,
 };
+// NOTE: localStorage keys keep the original 'wain_' prefix so saved events
+// and preferences survive the ThisWeekSaudi rebrand.
 try { state.saved = JSON.parse(localStorage.getItem('wain_saved') || '{}'); } catch { state.saved = {}; }
 try {
   const p = JSON.parse(localStorage.getItem('wain_prefs') || '{}');
@@ -291,8 +293,8 @@ function closeDetail() {
 
 function downloadICS(ev) {
   const dt = s => s ? s.replace(/-/g, '') : '';
-  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Wain//Events//EN', 'BEGIN:VEVENT',
-    `UID:${ev.id}@wain.events`, `DTSTART;VALUE=DATE:${dt(ev.start)}`,
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ThisWeekSaudi//Events//EN', 'BEGIN:VEVENT',
+    `UID:${ev.id}@thisweeksaudi`, `DTSTART;VALUE=DATE:${dt(ev.start)}`,
     ev.end && ev.end !== ev.start ? `DTEND;VALUE=DATE:${dt(ev.end)}` : null,
     `SUMMARY:${ev.title.replace(/[,;]/g, ' ')}`,
     `LOCATION:${[ev.venue, ev.city].filter(Boolean).join(', ').replace(/[,;]/g, ' ')}`,

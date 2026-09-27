@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="tws-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#262c38"/>
+      <stop offset="1" stop-color="#0b0c0f"/>
+    </linearGradient>
+    <linearGradient id="tws-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7d67e"/>
+      <stop offset=".55" stop-color="#e8b44a"/>
+      <stop offset="1" stop-color="#cf8a1d"/>
+    </linearGradient>
+    <clipPath id="tws-clip">
+      <rect x="16" y="16" width="480" height="480" rx="118"/>
+    </clipPath>
+  </defs>
+  <rect x="16" y="16" width="480" height="480" rx="118" fill="url(#tws-bg)"/>
+  <g clip-path="url(#tws-clip)">
+    <ellipse cx="256" cy="96" rx="230" ry="90" fill="#ffffff" opacity=".06"/>
+  </g>
+  <rect x="18" y="18" width="476" height="476" rx="116" fill="none" stroke="#e8b44a" stroke-opacity=".32" stroke-width="3"/>
+  <path d="M348 116 L456 150 L348 184 Z" fill="url(#tws-gold)"/>
+  <path d="M158 150 H352 L226 368" fill="none" stroke="url(#tws-gold)" stroke-width="64" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
