@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -9,6 +9,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b0c0f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,25 +30,37 @@
     <div class="brand">
       <img class="brand-mark" src="logo.svg" alt="ThisWeekSaudi logo">
       <div class="brand-name">ThisWeek<span>Saudi</span></div>
+      <button id="btn-lang-onboard" class="lang-btn" aria-label="Language">عربي</button>
     </div>
-    <h1 class="onboard-title">Every event in Saudi.<br><span>Yours to swipe.</span></h1>
-    <p class="onboard-sub">Conferences, expos, concerts, meetups — across the Kingdom. Tell us where and what, and we'll build your deck.</p>
+    <h1 class="onboard-title"><span data-i18n="tagline1">Every event in Saudi.</span><br><span data-i18n="tagline2" class="gold">Yours to swipe.</span></h1>
+    <p class="onboard-sub" data-i18n="onboardSub">Conferences, expos, concerts, meetups — across the Kingdom. Tell us where and what, and we'll build your deck.</p>
 
     <div class="pref-group">
-      <div class="pref-label">Where in Saudi?</div>
+      <div class="pref-label-row">
+        <div class="pref-label" data-i18n="where">Where in Saudi?</div>
+        <button id="btn-detect" class="link-inline" data-i18n="detectCity">Detect my city</button>
+      </div>
       <div id="city-chips" class="chips"></div>
     </div>
 
     <div class="pref-group">
-      <div class="pref-label">What are you into?</div>
+      <div class="pref-label" data-i18n="interests">What are you into?</div>
       <div id="interest-chips" class="chips"></div>
     </div>
 
-    <div class="cta-row">
-      <button id="btn-build" class="btn-primary" disabled>Build My Deck</button>
+    <div class="pref-group" id="domain-group">
+      <div class="pref-label" data-i18n="proField">Professional field</div>
+      <div class="pref-hint" data-i18n="proFieldHint">For conferences &amp; meetups — pick your profession</div>
+      <div id="domain-chips" class="chips"></div>
     </div>
-    <button id="btn-skip" class="link-quiet">Skip — show me everything</button>
+
+    <div class="cta-row">
+      <button id="btn-build" class="btn-primary" disabled data-i18n="build">Build My Deck</button>
+    </div>
+    <button id="btn-install" class="btn-install hidden" data-i18n="installApp">Install app</button>
+    <button id="btn-skip" class="link-quiet" data-i18n="skip">Skip — show me everything</button>
     <div id="onboard-count" class="onboard-count"></div>
+    <a class="list-event-link" href="https://survey.zohopublic.com/zs/jXjaEm" target="_blank" rel="noopener" data-i18n="listEvent">+ List an event</a>
   </div>
 </section>
 
@@ -55,13 +72,14 @@
       <div class="brand-name">ThisWeek<span>Saudi</span></div>
     </div>
     <div class="header-actions">
+      <button id="btn-lang-deck" class="lang-btn" aria-label="Language">عربي</button>
       <button id="btn-map" class="icon-btn" aria-label="Map">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
-        <span>Map</span>
+        <span data-i18n="map">Map</span>
       </button>
       <button id="btn-saved" class="icon-btn" aria-label="Saved">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-        <span>Saved</span>
+        <span data-i18n="saved">Saved</span>
         <span id="saved-count" class="count-badge">0</span>
       </button>
       <button id="btn-prefs" class="icon-btn" aria-label="Preferences">
@@ -72,13 +90,18 @@
 
   <div id="deck-zone">
     <div id="deck-empty" class="deck-empty hidden">
-      <div class="deck-empty-title">Deck's done.</div>
-      <p id="deck-empty-sub">You've been through them all. Check your saved, or widen your preferences.</p>
-      <button id="btn-rebuild" class="btn-primary">Adjust preferences</button>
+      <div class="deck-empty-title" data-i18n="deckDone">Deck's done.</div>
+      <p id="deck-empty-sub" data-i18n="deckDoneSub">You've been through them all. Check your saved, or widen your preferences.</p>
+      <button id="btn-rebuild" class="btn-primary" data-i18n="adjustPrefs">Adjust preferences</button>
     </div>
     <div id="card-stack"></div>
+    <button id="btn-undo" class="undo-pill hidden">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/></svg>
+      <span data-i18n="undo">Undo</span>
+    </button>
   </div>
 
+  <div class="deck-progress" id="deck-progress"></div>
   <div class="deck-controls">
     <button id="btn-pass" class="ctrl-btn pass" aria-label="Pass">
       <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -87,7 +110,7 @@
       <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
     </button>
   </div>
-  <div class="deck-hint">Swipe right to save · left to pass · tap a card for details</div>
+  <div class="deck-hint" data-i18n="deckHint">Swipe right to save · left to pass · tap a card for details</div>
 </section>
 
 <!-- ============ SAVED ============ -->
@@ -96,11 +119,11 @@
     <button id="btn-saved-back" class="icon-btn" aria-label="Back">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     </button>
-    <div class="header-title">Saved</div>
-    <div style="width:76px"></div>
+    <div class="header-title" data-i18n="saved">Saved</div>
+    <button id="btn-lang-saved" class="lang-btn" aria-label="Language">عربي</button>
   </header>
   <div class="saved-search-wrap">
-    <input id="saved-search" type="search" placeholder="Search saved events…" autocomplete="off">
+    <input id="saved-search" type="search" data-i18n-ph="savedSearchPh" placeholder="Search saved events…" autocomplete="off">
   </div>
   <div id="saved-list" class="saved-list"></div>
 </section>
@@ -111,10 +134,31 @@
     <button id="btn-list-back" class="icon-btn" aria-label="Back">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     </button>
-    <div class="header-title">All events</div>
-    <div class="list-count" id="list-count"></div>
+    <div class="header-title" data-i18n="allEvents">All events</div>
+    <div class="header-actions">
+      <button id="btn-lang-list" class="lang-btn" aria-label="Language">عربي</button>
+    </div>
   </header>
+  <div class="search-wrap">
+    <input id="list-search" type="search" data-i18n-ph="searchPh" placeholder="Search events…" autocomplete="off">
+    <div id="recent-searches" class="recent hidden"></div>
+  </div>
+  <div class="filter-bar">
+    <div class="chip-row" id="date-chips"></div>
+    <div class="chip-row" id="domain-chips-list"></div>
+    <div class="chip-row" id="city-chips-list"></div>
+  </div>
+  <div id="rails"></div>
+  <div class="list-head">
+    <div class="list-count" id="list-count"></div>
+    <select id="sort-sel" class="sort-sel" aria-label="Sort">
+      <option value="date" data-i18n="sortDate">Sort: Date</option>
+      <option value="price" data-i18n="sortPrice">Sort: Price</option>
+      <option value="nearest" data-i18n="sortNearest">Sort: Nearest</option>
+    </select>
+  </div>
   <div id="event-list" class="saved-list"></div>
+  <a class="list-event-link list-footer" href="https://survey.zohopublic.com/zs/jXjaEm" target="_blank" rel="noopener" data-i18n="listEvent">+ List an event</a>
 </section>
 
 <!-- ============ DETAIL SHEET ============ -->
@@ -136,15 +180,17 @@
   <div class="map-topbar">
     <button id="map-close" class="icon-btn" aria-label="Close map">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>Back</span>
+      <span data-i18n="back">Back</span>
     </button>
-    <div class="header-title">Event map</div>
-    <div style="width:76px"></div>
+    <input id="map-search" class="map-search" type="search" data-i18n-ph="searchPh" placeholder="Search events…" autocomplete="off">
+    <div class="header-title map-title" data-i18n="eventMap">Event map</div>
   </div>
   <div id="map-filters" class="map-filters"></div>
   <div id="map"></div>
   <div id="map-status" class="map-status">Plotting events…</div>
 </div>
+
+<div id="toast" class="toast hidden"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>

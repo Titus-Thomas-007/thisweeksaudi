@@ -24,6 +24,10 @@ try:
     from backend.image_extract import fetch_og_image
 except ImportError:  # local dev runs from backend/
     from image_extract import fetch_og_image
+try:
+    from backend.domains import classify_domain, DOMAINS, domain_label
+except ImportError:
+    from domains import classify_domain, DOMAINS, domain_label
 
 HERE = Path(__file__).resolve().parent
 DATA_DIR = Path(os.environ.get("DATA_DIR", HERE))
@@ -52,6 +56,13 @@ def init_db():
             id TEXT PRIMARY KEY, data TEXT NOT NULL)""")
         con.execute("""CREATE TABLE IF NOT EXISTS kv(
             k TEXT PRIMARY KEY, v TEXT NOT NULL, ts REAL NOT NULL)""")
+        # lightweight analytics beacons: view/save/register/share/search
+        con.execute("""CREATE TABLE IF NOT EXISTS analytics(
+            ts REAL NOT NULL, type TEXT NOT NULL, ref TEXT, meta TEXT)""")
+        # user-submitted corrections ("report wrong info")
+        con.execute("""CREATE TABLE IF NOT EXISTS reports(
+            ts REAL NOT NULL, event_id TEXT NOT NULL, issue TEXT NOT NULL,
+            detail TEXT, contact TEXT)""")
 
 
 # Precise venue coordinates, geocoded offline (backend/geocode_seed.py) and
@@ -142,14 +153,23 @@ def meta():
     cats = sorted({e["category"] for e in events if e.get("category")})
     starts = sorted(e["start"] for e in events if e.get("start"))
     ends = sorted(e["end"] for e in events if e.get("end"))
+    dcounts = {}
+    for e in events:
+        d = e.get("domain") or "business"
+        dcounts[d] = dcounts.get(d, 0) + 1
+    domains = [{"key": k, "en": DOMAINS.get(k, {}).get("en", k),
+                "ar": DOMAINS.get(k, {}).get("ar", k),
+                "count": dcounts[k]}
+               for k in sorted(dcounts, key=lambda k: -dcounts[k])]
     return {"count": len(events), "cities": cities,
-            "categories": cats,
+            "categories": cats, "domains": domains,
             "window": [starts[0] if starts else None,
                        ends[-1] if ends else None]}
 
 
 @app.get("/api/events")
 def list_events(city: str | None = None, category: str | None = None,
+                domain: str | None = None,
                 q: str | None = None, limit: int = 500):
     with _db_lock, db() as con:
         rows = con.execute("SELECT data FROM events").fetchall()
@@ -160,6 +180,9 @@ def list_events(city: str | None = None, category: str | None = None,
     if category:
         want = {c.strip().lower() for c in category.split(",")}
         events = [e for e in events if e.get("category", "").lower() in want]
+    if domain:
+        want = {c.strip().lower() for c in domain.split(",")}
+        events = [e for e in events if (e.get("domain") or "business").lower() in want]
     if q:
         ql = q.lower()
         events = [e for e in events if ql in
@@ -258,6 +281,9 @@ def ingest(body: IngestBody):
             if row:
                 ev = json.loads(row["data"])
                 ev.update(p.fields)
+                # keep derived fields fresh when core fields change
+                if not ev.get("domain") and any(k in p.fields for k in ("title", "organizer", "category")):
+                    ev["domain"] = classify_domain(ev.get("title"), ev.get("organizer"), ev.get("category"))
                 con.execute("UPDATE events SET data=? WHERE id=?",
                             (json.dumps(ev, ensure_ascii=False), p.id))
                 patched += 1
@@ -269,12 +295,105 @@ def ingest(body: IngestBody):
                    _valid_iso(f.get("start")) and _valid_iso(f.get("end")):
                     for k in REQUIRED_FIELDS:
                         f.setdefault(k, "" if k != "sources" else [])
+                    if not f.get("domain"):
+                        f["domain"] = classify_domain(f.get("title"), f.get("organizer"), f.get("category"))
+                    f.setdefault("description", "")
+                    f.setdefault("added_at", date.today().isoformat())
                     con.execute("INSERT INTO events(id,data) VALUES(?,?)",
                                 (p.id, json.dumps(f, ensure_ascii=False)))
                     patched += 1
                 else:
                     not_found.append(p.id)
     return {"patched_count": patched, "not_found": not_found}
+
+
+class Beacon(BaseModel):
+    type: str   # view | save | unsave | register | share | search | undo
+    ref: str = ""
+    meta: str = ""
+
+
+@app.post("/api/analytics")
+def analytics(b: Beacon):
+    """Privacy-friendly usage beacons (no user identity stored)."""
+    if b.type not in {"view", "save", "unsave", "register", "share",
+                      "search", "undo", "report"}:
+        raise HTTPException(400, "bad beacon type")
+    with _db_lock, db() as con:
+        con.execute("INSERT INTO analytics(ts,type,ref,meta) VALUES(?,?,?,?)",
+                    (time.time(), b.type, b.ref[:64], b.meta[:256]))
+    return {"ok": True}
+
+
+class Report(BaseModel):
+    event_id: str
+    issue: str   # wrong_date | wrong_venue | wrong_price | cancelled | other
+    detail: str = ""
+    contact: str = ""
+
+
+@app.post("/api/report")
+def report(r: Report):
+    """Crowdsourced corrections: users flag wrong event info."""
+    if r.issue not in {"wrong_date", "wrong_venue", "wrong_price",
+                       "cancelled", "other"} or not r.event_id:
+        raise HTTPException(400, "bad report")
+    with _db_lock, db() as con:
+        con.execute(
+            "INSERT INTO reports(ts,event_id,issue,detail,contact) VALUES(?,?,?,?,?)",
+            (time.time(), r.event_id[:64], r.issue, r.detail[:500], r.contact[:120]))
+    return {"ok": True}
+
+
+@app.get("/e/{event_id}", response_class=None, include_in_schema=False)
+def event_page(event_id: str):
+    """Shareable, indexable event page: crawlers get OG tags + Event
+    schema.org; browsers are handed to the SPA which opens the sheet."""
+    from fastapi.responses import HTMLResponse
+    with _db_lock, db() as con:
+        row = con.execute("SELECT data FROM events WHERE id=?",
+                          (event_id,)).fetchone()
+    if not row:
+        raise HTTPException(404, "event not found")
+    ev = _with_image(json.loads(row["data"]))
+    base = os.environ.get("PUBLIC_BASE", "https://thisweeksaudi.onrender.com")
+    url = f"{base}/e/{event_id}"
+    title = ev.get("title", "Event")
+    desc = ev.get("description") or f"{title} — {ev.get('venue') or ev.get('city')}, {ev.get('start')}"
+    img = ev.get("image") or f"{base}/icon-512.png"
+    venue = ev.get("venue") or ""
+    city = ev.get("city") or ""
+    loc = ", ".join(x for x in (venue, city, "Saudi Arabia") if x)
+    schema = {
+        "@context": "https://schema.org", "@type": "Event",
+        "name": title, "description": desc, "url": url,
+        "eventStatus": "https://schema.org/EventScheduled",
+        "startDate": ev.get("start"), "endDate": ev.get("end"),
+        "location": {"@type": "Place", "name": loc,
+                     "address": {"@type": "PostalAddress",
+                                 "addressLocality": city,
+                                 "addressCountry": "SA"}},
+        "organizer": {"@type": "Organization",
+                      "name": ev.get("organizer") or "ThisWeekSaudi"},
+    }
+    if img:
+        schema["image"] = img
+    esc_t = title.replace('"', '&quot;')
+    esc_d = desc.replace('"', '&quot;')[:300]
+    html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>{esc_t} — ThisWeekSaudi</title>
+<meta name="description" content="{esc_d}">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{esc_t} — ThisWeekSaudi">
+<meta property="og:description" content="{esc_d}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{img}">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>
+</head><body><script>location.replace('/#e={event_id}')</script>
+<p><a href="/#e={event_id}">{esc_t}</a></p></body></html>"""
+    return HTMLResponse(html)
 
 
 init_db()

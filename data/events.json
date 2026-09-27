@@ -1,5 +1,5 @@
 {
- "synced_at": "2026-09-27T14:45:00+03:00",
+ "synced_at": "2026-09-27T23:09:22+03:00",
  "window": [
   "2026-09-27",
   "2026-12-31"
@@ -19,7 +19,10 @@
    "sources": [
     "webook"
    ],
-   "id": "adaf3a0fff77"
+   "id": "adaf3a0fff77",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CONTINUUM '26 - Diriyah Art Futures Emerging New Media Artists Programme",
@@ -34,7 +37,10 @@
    "sources": [
     "webook"
    ],
-   "id": "8869099b5da3"
+   "id": "8869099b5da3",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Kings League MENA",
@@ -49,7 +55,10 @@
    "sources": [
     "webook"
    ],
-   "id": "3a4397b90ef2"
+   "id": "3a4397b90ef2",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Okhtabotiya Kids",
@@ -64,7 +73,10 @@
    "sources": [
     "webook"
    ],
-   "id": "222bf714d112"
+   "id": "222bf714d112",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "BattleKart - Riyadh",
@@ -79,7 +91,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "f283546a9631"
+   "id": "f283546a9631",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Certified Information Privacy Professional (CIPP)",
@@ -94,7 +109,10 @@
    "sources": [
     "10times"
    ],
-   "id": "efd7dd9b8b00"
+   "id": "efd7dd9b8b00",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Contract Excellence for Non Legal Professionals",
@@ -109,7 +127,10 @@
    "sources": [
     "10times"
    ],
-   "id": "c7a377070417"
+   "id": "c7a377070417",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IGDA Jeddah",
@@ -124,7 +145,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "a727fc3823d3"
+   "id": "a727fc3823d3",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Kids & Toys Expo Saudi Arabia",
@@ -139,7 +163,10 @@
    "sources": [
     "10times"
    ],
-   "id": "ab7a6cac40d0"
+   "id": "ab7a6cac40d0",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Riyadh 2026 Saudi Corporate Compliance, Governance & Legal Advisory Summit",
@@ -154,7 +181,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "255d5a2d087b"
+   "id": "255d5a2d087b",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SaudiFood Manufacturing (3rd edition)",
@@ -170,7 +200,10 @@
     "eyeofriyadh",
     "10times"
    ],
-   "id": "221d61aca389"
+   "id": "221d61aca389",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi eLeague Fighting 2026 in Riyadh",
@@ -185,7 +218,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "fb565430c77d"
+   "id": "fb565430c77d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "The Saudi Food Show 2026",
@@ -200,7 +236,10 @@
    "sources": [
     "eyeofriyadh"
    ],
-   "id": "5769aa17a183"
+   "id": "5769aa17a183",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Zain, Queen of all Hearts - Theatre Show",
@@ -215,7 +254,10 @@
    "sources": [
     "webook"
    ],
-   "id": "2e51f70a9fca"
+   "id": "2e51f70a9fca",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Battlekart Ladies Night - Jeddah",
@@ -230,7 +272,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "6d71dc57aa97"
+   "id": "6d71dc57aa97",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Battlekart Ladies Night - Riyadh",
@@ -245,7 +290,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "fe90c09d6175"
+   "id": "fe90c09d6175",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Cross-Border Fundraising | Global Investors | Saudi Arabia",
@@ -260,7 +308,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "02607ebe424c"
+   "id": "02607ebe424c",
+   "domain": "startup",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Damage Mechanisms Affecting Fixed Equipment in the Refining Industry",
@@ -275,7 +326,10 @@
    "sources": [
     "10times"
    ],
-   "id": "5fa628a8cb5b"
+   "id": "5fa628a8cb5b",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Extension of Time Entitlement During Contractor Delay: A Causation Approach",
@@ -290,7 +344,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "a70e5182d3c9"
+   "id": "a70e5182d3c9",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IDC CIO Summit Saudi Arabia 2026",
@@ -306,7 +363,10 @@
     "saudicon",
     "10times"
    ],
-   "id": "ed4487420e3a"
+   "id": "ed4487420e3a",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Meet Investors 1-1 | Inperson Online | Saudi Arabia",
@@ -321,7 +381,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "e78e721f313d"
+   "id": "e78e721f313d",
+   "domain": "startup",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Mergers and Acquisition (M&A)",
@@ -336,7 +399,10 @@
    "sources": [
     "10times"
    ],
-   "id": "b5822b15f701"
+   "id": "b5822b15f701",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Natchi Monday in Jeddah",
@@ -351,7 +417,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "914020b6d2f7"
+   "id": "914020b6d2f7",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Mega Projects 2026",
@@ -367,7 +436,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "e14082099342"
+   "id": "e14082099342",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "GESS Saudi Arabia 2026",
@@ -383,7 +455,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "ce708da494b8"
+   "id": "ce708da494b8",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Give & Take Improv Games Show from Thmanyah Exit",
@@ -398,7 +473,10 @@
    "sources": [
     "webook"
    ],
-   "id": "58249da9424b"
+   "id": "58249da9424b",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "HR Leaders Conference Riyadh",
@@ -413,7 +491,10 @@
    "sources": [
     "10times"
    ],
-   "id": "ab3269d5ec02"
+   "id": "ab3269d5ec02",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Medtech 2026",
@@ -429,7 +510,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "a62b7bffdd92"
+   "id": "a62b7bffdd92",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "VCs across the Globe | In person - Online | Jeddah",
@@ -444,7 +528,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "a1a60442d61a"
+   "id": "a1a60442d61a",
+   "domain": "startup",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "A Trace of Saudi Memory (workshop)",
@@ -459,7 +546,10 @@
    "sources": [
     "webook"
    ],
-   "id": "c9371e3b2169"
+   "id": "c9371e3b2169",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Fontana Circus in Riyadh",
@@ -474,7 +564,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "eca78c1aad34"
+   "id": "eca78c1aad34",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "New Jokes Comedy Show from Exit Thmanyah (weekly)",
@@ -489,7 +582,10 @@
    "sources": [
     "webook"
    ],
-   "id": "4130aadc391c"
+   "id": "4130aadc391c",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Open mic for talents",
@@ -504,7 +600,10 @@
    "sources": [
     "webook"
    ],
-   "id": "b0d8719ef830"
+   "id": "b0d8719ef830",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SunRise Arabia Clean Energy Conference 2026",
@@ -519,7 +618,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "49ec6c680359"
+   "id": "49ec6c680359",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "The Global Leaders Forum",
@@ -534,7 +636,10 @@
    "sources": [
     "10times"
    ],
-   "id": "7ea2ac8849cd"
+   "id": "7ea2ac8849cd",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "The Saudi-Nigeria Industrial Deal Room",
@@ -549,7 +654,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "cf6fcc53fd27"
+   "id": "cf6fcc53fd27",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "43rd KKESH&RC International Conference 2026",
@@ -564,7 +672,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b74dc0b0788b"
+   "id": "b74dc0b0788b",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Aramco F4 Saudi Arabian Championship",
@@ -579,7 +690,10 @@
    "sources": [
     "webook"
    ],
-   "id": "905d645849f6"
+   "id": "905d645849f6",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Badel - Al-Farabi Night",
@@ -594,7 +708,10 @@
    "sources": [
     "webook"
    ],
-   "id": "80ad76303bab"
+   "id": "80ad76303bab",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Healthon Digital Health Innovation 2026",
@@ -609,7 +726,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "fc59272721c4"
+   "id": "fc59272721c4",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Saudi Falcons and Hunting Exhibition 2026",
@@ -625,7 +745,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "65d03ec40811"
+   "id": "65d03ec40811",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Safarjal in Jeddah",
@@ -640,7 +763,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "bf8ad23f9ce9"
+   "id": "bf8ad23f9ce9",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "The International Dental Conference & Exhibition",
@@ -655,7 +781,10 @@
    "sources": [
     "10times"
    ],
-   "id": "8710e02a15fb"
+   "id": "8710e02a15fb",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Tony Abou Jaoude Live in Riyadh",
@@ -670,7 +799,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "0456bfa6aa72"
+   "id": "0456bfa6aa72",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "URX Presents Rootech | Jewel Kid in Riyadh",
@@ -685,7 +817,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "f010b30c5c02"
+   "id": "f010b30c5c02",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "4th International Conference on Educational Administration and Leadership 2026",
@@ -700,7 +835,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c32ce100aa55"
+   "id": "c32ce100aa55",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Al Ahli x Al Nassr",
@@ -715,7 +853,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "79f6865d18e1"
+   "id": "79f6865d18e1",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Aleph and his orchestra",
@@ -730,7 +871,10 @@
    "sources": [
     "webook"
    ],
-   "id": "0e6e9b0b1470"
+   "id": "0e6e9b0b1470",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Bd House in Jeddah",
@@ -745,7 +889,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "63209896c1c1"
+   "id": "63209896c1c1",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Comedy Night in Al-Qassim from Thmanyah Exit",
@@ -760,7 +907,10 @@
    "sources": [
     "webook"
    ],
-   "id": "5184dbfcdac3"
+   "id": "5184dbfcdac3",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Couplet Sessions in Riyadh",
@@ -775,7 +925,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "502d09fa2cac"
+   "id": "502d09fa2cac",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Desert Sound presents Indira Paganotto in Riyadh",
@@ -790,7 +943,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "a4a7d45dc74f"
+   "id": "a4a7d45dc74f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "FAWERHA",
@@ -805,7 +961,10 @@
    "sources": [
     "webook"
    ],
-   "id": "3f7f4e84b673"
+   "id": "3f7f4e84b673",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "PFL MENA 11: Last Man Standing",
@@ -820,7 +979,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "22f7ca28d655"
+   "id": "22f7ca28d655",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Stand-up Comedy Night in Jeddah",
@@ -835,7 +997,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "a6beb6757783"
+   "id": "a6beb6757783",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Talwihat Nay Night in Riyadh",
@@ -850,7 +1015,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "7e0e7e5f1fe0"
+   "id": "7e0e7e5f1fe0",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "The Container presents Fideles",
@@ -865,7 +1033,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "6c00b1aaefa0"
+   "id": "6c00b1aaefa0",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Ghida Knio Night",
@@ -880,7 +1051,10 @@
    "sources": [
     "webook"
    ],
-   "id": "1a5d275d1b9c"
+   "id": "1a5d275d1b9c",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Tech Day0 >> Riyadh",
@@ -895,7 +1069,10 @@
    "sources": [
     "luma"
    ],
-   "id": "c138f92f5542"
+   "id": "c138f92f5542",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Melwah Racing 2026",
@@ -910,7 +1087,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "aca8300fec80"
+   "id": "aca8300fec80",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Middle East Poultry Expo 2026",
@@ -927,7 +1107,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "a96bb7690e27"
+   "id": "a96bb7690e27",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Middle East Education & Training Exhibition (MEETES)",
@@ -942,7 +1125,10 @@
    "sources": [
     "10times"
    ],
-   "id": "52ab3dd9f10e"
+   "id": "52ab3dd9f10e",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "The Global CSR Forum 2026",
@@ -957,7 +1143,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "845bd75405ad"
+   "id": "845bd75405ad",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Discover the Manchester MBA Information Session, Jeddah",
@@ -972,7 +1161,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "9d3840df7d4f"
+   "id": "9d3840df7d4f",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Family Medicine Symposium",
@@ -987,7 +1179,10 @@
    "sources": [
     "10times"
    ],
-   "id": "90b8537d4eb4"
+   "id": "90b8537d4eb4",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Port Development Conference",
@@ -1002,7 +1197,10 @@
    "sources": [
     "10times"
    ],
-   "id": "3cae9dbc19b2"
+   "id": "3cae9dbc19b2",
+   "domain": "logistics",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SAJEX",
@@ -1017,7 +1215,10 @@
    "sources": [
     "10times"
    ],
-   "id": "623e124c6ed2"
+   "id": "623e124c6ed2",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Conversation",
@@ -1032,7 +1233,10 @@
    "sources": [
     "luma"
    ],
-   "id": "07963b572438"
+   "id": "07963b572438",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CFO Leadership Summit Saudi Arabia 2026",
@@ -1048,7 +1252,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "d9759b62f2f6"
+   "id": "d9759b62f2f6",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Energy Hackathon 2026",
@@ -1063,7 +1270,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "9def74b7752d"
+   "id": "9def74b7752d",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "GCF Annual Meeting 2026",
@@ -1078,7 +1288,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c5b990580bb6"
+   "id": "c5b990580bb6",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International ARCH+DESN Conference",
@@ -1093,7 +1306,10 @@
    "sources": [
     "10times"
    ],
-   "id": "9b30abc0e6b3"
+   "id": "9b30abc0e6b3",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Retail Show Saudi 2026",
@@ -1109,7 +1325,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "f8e8009caab0"
+   "id": "f8e8009caab0",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi 6th Procurement Conference 2026",
@@ -1125,7 +1344,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "409033d89898"
+   "id": "409033d89898",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Ahmed Amin - Stand Up Comedy Show in Riyadh",
@@ -1140,7 +1362,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "a0fef04d907d"
+   "id": "a0fef04d907d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "HR World Summit 2026",
@@ -1156,7 +1381,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "66ec274cee3d"
+   "id": "66ec274cee3d",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Photographing Distance - Matilde Marin",
@@ -1171,7 +1399,10 @@
    "sources": [
     "webook"
    ],
-   "id": "aa9f3fbb0a1e"
+   "id": "aa9f3fbb0a1e",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Bd House in Jeddah",
@@ -1186,7 +1417,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "d4bc4f0e479e"
+   "id": "d4bc4f0e479e",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Couplet Sessions in Riyadh",
@@ -1201,7 +1435,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "1a75c05ddec4"
+   "id": "1a75c05ddec4",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IN ACT - Innellea, Rafael Cerato, Dish Dash in Riyadh",
@@ -1216,7 +1453,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "25d98bd0cf9c"
+   "id": "25d98bd0cf9c",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Alkhobar",
@@ -1231,7 +1471,10 @@
    "sources": [
     "webook"
    ],
-   "id": "c15805bc90d4"
+   "id": "c15805bc90d4",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Octania Pulse Portal005 in Jeddah",
@@ -1246,7 +1489,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "a962066daac9"
+   "id": "a962066daac9",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Fateh vs Al Ahli",
@@ -1261,7 +1507,10 @@
    "sources": [
     "webook"
    ],
-   "id": "578348546021"
+   "id": "578348546021",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Kholood vs Al Qadsiah",
@@ -1276,7 +1525,10 @@
    "sources": [
     "webook"
    ],
-   "id": "67215e461f74"
+   "id": "67215e461f74",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Nassr vs Diriyah",
@@ -1291,7 +1543,10 @@
    "sources": [
     "webook"
    ],
-   "id": "41212cb35238"
+   "id": "41212cb35238",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Where to Drink Coffee in Al Hamra: Rimthan + Coffee Reviews",
@@ -1306,7 +1561,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "0c36f423b4d6"
+   "id": "0c36f423b4d6",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Ahmed Amin - Stand Up Comedy Show in Jeddah",
@@ -1321,7 +1579,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "6a64ae56c71c"
+   "id": "6a64ae56c71c",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CUBS Theater Club",
@@ -1336,7 +1597,10 @@
    "sources": [
     "webook"
    ],
-   "id": "2279bbbd62c8"
+   "id": "2279bbbd62c8",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Ettifaq vs Al Khaleej",
@@ -1351,7 +1615,10 @@
    "sources": [
     "webook"
    ],
-   "id": "34860716912d"
+   "id": "34860716912d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Hazem vs Neom SC",
@@ -1366,7 +1633,10 @@
    "sources": [
     "webook"
    ],
-   "id": "8136c065263f"
+   "id": "8136c065263f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Riyadh Youth Literary Festival",
@@ -1381,7 +1651,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "bccbfa1e93b2"
+   "id": "bccbfa1e93b2",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "25th WPC Energy Congress 2026",
@@ -1397,7 +1670,10 @@
     "saudicon",
     "10times"
    ],
-   "id": "6f72df497a72"
+   "id": "6f72df497a72",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "7th International Conference on Disability and Rehabilitation (ICDR 2026)",
@@ -1412,7 +1688,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "15b3d9adf001"
+   "id": "15b3d9adf001",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "FABEX Saudi Arabia 2026",
@@ -1428,7 +1707,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "8d50f2c86a45"
+   "id": "8d50f2c86a45",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Abha vs Al Faisaly",
@@ -1443,7 +1725,10 @@
    "sources": [
     "webook"
    ],
-   "id": "626b2ab30b0b"
+   "id": "626b2ab30b0b",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Fayha vs Al Riyadh",
@@ -1458,7 +1743,10 @@
    "sources": [
     "webook"
    ],
-   "id": "269c6c98cc5d"
+   "id": "269c6c98cc5d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Shabab vs Al Taawoun",
@@ -1473,7 +1761,10 @@
    "sources": [
     "webook"
    ],
-   "id": "8594645537bc"
+   "id": "8594645537bc",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "2nd Desert Architecture KSA Forum",
@@ -1488,7 +1779,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "98d81fe2db37"
+   "id": "98d81fe2db37",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "AFC Elite 26/27 - Al Nassr vs Neftchi Fergana",
@@ -1503,7 +1797,10 @@
    "sources": [
     "webook"
    ],
-   "id": "76e658a644bb"
+   "id": "76e658a644bb",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Artificial Intelligence (AI) in Oil & Gas Operations",
@@ -1518,7 +1815,10 @@
    "sources": [
     "10times"
    ],
-   "id": "0028c931b694"
+   "id": "0028c931b694",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CSWIP Welding Quality Control Coordinator",
@@ -1533,7 +1833,10 @@
    "sources": [
     "10times"
    ],
-   "id": "ee127c9dbfbb"
+   "id": "ee127c9dbfbb",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Space Connectivity and Sustainability Event 2026",
@@ -1548,7 +1851,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "f2532ac0980c"
+   "id": "f2532ac0980c",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "ISA Saudi Automation Conference 2026",
@@ -1563,7 +1869,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "41becc502a95"
+   "id": "41becc502a95",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Industrial Special Welding Applications",
@@ -1578,7 +1887,10 @@
    "sources": [
     "10times"
    ],
-   "id": "096ad29900b6"
+   "id": "096ad29900b6",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Riyadh Economic Forum 2026",
@@ -1593,7 +1905,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "26af174906fc"
+   "id": "26af174906fc",
+   "domain": "gov",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi International Pharma Expo",
@@ -1608,7 +1923,10 @@
    "sources": [
     "10times"
    ],
-   "id": "c04da4b8103e"
+   "id": "c04da4b8103e",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Industrial Waste to Value Expo 2026",
@@ -1623,7 +1941,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b774398fa0ac"
+   "id": "b774398fa0ac",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Google Cloud Summit Saudi Arabia 2026",
@@ -1638,7 +1959,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "3eac257360e9"
+   "id": "3eac257360e9",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "12th Middle East Banking AI & Analytics Summit 2026",
@@ -1653,7 +1977,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "974822fb048b"
+   "id": "974822fb048b",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "3rd Annual International Geotechnical Innovation Conference (IGIC 2026)",
@@ -1668,7 +1995,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b91d1464e5c2"
+   "id": "b91d1464e5c2",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "AI & Data Centers Summit",
@@ -1683,7 +2013,10 @@
    "sources": [
     "10times"
    ],
-   "id": "3f195aed80e2"
+   "id": "3f195aed80e2",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Athlete 360 Summit 2026",
@@ -1698,7 +2031,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "7e822c1c1f41"
+   "id": "7e822c1c1f41",
+   "domain": "sportsbiz",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Trenchless Tunnelling Exhibition and Conference (ITTEC 2026)",
@@ -1713,7 +2049,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "943655a68e8a"
+   "id": "943655a68e8a",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Retail World Forum 2026",
@@ -1728,7 +2067,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b266b3860c55"
+   "id": "b266b3860c55",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Riyadh Product Leaders Dinner",
@@ -1743,7 +2085,10 @@
    "sources": [
     "luma"
    ],
-   "id": "3ef17dc8028a"
+   "id": "3ef17dc8028a",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "World Stadiums and Arenas Summit 2026",
@@ -1758,7 +2103,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c97d62559e8b"
+   "id": "c97d62559e8b",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Alaa El Sheikh Live in Riyadh",
@@ -1773,7 +2121,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "3dd7b3753a64"
+   "id": "3dd7b3753a64",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Annual Conference of the Saudi Heart Association 2026",
@@ -1788,7 +2139,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "5cb80a9afcaa"
+   "id": "5cb80a9afcaa",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Between the Strange and the Prevailing - Jeddah",
@@ -1803,7 +2157,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "d839ad3241b6"
+   "id": "d839ad3241b6",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Boosh Bashasha - Stand Up Comedy Show in Riyadh",
@@ -1818,7 +2175,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "e4374521f1bc"
+   "id": "e4374521f1bc",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Faisaly vs Al Kholood",
@@ -1833,7 +2193,10 @@
    "sources": [
     "webook"
    ],
-   "id": "5ea1be602672"
+   "id": "5ea1be602672",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Hazem vs Al Fateh",
@@ -1848,7 +2211,10 @@
    "sources": [
     "webook"
    ],
-   "id": "96b22bbd953d"
+   "id": "96b22bbd953d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Khaleej vs Al Fayha",
@@ -1863,7 +2229,10 @@
    "sources": [
     "webook"
    ],
-   "id": "5092d86f0de6"
+   "id": "5092d86f0de6",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Al Ittihad x Al Hilal",
@@ -1878,7 +2247,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "34df6841ad3d"
+   "id": "34df6841ad3d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Al Nasser x Jeddah United Academy",
@@ -1893,7 +2265,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "96dd1d1b9303"
+   "id": "96dd1d1b9303",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Alaa El Sheikh Live in Jeddah",
@@ -1908,7 +2283,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "9a3e4f12bcba"
+   "id": "9a3e4f12bcba",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "FIFAe Finals 26",
@@ -1923,7 +2301,10 @@
    "sources": [
     "webook"
    ],
-   "id": "46a6f4fb0952"
+   "id": "46a6f4fb0952",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Najmat Jeddah x Al Qadisiyah",
@@ -1938,7 +2319,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "ddbdf5bfa091"
+   "id": "ddbdf5bfa091",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Qadsiah vs Abha",
@@ -1953,7 +2337,10 @@
    "sources": [
     "webook"
    ],
-   "id": "c34fd14a5cfc"
+   "id": "c34fd14a5cfc",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Riyadh vs Al Hilal",
@@ -1968,7 +2355,10 @@
    "sources": [
     "webook"
    ],
-   "id": "b76864aeefea"
+   "id": "b76864aeefea",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Stand-Up Comedy Show with Salah Al-Dali in Jeddah",
@@ -1983,7 +2373,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "ec3a307590a1"
+   "id": "ec3a307590a1",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Neom SC vs Al Ettifaq",
@@ -1998,7 +2391,10 @@
    "sources": [
     "webook"
    ],
-   "id": "897a50b6726a"
+   "id": "897a50b6726a",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "EVS Saudi Arabia",
@@ -2013,7 +2409,10 @@
    "sources": [
     "10times"
    ],
-   "id": "08282575ec40"
+   "id": "08282575ec40",
+   "domain": "auto",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Fateh vs Al Khaleej",
@@ -2028,7 +2427,10 @@
    "sources": [
     "webook"
    ],
-   "id": "e6075d6c6de6"
+   "id": "e6075d6c6de6",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Solar PV System Design",
@@ -2043,7 +2445,10 @@
    "sources": [
     "10times"
    ],
-   "id": "2ef5e289500c"
+   "id": "2ef5e289500c",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "ASME Sec IX: Welding and Brazing Training",
@@ -2058,7 +2463,10 @@
    "sources": [
     "10times"
    ],
-   "id": "8f4af7a083d3"
+   "id": "8f4af7a083d3",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Climate Change and Green Finance in International Development",
@@ -2073,7 +2481,10 @@
    "sources": [
     "10times"
    ],
-   "id": "07eaa868d423"
+   "id": "07eaa868d423",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Desert Architecture Forum",
@@ -2088,7 +2499,10 @@
    "sources": [
     "10times"
    ],
-   "id": "7d0b1fed854b"
+   "id": "7d0b1fed854b",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Drafting of Legal Documents Including Contracts for Attorneys",
@@ -2103,7 +2517,10 @@
    "sources": [
     "10times"
    ],
-   "id": "a99e2d635b75"
+   "id": "a99e2d635b75",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Effective Revenue Collection Strategies",
@@ -2118,7 +2535,10 @@
    "sources": [
     "10times"
    ],
-   "id": "3d4ac7c35d79"
+   "id": "3d4ac7c35d79",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IEEE International Microwave and Antenna Symposium (IMAS)",
@@ -2133,7 +2553,10 @@
    "sources": [
     "10times"
    ],
-   "id": "435ba113cf92"
+   "id": "435ba113cf92",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Fayha vs Al Ahli",
@@ -2148,7 +2571,10 @@
    "sources": [
     "webook"
    ],
-   "id": "d049eb9d74bd"
+   "id": "d049eb9d74bd",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Shabab vs Al Faisaly",
@@ -2163,7 +2589,10 @@
    "sources": [
     "webook"
    ],
-   "id": "445900e4703d"
+   "id": "445900e4703d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Agriculture 2026",
@@ -2179,7 +2608,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "cb317be71fd6"
+   "id": "cb317be71fd6",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "MIPIM Middle East 2026",
@@ -2194,7 +2626,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "a4217f4bc757"
+   "id": "a4217f4bc757",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Nassr vs Neom",
@@ -2209,7 +2644,10 @@
    "sources": [
     "webook"
    ],
-   "id": "0f5a3630a34d"
+   "id": "0f5a3630a34d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Taawoun vs Al Qadsiah",
@@ -2224,7 +2662,10 @@
    "sources": [
     "webook"
    ],
-   "id": "cf669445ebe1"
+   "id": "cf669445ebe1",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Riyadh 2026 Venture Capital World Summit",
@@ -2239,7 +2680,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "e3ac3c08bd64"
+   "id": "e3ac3c08bd64",
+   "domain": "startup",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Shaping Saudi Arabia's Future: The Next Step in Architectural Leadership",
@@ -2254,7 +2698,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "0f490d3bad86"
+   "id": "0f490d3bad86",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Portfolio Night 2026 - Riyadh",
@@ -2269,7 +2716,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "1453ae778f09"
+   "id": "1453ae778f09",
+   "domain": "marketing",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Maritime & Logistics Congress 2026",
@@ -2285,7 +2735,10 @@
     "saudicon",
     "eventbrite"
    ],
-   "id": "5364e18ca32a"
+   "id": "5364e18ca32a",
+   "domain": "logistics",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Feena Nehke? Stand Up Comedy by John Achkar in Riyadh",
@@ -2300,7 +2753,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "f10e75758747"
+   "id": "f10e75758747",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Jeddah",
@@ -2315,7 +2771,10 @@
    "sources": [
     "webook"
    ],
-   "id": "9885a646ea3d"
+   "id": "9885a646ea3d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Fateh vs Al Shabab",
@@ -2330,7 +2789,10 @@
    "sources": [
     "webook"
    ],
-   "id": "1e7e5a31b595"
+   "id": "1e7e5a31b595",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Hazem vs Al Fayha",
@@ -2345,7 +2807,10 @@
    "sources": [
     "webook"
    ],
-   "id": "0a46efe3fbbb"
+   "id": "0a46efe3fbbb",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Workforce Strategy & Leadership Conference",
@@ -2360,7 +2825,10 @@
    "sources": [
     "10times"
    ],
-   "id": "0a23c9a3f4fd"
+   "id": "0a23c9a3f4fd",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Explore Riyadh",
@@ -2375,7 +2843,10 @@
    "sources": [
     "luma"
    ],
-   "id": "6a9cd8c8334e"
+   "id": "6a9cd8c8334e",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Feena Nehke? Stand Up Comedy by John Achkar in Jeddah",
@@ -2390,7 +2861,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "27a0c1e2caaf"
+   "id": "27a0c1e2caaf",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Abha",
@@ -2405,7 +2879,10 @@
    "sources": [
     "webook"
    ],
-   "id": "c3eab244f0ff"
+   "id": "c3eab244f0ff",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "MDLBEAST Presents X IN ACT - Black Coffee in Jeddah",
@@ -2420,7 +2897,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "9c2e0d430440"
+   "id": "9c2e0d430440",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Qadsiah vs Al Hilal",
@@ -2435,7 +2915,10 @@
    "sources": [
     "webook"
    ],
-   "id": "03d3344914c3"
+   "id": "03d3344914c3",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Kholood vs Al Ettifaq",
@@ -2450,7 +2933,10 @@
    "sources": [
     "webook"
    ],
-   "id": "2e4cac11bc09"
+   "id": "2e4cac11bc09",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Neom SC vs Abha",
@@ -2465,7 +2951,10 @@
    "sources": [
     "webook"
    ],
-   "id": "d4e3977b512b"
+   "id": "d4e3977b512b",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Digital Health Evening 2026",
@@ -2480,7 +2969,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "849fa7cd3896"
+   "id": "849fa7cd3896",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Environmental Monitoring and Modelling",
@@ -2495,7 +2987,10 @@
    "sources": [
     "10times"
    ],
-   "id": "1fbf5ca79ff6"
+   "id": "1fbf5ca79ff6",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global PropTech Summit 2026",
@@ -2511,7 +3006,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "a6d25b53a5b4"
+   "id": "a6d25b53a5b4",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "AFC Elite 26/27 - Al Nassr vs Al Wasl",
@@ -2526,7 +3024,10 @@
    "sources": [
     "webook"
    ],
-   "id": "d07e53f9f08f"
+   "id": "d07e53f9f08f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "AFC Elite 26/27 - Al Qadsiah FC vs Al Sadd",
@@ -2541,7 +3042,10 @@
    "sources": [
     "webook"
    ],
-   "id": "26df9f2fb30f"
+   "id": "26df9f2fb30f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "E3 Customer Experience Conference 2026",
@@ -2557,7 +3061,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "b95ac5bc5e52"
+   "id": "b95ac5bc5e52",
+   "domain": "marketing",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Effective Debt Collection Strategies and Process Optimization",
@@ -2572,7 +3079,10 @@
    "sources": [
     "10times"
    ],
-   "id": "43e617feb189"
+   "id": "43e617feb189",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Executive Afterwork: Decision-Making in Times of Uncertainty",
@@ -2587,7 +3097,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "f4bbb446580e"
+   "id": "f4bbb446580e",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "FII 10th Edition 2026",
@@ -2602,7 +3115,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "d1b8af76d4cd"
+   "id": "d1b8af76d4cd",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Health Exhibition 2026",
@@ -2618,7 +3134,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "f6b4e6ab0caa"
+   "id": "f6b4e6ab0caa",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Trade Exchange Exhibition (ITEE)",
@@ -2634,7 +3153,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "4f5deaccea09"
+   "id": "4f5deaccea09",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Landmarks in Logistics Summit KSA",
@@ -2649,7 +3171,10 @@
    "sources": [
     "10times"
    ],
-   "id": "e960f3db15c2"
+   "id": "e960f3db15c2",
+   "domain": "logistics",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "OT Security Jubail 2026",
@@ -2664,7 +3189,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "38d8a9328384"
+   "id": "38d8a9328384",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "15th Middle East Enterprise AI & Analytics Summit",
@@ -2679,7 +3207,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "57a90340e47a"
+   "id": "57a90340e47a",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CIPS MENA Procurement & Supply Chain Futures Forum 2026",
@@ -2695,7 +3226,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "4eb8d825c847"
+   "id": "4eb8d825c847",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Cyber Revolution Summit - Saudi Arabia",
@@ -2710,7 +3244,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "c0c4efe408e4"
+   "id": "c0c4efe408e4",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Real Estate Supply Chain Forum 2026",
@@ -2726,7 +3263,10 @@
     "eyeofriyadh",
     "saudicon"
    ],
-   "id": "eb715a6896c1"
+   "id": "eb715a6896c1",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Marilyne Naaman Live Concert in Riyadh",
@@ -2741,7 +3281,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "3506151f3207"
+   "id": "3506151f3207",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Khaleej vs Al Hazem",
@@ -2756,7 +3299,10 @@
    "sources": [
     "webook"
    ],
-   "id": "219f851bd3b6"
+   "id": "219f851bd3b6",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Nassr vs Al Kholood",
@@ -2771,7 +3317,10 @@
    "sources": [
     "webook"
    ],
-   "id": "21949d576452"
+   "id": "21949d576452",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "New Global Sport Conference 2026",
@@ -2786,7 +3335,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "a1278e5b4ef2"
+   "id": "a1278e5b4ef2",
+   "domain": "sportsbiz",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Shabab vs Al Ahli",
@@ -2801,7 +3353,10 @@
    "sources": [
     "webook"
    ],
-   "id": "854a2cb020bd"
+   "id": "854a2cb020bd",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Taawoun vs Al Ettifaq",
@@ -2816,7 +3371,10 @@
    "sources": [
     "webook"
    ],
-   "id": "af614d7a0b32"
+   "id": "af614d7a0b32",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IDRA World Congress 2026",
@@ -2831,7 +3389,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "7960bb4053ee"
+   "id": "7960bb4053ee",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "MILSET Expo-Sciences Asia 2026",
@@ -2846,7 +3407,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c13de9493076"
+   "id": "c13de9493076",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Water Regulation Forum 2026",
@@ -2861,7 +3425,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "2fc640395730"
+   "id": "2fc640395730",
+   "domain": "gov",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "ISO 37001 Lead Implementer",
@@ -2876,7 +3443,10 @@
    "sources": [
     "10times"
    ],
-   "id": "f9ca1b5c98e9"
+   "id": "f9ca1b5c98e9",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Professional Business Development Skills",
@@ -2891,7 +3461,10 @@
    "sources": [
     "10times"
    ],
-   "id": "9d37c934ea1d"
+   "id": "9d37c934ea1d",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SEED Business School Festival 2026 - Jeddah",
@@ -2906,7 +3479,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "e78c0dc39732"
+   "id": "e78c0dc39732",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Build (36th edition)",
@@ -2922,7 +3498,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "3c9656e8094c"
+   "id": "3c9656e8094c",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Elenex 2026",
@@ -2937,7 +3516,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "217c96f9c954"
+   "id": "217c96f9c954",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "QS Discover Master's Fair",
@@ -2952,7 +3534,10 @@
    "sources": [
     "10times"
    ],
-   "id": "813c8976812d"
+   "id": "813c8976812d",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Thoracic Society International Conference",
@@ -2967,7 +3552,10 @@
    "sources": [
     "10times"
    ],
-   "id": "effcef175b00"
+   "id": "effcef175b00",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Fintech Revolution Summit Saudi Arabia 2026",
@@ -2982,7 +3570,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "2417306975e3"
+   "id": "2417306975e3",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Conference on Innovation in AI and IoT",
@@ -2997,7 +3588,10 @@
    "sources": [
     "10times"
    ],
-   "id": "2db3bdf6bbc2"
+   "id": "2db3bdf6bbc2",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Jewellery Salon",
@@ -3012,7 +3606,10 @@
    "sources": [
     "10times"
    ],
-   "id": "a41e92ab8798"
+   "id": "a41e92ab8798",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Middle East CFO Summit",
@@ -3027,7 +3624,10 @@
    "sources": [
     "10times"
    ],
-   "id": "1778e9ae377d"
+   "id": "1778e9ae377d",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Al-Qassim",
@@ -3042,7 +3642,10 @@
    "sources": [
     "webook"
    ],
-   "id": "cc7c35bc90ac"
+   "id": "cc7c35bc90ac",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Wagef! Nemr Live Comedy Show in Riyadh",
@@ -3057,7 +3660,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "6c6b45108f23"
+   "id": "6c6b45108f23",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Wagef! Nemr Live Comedy Show in Jeddah",
@@ -3072,7 +3678,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "2440d7c03363"
+   "id": "2440d7c03363",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "3rd International Port & Marine Development Conference 2026",
@@ -3087,7 +3696,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "7af5e184e4d4"
+   "id": "7af5e184e4d4",
+   "domain": "logistics",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Cat Show 3rd season in Saudi Pet & Vet Expo",
@@ -3103,7 +3715,10 @@
     "eventbrite",
     "platinumlist"
    ],
-   "id": "1c35c6966dd3"
+   "id": "1c35c6966dd3",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Connected World KSA 2026",
@@ -3118,7 +3733,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "0e337673a9d3"
+   "id": "0e337673a9d3",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Dog Village 2026 - Participants in Riyadh",
@@ -3133,7 +3751,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "65a6520e3d56"
+   "id": "65a6520e3d56",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Dog Village 2026 - Visitors in Riyadh",
@@ -3148,7 +3769,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "f06e06e56a5c"
+   "id": "f06e06e56a5c",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "EV Auto Show",
@@ -3163,7 +3787,10 @@
    "sources": [
     "10times"
    ],
-   "id": "8b1f287b0bc3"
+   "id": "8b1f287b0bc3",
+   "domain": "auto",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Hyperscale Live KSA 2026",
@@ -3178,7 +3805,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "475801606db5"
+   "id": "475801606db5",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SADEX 2026 - Saudi Drone & UAS Exhibition",
@@ -3193,7 +3823,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "e01cca03eb10"
+   "id": "e01cca03eb10",
+   "domain": "space",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Pet & Vet Expo 5th Edition 2026",
@@ -3210,7 +3843,10 @@
     "eventbrite",
     "10times"
    ],
-   "id": "e720cd724ac2"
+   "id": "e720cd724ac2",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Seamless Saudi Arabia (9th edition)",
@@ -3225,7 +3861,10 @@
    "sources": [
     "10times"
    ],
-   "id": "07ba3eb128de"
+   "id": "07ba3eb128de",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Seamless Saudi Arabia 2026",
@@ -3240,7 +3879,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "82279231218f"
+   "id": "82279231218f",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Second Saudi Statistics Forum 2026",
@@ -3255,7 +3897,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b505b55518d5"
+   "id": "b505b55518d5",
+   "domain": "gov",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "UN World Data Forum 2026",
@@ -3270,7 +3915,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "87bca95463da"
+   "id": "87bca95463da",
+   "domain": "gov",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Build Your House Exhibition Saudi 2026",
@@ -3285,7 +3933,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "ab78f96bd3f8"
+   "id": "ab78f96bd3f8",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "GBB Investment Summit - Saudi Arabia 2026",
@@ -3300,7 +3951,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "61398ded3407"
+   "id": "61398ded3407",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Inspire for Home KSA 2026",
@@ -3315,7 +3969,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "3da092ee5957"
+   "id": "3da092ee5957",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Misk Global Forum 2026",
@@ -3331,7 +3988,10 @@
     "10times",
     "saudicon"
    ],
-   "id": "0e8c70b7e31b"
+   "id": "0e8c70b7e31b",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Real Estate Development Summit - Saudi Arabia 2026",
@@ -3346,7 +4006,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "a463c2c37d06"
+   "id": "a463c2c37d06",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Madinah",
@@ -3361,7 +4024,10 @@
    "sources": [
     "webook"
    ],
-   "id": "49b7232c813f"
+   "id": "49b7232c813f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Origins by Weekends Experience in Jeddah",
@@ -3376,7 +4042,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "4b0353a7f827"
+   "id": "4b0353a7f827",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Indoor Rowing Championship 2026 in Jeddah",
@@ -3391,7 +4060,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "a281ca63c158"
+   "id": "a281ca63c158",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Indoor Rowing Championship 2026 in Riyadh",
@@ -3406,7 +4078,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "e3702d295309"
+   "id": "e3702d295309",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Visitor of Saudi Indoor Rowing Championship 2026 in Jeddah",
@@ -3421,7 +4096,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "0c74f71275c1"
+   "id": "0c74f71275c1",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Visitor of Saudi Indoor Rowing Championship 2026 in Riyadh",
@@ -3436,7 +4114,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "5cece638d6a4"
+   "id": "5cece638d6a4",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Cityscape Global Saudi Arabia 2026",
@@ -3452,7 +4133,10 @@
     "eyeofriyadh",
     "saudicon"
    ],
-   "id": "d637f41508c0"
+   "id": "d637f41508c0",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "HR Tech Saudi Summit 2026",
@@ -3467,7 +4151,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "3f8d0848119f"
+   "id": "3f8d0848119f",
+   "domain": "hr",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Intersec Saudi Arabia 2026",
@@ -3482,7 +4169,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "8df34042b4b1"
+   "id": "8df34042b4b1",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "PAPER-ME/KSA",
@@ -3497,7 +4187,10 @@
    "sources": [
     "10times"
    ],
-   "id": "cc97d7cfa0d8"
+   "id": "cc97d7cfa0d8",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Print2Pack Saudi Arabia 2026",
@@ -3512,7 +4205,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "5ef9307529d5"
+   "id": "5ef9307529d5",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Third UN World Geospatial Information Congress (UNWGIC 2026)",
@@ -3527,7 +4223,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "3bf5292aeba3"
+   "id": "3bf5292aeba3",
+   "domain": "gov",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "AEI Autumn Series: CityScape Week Networking Breakfast",
@@ -3542,7 +4241,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "440fe7ea5ab2"
+   "id": "440fe7ea5ab2",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Comedy Show by Mario Yazbeck in Riyadh",
@@ -3557,7 +4259,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "f14787b2b999"
+   "id": "f14787b2b999",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Trade Finance Summit 2026",
@@ -3572,7 +4277,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c0e628522303"
+   "id": "c0e628522303",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Dunes - The Ultimate Outdoor Adventure Show 2026",
@@ -3587,7 +4295,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "a4d543e549e3"
+   "id": "a4d543e549e3",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Retail Forum 2026",
@@ -3602,7 +4313,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "8ae8d51cdfae"
+   "id": "8ae8d51cdfae",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Connected Banking Summit Saudi Arabia 2026",
@@ -3617,7 +4331,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "ddb3a6962bc3"
+   "id": "ddb3a6962bc3",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Foodex Saudi 2026",
@@ -3633,7 +4350,10 @@
     "10times",
     "eyeofriyadh"
    ],
-   "id": "11de8201a6da"
+   "id": "11de8201a6da",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Foodex Saudi 2026 - Jeddah",
@@ -3648,7 +4368,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b2e16c1a43fc"
+   "id": "b2e16c1a43fc",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "MOVE Riyadh 2026",
@@ -3663,7 +4386,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "937fbb3b6691"
+   "id": "937fbb3b6691",
+   "domain": "auto",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Franchise Expo 2026",
@@ -3678,7 +4404,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "2d6f33596efd"
+   "id": "2d6f33596efd",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Solar & Storage Live Riyadh 2026",
@@ -3693,7 +4422,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "166e0c419d5b"
+   "id": "166e0c419d5b",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "AFC Elite 26/27 - Al Nassr vs Al Sadd",
@@ -3708,7 +4440,10 @@
    "sources": [
     "webook"
    ],
-   "id": "deaa8b243833"
+   "id": "deaa8b243833",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Family Offices & VCs Investment Summit Riyadh: Invite Only",
@@ -3723,7 +4458,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "6d32920b8210"
+   "id": "6d32920b8210",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SAIF - Security and Innovation Fair 2026",
@@ -3738,7 +4476,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "909ea3a20c8a"
+   "id": "909ea3a20c8a",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "LIFT CITY EXPO Riyadh (4th edition) 2026",
@@ -3753,7 +4494,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "056bdec0f8c5"
+   "id": "056bdec0f8c5",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "In Act Anniversary - Act XI in Jeddah",
@@ -3768,7 +4512,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "e79a3ebd209f"
+   "id": "e79a3ebd209f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "NextGen2030 2.0 | Youth & AI Summit Riyadh 2026",
@@ -3783,7 +4530,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "c32d8baab0a3"
+   "id": "c32d8baab0a3",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Logistics Forum 2026",
@@ -3798,7 +4548,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c3458f229e05"
+   "id": "c3458f229e05",
+   "domain": "logistics",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "UNCTAD Global Supply Chain Forum 2026",
@@ -3813,7 +4566,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "5a4ebd6815e5"
+   "id": "5a4ebd6815e5",
+   "domain": "logistics",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Fire Middle East Conference 2026",
@@ -3828,7 +4584,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "55d223a33b5c"
+   "id": "55d223a33b5c",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Airports Forum 2026",
@@ -3843,7 +4602,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "1f32d9e6dc2a"
+   "id": "1f32d9e6dc2a",
+   "domain": "space",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Sources Saudi Arabia Expo 2026",
@@ -3858,7 +4620,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "7d92add5c461"
+   "id": "7d92add5c461",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Industrial Transformation Saudi Arabia 2026",
@@ -3873,7 +4638,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "88e26d8ed50c"
+   "id": "88e26d8ed50c",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Intermobility Expo 2026",
@@ -3888,7 +4656,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "fb624dc354d7"
+   "id": "fb624dc354d7",
+   "domain": "auto",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Black Hat MEA 2026",
@@ -3903,7 +4674,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "4726412c02c8"
+   "id": "4726412c02c8",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "International Coffee & Chocolate Exhibition 2026",
@@ -3918,7 +4692,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "ebc1647e9063"
+   "id": "ebc1647e9063",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "King's Cup 26/27 - Round of 16 - Al Nassr vs Al Kholood",
@@ -3933,7 +4710,10 @@
    "sources": [
     "webook"
    ],
-   "id": "e41a461c0a6f"
+   "id": "e41a461c0a6f",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Kingdom of Gaming 2026",
@@ -3948,7 +4728,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "be4ae37cf18c"
+   "id": "be4ae37cf18c",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi International Exhibition for Disability and Rehabilitation Requirements 2026",
@@ -3963,7 +4746,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "c13c12773c1d"
+   "id": "c13c12773c1d",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Contractors Financing Conference 2026",
@@ -3978,7 +4764,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "9cd425521d89"
+   "id": "9cd425521d89",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "EDUGATE Riyadh 2nd Edition - International Universities & Career Path Fair",
@@ -3993,7 +4782,10 @@
    "sources": [
     "eventbrite"
    ],
-   "id": "5c8747caeb4a"
+   "id": "5c8747caeb4a",
+   "domain": "education",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Future Projects Forum & Exhibition 2026",
@@ -4008,7 +4800,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "b8d502909b2d"
+   "id": "b8d502909b2d",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "National Construction Festival 2026",
@@ -4023,7 +4818,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "0619b25f79e4"
+   "id": "0619b25f79e4",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi HORECA Riyadh 2026",
@@ -4038,7 +4836,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "2cbc710b1d94"
+   "id": "2cbc710b1d94",
+   "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "GDX Summit 2026 - Government Digital Transformation Summit",
@@ -4053,7 +4854,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "cde73a143a2a"
+   "id": "cde73a143a2a",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "MEP International Conference Saudi Arabia (MEPIC) 2026",
@@ -4068,7 +4872,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "4c66417deb0f"
+   "id": "4c66417deb0f",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IBRAM Conference for Government Procurement and Projects 2026",
@@ -4083,7 +4890,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "d197ee370929"
+   "id": "d197ee370929",
+   "domain": "legal",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "4th International Engineering Conference (IECE 2026)",
@@ -4098,7 +4908,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "16db7021fb7c"
+   "id": "16db7021fb7c",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "BIO Middle East 2026",
@@ -4113,7 +4926,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "a3ab4c7e093a"
+   "id": "a3ab4c7e093a",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CIDEX 2026",
@@ -4128,7 +4944,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "8202e4bfbddd"
+   "id": "8202e4bfbddd",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CPHI Middle East 2026",
@@ -4144,7 +4963,10 @@
     "eventbrite",
     "saudicon"
    ],
-   "id": "22231c668920"
+   "id": "22231c668920",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "CTW Saudi Arabia 2026",
@@ -4159,7 +4981,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "6b8486e48df7"
+   "id": "6b8486e48df7",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Construction Technology ConFeX KSA 2026",
@@ -4174,7 +4999,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "1af57f7883f3"
+   "id": "1af57f7883f3",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "EVS Saudi Arabia 2026",
@@ -4189,7 +5017,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "a713f08960fc"
+   "id": "a713f08960fc",
+   "domain": "auto",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Gulf 4P Saudi Arabia 2026",
@@ -4204,7 +5035,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "0d9000694977"
+   "id": "0d9000694977",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Innovation Driven Water Sustainability Conference 2026",
@@ -4220,7 +5054,10 @@
     "saudicon",
     "eventbrite"
    ],
-   "id": "3dfb9347d068"
+   "id": "3dfb9347d068",
+   "domain": "sustain",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Natural World Expo Saudi 2026",
@@ -4235,7 +5072,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "ce6b610823fa"
+   "id": "ce6b610823fa",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Arabia Smart Grid Conference (SASG) 2026",
@@ -4250,7 +5090,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "f3a4db45f7c1"
+   "id": "f3a4db45f7c1",
+   "domain": "energy",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Saudi Makes Future 2026",
@@ -4265,7 +5108,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "d14a8f243fa4"
+   "id": "d14a8f243fa4",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Global Security & Technology Summit (GSTS) 2026",
@@ -4280,7 +5126,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "daf1cfcfbbbd"
+   "id": "daf1cfcfbbbd",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Jeddah E-Prix 2026 - EMOTION Club",
@@ -4295,7 +5144,10 @@
    "sources": [
     "webook"
    ],
-   "id": "13dc6df0829a"
+   "id": "13dc6df0829a",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Jeddah E-Prix 2027 - Day 1",
@@ -4310,7 +5162,10 @@
    "sources": [
     "webook"
    ],
-   "id": "990660bd4c2d"
+   "id": "990660bd4c2d",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Jeddah E-Prix 2027 - Day 2",
@@ -4325,7 +5180,10 @@
    "sources": [
     "webook"
    ],
-   "id": "dab615bef956"
+   "id": "dab615bef956",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Jeddah International Beauty Expo 2026",
@@ -4340,7 +5198,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "a8b074952cd6"
+   "id": "a8b074952cd6",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "China Homelife Saudi Arabia Expo 2026",
@@ -4355,7 +5216,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "9e1e5d737da4"
+   "id": "9e1e5d737da4",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Next Generation IoT Expo 2026",
@@ -4370,7 +5234,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "8fa82689faa4"
+   "id": "8fa82689faa4",
+   "domain": "tech",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Deal EXPO - The Mega Outlet & Shoppers Exhibition 2026",
@@ -4385,7 +5252,10 @@
    "sources": [
     "saudicon"
    ],
-   "id": "1302d1aae5ed"
+   "id": "1302d1aae5ed",
+   "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "IN ACT - Act XII - New Year's Eve in Riyadh",
@@ -4400,7 +5270,10 @@
    "sources": [
     "platinumlist"
    ],
-   "id": "e1713bb84fa6"
+   "id": "e1713bb84fa6",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   }
  ]
 }
