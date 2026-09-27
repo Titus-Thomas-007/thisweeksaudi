@@ -76,16 +76,19 @@ const state = {
   recent: [],
   ob: { step:1, cities:[], cats:[], prof:null }
 };
-try{ state.saved = JSON.parse(localStorage.getItem('wain_saved')||'[]'); }catch(e){ state.saved=[]; }
-try{ state.remind = JSON.parse(localStorage.getItem('wain_remind')||'{}'); }catch(e){ state.remind={}; }
-try{ state.recent = JSON.parse(localStorage.getItem('wain_recent')||'[]'); }catch(e){ state.recent=[]; }
+const _memStore = {};
+const storeGet = k => { try{ return localStorage.getItem(k); }catch(e){ return (_memStore[k] !== undefined ? _memStore[k] : null); } };
+const storeSet = (k, v) => { try{ localStorage.setItem(k, v); }catch(e){ try{ _memStore[k] = String(v); }catch(_){} } };
+try{ state.saved = JSON.parse(storeGet('wain_saved')||'[]'); }catch(e){ state.saved=[]; }
+try{ state.remind = JSON.parse(storeGet('wain_remind')||'{}'); }catch(e){ state.remind={}; }
+try{ state.recent = JSON.parse(storeGet('wain_recent')||'[]'); }catch(e){ state.recent=[]; }
 let prefs = {};
-try{ prefs = JSON.parse(localStorage.getItem('wain_prefs')||'{}'); }catch(e){ prefs={}; }
+try{ prefs = JSON.parse(storeGet('wain_prefs')||'{}'); }catch(e){ prefs={}; }
 prefs = Object.assign({cities:[], interests:[], domains:[], profession:null, ahaSeen:false}, prefs);
-const savePrefs = () => localStorage.setItem('wain_prefs', JSON.stringify(prefs));
-const saveSaved = () => localStorage.setItem('wain_saved', JSON.stringify(state.saved));
-const saveRemind = () => localStorage.setItem('wain_remind', JSON.stringify(state.remind));
-const saveRecent = () => localStorage.setItem('wain_recent', JSON.stringify(state.recent));
+const savePrefs = () => storeSet('wain_prefs', JSON.stringify(prefs));
+const saveSaved = () => storeSet('wain_saved', JSON.stringify(state.saved));
+const saveRemind = () => storeSet('wain_remind', JSON.stringify(state.remind));
+const saveRecent = () => storeSet('wain_recent', JSON.stringify(state.recent));
 
 /* ---------- toast ---------- */
 let toastT = null;
