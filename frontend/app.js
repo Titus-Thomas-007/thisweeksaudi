@@ -10,7 +10,7 @@ const PROFESSIONS = [
   { key:'design',      label:'Design',      domains:['marketing','build'] },
   { key:'education',   label:'Education',   domains:['education'] },
   { key:'law',         label:'Law',         domains:['legal','gov'] },
-  { key:'other',       label:'Other',       domains:[] }
+  { key:'other',       label:'Entertainment & Others', domains:[] }
 ];
 const CATEGORY_ICONS = {
   arts:      '<circle cx="12" cy="12" r="9"/><path d="M12 3c3 3.5 3 6.5 0 9-3-2.5-3-5.5 0-9z"/>',
@@ -39,7 +39,9 @@ function fmtPrice(ev){
   if(c==='USD') v = v*3.75; else if(c==='EUR') v = v*4.05; else if(c==='GBP') v = v*4.75;
   return 'SAR ' + money(Math.round(v));
 }
-const beacon = (t, d) => { try{ navigator.sendBeacon('/api/analytics', JSON.stringify({t, d:d||{}, ts:Date.now()})); }catch(e){} };
+const beacon = (t, d) => { try{
+  navigator.sendBeacon('/api/analytics', JSON.stringify({type: t, ref: String((d && d.id) || '').slice(0,64), meta: JSON.stringify(d || {}).slice(0,256)}));
+}catch(e){} };
 window.addEventListener('error', e => beacon('jserror', {msg:String(e.message).slice(0,200)}));
 function dstr(ev){ return (ev.date_start||'').slice(0,10); }
 function niceDate(ev){
@@ -106,6 +108,13 @@ async function boot(){
     const ed = await er.json(), md = await mr.json();
     state.events = ed.events || [];
     state.meta = md || {cities:[], categories:[], domains:[]};
+    // normalize backend shapes: categories arrive as plain strings, domains as {key,en,...}
+    if(Array.isArray(state.meta.categories) && typeof state.meta.categories[0] === 'string')
+      state.meta.categories = state.meta.categories.map(k => ({key:k, label:k.charAt(0).toUpperCase() + k.slice(1)}));
+    if(Array.isArray(state.meta.domains) && state.meta.domains.length && typeof state.meta.domains[0] === 'object')
+      state.meta.domains = state.meta.domains.map(d => ({key:d.key, label:d.en || d.key}));
+    // events carry a singular `domain` string; expose as `domains` array for ranking/filters
+    state.events.forEach(ev => { if(!ev.domains) ev.domains = ev.domain ? [ev.domain] : []; });
   }catch(e){
     toast('Could not load events — check your connection.');
     return;
@@ -287,6 +296,8 @@ function wireOnboard(){
         if(!state.ob.cities.includes(match)) state.ob.cities.push(match);
         renderObCities($('#ob-city-search').value); obStep1Count();
         toast('Found you in ' + match);
+        const cont = $('#ob-next-1');
+        if(cont) cont.scrollIntoView({behavior:'smooth', block:'center'});
       } else toast('Could not match your city — pick from the list.');
     }catch(e){ toast('Could not detect location.'); }
     label.textContent = orig; btn.disabled = false;
@@ -712,6 +723,13 @@ function buildSheetBody(ev){
       '<button class="link-quiet" id="sheet-report-toggle" style="margin:10px auto">Report a problem</button>' +
       '<div class="report-form hidden" id="sheet-report-form">' +
         '<div class="report-title">Report this event</div>' +
+        '<select class="rep-input" id="rep-issue">' +
+          '<option value="wrong_date">Wrong date/time</option>' +
+          '<option value="wrong_venue">Wrong venue</option>' +
+          '<option value="wrong_price">Wrong price</option>' +
+          '<option value="cancelled">Event cancelled</option>' +
+          '<option value="other" selected>Something else</option>' +
+        '</select>' +
         '<input class="rep-input" id="rep-name" placeholder="Your name (optional)">' +
         '<input class="rep-input" id="rep-contact" placeholder="Contact (optional)">' +
         '<textarea class="rep-input" id="rep-msg" rows="3" placeholder="What is wrong?"></textarea>' +
@@ -795,9 +813,11 @@ async function shareEvent(ev){
 async function sendReport(ev){
   const msg = $('#rep-msg').value.trim();
   if(!msg){ toast('Please describe the problem.'); return; }
+  const name = $('#rep-name').value.trim();
   try{
     await fetch('/api/report', {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({event_id: ev.id, name: $('#rep-name').value, contact: $('#rep-contact').value, message: msg})});
+      body: JSON.stringify({event_id: ev.id, issue: $('#rep-issue').value,
+        detail: (name ? name + ': ' : '') + msg, contact: $('#rep-contact').value})});
     toast('Thanks — report sent.');
     $('#sheet-report-form').classList.add('hidden');
     beacon('report', {id: ev.id});
@@ -1054,8 +1074,7 @@ async function syncPushServer(sub){
     }
     if(!sub) return;
     const ids = Object.keys(state.remind).filter(id => state.remind[id] && state.saved.includes(id));
-    const key = await fetch('/api/push/vapid-public').then(r=>r.json()).then(j=>j.key).catch(()=>null);
-    await fetch('/api/push/sync', {method:'POST', headers:{'Content-Type':'application/json'},
+    await fetch('/api/push/subscribe', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({subscription: sub.toJSON(), event_ids: ids})});
   }catch(e){}
 }
@@ -1065,14 +1084,15 @@ async function toggleRemind(id, on, silent){
     const reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     if(on && !sub){
-      const {key} = await fetch('/api/push/vapid-public').then(r=>r.json());
+      const {public_key: key} = await fetch('/api/push/vapid-public').then(r=>r.json());
       sub = await reg.pushManager.subscribe({userVisibleOnly:true, applicationServerKey: urlB64(key)});
       try{ await Notification.requestPermission(); }catch(e){}
     }
     if(!on && sub && !Object.keys(state.remind).some(k => k !== id && state.remind[k])){
+      const endpoint = sub.endpoint;
       await sub.unsubscribe();
-      try{ await fetch('/api/push/sync', {method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({subscription: null, event_ids: []})}); }catch(e){}
+      try{ await fetch('/api/push/unsubscribe', {method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({endpoint})}); }catch(e){}
     }
     if(on){ state.remind[id] = Date.now(); }
     else delete state.remind[id];
@@ -1185,10 +1205,9 @@ async function geocode(ev){
   const key = (ev.venue || '') + '|' + (ev.city || '');
   if(geoCache[key] !== undefined) return geoCache[key];
   try{
-    const q = encodeURIComponent((ev.venue ? ev.venue + ', ' : '') + (ev.city || 'Saudi Arabia'));
-    const r = await fetch('/api/geocode?q=' + q);
+    const r = await fetch('/api/geocode?venue=' + encodeURIComponent(ev.venue || '') + '&city=' + encodeURIComponent(ev.city || ''));
     const j = await r.json();
-    const ll = (j && j.lat != null) ? {lat: j.lat, lon: j.lon} : null;
+    const ll = (j && j.lat != null && j.lng != null) ? {lat: j.lat, lon: j.lng} : null;
     geoCache[key] = ll;
     return ll;
   }catch(e){ geoCache[key] = null; return null; }
