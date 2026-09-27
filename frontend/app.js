@@ -241,7 +241,7 @@ function attachDrag(el) {
 
 /* ---------- all-events list ---------- */
 function buildList() {
-  state.cities.clear(); state.cats.clear(); persistPrefs();
+  state.cities.clear(); state.cats.clear(); saveLocal();
   state.filtered = [...state.all]; // "everything": list, deck state and map agree
   state.mapCat = null; state.mapPlottedFor = null;
   renderList();
@@ -266,6 +266,7 @@ function renderList() {
       <div class="saved-info">
         <div class="saved-title">${esc(ev.title)}</div>
         <div class="saved-sub">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
+        <div class="saved-sub saved-venue">${esc(ev.venue || '')}${ev.venue && ev.category ? ' · ' : ''}${esc(CAT_LABELS[ev.category] || ev.category || '')}</div>
       </div>
       <div class="row-chev" aria-hidden="true">›</div>`;
     cardImageThumb(r.querySelector('.saved-thumb'), ev);
@@ -380,6 +381,7 @@ function renderSaved(filter = '') {
       <div class="saved-info">
         <div class="saved-title">${esc(ev.title)}</div>
         <div class="saved-sub">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
+        <div class="saved-sub saved-venue">${esc(ev.venue || '')}${ev.venue && ev.category ? ' · ' : ''}${esc(CAT_LABELS[ev.category] || ev.category || '')}</div>
       </div>
       <button class="saved-unsave" aria-label="Remove">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
