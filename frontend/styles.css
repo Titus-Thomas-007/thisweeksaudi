@@ -85,6 +85,7 @@ body{
   padding:8px 12px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;
 }
 .icon-btn span{min-width:14px;text-align:center}
+.count-badge{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:800;min-width:0!important}
 
 /* ---------- deck ---------- */
 #view-deck{height:100dvh;overflow:hidden}

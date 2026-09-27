@@ -104,6 +104,7 @@ function buildDeck(skip) {
   saveLocal();
   renderStack();
   showView('#view-deck');
+  warmGeoCache(state.filtered); // preload map pins in the background
 }
 
 /* ---------- deck ---------- */
@@ -132,7 +133,7 @@ function cardImage(el, ev) {
 
 function cardEl(ev, depth) {
   const el = document.createElement('div');
-  el.className = 'swipe-card';
+  el.className = 'swipe-card' + (depth === 0 ? ' top' : '');
   el.dataset.id = ev.id;
   const scale = 1 - depth * 0.045, dy = depth * 12;
   el.style.transform = `translateY(${dy}px) scale(${scale})`;
@@ -166,13 +167,13 @@ function renderStack() {
     const ev = state.deck[state.idx + d];
     if (ev) stack.appendChild(cardEl(ev, d));
   }
-  attachDrag(stack.querySelector('.swipe-card'));
+  attachDrag(stack.querySelector('.swipe-card.top'));
   updateSavedCount();
 }
 
 function updateSavedCount() { $('#saved-count').textContent = Object.keys(state.saved).length; }
 
-function topCard() { return $('#card-stack .swipe-card'); }
+function topCard() { return $('#card-stack .swipe-card.top'); }
 function topEvent() { return state.deck[state.idx]; }
 
 function flyOut(dir, done) {
@@ -348,6 +349,44 @@ function cardImageThumb(el, ev) {
 }
 
 /* ---------- map ---------- */
+// Geocode with bounded concurrency; results land in state.geoCache via geoFor.
+function geoPool(events, concurrency, onProgress) {
+  const queue = events.slice();
+  const results = [];
+  const workers = Array.from({ length: concurrency }, async () => {
+    while (queue.length) {
+      const ev = queue.shift();
+      let g;
+      try { g = await geoFor(ev); } catch { g = { lat: null, lng: null }; }
+      results.push({ ev, g });
+      if (onProgress) onProgress(results.length);
+    }
+  });
+  return Promise.all(workers).then(() => results);
+}
+
+// Fire-and-forget: warm the geocode cache right after the deck is built,
+// so opening the map later feels instant.
+function warmGeoCache(events) {
+  if (!events || !events.length) return;
+  geoPool(events, 4, null).catch(() => {});
+}
+
+function userLocation() {
+  return new Promise(resolve => {
+    let settled = false;
+    const done = v => { if (!settled) { settled = true; resolve(v); } };
+    if (!navigator.geolocation) return done(null);
+    try {
+      navigator.geolocation.getCurrentPosition(
+        p => done([p.coords.latitude, p.coords.longitude]),
+        () => done(null),
+        { timeout: 7000, maximumAge: 900000 });
+    } catch { return done(null); }
+    setTimeout(() => done(null), 8000); // hard cap
+  });
+}
+
 async function openMap() {
   $('#map-modal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -356,22 +395,34 @@ async function openMap() {
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18, attribution: '&copy; OpenStreetMap contributors'
     }).addTo(state.map);
+    state.youLayer = L.layerGroup().addTo(state.map);
   }
   setTimeout(() => state.map.invalidateSize(), 100);
   const sig = [...state.cities].sort().join(',') + '|' + [...state.cats].sort().join(',');
-  if (state.mapPlottedFor === sig) { $('#map-status').style.opacity = '0'; return; }
+  const status = $('#map-status');
+  if (state.mapPlottedFor === sig) { status.style.opacity = '0'; return; }
   if (state.markers) state.markers.clearLayers();
   else state.markers = L.layerGroup().addTo(state.map);
   state.mapPlottedFor = sig;
   const events = state.filtered && state.filtered.length ? state.filtered : state.all;
-  const status = $('#map-status');
   status.style.opacity = '1';
-  let done = 0, plotted = 0;
+
+  // Center on the user when they share their location.
+  status.textContent = 'Finding you…';
+  const you = await userLocation();
+  state.youLayer.clearLayers();
+  if (you) {
+    state.map.setView(you, 10);
+    L.circleMarker(you, { radius: 8, color: '#4aa3ff', weight: 3, fillColor: '#4aa3ff', fillOpacity: 0.9 })
+      .addTo(state.youLayer).bindPopup('You are here');
+  }
+
+  status.textContent = 'Plotting events…';
+  const results = await geoPool(events, 6,
+    n => { status.textContent = `Plotting events… ${n}/${events.length}`; });
+  let plotted = 0;
   const bounds = [];
-  for (const ev of events) {
-    status.textContent = `Plotting events… ${done}/${events.length}`;
-    const g = await geoFor(ev);
-    done++;
+  for (const { ev, g } of results) {
     if (g.lat) {
       plotted++;
       bounds.push([g.lat, g.lng]);
@@ -383,11 +434,14 @@ async function openMap() {
         <button class="map-pop-open" data-id="${esc(ev.id)}">View details</button>`);
       m.on('popupopen', e => {
         const btn = e.popup.getElement().querySelector('.map-pop-open');
-        if (btn) btn.onclick = () => { const found = state.all.find(x => x.id === btn.dataset.id); if (found) openDetail(found); };
+        if (btn) btn.onclick = () => {
+          const found = state.all.find(x => x.id === btn.dataset.id);
+          if (found) { closeMap(); openDetail(found); }
+        };
       });
     }
   }
-  if (bounds.length) state.map.fitBounds(bounds, { padding: [40, 40] });
+  if (!you && bounds.length) state.map.fitBounds(bounds, { padding: [40, 40] });
   status.textContent = `${plotted} events plotted`;
   setTimeout(() => status.style.opacity = '0', 2200);
 }
