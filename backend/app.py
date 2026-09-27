@@ -68,7 +68,7 @@ def fetch_og_image(url: str) -> str | None:
     try:
         req = urllib.request.Request(
             url, headers={"User-Agent": "Mozilla/5.0 (compatible; SaudiEventsBot/1.0)"})
-        with urllib.request.urlopen(req, timeout=12) as r:
+        with urllib.request.urlopen(req, timeout=8) as r:
             ctype = r.headers.get("Content-Type", "")
             if "html" not in ctype:
                 return None
@@ -82,6 +82,36 @@ def fetch_og_image(url: str) -> str | None:
     return None
 
 
+# Static city coordinates — instant fallback so the map always plots markers,
+# even when Nominatim blocks or rate-limits the server's egress IP.
+# (Venue-precision is attempted first via Nominatim; this is the backstop.)
+CITY_COORDS = {
+    "Riyadh": (24.6389, 46.7160), "Jeddah": (21.4858, 39.1925),
+    "Dammam": (26.4207, 50.0888), "Khobar": (26.2172, 50.1971),
+    "Mecca": (21.3891, 39.8579), "Medina": (24.5247, 39.5692),
+    "Taif": (21.2703, 40.4158), "Abha": (18.2164, 42.5053),
+    "Tabuk": (28.3835, 36.5662), "Buraydah": (26.3260, 43.9750),
+    "Buraidah": (26.3260, 43.9750), "Al Qassim": (26.3260, 43.9750),
+    "Unaizah": (26.0840, 43.9934), "Al Ahsa": (25.3643, 49.5875),
+    "Al Majma'a": (25.9042, 45.3428), "Jubail": (27.0046, 49.6455),
+    "Khamis Mushait": (18.3000, 42.7333), "Hail": (27.5219, 41.6907),
+    "AlUla": (26.6086, 37.9235), "Yanbu": (24.0232, 38.0472),
+    "Jazan": (16.8892, 42.5706), "Najran": (17.4933, 44.1277),
+}
+
+
+def city_fallback(city: str, venue: str) -> tuple[float, float] | None:
+    base = CITY_COORDS.get((city or "").strip())
+    if not base:
+        return None
+    # Deterministic jitter (±0.03°) so same-city events spread instead of
+    # stacking on one pixel. Stable per venue — markers don't jump on reload.
+    h = int(hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()[:8], 16)
+    lat = base[0] + ((h % 1000) / 1000 - 0.5) * 0.06
+    lng = base[1] + (((h >> 10) % 1000) / 1000 - 0.5) * 0.06
+    return (round(lat, 6), round(lng, 6))
+
+
 def geocode_nominatim(venue: str, city: str) -> tuple[float, float] | None:
     q = f"{venue}, {city}, Saudi Arabia" if venue else f"{city}, Saudi Arabia"
     try:
@@ -90,7 +120,7 @@ def geocode_nominatim(venue: str, city: str) -> tuple[float, float] | None:
         req = urllib.request.Request(
             f"https://nominatim.openstreetmap.org/search?{params}",
             headers={"User-Agent": "ThisWeekSaudi/1.0"})
-        with urllib.request.urlopen(req, timeout=12) as r:
+        with urllib.request.urlopen(req, timeout=8) as r:
             items = json.loads(r.read().decode("utf-8"))
         if items:
             time.sleep(1.1)  # Nominatim usage policy
@@ -180,22 +210,31 @@ def preview(url: str = Query(...)):
 
 @app.get("/api/geocode")
 def geocode(venue: str = Query(""), city: str = Query("")):
-    """Return cached {lat, lng} for a venue (null fields when unknown).
+    """Return cached {lat, lng} for a venue.
 
-    Negative results are cached for 24h, then retried — venues get added
-    to OpenStreetMap over time."""
+    Tries venue-precision via Nominatim first; falls back to (jittered)
+    city coordinates so the map always plots. Precise hits cache forever;
+    fallback/null results are retried after 24h — venues get added to
+    OpenStreetMap over time."""
     key = "geo:" + hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()
     with _db_lock, db() as con:
         row = con.execute("SELECT v, ts FROM kv WHERE k=?", (key,)).fetchone()
     if row:
         d = json.loads(row["v"])
-        if d.get("lat") is not None or time.time() - row["ts"] < 86400:
+        if d.get("lat") is not None and not d.get("fb"):
+            return {"lat": d["lat"], "lng": d["lng"]}
+        if time.time() - row["ts"] < 86400:
             return {"lat": d.get("lat"), "lng": d.get("lng")}
     res = geocode_nominatim(venue, city)
-    payload = {"lat": res[0] if res else None,
-               "lng": res[1] if res else None}
+    if res:
+        payload = {"lat": res[0], "lng": res[1]}
+    else:
+        fb = city_fallback(city, venue)
+        payload = {"lat": fb[0] if fb else None,
+                   "lng": fb[1] if fb else None,
+                   **({"fb": True} if fb else {})}
     kv_set(key, json.dumps(payload))
-    return payload
+    return {"lat": payload["lat"], "lng": payload["lng"]}
 
 
 class Patch(BaseModel):
