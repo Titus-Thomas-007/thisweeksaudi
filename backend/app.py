@@ -50,18 +50,85 @@ def init_db():
             k TEXT PRIMARY KEY, v TEXT NOT NULL, ts REAL NOT NULL)""")
 
 
-class _OGImageParser(html.parser.HTMLParser):
+class _ImageParser(html.parser.HTMLParser):
+    """Best-effort hero image discovery, in priority order:
+    og:image/twitter:image meta -> link rel=image_src -> JSON-LD image ->
+    largest content <img> (logos/icons skipped)."""
     def __init__(self):
         super().__init__()
-        self.image = None
+        self.meta_image = None
+        self.link_image = None
+        self.ld_images = []
+        self.imgs = []  # (area, src)
+        self._in_ld = False
+        self._ld_buf = []
 
     def handle_starttag(self, tag, attrs):
-        if tag != "meta" or self.image:
-            return
         d = dict(attrs)
-        prop = (d.get("property") or d.get("name") or "").lower()
-        if prop in ("og:image", "twitter:image") and d.get("content"):
-            self.image = d["content"].strip()
+        if tag == "meta" and not self.meta_image:
+            prop = (d.get("property") or d.get("name") or "").lower()
+            if prop in ("og:image", "twitter:image") and d.get("content"):
+                self.meta_image = d["content"].strip()
+        elif tag == "link" and not self.link_image:
+            if (d.get("rel") or "").lower() == "image_src" and d.get("href"):
+                self.link_image = d["href"].strip()
+        elif tag == "script" and (d.get("type") or "").lower() == "application/ld+json":
+            self._in_ld = True
+            self._ld_buf = []
+        elif tag == "img":
+            src = (d.get("src") or "").strip()
+            if not src or src.startswith("data:"):
+                return
+            low = src.lower()
+            if any(bad in low for bad in ("logo", "icon", "sprite", "avatar", "placeholder", "pixel")):
+                return
+            try:
+                w, h = int(d.get("width") or 0), int(d.get("height") or 0)
+            except (TypeError, ValueError):
+                w = h = 0
+            self.imgs.append((w * h, w, src))
+
+    def handle_data(self, data):
+        if self._in_ld:
+            self._ld_buf.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "script" and self._in_ld:
+            self._in_ld = False
+            try:
+                self._extract_ld(json.loads("".join(self._ld_buf)))
+            except Exception:
+                pass
+
+    def _extract_ld(self, node):
+        if isinstance(node, dict):
+            img = node.get("image")
+            if isinstance(img, str) and img.startswith("http"):
+                self.ld_images.append(img)
+            elif isinstance(img, list):
+                self.ld_images.extend(i for i in img if isinstance(i, str) and i.startswith("http"))
+            elif isinstance(img, dict) and isinstance(img.get("url"), str):
+                self.ld_images.append(img["url"])
+            for v in node.values():
+                self._extract_ld(v)
+        elif isinstance(node, list):
+            for v in node:
+                self._extract_ld(v)
+
+    def best(self):
+        for cand in (self.meta_image, self.link_image,
+                     *(self.ld_images or [])):
+            if cand:
+                return cand
+        big = [(a, s) for a, w, s in self.imgs if a >= 120000 and w >= 400]
+        if big:
+            big.sort(reverse=True)
+            return big[0][1]
+        for key in ("banner", "hero", "cover", "og-image", "uploads", "media"):
+            for _, _, src in self.imgs:
+                if key in src.lower():
+                    return src
+        return None
 
 
 def fetch_og_image(url: str) -> str | None:
@@ -72,11 +139,12 @@ def fetch_og_image(url: str) -> str | None:
             ctype = r.headers.get("Content-Type", "")
             if "html" not in ctype:
                 return None
-            raw = r.read(200_000).decode("utf-8", "ignore")
-        p = _OGImageParser()
+            raw = r.read(400_000).decode("utf-8", "ignore")
+        p = _ImageParser()
         p.feed(raw)
-        if p.image:
-            return urllib.parse.urljoin(url, p.image)
+        img = p.best()
+        if img:
+            return urllib.parse.urljoin(url, img)
     except Exception:
         pass
     return None
@@ -100,16 +168,28 @@ CITY_COORDS = {
 }
 
 
-def city_fallback(city: str, venue: str) -> tuple[float, float] | None:
+def city_fallback(city: str) -> tuple[float, float] | None:
+    # No jitter: an approximate-but-honest city-center pin beats a
+    # confidently-wrong one.
     base = CITY_COORDS.get((city or "").strip())
-    if not base:
-        return None
-    # Deterministic jitter (±0.03°) so same-city events spread instead of
-    # stacking on one pixel. Stable per venue — markers don't jump on reload.
-    h = int(hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()[:8], 16)
-    lat = base[0] + ((h % 1000) / 1000 - 0.5) * 0.06
-    lng = base[1] + (((h >> 10) % 1000) / 1000 - 0.5) * 0.06
-    return (round(lat, 6), round(lng, 6))
+    return (float(base[0]), float(base[1])) if base else None
+
+
+# Precise venue coordinates, geocoded offline (backend/geocode_seed.py) and
+# baked into the image — Render's egress IP is rate-limited by Nominatim,
+# so live venue geocoding from the server is unreliable.
+def _load_venue_coords():
+    try:
+        p = Path(__file__).resolve().parent / "venue_coords.json"
+        if p.exists():
+            return json.loads(p.read_text())
+    except Exception as e:
+        print("venue_coords load failed:", e)
+    return {}
+
+
+VENUE_COORDS = _load_venue_coords()
+print(f"loaded {len(VENUE_COORDS)} baked venue coordinates")
 
 
 def geocode_nominatim(venue: str, city: str) -> tuple[float, float] | None:
@@ -198,11 +278,15 @@ def get_event(event_id: str):
 
 @app.get("/api/preview")
 def preview(url: str = Query(...)):
-    """Return a cached og:image for a destination URL ({} when none)."""
+    """Return a cached hero image for a destination URL ({} when none).
+
+    Misses are re-fetched after 24h so extractor improvements and newly
+    published pages get picked up."""
     key = "preview:" + hashlib.sha256(url.encode()).hexdigest()
-    cached = kv_get(key)
-    if cached is not None:
-        return {"image": cached or None}
+    with _db_lock, db() as con:
+        row = con.execute("SELECT v, ts FROM kv WHERE k=?", (key,)).fetchone()
+    if row and (row["v"] or time.time() - row["ts"] < 86400):
+        return {"image": row["v"] or None}
     img = fetch_og_image(url)
     kv_set(key, img or "")
     return {"image": img}
@@ -212,11 +296,13 @@ def preview(url: str = Query(...)):
 def geocode(venue: str = Query(""), city: str = Query("")):
     """Return cached {lat, lng} for a venue.
 
-    Tries venue-precision via Nominatim first; falls back to (jittered)
-    city coordinates so the map always plots. Precise hits cache forever;
-    fallback/null results are retried after 24h — venues get added to
-    OpenStreetMap over time."""
+    Resolution order: baked offline-geocoded venue table -> kv cache ->
+    live Nominatim (venue precision) -> city-center fallback. Precise hits
+    cache forever; fallback/null results are retried after 24h."""
     key = "geo:" + hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()
+    if key in VENUE_COORDS:
+        lat, lng = VENUE_COORDS[key]
+        return {"lat": lat, "lng": lng}
     with _db_lock, db() as con:
         row = con.execute("SELECT v, ts FROM kv WHERE k=?", (key,)).fetchone()
     if row:
@@ -229,7 +315,7 @@ def geocode(venue: str = Query(""), city: str = Query("")):
     if res:
         payload = {"lat": res[0], "lng": res[1]}
     else:
-        fb = city_fallback(city, venue)
+        fb = city_fallback(city)
         payload = {"lat": fb[0] if fb else None,
                    "lng": fb[1] if fb else None,
                    **({"fb": True} if fb else {})}

@@ -46,6 +46,11 @@ const fmtRange = (s, e) => {
 };
 const pinSVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 const tagSVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg>';
+// Prices are stored in USD ("From $18.40"); the site is Saudi-first, so
+// display SAR at the pegged rate, rounded to whole riyals.
+const USD_SAR = 3.75;
+const fmtPrice = p => p ? String(p).replace(/\$(\d+(?:\.\d+)?)/g,
+  (_, n) => 'SAR ' + Math.round(parseFloat(n) * USD_SAR)) : p;
 
 async function api(path) {
   const r = await fetch(path);
@@ -152,7 +157,7 @@ function cardEl(ev, depth) {
       <h3 class="card-title">${esc(ev.title)}</h3>
       <div class="card-meta">
         ${ev.venue ? `<div class="row">${pinSVG}<span>${esc(ev.venue)} · ${esc(ev.city)}</span></div>` : `<div class="row">${pinSVG}<span>${esc(ev.city)}</span></div>`}
-        <div class="row">${tagSVG}<span class="card-price">${esc(ev.price || 'See details')}</span></div>
+        <div class="row">${tagSVG}<span class="card-price">${esc(fmtPrice(ev.price) || 'See details')}</span></div>
       </div>
     </div>`;
   cardImage(el.querySelector('.card-img'), ev);
@@ -243,11 +248,13 @@ async function geoFor(ev) {
   } catch { return { lat: null, lng: null }; }
 }
 
-async function openDetail(ev) {
+async function openDetail(ev, opts = {}) {
   if (!ev) return;
   $('#sheet-backdrop').classList.remove('hidden');
   const sheet = $('#detail-sheet');
   sheet.classList.remove('hidden');
+  // When opened from the map, offer a way back to the map.
+  $('#sheet-back').classList.toggle('hidden', !opts.fromMap);
   document.body.style.overflow = 'hidden';
   const body = $('#sheet-body');
   body.innerHTML = `
@@ -260,7 +267,7 @@ async function openDetail(ev) {
       <h2>${esc(ev.title)}</h2>
       <div class="detail-rows">
         <div class="detail-row">${pinSVG}<div><div class="k">Venue</div>${esc(ev.venue || ev.city)}${ev.venue ? `<br><span style="color:var(--faint)">${esc(ev.city)}</span>` : ''}</div></div>
-        <div class="detail-row">${tagSVG}<div><div class="k">Price</div>${esc(ev.price || 'Check the event page')}</div></div>
+        <div class="detail-row">${tagSVG}<div><div class="k">Price</div>${esc(fmtPrice(ev.price) || 'Check the event page')}</div></div>
         ${ev.organizer ? `<div class="detail-row"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><div><div class="k">Organizer</div>${esc(ev.organizer)}</div></div>` : ''}
       </div>
       <div class="sheet-actions">
@@ -326,7 +333,7 @@ function renderSaved(filter = '') {
       <div class="saved-thumb">${esc((ev.category || 'E').slice(0, 1).toUpperCase())}</div>
       <div class="saved-info">
         <div class="saved-title">${esc(ev.title)}</div>
-        <div class="saved-sub">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(ev.price) : ''}</div>
+        <div class="saved-sub">${esc(fmtRange(ev.start, ev.end))} · ${esc(ev.city)}${ev.price ? ' · ' + esc(fmtPrice(ev.price)) : ''}</div>
       </div>
       <button class="saved-unsave" aria-label="Remove">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -438,7 +445,7 @@ async function openMap() {
         const btn = e.popup.getElement().querySelector('.map-pop-open');
         if (btn) btn.onclick = () => {
           const found = state.all.find(x => x.id === btn.dataset.id);
-          if (found) { closeMap(); openDetail(found); }
+          if (found) { closeMap(); openDetail(found, { fromMap: true }); }
         };
       });
     }
@@ -464,6 +471,7 @@ $('#saved-search').oninput = e => renderSaved(e.target.value);
 $('#btn-prefs').onclick = () => { $('#city-chips').innerHTML = ''; $('#interest-chips').innerHTML = ''; initOnboard(); showView('#view-onboard'); };
 $('#btn-rebuild').onclick = () => $('#btn-prefs').click();
 $('#sheet-close').onclick = closeDetail;
+$('#sheet-back').onclick = () => { closeDetail(); openMap(); };
 $('#sheet-backdrop').onclick = closeDetail;
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeDetail(); closeMap(); return; }
