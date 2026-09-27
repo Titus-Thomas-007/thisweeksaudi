@@ -49,8 +49,10 @@ const tagSVG = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stro
 // Prices are stored in USD ("From $18.40"); the site is Saudi-first, so
 // display SAR at the pegged rate, rounded to whole riyals.
 const USD_SAR = 3.75;
-const fmtPrice = p => p ? String(p).replace(/\$(\d+(?:\.\d+)?)/g,
-  (_, n) => 'SAR ' + Math.round(parseFloat(n) * USD_SAR)) : p;
+const EUR_SAR = 4.07; // approx EUR peg; display-only conversion
+const fmtPrice = p => p ? String(p)
+  .replace(/\$(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * USD_SAR))
+  .replace(/€(\d+(?:\.\d+)?)/g, (_, n) => 'SAR ' + Math.round(parseFloat(n) * EUR_SAR)) : p;
 
 async function api(path) {
   const r = await fetch(path);
@@ -58,10 +60,29 @@ async function api(path) {
   return r.json();
 }
 
-function showView(id) {
+function showView(id, mode = 'push') {
   $$('.view').forEach(v => v.classList.remove('active'));
   $(id).classList.add('active');
   window.scrollTo(0, 0);
+  if (mode === 'push') _pushHist({ view: id });
+  else if (mode === 'replace') _replaceHist({ view: id });
+}
+
+/* ---------- browser history: make the native Back button work ---------- */
+// Every view and modal pushes a history entry, so Back walks the app
+// instead of exiting it. _histLock suppresses pushes during programmatic
+// UI sync (popstate restores, modal swaps).
+let _histLock = false;
+const _viewHash = id => ({ '#view-onboard': 'onboard', '#view-deck': 'deck', '#view-list': 'list', '#view-saved': 'saved' }[id] || 'onboard');
+function _pushHist(s) {
+  if (_histLock) return;
+  try { history.pushState(s, '', '#' + (s.modal || _viewHash(s.view))); } catch (e) {}
+}
+function _replaceHist(s) {
+  try { history.replaceState(s, '', '#' + (s.modal || _viewHash(s.view))); } catch (e) {}
+}
+function _topIsModal(name) {
+  return !_histLock && history.state && history.state.modal === name;
 }
 
 /* ---------- onboarding ---------- */
@@ -296,11 +317,15 @@ async function openDetail(ev, opts = {}) {
   backBtn.classList.remove('hidden');
   if (opts.fromMap) {
     backLabel.textContent = 'Map';
-    backBtn.onclick = () => { closeDetail(); openMap(); };
+    backBtn.onclick = () => { _closeDetailUI(); openMap(false); _replaceHist({ modal: 'map' }); };
   } else {
-    backLabel.textContent = 'Back';
+    backLabel.textContent = opts.fromList ? 'List' : opts.fromSaved ? 'Saved' : 'Back';
     backBtn.onclick = closeDetail;
   }
+  // Push a modal history entry so the native Back button closes the sheet.
+  // From the map we replace the map's entry; the sheet-back restores it.
+  if (opts.replaceModal) _replaceHist({ modal: 'sheet', eid: ev.id });
+  else _pushHist({ modal: 'sheet', eid: ev.id });
   document.body.style.overflow = 'hidden';
   const body = $('#sheet-body');
   body.scrollTop = 0;
@@ -339,10 +364,17 @@ async function openDetail(ev, opts = {}) {
   }
 }
 
-function closeDetail() {
+function _closeDetailUI() {
   $('#sheet-backdrop').classList.add('hidden');
   $('#detail-sheet').classList.add('hidden');
   document.body.style.overflow = '';
+}
+// History-aware close used by the X button, backdrop, Escape, and the
+// sheet back button: walks browser history when the sheet owns the top
+// entry, otherwise just hides the sheet.
+function closeDetail() {
+  if (_topIsModal('sheet')) history.back();
+  else _closeDetailUI();
 }
 
 function downloadICS(ev) {
@@ -388,7 +420,7 @@ function renderSaved(filter = '') {
       </button>`;
     const thumb = r.querySelector('.saved-thumb');
     cardImageThumb(thumb, ev);
-    r.onclick = e => { if (!e.target.closest('.saved-unsave')) openDetail(ev); };
+    r.onclick = e => { if (!e.target.closest('.saved-unsave')) openDetail(ev, { fromSaved: true }); };
     r.querySelector('.saved-unsave').onclick = () => {
       delete state.saved[ev.id]; saveLocal(); updateSavedCount(); renderSaved($('#saved-search').value);
     };
@@ -485,9 +517,10 @@ function evIcon(ev) {
     iconSize: [16, 16], iconAnchor: [8, 8] });
 }
 
-async function openMap() {
+async function openMap(hist = true) {
   $('#map-modal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  if (hist) _pushHist({ modal: 'map' });
   if (!state.map) {
     state.map = L.map('map').setView([24.0, 45.0], 5);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -546,7 +579,7 @@ async function plotMapMarkers(refit) {
       const btn = e.popup.getElement().querySelector('button.map-pop-open');
       if (btn) btn.onclick = () => {
         const found = state.all.find(x => x.id === btn.dataset.id);
-        if (found) { closeMap(); openDetail(found, { fromMap: true }); }
+        if (found) { closeMap(); openDetail(found, { fromMap: true, replaceModal: true }); }
       };
     });
   }
@@ -565,27 +598,65 @@ function closeMap() {
   $('#map-modal').classList.add('hidden');
   document.body.style.overflow = '';
 }
+// X button on the map: walk history when the map owns the top entry.
+function closeMapUI() {
+  if (_topIsModal('map')) history.back();
+  else closeMap();
+}
 
 /* ---------- wire up & boot ---------- */
 $('#btn-pass').onclick = () => flyOut(-1, () => decide(false));
 $('#btn-like').onclick = () => flyOut(1, () => decide(true));
-$('#btn-map').onclick = openMap;
-$('#map-close').onclick = closeMap;
+$('#btn-map').onclick = () => openMap();
+$('#map-close').onclick = closeMapUI;
 $('#btn-saved').onclick = () => { renderSaved(''); $('#saved-search').value = ''; showView('#view-saved'); };
-$('#btn-saved-back').onclick = () => showView('#view-deck');
-$('#btn-list-back').onclick = () => showView('#view-onboard');
+// In-app back buttons walk browser history (popstate restores the view);
+// fall back to a direct view swap if history has nothing to go back to.
+const _inAppBack = fallback => {
+  if (window.history.length > 1) history.back();
+  else showView(fallback, 'replace');
+};
+$('#btn-saved-back').onclick = () => _inAppBack('#view-deck');
+$('#btn-list-back').onclick = () => _inAppBack('#view-onboard');
 $('#saved-search').oninput = e => renderSaved(e.target.value);
-$('#btn-prefs').onclick = () => { $('#city-chips').innerHTML = ''; $('#interest-chips').innerHTML = ''; initOnboard(); showView('#view-onboard'); };
+$('#btn-prefs').onclick = () => { $('#city-chips').innerHTML = ''; $('#interest-chips').innerHTML = ''; initOnboard(); showView('#view-onboard', 'replace'); };
 $('#btn-rebuild').onclick = () => $('#btn-prefs').click();
 $('#sheet-close').onclick = closeDetail;
 
 $('#sheet-backdrop').onclick = closeDetail;
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeDetail(); closeMap(); return; }
+  if (e.key === 'Escape') { closeDetail(); closeMapUI(); return; }
   if (!$('#view-deck').classList.contains('active') || !$('#detail-sheet').classList.contains('hidden')) return;
   if (e.key === 'ArrowRight') $('#btn-like').click();
   if (e.key === 'ArrowLeft') $('#btn-pass').click();
 });
+
+// Native Back/Forward: restore the view or modal the history entry owns.
+window.addEventListener('popstate', e => {
+  const s = e.state || {};
+  _histLock = true;
+  try {
+    _closeDetailUI();
+    closeMap();
+    if (s.modal === 'map') {
+      openMap(false);
+    } else if (s.modal === 'sheet' && s.eid) {
+      const ev = (state.all || []).find(x => x.id === s.eid);
+      if (ev) openDetail(ev, {});
+    } else if (s.view === '#view-deck' && !(state.filtered && state.filtered.length)) {
+      showView('#view-onboard', 'none'); // deck state lost (e.g. after reload): fall back
+    } else if (s.view) {
+      if (s.view === '#view-list') renderList();
+      if (s.view === '#view-saved') renderSaved(($('#saved-search') || {}).value || '');
+      showView(s.view, 'none');
+    } else {
+      showView('#view-onboard', 'none');
+    }
+  } finally {
+    _histLock = false;
+  }
+});
+_replaceHist({ view: '#view-onboard' }); // boot entry: Back from the first view exits cleanly
 
 (async function boot() {
   try {
