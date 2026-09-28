@@ -250,15 +250,16 @@ window.addEventListener('popstate', () => {
   }
 });
 
-/* ---------- onboarding: 3 steps ---------- */
+/* ---------- onboarding: 2 steps (step 3 hidden per owner request) ---------- */
 function setObStep(n, back){
   state.ob.step = n;
-  [1,2,3].forEach(i => {
+  [1,2].forEach(i => {
     const el = $('#ob-step-'+i);
     el.classList.toggle('hidden', i !== n);
     el.classList.remove('slide-back');
     if(i === n && back && !reduceMotion()){ void el.offsetWidth; el.classList.add('slide-back'); }
   });
+  $('#ob-step-3').classList.add('hidden');
   // each step must start at the top — step 1's scrolled position must not carry over
   window.scrollTo(0, 0);
   const v = document.getElementById('view-onboard');
@@ -370,7 +371,7 @@ function wireOnboard(){
   });
   $('#ob-next-1').addEventListener('click', () => setObStep(2));
   $('#ob-back-2').addEventListener('click', () => setObStep(1, true));
-  $('#ob-next-2').addEventListener('click', () => setObStep(3));
+  $('#ob-next-2').addEventListener('click', finishOnboarding);
   $('#ob-back-3').addEventListener('click', () => setObStep(2, true));
   $('#ob-skip-3').addEventListener('click', () => finishOnboarding());
   $('#ob-next-3').addEventListener('click', finishOnboarding);
@@ -1133,7 +1134,8 @@ function showInstallNudge(proceed){
   overlay.className = 'modal-overlay';
   overlay.innerHTML =
     '<div class="modal-card" style="text-align:center">' +
-      '<div style="font-size:40px;margin-bottom:8px">📲</div>' +
+      '<div style="margin:0 auto 12px;width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,#f5c451,#b97c1a);display:flex;align-items:center;justify-content:center">' +
+      '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#1a1206" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>' +
       '<div style="font-weight:700;font-size:18px;margin-bottom:8px">Get reminders that actually arrive</div>' +
       '<div style="color:var(--muted);font-size:14.5px;line-height:1.5;margin-bottom:6px">' +
         (isiOS
