@@ -424,3 +424,7 @@ textarea.rep-input{resize:vertical}
   #card-stack{max-height:680px}
 }
 .ob-loading{grid-column:1/-1;text-align:center;color:var(--muted);padding:28px 0;font-size:15px}
+.modal-overlay{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:24px}
+.modal-card{background:var(--surface);border-radius:20px;padding:26px 22px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.cat-art{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.cat-art span{font-size:72px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.35))}

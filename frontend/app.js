@@ -59,6 +59,24 @@ function initials(title){
   const w = String(title||'').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
   return w || '•';
 }
+/* beautified category art for events without photos */
+const CAT_ART = {
+  conference: {g:'linear-gradient(135deg,#1e3a8a,#7c3aed)', e:'🎤'},
+  expo:       {g:'linear-gradient(135deg,#0f766e,#22d3ee)', e:'🏢'},
+  workshop:   {g:'linear-gradient(135deg,#c2410c,#f59e0b)', e:'🛠️'},
+  meetup:     {g:'linear-gradient(135deg,#be185d,#f472b6)', e:'👥'},
+  sports:     {g:'linear-gradient(135deg,#15803d,#a3e635)', e:'⚽'},
+  arts:       {g:'linear-gradient(135deg,#6d28d9,#c084fc)', e:'🎨'},
+  concert:    {g:'linear-gradient(135deg,#b91c1c,#f472b6)', e:'🎵'},
+  comedy:     {g:'linear-gradient(135deg,#a16207,#fde047)', e:'😄'},
+  festival:   {g:'linear-gradient(135deg,#7c3aed,#f472b6,#f59e0b)', e:'🎉'},
+  food:       {g:'linear-gradient(135deg,#92400e,#fb923c)', e:'🍽️'},
+  other:      {g:'linear-gradient(135deg,#1c1917,#d4a24e)', e:'✨'}
+};
+function catArtHTML(category){
+  const a = CAT_ART[category] || CAT_ART.other;
+  return '<div class="cat-art" style="background:' + a.g + '"><span>' + a.e + '</span></div>';
+}
 function catLabel(key){
   const c = state.meta.categories.find(c => c.key === key);
   return c ? c.label : key;
@@ -520,7 +538,7 @@ function cardEl(ev, depth){
   probe.onerror = () => {
     imgDiv.style.backgroundImage = 'none';
     imgDiv.classList.add('fallback');
-    imgDiv.innerHTML = '<div class="wm">7</div>';
+    imgDiv.innerHTML = catArtHTML(ev.category);
     // backend retries blocked hosts every 10 min; re-check once after 11 min
     imgDiv.dataset.retryUrl = imgUrl;
     setTimeout(() => {
@@ -760,10 +778,10 @@ function buildSheetBody(ev){
         '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>' +
         (ev.reg_url ? 'Register / Event page' : 'Event page') + '</a>' : '') +
       '<div style="display:flex;gap:10px;margin:6px 0 4px">' +
-        '<button class="btn-register" id="sheet-save-btn" style="margin:0">' + (isSaved ? 'Saved ✓' : 'Save this event') + '</button>' +
-        '<button class="btn-register" id="sheet-remind-btn" style="margin:0;flex:1;display:flex;align-items:center;justify-content:center;gap:8px" aria-label="Remind me">' +
-          '<svg viewBox="0 0 24 24" width="18" height="18" fill="' + (reminded ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:' + (reminded ? 'var(--gold)' : 'inherit') + '"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg>' +
-          '<span style="font-size:14px">' + (reminded ? 'Reminder on' : 'Remind me') + '</span>' +
+        '<button class="btn-register" id="sheet-save-btn" style="margin:0;flex:1;width:auto">' + (isSaved ? 'Saved ✓' : 'Save this event') + '</button>' +
+        '<button class="btn-register" id="sheet-remind-btn" style="margin:0;flex:1;width:auto;display:flex;align-items:center;justify-content:center;gap:8px" aria-label="Remind me">' +
+          '<svg viewBox="0 0 24 24" width="18" height="18" fill="' + (reminded ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:' + (reminded ? 'var(--gold)' : 'inherit') + ';flex:0 0 auto"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg>' +
+          '<span style="font-size:14px;white-space:nowrap">' + (reminded ? 'Reminder on' : 'Remind me') + '</span>' +
         '</button>' +
       '</div>' +
     '</div>' +
@@ -776,7 +794,7 @@ function buildSheetBody(ev){
   const hero = $('#sheet-hero', body);
   hero.style.backgroundImage = 'url("' + imgUrl.replace(/"/g,'') + '")';
   const probe = new Image();
-  probe.onerror = () => { hero.classList.add('fallback'); hero.style.backgroundImage='none'; hero.insertAdjacentHTML('afterbegin','<div class="wm">7</div>'); };
+  probe.onerror = () => { hero.classList.add('fallback'); hero.style.backgroundImage='none'; hero.insertAdjacentHTML('afterbegin', catArtHTML(ev.category)); };
   probe.src = imgUrl;
   $('#sheet-save-btn', body).addEventListener('click', () => {
     toggleSave(ev.id);
@@ -1094,8 +1112,49 @@ async function syncPushServer(sub){
       body: JSON.stringify({subscription: sub.toJSON(), event_ids: ids})});
   }catch(e){}
 }
+function showInstallNudge(proceed){
+  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML =
+    '<div class="modal-card" style="text-align:center">' +
+      '<div style="font-size:40px;margin-bottom:8px">📲</div>' +
+      '<div style="font-weight:700;font-size:18px;margin-bottom:8px">Get reminders that actually arrive</div>' +
+      '<div style="color:var(--muted);font-size:14.5px;line-height:1.5;margin-bottom:6px">' +
+        (isiOS
+          ? 'On iPhone, reminders only work if ThisWeekSaudi is on your Home Screen.<br><br>Tap <b>Share</b> <span style="font-size:16px">⎙</span> → <b>Add to Home Screen</b>, open the app from there, then tap Remind me again.'
+          : 'Install ThisWeekSaudi on your device for reliable day-before reminders.') +
+      '</div>' +
+      (deferredPrompt ? '<button class="btn-gold" id="nudge-install" style="width:100%;margin:10px 0 6px">Install ThisWeekSaudi</button>' : '') +
+      '<button class="btn-register" id="nudge-continue" style="width:100%;margin:6px 0">Continue anyway</button>' +
+      '<button class="link-quiet" id="nudge-close">Not now</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  const close = () => overlay.remove();
+  $('#nudge-close', overlay).addEventListener('click', close);
+  overlay.addEventListener('click', e => { if(e.target === overlay) close(); });
+  $('#nudge-continue', overlay).addEventListener('click', () => { close(); proceed(); });
+  const instBtn = $('#nudge-install', overlay);
+  if(instBtn) instBtn.addEventListener('click', async () => {
+    close();
+    try{ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; }catch(e){}
+    toast('Open the installed app and tap Remind me again.');
+  });
+}
 async function toggleRemind(id, on, silent){
   if(on && !state.saved.includes(id)){ state.saved.unshift(id); saveSaved(); updateSavedBadge(); }
+  // first-time nudge: suggest installing the app for reliable reminders
+  if(on && !silent){
+    try{
+      const seen = storeGet('wain_install_nudge');
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+      if(!seen && !isStandalone){
+        storeSet('wain_install_nudge', '1');
+        showInstallNudge(() => toggleRemind(id, on, true));
+        return;
+      }
+    }catch(e){}
+  }
   try{
     const reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
