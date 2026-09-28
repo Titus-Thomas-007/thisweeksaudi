@@ -52,6 +52,7 @@ function niceDate(ev){
   return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
 }
 function previewURL(ev){
+  if(ev.image) return ev.image;  // curated/stored image from image search
   return '/api/preview?url=' + encodeURIComponent(ev.reg_url || ev.source_url || ev.url || '');
 }
 function initials(title){
@@ -760,25 +761,10 @@ function buildSheetBody(ev){
         (ev.reg_url ? 'Register / Event page' : 'Event page') + '</a>' : '') +
       '<div style="display:flex;gap:10px;margin:6px 0 4px">' +
         '<button class="btn-register" id="sheet-save-btn" style="margin:0">' + (isSaved ? 'Saved ✓' : 'Save this event') + '</button>' +
-        '<button class="btn-register" id="sheet-remind-btn" style="margin:0;flex:0 0 52px" aria-label="Remind me">' +
+        '<button class="btn-register" id="sheet-remind-btn" style="margin:0;flex:1;display:flex;align-items:center;justify-content:center;gap:8px" aria-label="Remind me">' +
           '<svg viewBox="0 0 24 24" width="18" height="18" fill="' + (reminded ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:' + (reminded ? 'var(--gold)' : 'inherit') + '"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg>' +
+          '<span style="font-size:14px">' + (reminded ? 'Reminder on' : 'Remind me') + '</span>' +
         '</button>' +
-      '</div>' +
-      '<div class="sheet-source">Listed via ' + esc(ev.source || 'event source') + '</div>' +
-      '<button class="link-quiet" id="sheet-report-toggle" style="margin:10px auto">Report a problem</button>' +
-      '<div class="report-form hidden" id="sheet-report-form">' +
-        '<div class="report-title">Report this event</div>' +
-        '<select class="rep-input" id="rep-issue">' +
-          '<option value="wrong_date">Wrong date/time</option>' +
-          '<option value="wrong_venue">Wrong venue</option>' +
-          '<option value="wrong_price">Wrong price</option>' +
-          '<option value="cancelled">Event cancelled</option>' +
-          '<option value="other" selected>Something else</option>' +
-        '</select>' +
-        '<input class="rep-input" id="rep-name" placeholder="Your name (optional)">' +
-        '<input class="rep-input" id="rep-contact" placeholder="Contact (optional)">' +
-        '<textarea class="rep-input" id="rep-msg" rows="3" placeholder="What is wrong?"></textarea>' +
-        '<button class="btn-gold" id="rep-send">Send report</button>' +
       '</div>' +
     '</div>' +
     '<div class="sheet-bottombar">' +
@@ -801,8 +787,6 @@ function buildSheetBody(ev){
   $('#sheet-remind-btn', body).addEventListener('click', () => toggleRemind(ev.id, !state.remind[ev.id]));
   $('#sheet-ics', body).addEventListener('click', () => downloadICS(ev));
   $('#sheet-share', body).addEventListener('click', () => shareEvent(ev));
-  $('#sheet-report-toggle', body).addEventListener('click', () => $('#sheet-report-form', body).classList.toggle('hidden'));
-  $('#rep-send', body).addEventListener('click', () => sendReport(ev));
   body.scrollTop = 0;
 }
 function wireSheet(){
@@ -854,19 +838,6 @@ async function shareEvent(ev){
     try{ await navigator.clipboard.writeText(url); toast('Link copied to clipboard'); beacon('share', {id: ev.id, via:'copy'}); }
     catch(e){ toast('Copy this link: ' + url); }
   }
-}
-async function sendReport(ev){
-  const msg = $('#rep-msg').value.trim();
-  if(!msg){ toast('Please describe the problem.'); return; }
-  const name = $('#rep-name').value.trim();
-  try{
-    await fetch('/api/report', {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({event_id: ev.id, issue: $('#rep-issue').value,
-        detail: (name ? name + ': ' : '') + msg, contact: $('#rep-contact').value})});
-    toast('Thanks — report sent.');
-    $('#sheet-report-form').classList.add('hidden');
-    beacon('report', {id: ev.id});
-  }catch(e){ toast('Could not send — try again later.'); }
 }
 
 /* ---------- all events list ---------- */
@@ -1146,7 +1117,10 @@ async function toggleRemind(id, on, silent){
     if(!silent) toast(on ? 'Reminder set' : 'Reminder off');
     beacon('remind', {id, on: !!on});
   }catch(e){
-    if(!silent) toast('Notifications unavailable here.');
+    if(!silent){
+      const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      toast(isiOS ? 'Add ThisWeekSaudi to your Home Screen to enable reminders, then tap the bell again.' : 'Notifications are not available in this browser.');
+    }
   }
 }
 
@@ -1161,12 +1135,36 @@ function openMap(fromHist){
     if(!map){
       map = L.map('map', {zoomControl: false}).setView([24.6, 46.7], 6);
       L.control.zoom({position:'bottomright'}).addTo(map);
-      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; Esri',
         maxZoom: 19
       }).addTo(map);
       markers = L.markerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, maxClusterRadius: 48});
       map.addLayer(markers);
+      // user location dot
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(pos => {
+          const ll = [pos.coords.latitude, pos.coords.longitude];
+          L.circleMarker(ll, {radius: 8, color: '#fff', weight: 2, fillColor: '#2b7fff', fillOpacity: 1}).addTo(map)
+            .bindPopup('You are here');
+          // if user used "detect my location", center on them
+          try{
+            const prefs = storeJSON('wain_prefs', {});
+            if(prefs.useGeo) map.setView(ll, 11);
+          }catch(e){}
+        }, () => {}, {timeout: 8000, maximumAge: 600000});
+      }
+      // zoom to selected city if user picked one (not geo-detect)
+      try{
+        const prefs = storeJSON('wain_prefs', {});
+        const cities = prefs.cities || [];
+        if(cities.length === 1 && !prefs.useGeo){
+          fetch('/api/geocode?venue=&city=' + encodeURIComponent(cities[0]))
+            .then(r => r.json()).then(j => {
+              if(j && j.lat != null) map.setView([j.lat, j.lng], 11);
+            }).catch(()=>{});
+        }
+      }catch(e){}
       map.on('popupopen', e => {
         const btn = e.popup.getElement().querySelector('[data-pop]');
         if(btn) btn.addEventListener('click', () => {
@@ -1198,6 +1196,9 @@ function renderMapFilters(){
 function mapFiltered(){
   const q = $('#map-search').value.trim().toLowerCase();
   return state.events.filter(ev => {
+    // respect the user's onboarding prefs (same as the deck)
+    if(state.cities.length && !state.cities.includes(ev.city)) return false;
+    if(state.interests.length && !state.interests.includes(ev.category)) return false;
     if(mapState.cat && ev.category !== mapState.cat) return false;
     if(q && !(ev.title + ' ' + (ev.venue||'') + ' ' + (ev.city||'')).toLowerCase().includes(q)) return false;
     return true;
