@@ -59,23 +59,26 @@ function initials(title){
   const w = String(title||'').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
   return w || '•';
 }
-/* beautified category art for events without photos */
+/* designed category art for events without photos — layered gradients, orbs, line icon */
 const CAT_ART = {
-  conference: {g:'linear-gradient(135deg,#1e3a8a,#7c3aed)', e:'🎤'},
-  expo:       {g:'linear-gradient(135deg,#0f766e,#22d3ee)', e:'🏢'},
-  workshop:   {g:'linear-gradient(135deg,#c2410c,#f59e0b)', e:'🛠️'},
-  meetup:     {g:'linear-gradient(135deg,#be185d,#f472b6)', e:'👥'},
-  sports:     {g:'linear-gradient(135deg,#15803d,#a3e635)', e:'⚽'},
-  arts:       {g:'linear-gradient(135deg,#6d28d9,#c084fc)', e:'🎨'},
-  concert:    {g:'linear-gradient(135deg,#b91c1c,#f472b6)', e:'🎵'},
-  comedy:     {g:'linear-gradient(135deg,#a16207,#fde047)', e:'😄'},
-  festival:   {g:'linear-gradient(135deg,#7c3aed,#f472b6,#f59e0b)', e:'🎉'},
-  food:       {g:'linear-gradient(135deg,#92400e,#fb923c)', e:'🍽️'},
-  other:      {g:'linear-gradient(135deg,#1c1917,#d4a24e)', e:'✨'}
+  conference: 'linear-gradient(135deg,#1e3a8a 0%,#4c1d95 55%,#7c3aed 100%)',
+  expo:       'linear-gradient(135deg,#0f766e 0%,#0e7490 55%,#22d3ee 100%)',
+  workshop:   'linear-gradient(135deg,#9a3412 0%,#c2410c 55%,#f59e0b 100%)',
+  meetup:     'linear-gradient(135deg,#9d174d 0%,#be185d 55%,#f472b6 100%)',
+  sports:     'linear-gradient(135deg,#166534 0%,#15803d 55%,#a3e635 100%)',
+  arts:       'linear-gradient(135deg,#5b21b6 0%,#7c3aed 55%,#c084fc 100%)',
+  concert:    'linear-gradient(135deg,#991b1b 0%,#b91c1c 55%,#f472b6 100%)',
+  comedy:     'linear-gradient(135deg,#a16207 0%,#ca8a04 60%,#fde047 100%)',
+  festival:   'linear-gradient(135deg,#6d28d9 0%,#a21caf 55%,#f59e0b 100%)',
+  food:       'linear-gradient(135deg,#7c2d12 0%,#c2410c 55%,#fb923c 100%)',
+  other:      'linear-gradient(135deg,#292524 0%,#57534e 60%,#d4a24e 130%)'
 };
 function catArtHTML(category){
-  const a = CAT_ART[category] || CAT_ART.other;
-  return '<div class="cat-art" style="background:' + a.g + '"><span>' + a.e + '</span></div>';
+  const g = CAT_ART[category] || CAT_ART.other;
+  const icon = CATEGORY_ICONS[category] || '<circle cx="12" cy="12" r="9"/>';
+  return '<div class="cat-art" style="background:' + g + '">' +
+    '<span class="orb o1"></span><span class="orb o2"></span>' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">' + icon + '</svg></div>';
 }
 function catLabel(key){
   const c = state.meta.categories.find(c => c.key === key);
@@ -256,6 +259,14 @@ function setObStep(n, back){
     el.classList.remove('slide-back');
     if(i === n && back && !reduceMotion()){ void el.offsetWidth; el.classList.add('slide-back'); }
   });
+  // each step must start at the top — step 1's scrolled position must not carry over
+  window.scrollTo(0, 0);
+  const v = document.getElementById('view-onboard');
+  if(v) v.scrollTop = 0;
+  const grid = document.getElementById('ob-cat-grid');
+  if(grid) grid.scrollTop = 0;
+  const list = document.getElementById('ob-city-list');
+  if(list) list.scrollTop = 0;
 }
 function checkSVG(){
   return '<svg class="check" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
@@ -438,17 +449,21 @@ async function runAha(){
     })(t0);
   });
   if(my !== ahaToken) return;
-  const cards = evs.slice(0,3);
+  // photo cards first so the intro stack looks its best; designed art sits behind every card
+  const withImg = evs.filter(ev => ev.image);
+  const cards = withImg.concat(evs.filter(ev => !ev.image)).slice(0,3);
   cards.forEach((ev, i) => {
     const d = document.createElement('div');
     d.className = 'aha-card'; d.style.zIndex = 10 - i;
-    d.style.backgroundImage = 'url("' + previewURL(ev).replace(/"/g,'') + '")';
-    d.innerHTML = '<div class="aha-card-info"><div class="t">' + esc(ev.title) + '</div>' +
+    const imgUrl = previewURL(ev);
+    d.innerHTML = catArtHTML(ev.category) +
+      '<div class="aha-photo" style="background-image:url(\'' + imgUrl.replace(/'/g,'') + '\')"></div>' +
+      '<div class="aha-card-info"><div class="t">' + esc(ev.title) + '</div>' +
       '<div class="s">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + '</div></div>';
     stage.appendChild(d);
     const img = new Image();
-    img.onerror = () => { if(d.isConnected) d.style.backgroundImage = 'none'; };
-    img.src = previewURL(ev);
+    img.onerror = () => { const p = d.querySelector('.aha-photo'); if(p) p.remove(); };
+    img.src = imgUrl;
   });
   const nodes = Array.from(stage.children);
   for(let i=0; i<nodes.length; i++){
@@ -1143,13 +1158,11 @@ function showInstallNudge(proceed){
 }
 async function toggleRemind(id, on, silent){
   if(on && !state.saved.includes(id)){ state.saved.unshift(id); saveSaved(); updateSavedBadge(); }
-  // first-time nudge: suggest installing the app for reliable reminders
+  // nudge: on-device reminders need the app on the Home Screen — show the how-to every time
   if(on && !silent){
     try{
-      const seen = storeGet('wain_install_nudge');
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-      if(!seen && !isStandalone){
-        storeSet('wain_install_nudge', '1');
+      if(!isStandalone){
         showInstallNudge(() => toggleRemind(id, on, true));
         return;
       }
