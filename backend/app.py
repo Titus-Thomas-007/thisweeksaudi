@@ -582,3 +582,43 @@ if FRONTEND_DIR.exists():
         return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
 
     app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
+
+def _preview_retry_loop():
+    """Background: every 10 min, retry og:image fetch for event URLs whose
+    preview cache is empty (blocked hosts, transient failures). Retries a
+    small batch per cycle to stay polite to source sites."""
+    time.sleep(90)  # let startup complete
+    while True:
+        try:
+            with _db_lock, db() as con:
+                rows = con.execute("SELECT data FROM events").fetchall()
+            urls, seen = [], set()
+            for (data,) in rows:
+                try:
+                    u = json.loads(data).get("url")
+                except Exception:
+                    u = None
+                if u and u not in seen:
+                    seen.add(u)
+                    urls.append(u)
+            retried = 0
+            for u in urls:
+                if retried >= 8:
+                    break
+                key = "preview:" + hashlib.sha256(u.encode()).hexdigest()
+                if kv_get(key):
+                    continue  # already has an image
+                try:
+                    img = fetch_og_image(u)
+                except Exception:
+                    img = None
+                kv_set(key, img or "")
+                retried += 1
+                time.sleep(3)  # be polite
+        except Exception:
+            pass
+        time.sleep(600)
+
+
+threading.Thread(target=_preview_retry_loop, daemon=True, name="preview-retry").start()

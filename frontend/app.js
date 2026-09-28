@@ -33,7 +33,8 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 const money = n => Number(n).toLocaleString('en-US');
 function fmtPrice(ev){
   if(!ev) return 'TBA';
-  if(ev.is_free || ev.price_min==null) return 'Free';
+  if(ev.is_free) return 'Free';
+  if(ev.price_min==null) return 'TBA';
   let v = Number(ev.price_min), c = (ev.currency||'').toUpperCase();
   if(!isFinite(v) || v<=0) return 'TBA';
   if(c==='USD') v = v*3.75; else if(c==='EUR') v = v*4.05; else if(c==='GBP') v = v*4.75;
@@ -123,6 +124,33 @@ async function boot(){
       state.meta.domains = state.meta.domains.map(d => ({key:d.key, label:d.en || d.key}));
     // events carry a singular `domain` string; expose as `domains` array for ranking/filters
     state.events.forEach(ev => { if(!ev.domains) ev.domains = ev.domain ? [ev.domain] : []; });
+    // normalize backend field names: `start`/`end`/`price` -> frontend's date_start/date_end/price_min
+    // also drop expired events (end date passed)
+    const today = new Date(); today.setHours(0,0,0,0);
+    state.events = state.events.filter(ev => {
+      if(ev.end && ev.end < today.toISOString().slice(0,10)) return false;
+      return true;
+    });
+    state.events.forEach(ev => {
+      if(!ev.date_start && ev.start) ev.date_start = ev.start.length > 10 ? ev.start : ev.start + 'T00:00:00';
+      if(!ev.date_end && ev.end) ev.date_end = ev.end.length > 10 ? ev.end : ev.end + 'T00:00:00';
+      // parse price string: "Free", "TBA", "From $27.19"
+      if(ev.price_min == null && ev.price != null){
+        const p = String(ev.price).trim().toLowerCase();
+        if(p === 'free'){ ev.is_free = true; }
+        else if(p === 'tba' || p === ''){ ev.price_min = null; }
+        else {
+          const m = String(ev.price).match(/([\d,]+\.?\d*)/);
+          if(m){
+            ev.price_min = parseFloat(m[1].replace(/,/g,''));
+            if(/\$/.test(ev.price)) ev.currency = 'USD';
+            else if(/€/.test(ev.price)) ev.currency = 'EUR';
+            else if(/£/.test(ev.price)) ev.currency = 'GBP';
+            else ev.currency = 'SAR';
+          }
+        }
+      }
+    });
   }catch(e){
     toast('Could not load events — check your connection.');
     return;
@@ -492,6 +520,19 @@ function cardEl(ev, depth){
     imgDiv.style.backgroundImage = 'none';
     imgDiv.classList.add('fallback');
     imgDiv.innerHTML = '<div class="wm">7</div>';
+    // backend retries blocked hosts every 10 min; re-check once after 11 min
+    imgDiv.dataset.retryUrl = imgUrl;
+    setTimeout(() => {
+      if(!imgDiv.isConnected || !imgDiv.classList.contains('fallback')) return;
+      const rp = new Image();
+      rp.onload = () => {
+        if(!imgDiv.isConnected) return;
+        imgDiv.classList.remove('fallback');
+        imgDiv.innerHTML = '';
+        imgDiv.style.backgroundImage = 'url("' + imgUrl.replace(/"/g,'') + '")';
+      };
+      rp.src = imgUrl + (imgUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+    }, 11 * 60 * 1000);
   };
   probe.src = imgUrl;
   $('.card-bookmark', el).addEventListener('click', e => {
