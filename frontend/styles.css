@@ -313,10 +313,10 @@ mark{background:rgba(217,164,65,.35);color:inherit;border-radius:3px;padding:0 1
 @keyframes sheetUp{from{transform:translateY(70px)}to{transform:none}}
 @keyframes sheetDown{from{transform:none}to{transform:translateY(70px)}}
 @media(min-width:720px){
-  .sheet{left:50%;right:auto;bottom:50%;transform:translate(-50%,-50%);width:580px;max-height:88dvh;border-radius:24px;border:.5px solid var(--line);animation:sheetPop .38s var(--spring)}
+  .sheet{left:50%;right:auto;bottom:50%;transform:translate(-50%,50%);width:580px;max-height:88dvh;border-radius:24px;border:.5px solid var(--line);animation:sheetPop .38s var(--spring)}
   .sheet.closing{animation:sheetPopDown .26s var(--spring) forwards}
-  @keyframes sheetPop{from{transform:translate(-50%,-46%)}to{transform:translate(-50%,-50%)}}
-  @keyframes sheetPopDown{from{transform:translate(-50%,-50%)}to{transform:translate(-50%,-46%)}}
+  @keyframes sheetPop{from{transform:translate(-50%,54%)}to{transform:translate(-50%,50%)}}
+  @keyframes sheetPopDown{from{transform:translate(-50%,50%)}to{transform:translate(-50%,54%)}}
 }
 .sheet-handle{width:40px;height:5px;border-radius:99px;background:rgba(255,255,255,.25);margin:9px auto 0;flex:none}
 .sheet-close{
