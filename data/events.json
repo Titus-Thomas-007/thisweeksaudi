@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 291,
+ "count": 298,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -1077,6 +1077,24 @@
    "id": "1a5d275d1b9c",
    "domain": "entertainment",
    "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Saudi Creative Summit 2026",
+   "city": "Riyadh",
+   "venue": "JAX District",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://whatsonsaudiarabia.com/2026/09/saudi-creative-summit-2026/",
+   "organizer": "Creative Summit",
+   "start": "2026-10-03",
+   "end": "2026-10-05",
+   "sources": [
+    "halayalla"
+   ],
+   "id": "7501370ba49b",
+   "domain": "marketing",
+   "description": "Saudi Arabia's leading creativity festival returns to Riyadh's JAX District with the 2026 theme 'Behind Every Intelligence… is a Human' — practical tracks on AI integration, sustainability in the creative industries and actionable business solutions connecting local talent with global market leaders.",
    "added_at": "2026-09-27"
   },
   {
@@ -2774,6 +2792,25 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Riyadh Season 2026",
+   "city": "Riyadh",
+   "venue": "Multiple venues across Riyadh",
+   "category": "festival",
+   "price": "TBA",
+   "url": "https://www.timeoutriyadh.com/news/riyadh-season-2026-start-date",
+   "organizer": "General Entertainment Authority",
+   "start": "2026-10-21",
+   "end": "2026-12-30",
+   "sources": [
+    "timeoutriyadh"
+   ],
+   "id": "600b82686ed7",
+   "domain": "entertainment",
+   "description": "The seventh edition of the Kingdom's flagship winter entertainment festival — ten weeks of headline boxing, wrestling and UFC bouts, the Six Kings Slam, live concerts, theatre and stand-up comedy across signature zones including Boulevard City, Boulevard World and Wonder Garden.",
+   "added_at": "2026-09-27",
+   "image": "https://static.arrajol.com/styles/693x433/public/2026-02/926966_0.png.png"
+  },
+  {
    "title": "Saudi Maritime & Logistics Congress 2026",
    "city": "Jeddah",
    "venue": "Jeddah Superdome",
@@ -2791,6 +2828,25 @@
    "domain": "logistics",
    "description": "",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "Six Kings Slam 2026",
+   "city": "Riyadh",
+   "venue": "ANB Arena",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://www.listmag.com/en/see-do/events-entertainment/six-kings-slam-riyadh-season-2026",
+   "organizer": "General Entertainment Authority",
+   "start": "2026-10-21",
+   "end": "2026-10-24",
+   "sources": [
+    "timeoutriyadh"
+   ],
+   "id": "9a30d17d3416",
+   "domain": "entertainment",
+   "description": "The third edition of tennis' richest exhibition tournament — defending champion Jannik Sinner takes on Carlos Alcaraz, Novak Djokovic, Alexander Zverev, Taylor Fritz and debutant Alex de Minaur in single-elimination play at the ANB Arena, streamed live worldwide on Netflix.",
+   "added_at": "2026-09-27",
+   "image": "https://sahmnews.com.sa/wp-content/uploads/2024/10/IMG-20241020-WA0117-1-1024x672.jpg"
   },
   {
    "title": "Feena Nehke? Stand Up Comedy by John Achkar in Riyadh",
@@ -3193,7 +3249,7 @@
    ],
    "id": "f6b4e6ab0caa",
    "domain": "health",
-   "description": "",
+   "description": "The ninth edition of Saudi Arabia's flagship health exhibition, held under the patronage of the Ministry of Health with the theme 'Invest in Health' — four days of sessions, specialized experiences and investment showcases with 2,200 brands, 600 speakers and 130,000+ visitors.",
    "added_at": "2026-09-27"
   },
   {
@@ -3730,6 +3786,25 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://cdn.platinumlist.net/upload/event/promo/73815_upload6a9801d41dfca_1788346836-0-en1788346862.jpg.webp"
+  },
+  {
+   "title": "WWE Crown Jewel 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Season Stadium (KAFD)",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://www.listmag.com/en/see-do/events-entertainment/unmissable-events-already-confirmed-for-riyadh-season-3741",
+   "organizer": "WWE",
+   "start": "2026-11-07",
+   "end": "2026-11-07",
+   "sources": [
+    "timeoutriyadh"
+   ],
+   "id": "b044187f3a30",
+   "domain": "entertainment",
+   "description": "WWE's premium live event returns to Riyadh — RAW and SmackDown's reigning world titleholders collide in Champion vs. Champion clashes for the 50-carat diamond Crown Jewel title belt.",
+   "added_at": "2026-09-27",
+   "image": "https://swiftnewz.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-02-at-00.39.49.jpeg"
   },
   {
    "title": "Wagef! Nemr Live Comedy Show in Jeddah",
@@ -4559,6 +4634,25 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Sand and Fun 2026",
+   "city": "Riyadh",
+   "venue": "Al Thumamah Airport",
+   "category": "festival",
+   "price": "TBA",
+   "url": "https://destinationksa.com/en/sand-and-fun-2026/",
+   "organizer": "Saudi Aviation Club & Messe Frankfurt Saudi Arabia",
+   "start": "2026-11-24",
+   "end": "2026-11-28",
+   "sources": [
+    "destinationksa"
+   ],
+   "id": "de9bc1c9f747",
+   "domain": "entertainment",
+   "description": "The eighth edition of Saudi Arabia's general aviation airshow, joined this year by AERO Middle East. Five days of live flight shows, aerial stunts, up-close aircraft displays, interactive experiences and a major business exhibition for industry insiders, aviation fans and families.",
+   "added_at": "2026-09-27",
+   "image": "https://dubaithingstodo.ae/web_images/saudi_general_aviation_airshow_sand_fun_2024_nov_19_2024_nov_23_al_thumamah_airport_95162-full-en1728842667.webp"
+  },
+  {
    "title": "LIFT CITY EXPO Riyadh (4th edition) 2026",
    "city": "Riyadh",
    "venue": "The Arena by Live Show Arabia",
@@ -4831,6 +4925,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "HLTH ELEVATE 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "conference",
+   "price": "From SAR 200",
+   "url": "https://www.cmegallery.com/events/public-health/hlth-elevate-2026-saudi-preventive-health-conference-riyadh-2026",
+   "organizer": "Saudi Scientific Society for Preventive Health",
+   "start": "2026-12-03",
+   "end": "2026-12-05",
+   "sources": [
+    "stepsaudi"
+   ],
+   "id": "bd4f6453aca1",
+   "domain": "health",
+   "description": "The flagship international conference of the Saudi Scientific Society for Preventive Health — the region's first mega-conference dedicated to preventive health, wellness and longevity, with 2,000 attendees, 50+ exhibitors, 14 scientific tracks and 6 workshops under the theme 'Health Forward'.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Contractors Financing Conference 2026",
    "city": "Riyadh",
    "venue": "Riyadh International Convention & Exhibition Center",
@@ -4955,6 +5067,25 @@
    "domain": "build",
    "description": "",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "20th Annual Conference of the Saudi Orthodontic Society",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://conference.sos.sa/",
+   "organizer": "Saudi Orthodontic Society",
+   "start": "2026-12-10",
+   "end": "2026-12-11",
+   "sources": [
+    "stepsaudi"
+   ],
+   "id": "48a233345eb0",
+   "domain": "health",
+   "description": "The 20th anniversary edition of the Saudi Orthodontic Society's annual conference — a CME-accredited program under the theme 'Precision Meets Innovation: Shaping the Future of Advanced Orthodontic Care' celebrating two decades of advancing orthodontic care.",
+   "added_at": "2026-09-27",
+   "image": "https://sidc.org.sa/wp-content/uploads/2024/07/sidc-2.jpg"
   },
   {
    "title": "IBRAM Conference for Government Procurement and Projects 2026",
