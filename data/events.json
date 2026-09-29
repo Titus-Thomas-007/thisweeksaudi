@@ -310,25 +310,6 @@
    "image": "https://cdn.platinumlist.net/upload/event-media-item/29778_battlekart_riyadh-original1748950959.png"
   },
   {
-   "title": "Cross-Border Fundraising | Global Investors | Saudi Arabia",
-   "city": "Riyadh",
-   "venue": "",
-   "category": "meetup",
-   "price": "Free",
-   "url": "https://www.eventbrite.com/e/cross-border-fundraising-global-investors-saudi-arabia-tickets-1985792992296",
-   "organizer": "Tablon INC",
-   "start": "2026-09-28",
-   "end": "2026-09-28",
-   "sources": [
-    "eventbrite"
-   ],
-   "id": "02607ebe424c",
-   "domain": "startup",
-   "description": "",
-   "added_at": "2026-09-27",
-   "image": "https://agsi.org/wp-content/uploads/2025/01/AP18296371454354-scaled-768x512.jpg"
-  },
-  {
    "title": "Damage Mechanisms Affecting Fixed Equipment in the Refining Industry",
    "city": "Jeddah",
    "venue": "",
@@ -352,7 +333,7 @@
    "city": "Riyadh",
    "venue": "Centro Olaya",
    "category": "workshop",
-   "price": "From £0.00",
+   "price": "Free",
    "url": "https://www.eventbrite.co.uk/e/extension-of-time-entitlement-during-contractor-delay-a-causation-approach-tickets-1999740670176",
    "organizer": "CIOB Middle East & North Africa",
    "start": "2026-09-28",
@@ -362,48 +343,9 @@
    ],
    "id": "a70e5182d3c9",
    "domain": "legal",
-   "description": "",
+   "description": "An in-person event sponsored by HKA, presented by CIOB Middle East & North Africa (MENA).",
    "added_at": "2026-09-27",
    "image": "https://heavensgateengineering.com.ng/wp-content/uploads/2026/08/Project-delays3-820x461.jpg"
-  },
-  {
-   "title": "IDC CIO Summit Saudi Arabia 2026",
-   "city": "Riyadh",
-   "venue": "Fairmont Riyadh",
-   "category": "conference",
-   "price": "Free",
-   "url": "https://event.idc.com/event/idc-cio-summit-ksa/",
-   "organizer": null,
-   "start": "2026-09-28",
-   "end": "2026-09-29",
-   "sources": [
-    "saudicon",
-    "10times"
-   ],
-   "id": "ed4487420e3a",
-   "domain": "tech",
-   "description": "",
-   "added_at": "2026-09-27",
-   "image": "https://event.idc.com/wp-content/uploads/2025/10/KSA26-Slider-1-adv-2.png"
-  },
-  {
-   "title": "Meet Investors 1-1 | Inperson Online | Saudi Arabia",
-   "city": "Riyadh",
-   "venue": "",
-   "category": "meetup",
-   "price": "Free",
-   "url": "https://www.eventbrite.com/e/meet-investors-1-1-inperson-online-saudi-arabia-tickets-1985792991293",
-   "organizer": "Tablon INC",
-   "start": "2026-09-28",
-   "end": "2026-09-28",
-   "sources": [
-    "eventbrite"
-   ],
-   "id": "e78e721f313d",
-   "domain": "startup",
-   "description": "",
-   "added_at": "2026-09-27",
-   "image": "https://www.rudebaguette.com/wp-content/uploads/2026/04/How-to-pitch-your-startup-to-investors.png"
   },
   {
    "title": "Mergers and Acquisition (M&A)",
@@ -444,12 +386,12 @@
    "image": "https://jeddah.platinummlist.net/_mirror/cdn.platinumlist.net/upload/event/natchi_beach_club_2025_jun_19_al_balad_jeddah_99996-featuredmobile-en1750253864.png"
   },
   {
-   "title": "Saudi Mega Projects 2026",
+   "title": "Shaping Mega Projects 2026",
    "city": "Riyadh",
    "venue": "The Venue by ROSHN Group",
    "category": "conference",
    "price": "Free",
-   "url": "https://events.meed.com/event/saudimegaprojects/event-gallery/",
+   "url": null,
    "organizer": null,
    "start": "2026-09-28",
    "end": "2026-09-30",
@@ -457,11 +399,10 @@
     "saudicon",
     "eyeofriyadh"
    ],
-   "id": "e14082099342",
+   "id": "8c44a2ed0c92",
    "domain": "build",
-   "description": "",
-   "added_at": "2026-09-27",
-   "image": "https://estatemagazine.ae/wp-content/uploads/2026/02/0150738_saudi-arabias-mega-projects-four-major-structures-shaping-steel-demand-768x424.jpeg"
+   "description": "Shaping Mega Projects 2026 is the leading summit bringing together the organisations shaping Saudi Arabia’s built environment and the mega projects driving Vision 2030. The event connects project owners, government stakeholders, developers, contractors, consultants and solution providers with direct access to decision-makers, live project intelligence, and a powerful networking platform focused on real commercial outcomes.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "GESS Saudi Arabia 2026",
@@ -1179,6 +1120,42 @@
    "id": "a96bb7690e27",
    "domain": "foodagri",
    "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Cross-Border Fundraising | Global Investors | Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/cross-border-fundraising-global-investors-saudi-arabia-tickets-1985792992296",
+   "organizer": "Tablon INC",
+   "start": "2026-10-05",
+   "end": "2026-10-05",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "9343f9d271f3",
+   "domain": "startup",
+   "description": "Pitch your startup, meet global investors 1-on-1, and unlock cross-border funding. Massive opportunity for founders ready to raise smarter.",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Meet Investors 1-1 | Inperson Online | Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/meet-investors-1-1-inperson-online-saudi-arabia-tickets-1985792991293",
+   "organizer": "Tablon INC",
+   "start": "2026-10-05",
+   "end": "2026-10-05",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "7a1ad673667f",
+   "domain": "startup",
+   "description": "Are you a startup raising funds? Want to meet investors to take their opinion? Yes? This 1-1 chat meeting is for you!",
    "added_at": "2026-09-27"
   },
   {
@@ -4404,6 +4381,25 @@
    "id": "3bf5292aeba3",
    "domain": "gov",
    "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "IDC CIO Summit Saudi Arabia 2026",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "conference",
+   "price": "Free",
+   "url": null,
+   "organizer": null,
+   "start": "2026-11-17",
+   "end": "2026-11-18",
+   "sources": [
+    "saudicon",
+    "10times"
+   ],
+   "id": "c98335c14bcb",
+   "domain": "tech",
+   "description": "IDC CIO Summit – Saudi Arabia returns to Riyadh as the Kingdom’s premier gathering of technology decision-makers. The IDC Saudi Arabia CIO Summit 2026 will convene senior leaders from government, industry, and technology to define strategies for responsible, scalable AI deployment and support the Kingdom’s ambition to become a global hub for digital intelligence.",
    "added_at": "2026-09-27"
   },
   {
