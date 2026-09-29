@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 302,
+ "count": 321,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -635,6 +635,24 @@
    "image": "https://nationalperiscope.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-11-at-6.12.50-PM.jpeg"
   },
   {
+   "title": "360Food Syria",
+   "city": "Riyadh",
+   "venue": "Syrian Expo Center",
+   "category": "food",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/360food-syria/200030218591703",
+   "organizer": "360Food",
+   "start": "2026-10-01",
+   "end": "2026-10-01",
+   "sources": [
+    "allevents"
+   ],
+   "id": "8088d6b06451",
+   "domain": "food",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "43rd KKESH&RC International Conference 2026",
    "city": "Riyadh",
    "venue": "Crowne Plaza Riyadh RDC Hotel & Convention",
@@ -1027,6 +1045,24 @@
    ],
    "id": "6c00b1aaefa0",
    "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "GAP Caravan to Al Khobar",
+   "city": "Khobar",
+   "venue": "Dammam, Al-Khobar",
+   "category": "meetup",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/gap-caravan-to-al-khobar/200030719500757",
+   "organizer": "",
+   "start": "2026-10-03",
+   "end": "2026-10-03",
+   "sources": [
+    "allevents"
+   ],
+   "id": "29f05dbb2fc9",
+   "domain": "business",
    "description": "",
    "added_at": "2026-09-27"
   },
@@ -1472,6 +1508,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://hayyjameel.org/wp-content/uploads/2022/06/The-Distance-from-Here-installation-view-at-Hayy-Jameel-Jeddah.-Courtesy-of-Art-Jameel.-Photography-by-Mohamed-Alaskandrani.jpg-scaled.jpg"
+  },
+  {
+   "title": "The Inner Compass Retreat - The Art of Inner Seeing",
+   "city": "Riyadh",
+   "venue": "Riyadh",
+   "category": "workshop",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/the-inner-compass-retreat-the-art-of-inner-seeing/200030640034420",
+   "organizer": "",
+   "start": "2026-10-08",
+   "end": "2026-10-08",
+   "sources": [
+    "allevents"
+   ],
+   "id": "64a79ca70340",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Bd House in Jeddah",
@@ -2373,6 +2427,24 @@
    "image": "https://www.visitsaudi.com/images/alaa-el-sheikh-live-in-jeddah.2e16d0ba.fill-1920x1080.jpg"
   },
   {
+   "title": "Business Analysis Workshop",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "workshop",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/business-analysis-workshop/200030733619808",
+   "organizer": "",
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "allevents"
+   ],
+   "id": "7f22fe73d3aa",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "FIFAe Finals 26",
    "city": "Jeddah",
    "venue": "",
@@ -2465,6 +2537,42 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://cdn.platinumlist.net/upload/event/stand_up_comedy_night_in_jeddah_2026_jan_06_2026_jun_12_the_storytellers_106466-full-en1779362097.png"
+  },
+  {
+   "title": "Tanveer",
+   "city": "Riyadh",
+   "venue": "Al Faisaliah",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/tanveer/200030733583556",
+   "organizer": "",
+   "start": "2026-10-16",
+   "end": "2026-10-16",
+   "sources": [
+    "allevents"
+   ],
+   "id": "bd45e42ebf34",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Candlelight: The Best of Coldplay",
+   "city": "Riyadh",
+   "venue": "Bab Samhan",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/candlelight-أفضل-أعمال-كولدبلاي/2700030419956428",
+   "organizer": "Candlelight",
+   "start": "2026-10-17",
+   "end": "2026-10-17",
+   "sources": [
+    "allevents"
+   ],
+   "id": "3bfb0a6eeae5",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Neom SC vs Al Ettifaq",
@@ -2702,6 +2810,24 @@
    ],
    "id": "cb317be71fd6",
    "domain": "foodagri",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "ARTDOM Riyadh - International Interior Design & Art Expo Congress",
+   "city": "Riyadh",
+   "venue": "Mandarin Oriental Al Faisaliah, Riyadh",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/artdom-riyadh-international-interior-design-and-art-expo-congress-tickets/80001331387141",
+   "organizer": "ARTDOM",
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "allevents"
+   ],
+   "id": "30a351219b1f",
+   "domain": "entertainment",
    "description": "",
    "added_at": "2026-09-27"
   },
@@ -3149,6 +3275,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "2026 Saudi Home Furnishings, Lighting, and Building Materials Exhibition",
+   "city": "Riyadh",
+   "venue": "Riyadh International Convention & Exhibition Center",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/2026-saudi-home-furnishings-lighting-and-building-materials-exhibition/200030733583756",
+   "organizer": "",
+   "start": "2026-10-26",
+   "end": "2026-10-26",
+   "sources": [
+    "allevents"
+   ],
+   "id": "8bc7cf86fa8c",
+   "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "AFC Elite 26/27 - Al Nassr vs Al Wasl",
    "city": "Riyadh",
    "venue": "",
@@ -3481,6 +3625,24 @@
    "image": "https://s1286.cdn.mytvnet.vn/vimages/c9/9d/d1/1e/ee/e2/c9d1e-loldappalnassrvsalkholoodlivesaudiproleague1920x108-content-mytv.jpg"
   },
   {
+   "title": "40-UP Non-Rated Category Basketball",
+   "city": "Riyadh",
+   "venue": "International Philippine School in Riyadh",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/40-up-non-rated-category-basketball/200030733583656",
+   "organizer": "",
+   "start": "2026-10-30",
+   "end": "2026-10-30",
+   "sources": [
+    "allevents"
+   ],
+   "id": "80e158b31a4c",
+   "domain": "sportsbiz",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "New Global Sport Conference 2026",
    "city": "Riyadh",
    "venue": "Sofitel Riyadh Hotel & Convention Centre",
@@ -3776,6 +3938,24 @@
    "image": "https://cdn.gccbusinessnews.com/wp-content/uploads/2025/11/08102625/Jewelry-Salon-2025-in-Riyadh.jpg"
   },
   {
+   "title": "5th Scientific Academy of Aesthetic Medicine Conference and Exhibition",
+   "city": "Riyadh",
+   "venue": "Fairmont Riyadh",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/5th-scientific-academy-of-aesthetic-medicine-conference-and-exhibition/200030733607745",
+   "organizer": "Scientific Academy of Aesthetic Medicine",
+   "start": "2026-11-05",
+   "end": "2026-11-05",
+   "sources": [
+    "allevents"
+   ],
+   "id": "bf6452a370f4",
+   "domain": "health",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Middle East CFO Summit",
    "city": "Riyadh",
    "venue": "Crowne Plaza Riyadh Palace",
@@ -3811,6 +3991,24 @@
    "description": "A 10-day celebration of the sky combining sunrise hot air balloon flights, illuminated night-time displays and stargazing in the Gulf's first certified Dark Sky Reserve, plus moonlit cinema and concerts — with Nancy Ajram headlining an open-air show.",
    "added_at": "2026-09-27",
    "image": "https://whatsonsaudiarabia.com/wp-content/uploads/2026/05/AlUla-Skies-Festival-main.jpg"
+  },
+  {
+   "title": "Candlelight: The Best of Fairouz",
+   "city": "Riyadh",
+   "venue": "Bab Samhan",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/candlelight-أفضل-أعمال-فيروز/2700030419956222",
+   "organizer": "Candlelight",
+   "start": "2026-11-06",
+   "end": "2026-11-06",
+   "sources": [
+    "allevents"
+   ],
+   "id": "74ec0ec5e149",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Al-Qassim",
@@ -4182,6 +4380,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Aluminium Arabia 2026",
+   "city": "Riyadh",
+   "venue": "The Arena Riyadh",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/aluminium-arabia-2026/100001986285491374",
+   "organizer": "",
+   "start": "2026-11-11",
+   "end": "2026-11-11",
+   "sources": [
+    "allevents"
+   ],
+   "id": "32f7f16518d4",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Misk Global Forum 2026",
    "city": "Riyadh",
    "venue": "Al-Malfa Hall",
@@ -4331,6 +4547,42 @@
    "image": "https://www.akhbar.today/wp-content/uploads/2025/04/490995969_1366216904714458_8905331451060724327_n.jpg"
   },
   {
+   "title": "2nd Edition AI Powered Finance Transformation Masterclass 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh",
+   "category": "workshop",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/2nd-edition-ai-powered-finance-transformation-masterclass-2026-tickets/80001089080031",
+   "organizer": "",
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "allevents"
+   ],
+   "id": "439f0ed7c216",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "3rd Edition Kingdom GRC & Audit Revolution 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/3rd-edition-kingdom-grc-and-audit-revolution-2026-tickets/80002494069998",
+   "organizer": "",
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "allevents"
+   ],
+   "id": "eb03fd47d992",
+   "domain": "finance",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Cityscape Global Saudi Arabia 2026",
    "city": "Riyadh",
    "venue": "Riyadh Exhibition & Convention Center (Malham)",
@@ -4382,6 +4634,24 @@
    ],
    "id": "8df34042b4b1",
    "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Kingdom PPP Transformation Forum & Awards 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh Marriott Hotel",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/kingdom-ppp-transformation-forum-and-awards-2026-tickets/80003439790981",
+   "organizer": "",
+   "start": "2026-11-16",
+   "end": "2026-11-16",
+   "sources": [
+    "allevents"
+   ],
+   "id": "1f1c1a6bb73e",
+   "domain": "government",
    "description": "",
    "added_at": "2026-09-27"
   },
@@ -4546,6 +4816,24 @@
    ],
    "id": "8ae8d51cdfae",
    "domain": "retail",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "30th Connected Banking Summit Innovation & Excellence Awards 2026",
+   "city": "Riyadh",
+   "venue": "Riyadh",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/30thconnected-banking-summit-innovation-and-excellence-awards-2026-tickets/80001379025196",
+   "organizer": "",
+   "start": "2026-11-21",
+   "end": "2026-11-21",
+   "sources": [
+    "allevents"
+   ],
+   "id": "67764b703800",
+   "domain": "finance",
    "description": "",
    "added_at": "2026-09-27"
   },
@@ -5043,6 +5331,24 @@
    "image": "https://static.pollstar.com/wp-content/uploads/2025/04/Soundstorm-Festival-MDLBEAST.jpg"
   },
   {
+   "title": "Candlelight: The Best of Hans Zimmer",
+   "city": "Riyadh",
+   "venue": "Bab Samhan",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/candlelight-أفضل-أعمال-هانز-زيمر/2700030419956631",
+   "organizer": "Candlelight",
+   "start": "2026-12-04",
+   "end": "2026-12-04",
+   "sources": [
+    "allevents"
+   ],
+   "id": "f3402d33cd43",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Contractors Financing Conference 2026",
    "city": "Riyadh",
    "venue": "Riyadh International Convention & Exhibition Center",
@@ -5151,6 +5457,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "JEC Forum Middle East 2026",
+   "city": "Riyadh",
+   "venue": "Hilton Riyadh Hotel and Residences",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/jec-forum-middle-east-2026/200029635094051",
+   "organizer": "JEC Group",
+   "start": "2026-12-08",
+   "end": "2026-12-08",
+   "sources": [
+    "allevents"
+   ],
+   "id": "b5f70d3a60f0",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "MEP International Conference Saudi Arabia (MEPIC) 2026",
    "city": "Jeddah",
    "venue": "Jeddah Hilton",
@@ -5165,6 +5489,24 @@
    ],
    "id": "4c66417deb0f",
    "domain": "build",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "International Textile Expo Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/international-textile-expo-saudi-arabia/200029818870623",
+   "organizer": "",
+   "start": "2026-12-09",
+   "end": "2026-12-09",
+   "sources": [
+    "allevents"
+   ],
+   "id": "11db361f11bf",
+   "domain": "industry",
    "description": "",
    "added_at": "2026-09-27"
   },
