@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 298,
+ "count": 301,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -3388,6 +3388,25 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "A Thousand and One 2026",
+   "city": "Riyadh",
+   "venue": "Banban",
+   "category": "festival",
+   "price": "From SAR 309",
+   "url": "https://destinationksa.com/en/a-thousand-and-one-music-festival-tickets/",
+   "organizer": "MDLBEAST",
+   "start": "2026-10-29",
+   "end": "2026-10-30",
+   "sources": [
+    "mdlbeast"
+   ],
+   "id": "ecdc6203ff7c",
+   "domain": "entertainment",
+   "description": "MDLBEAST's fairytale-inspired electronic music festival returns for its second edition at Banban, with 70+ artists across multiple themed stages; tickets from SAR 309 for a two-day pass, strictly 18+.",
+   "added_at": "2026-09-27",
+   "image": "https://curlytales.com/wp-content/uploads/2026/06/thousand-and-one-music-festival.jpg"
+  },
+  {
    "title": "Marilyne Naaman Live Concert in Riyadh",
    "city": "Riyadh",
    "venue": "Teatro Riyadh",
@@ -3754,6 +3773,25 @@
    "domain": "finance",
    "description": "",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "AlUla Skies Festival 2026",
+   "city": "AlUla",
+   "venue": "Across AlUla",
+   "category": "festival",
+   "price": "TBA",
+   "url": "https://www.experiencealula.com/en/whats-on/festivals/alula-skies-festival",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-06",
+   "end": "2026-11-15",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "c0b0efa5199c",
+   "domain": "entertainment",
+   "description": "A 10-day celebration of the sky combining sunrise hot air balloon flights, illuminated night-time displays and stargazing in the Gulf's first certified Dark Sky Reserve, plus moonlit cinema and concerts — with Nancy Ajram headlining an open-air show.",
+   "added_at": "2026-09-27",
+   "image": "https://whatsonsaudiarabia.com/wp-content/uploads/2026/05/AlUla-Skies-Festival-main.jpg"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Al-Qassim",
@@ -4965,6 +5003,25 @@
    "domain": "health",
    "description": "The flagship international conference of the Saudi Scientific Society for Preventive Health — the region's first mega-conference dedicated to preventive health, wellness and longevity, with 2,000 attendees, 50+ exhibitors, 14 scientific tracks and 6 workshops under the theme 'Health Forward'.",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "MDLBEAST Soundstorm 2026",
+   "city": "Riyadh",
+   "venue": "Banban",
+   "category": "festival",
+   "price": "From SAR 269",
+   "url": "https://mdlbeast.com/events/soundstorm-26",
+   "organizer": "MDLBEAST",
+   "start": "2026-12-03",
+   "end": "2026-12-04",
+   "sources": [
+    "mdlbeast"
+   ],
+   "id": "72aa061c4342",
+   "domain": "entertainment",
+   "description": "The region's biggest music festival returns to Riyadh, transforming Banban into a desert playground of music, lights and late-night energy with international superstars, regional favourites and local talent across multiple stages; tickets from SAR 269, lineup TBA.",
+   "added_at": "2026-09-27",
+   "image": "https://static.pollstar.com/wp-content/uploads/2025/04/Soundstorm-Festival-MDLBEAST.jpg"
   },
   {
    "title": "Contractors Financing Conference 2026",
