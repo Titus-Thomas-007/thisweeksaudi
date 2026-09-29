@@ -465,7 +465,7 @@
   {
    "title": "Saudi Medtech 2026",
    "city": "Riyadh",
-   "venue": "voco Riyadh",
+   "venue": "Radisson Blu Hotel Riyadh Convention & Exhibition Center",
    "category": "conference",
    "price": "Free",
    "url": "https://saudi-medtech.com/",
@@ -478,28 +478,9 @@
    ],
    "id": "a62b7bffdd92",
    "domain": "health",
-   "description": "",
+   "description": "Saudi Medtech 2026 is the Kingdom's premier platform for healthcare and life sciences innovation, bringing together global leaders, policymakers, clinicians, researchers, investors and pioneering startups to shape the future of healthcare in Saudi Arabia and beyond.",
    "added_at": "2026-09-27",
    "image": "https://attd2027.kenes.com/wp-content/uploads/sites/46/2026/02/ATTD-2025-Tech-Fair-1.jpg"
-  },
-  {
-   "title": "VCs across the Globe | In person - Online | Jeddah",
-   "city": "Jeddah",
-   "venue": "",
-   "category": "meetup",
-   "price": "Free",
-   "url": "https://www.eventbrite.com/e/vcs-across-the-globe-in-person-online-jeddah-tickets-1990861084095",
-   "organizer": "Tablon INC",
-   "start": "2026-09-29",
-   "end": "2026-09-29",
-   "sources": [
-    "eventbrite"
-   ],
-   "id": "a1a60442d61a",
-   "domain": "startup",
-   "description": "",
-   "added_at": "2026-09-27",
-   "image": "https://assets.maestronewsroom.com/media/30f6532d-717b-4366-9158-9c455299fcd9/arabnews-import/2024/01/4169441-1021831826.jpg"
   },
   {
    "title": "A Trace of Saudi Memory (workshop)",
@@ -580,7 +561,7 @@
   {
    "title": "SunRise Arabia Clean Energy Conference 2026",
    "city": "Riyadh",
-   "venue": "",
+   "venue": "Radisson Blu Hotel & Convention Center, Riyadh",
    "category": "conference",
    "price": "From SAR 2,500",
    "url": "https://www.sunrise-arabia.com/etn/sunrise-arabia-clean-energy-conference-2026/",
@@ -592,7 +573,7 @@
    ],
    "id": "49ec6c680359",
    "domain": "energy",
-   "description": "",
+   "description": "The third edition of the SunRise Arabia Clean Energy Conference, co-organised by pv magazine and Solarabic — a full-day conference of presentations and panel discussions on utility-scale solar, battery storage and project financing.",
    "added_at": "2026-09-27",
    "image": "https://www.pv-magazine.com/wp-content/uploads/2025/02/6.jpg"
   },
@@ -1284,6 +1265,25 @@
    "domain": "entertainment",
    "description": "",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "VCs across the Globe | In person - Online | Jeddah",
+   "city": "Jeddah",
+   "venue": "",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.eventbrite.com/e/vcs-across-the-globe-in-person-online-jeddah-tickets-1990861084095",
+   "organizer": "Tablon INC",
+   "start": "2026-10-06",
+   "end": "2026-10-06",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "9d6c81e2bb42",
+   "domain": "startup",
+   "description": "Are you a startup raising funds and want to meet investors to take their opinion? This 1-1 chat meeting with Tablon INC is for you — held in person and online in Jeddah.",
+   "added_at": "2026-09-27",
+   "image": "https://assets.maestronewsroom.com/media/30f6532d-717b-4366-9158-9c455299fcd9/arabnews-import/2024/01/4169441-1021831826.jpg"
   },
   {
    "title": "CFO Leadership Summit Saudi Arabia 2026",
