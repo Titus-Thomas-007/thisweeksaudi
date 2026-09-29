@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 301,
+ "count": 302,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -23,6 +23,25 @@
    "domain": "entertainment",
    "description": "A live evening that brings together several performing magicians in one show, with short, varied segments and direct audience interaction — not a traditional solo magic act. Held at the Al Mawra'iyat theatre at Sard Cultural Centre; a Wadi Ujab brand celebrating live, close-up illusion art.",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "Buraydah International Dates Carnival 2026",
+   "city": "Buraydah",
+   "venue": "Buraydah Dates City",
+   "category": "food",
+   "price": "Free",
+   "url": "https://saudicon.app/en/events/buraidah-dates-carnival-2026",
+   "organizer": null,
+   "start": "2026-08-01",
+   "end": "2026-10-14",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "3241252b5e35",
+   "domain": "food",
+   "description": "",
+   "added_at": "2026-09-27",
+   "image": "https://cdn.gccbusinessnews.com/wp-content/uploads/2025/08/10140449/Buraidah-Dates-Carnival-Qassim-economic-growth-1.jpg"
   },
   {
    "title": "CONTINUUM '26 - Diriyah Art Futures Emerging New Media Artists Programme",
@@ -624,7 +643,7 @@
    "url": null,
    "organizer": null,
    "start": "2026-10-01",
-   "end": "2026-10-01",
+   "end": "2026-10-03",
    "sources": [
     "saudicon"
    ],
@@ -681,7 +700,7 @@
    "url": "https://saudiarabianewsexpress.com/king-saud-university-to-host-healthon-2026-with-prizes-exceeding-sar1-million/",
    "organizer": null,
    "start": "2026-10-01",
-   "end": "2026-10-01",
+   "end": "2026-10-04",
    "sources": [
     "saudicon"
    ],
@@ -796,7 +815,7 @@
    "url": null,
    "organizer": null,
    "start": "2026-10-02",
-   "end": "2026-10-02",
+   "end": "2026-10-04",
    "sources": [
     "saudicon"
    ],
@@ -1074,7 +1093,7 @@
    "url": "https://sfc.org.sa/sa/en/Event/Details?id=4",
    "organizer": null,
    "start": "2026-10-04",
-   "end": "2026-10-04",
+   "end": "2026-10-09",
    "sources": [
     "saudicon"
    ],
@@ -1166,7 +1185,7 @@
    "url": "https://entarabi.com/en/2026/09/second-edition-of-the-global-csr-forum-to-convene-world-leaders-in-riyadh-moving-corporate-responsibility-from-commitment-to-impact/",
    "organizer": null,
    "start": "2026-10-05",
-   "end": "2026-10-05",
+   "end": "2026-10-06",
    "sources": [
     "saudicon"
    ],
@@ -1313,7 +1332,7 @@
    "url": "https://www.saudiarabiapr.com/business-news/193582-ministry-of-energy-launches-first-energy-hackathon-ahead-of-25th-wpc-energy-cong",
    "organizer": null,
    "start": "2026-10-07",
-   "end": "2026-10-07",
+   "end": "2026-10-13",
    "sources": [
     "saudicon"
    ],
@@ -1331,7 +1350,7 @@
    "url": "https://www.tahawultech.com/news/gcf-launches-women-in-cyber-awards-with-support-of-itu-and-un-women/",
    "organizer": null,
    "start": "2026-10-07",
-   "end": "2026-10-07",
+   "end": "2026-10-08",
    "sources": [
     "saudicon"
    ],
@@ -1738,7 +1757,7 @@
    "url": "https://icdr.org.sa/en/",
    "organizer": null,
    "start": "2026-10-11",
-   "end": "2026-10-11",
+   "end": "2026-10-13",
    "sources": [
     "saudicon"
    ],
@@ -1906,7 +1925,7 @@
    "url": "https://www.cst.gov.sa/en/media-center/events/global-space-connectivity-and-sustainability-2026",
    "organizer": null,
    "start": "2026-10-12",
-   "end": "2026-10-12",
+   "end": "2026-10-14",
    "sources": [
     "saudicon"
    ],
@@ -1924,7 +1943,7 @@
    "url": "https://isasaudiconference.com/",
    "organizer": null,
    "start": "2026-10-12",
-   "end": "2026-10-12",
+   "end": "2026-10-14",
    "sources": [
     "saudicon"
    ],
@@ -1960,7 +1979,7 @@
    "url": "https://www.eyeofriyadh.com/events/details/riyadh-economic-forum-1785984416",
    "organizer": null,
    "start": "2026-10-12",
-   "end": "2026-10-12",
+   "end": "2026-10-14",
    "sources": [
     "saudicon"
    ],
@@ -1996,7 +2015,7 @@
    "url": "https://www.tradefairdates.com/Global-Industrial-Waste-to-Value-Expo-M6575/Dammam.html",
    "organizer": null,
    "start": "2026-10-13",
-   "end": "2026-10-13",
+   "end": "2026-10-15",
    "sources": [
     "saudicon"
    ],
@@ -2086,7 +2105,7 @@
    "url": "https://www.industryevents.com/events/athlete-360",
    "organizer": null,
    "start": "2026-10-14",
-   "end": "2026-10-14",
+   "end": "2026-10-15",
    "sources": [
     "saudicon"
    ],
@@ -2104,7 +2123,7 @@
    "url": "https://saudiarabianewsnetwork.com/riyadh-infrastructure-projects-center-to-host-international-trenchless-tunnelling-conference-in-riyadh/",
    "organizer": null,
    "start": "2026-10-14",
-   "end": "2026-10-14",
+   "end": "2026-10-15",
    "sources": [
     "saudicon"
    ],
@@ -2158,7 +2177,7 @@
    "url": "https://stadiumsandarenassummit.com",
    "organizer": null,
    "start": "2026-10-14",
-   "end": "2026-10-14",
+   "end": "2026-10-15",
    "sources": [
     "saudicon"
    ],
@@ -2195,7 +2214,7 @@
    "url": "https://conference.saudi-heart.com/",
    "organizer": null,
    "start": "2026-10-15",
-   "end": "2026-10-15",
+   "end": "2026-10-17",
    "sources": [
     "saudicon"
    ],
@@ -2695,7 +2714,7 @@
    "url": "https://www.mipim.com/en-gb/mipim-middle-east/Media/mipim-middle-east-launch-release1.html",
    "organizer": null,
    "start": "2026-10-20",
-   "end": "2026-10-20",
+   "end": "2026-10-21",
    "sources": [
     "saudicon"
    ],
@@ -2824,7 +2843,7 @@
    "url": "https://www.eventbrite.com/e/saudi-maritime-logistics-congress-2026-tickets-1995633585776",
    "organizer": "Tahaluf",
    "start": "2026-10-21",
-   "end": "2026-10-21",
+   "end": "2026-10-22",
    "sources": [
     "saudicon",
     "eventbrite"
@@ -3229,7 +3248,7 @@
    "url": "http://fii-institute.org/press/the-future-investment-initiative-announces-landmark-10th-anniversary-edition-in-riyadh/",
    "organizer": null,
    "start": "2026-10-26",
-   "end": "2026-10-26",
+   "end": "2026-10-29",
    "sources": [
     "saudicon"
    ],
@@ -3470,7 +3489,7 @@
    "url": "https://newglobalsportconference.com/new/the-new-global-sport-conference-returns-to-riyadh-october-30-november-1/",
    "organizer": null,
    "start": "2026-10-30",
-   "end": "2026-10-30",
+   "end": "2026-11-01",
    "sources": [
     "saudicon"
    ],
@@ -3526,7 +3545,7 @@
    "url": "https://www.iwmi.org/events/idra-world-congress-2026/",
    "organizer": null,
    "start": "2026-11-01",
-   "end": "2026-11-01",
+   "end": "2026-11-05",
    "sources": [
     "saudicon"
    ],
@@ -3544,7 +3563,7 @@
    "url": "https://milset.org/milset/web/index.php/node/20",
    "organizer": null,
    "start": "2026-11-01",
-   "end": "2026-11-01",
+   "end": "2026-11-05",
    "sources": [
     "saudicon"
    ],
@@ -3654,7 +3673,7 @@
    "url": "https://saudielenex.com",
    "organizer": null,
    "start": "2026-11-02",
-   "end": "2026-11-02",
+   "end": "2026-11-05",
    "sources": [
     "saudicon"
    ],
@@ -3877,7 +3896,7 @@
    "url": "https://www.eyeofriyadh.com/events/details/international-port-marine-development-conference-1758540019",
    "organizer": null,
    "start": "2026-11-09",
-   "end": "2026-11-09",
+   "end": "2026-11-10",
    "sources": [
     "saudicon"
    ],
@@ -3914,7 +3933,7 @@
    "url": "https://www.terrapinn.com/conference/connected-world-ksa/our-story.stm",
    "organizer": null,
    "start": "2026-11-09",
-   "end": "2026-11-09",
+   "end": "2026-11-10",
    "sources": [
     "saudicon"
    ],
@@ -3988,7 +4007,7 @@
    "url": "https://www.terrapinn.com/conference/hyperscale-ksa/",
    "organizer": null,
    "start": "2026-11-09",
-   "end": "2026-11-09",
+   "end": "2026-11-10",
    "sources": [
     "saudicon"
    ],
@@ -4006,7 +4025,7 @@
    "url": "https://sadex-sa.com",
    "organizer": null,
    "start": "2026-11-09",
-   "end": "2026-11-09",
+   "end": "2026-11-11",
    "sources": [
     "saudicon"
    ],
@@ -4063,7 +4082,7 @@
    "url": "https://www.terrapinn.com/exhibition/seamless-saudi-arabia/index.stm",
    "organizer": null,
    "start": "2026-11-09",
-   "end": "2026-11-09",
+   "end": "2026-11-10",
    "sources": [
     "saudicon"
    ],
@@ -4099,7 +4118,7 @@
    "url": "https://unstats.un.org/unsd/undataforum/blog/data-relay-Nairobi-Riyadh/",
    "organizer": null,
    "start": "2026-11-09",
-   "end": "2026-11-09",
+   "end": "2026-11-12",
    "sources": [
     "saudicon"
    ],
@@ -4117,7 +4136,7 @@
    "url": "http://mail.eyeofriyadh.com/news/details/build-your-house-saudi-inspire-for-home-ksa-launch-in-riyadh-bringing-qatar-s-premier-home-lifestyle-exhibitions-to-the-kingdom",
    "organizer": null,
    "start": "2026-11-10",
-   "end": "2026-11-10",
+   "end": "2026-11-12",
    "sources": [
     "saudicon"
    ],
@@ -4153,7 +4172,7 @@
    "url": "https://inspireforhome-ksa.com/",
    "organizer": null,
    "start": "2026-11-10",
-   "end": "2026-11-10",
+   "end": "2026-11-12",
    "sources": [
     "saudicon"
    ],
@@ -4190,7 +4209,7 @@
    "url": "https://saudiarabia.redevelopmentsummit.com/",
    "organizer": null,
    "start": "2026-11-11",
-   "end": "2026-11-11",
+   "end": "2026-11-12",
    "sources": [
     "saudicon"
    ],
@@ -4339,7 +4358,7 @@
    "url": "https://hrtechsaudi.com/",
    "organizer": null,
    "start": "2026-11-16",
-   "end": "2026-11-16",
+   "end": "2026-11-17",
    "sources": [
     "saudicon"
    ],
@@ -4357,7 +4376,7 @@
    "url": "https://intersec-saudiarabia.ksa.messefrankfurt.com/ksa/en/press/press-releases/2026/11052026.html",
    "organizer": null,
    "start": "2026-11-16",
-   "end": "2026-11-16",
+   "end": "2026-11-18",
    "sources": [
     "saudicon"
    ],
@@ -4394,7 +4413,7 @@
    "url": "https://www.paperindex.com/pulp-and-paper-industry-events?ref=tradefest.io&utm_campaign=tradefest.io&utm_source=tradefest.io&utm_medium=tradefest.io",
    "organizer": null,
    "start": "2026-11-16",
-   "end": "2026-11-16",
+   "end": "2026-11-18",
    "sources": [
     "saudicon"
    ],
@@ -4412,7 +4431,7 @@
    "url": "https://www.un.org/globalgeospatial/en/events/2026/3unwgic",
    "organizer": null,
    "start": "2026-11-16",
-   "end": "2026-11-16",
+   "end": "2026-11-19",
    "sources": [
     "saudicon"
    ],
@@ -4485,7 +4504,7 @@
    "url": "https://sauditradefinance.com",
    "organizer": null,
    "start": "2026-11-18",
-   "end": "2026-11-18",
+   "end": "2026-11-19",
    "sources": [
     "saudicon"
    ],
@@ -4576,7 +4595,7 @@
    "url": "https://10times.com/foodexsaudi",
    "organizer": null,
    "start": "2026-11-23",
-   "end": "2026-11-23",
+   "end": "2026-11-25",
    "sources": [
     "saudicon"
    ],
@@ -4595,7 +4614,7 @@
    "url": "https://10times.com/e1xr-2h8z-2sf6",
    "organizer": null,
    "start": "2026-11-23",
-   "end": "2026-11-23",
+   "end": "2026-11-25",
    "sources": [
     "saudicon"
    ],
@@ -4613,7 +4632,7 @@
    "url": "https://www.saudifranchiseexpo.com/",
    "organizer": null,
    "start": "2026-11-23",
-   "end": "2026-11-23",
+   "end": "2026-11-25",
    "sources": [
     "saudicon"
    ],
@@ -4631,7 +4650,7 @@
    "url": "https://10times.com/e1r3-r9x3-0gkf",
    "organizer": null,
    "start": "2026-11-23",
-   "end": "2026-11-23",
+   "end": "2026-11-25",
    "sources": [
     "saudicon"
    ],
@@ -4686,7 +4705,7 @@
    "url": null,
    "organizer": null,
    "start": "2026-11-24",
-   "end": "2026-11-24",
+   "end": "2026-11-26",
    "sources": [
     "saudicon"
    ],
@@ -4723,7 +4742,7 @@
    "url": "https://liftcityexpo.com/sa/?ref=cantonfair.net",
    "organizer": null,
    "start": "2026-11-26",
-   "end": "2026-11-26",
+   "end": "2026-11-28",
    "sources": [
     "saudicon"
    ],
@@ -4778,7 +4797,7 @@
    "url": "https://aapnews.aap.com.au/aapreleases/globenewswire1001257946",
    "organizer": null,
    "start": "2026-11-29",
-   "end": "2026-11-29",
+   "end": "2026-12-01",
    "sources": [
     "saudicon"
    ],
@@ -4796,7 +4815,7 @@
    "url": "https://unctad.org/meeting/global-supply-chain-forum-2026",
    "organizer": null,
    "start": "2026-11-29",
-   "end": "2026-11-29",
+   "end": "2026-12-01",
    "sources": [
     "saudicon"
    ],
@@ -4832,7 +4851,7 @@
    "url": "https://globalairportsforum.com/plan-your-visit/",
    "organizer": null,
    "start": "2026-11-30",
-   "end": "2026-11-30",
+   "end": "2026-12-01",
    "sources": [
     "saudicon"
    ],
@@ -4868,7 +4887,7 @@
    "url": "https://industrialtransformationsaudi.com/automation-advanced-manufacturing/",
    "organizer": null,
    "start": "2026-11-30",
-   "end": "2026-11-30",
+   "end": "2026-12-02",
    "sources": [
     "saudicon"
    ],
@@ -4886,7 +4905,7 @@
    "url": "https://informaconnect.com/saudi-intermobility-expo/sponsors/qoad/",
    "organizer": null,
    "start": "2026-11-30",
-   "end": "2026-11-30",
+   "end": "2026-12-02",
    "sources": [
     "saudicon"
    ],
@@ -4904,7 +4923,7 @@
    "url": "https://blackhatmea.com",
    "organizer": null,
    "start": "2026-12-01",
-   "end": "2026-12-01",
+   "end": "2026-12-03",
    "sources": [
     "saudicon"
    ],
@@ -4922,7 +4941,7 @@
    "url": "http://www.tradingchem.com/exhibitions/detail47599.html",
    "organizer": null,
    "start": "2026-12-01",
-   "end": "2026-12-01",
+   "end": "2026-12-05",
    "sources": [
     "saudicon"
    ],
@@ -4959,7 +4978,7 @@
    "url": "https://kingdomofgaming.com/",
    "organizer": null,
    "start": "2026-12-01",
-   "end": "2026-12-01",
+   "end": "2026-12-03",
    "sources": [
     "saudicon"
    ],
@@ -4977,7 +4996,7 @@
    "url": "https://www.saudirehabexpo.com/wp-content/uploads/2026/01/Registration-Form-En-2026-3.pdf",
    "organizer": null,
    "start": "2026-12-02",
-   "end": "2026-12-02",
+   "end": "2026-12-03",
    "sources": [
     "saudicon"
    ],
@@ -5032,7 +5051,7 @@
    "url": "https://fpf.sa/en",
    "organizer": null,
    "start": "2026-12-07",
-   "end": "2026-12-07",
+   "end": "2026-12-10",
    "sources": [
     "saudicon"
    ],
@@ -5068,7 +5087,7 @@
    "url": "https://fpf.sa/en",
    "organizer": null,
    "start": "2026-12-07",
-   "end": "2026-12-07",
+   "end": "2026-12-10",
    "sources": [
     "saudicon"
    ],
@@ -5086,7 +5105,7 @@
    "url": "https://fpf.sa/en",
    "organizer": null,
    "start": "2026-12-07",
-   "end": "2026-12-07",
+   "end": "2026-12-10",
    "sources": [
     "saudicon"
    ],
@@ -5104,7 +5123,7 @@
    "url": "https://www.saudihoreca.com/Riyadh/EN/index.html",
    "organizer": null,
    "start": "2026-12-07",
-   "end": "2026-12-07",
+   "end": "2026-12-09",
    "sources": [
     "saudicon"
    ],
@@ -5122,7 +5141,7 @@
    "url": null,
    "organizer": null,
    "start": "2026-12-08",
-   "end": "2026-12-08",
+   "end": "2026-12-09",
    "sources": [
     "saudicon"
    ],
@@ -5140,7 +5159,7 @@
    "url": "https://www.eyeofriyadh.com/events/details/mep-international-conference-mepic-2026",
    "organizer": null,
    "start": "2026-12-08",
-   "end": "2026-12-08",
+   "end": "2026-12-09",
    "sources": [
     "saudicon"
    ],
@@ -5177,7 +5196,7 @@
    "url": "http://mail.eyeofriyadh.com/events/details/ibram-conference-for-government-procurement-projects-2026",
    "organizer": null,
    "start": "2026-12-13",
-   "end": "2026-12-13",
+   "end": "2026-12-14",
    "sources": [
     "saudicon"
    ],
@@ -5195,7 +5214,7 @@
    "url": "https://www.saudiarabiapr.com/technology-news/193094-riyadh-to-host-international-engineering-conference-in-december",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "saudicon"
    ],
@@ -5213,7 +5232,7 @@
    "url": "https://biomiddleeast.com/",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "saudicon"
    ],
@@ -5231,7 +5250,7 @@
    "url": "https://cidex-sa.com/",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-17",
    "sources": [
     "saudicon"
    ],
@@ -5249,7 +5268,7 @@
    "url": "https://www.eventbrite.com/e/cphi-middle-east-tickets-1998730583981",
    "organizer": "Tahaluf",
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "eventbrite",
     "saudicon"
@@ -5268,7 +5287,7 @@
    "url": null,
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-17",
    "sources": [
     "saudicon"
    ],
@@ -5304,7 +5323,7 @@
    "url": "https://evs-saudi.com/event-information/",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-17",
    "sources": [
     "saudicon"
    ],
@@ -5322,7 +5341,7 @@
    "url": "http://www.gulf4p.com/channels/465.html",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-17",
    "sources": [
     "saudicon"
    ],
@@ -5340,7 +5359,7 @@
    "url": "https://www.eventbrite.com/e/innovation-driven-water-sustainability-conference-2026-tickets-2001164320352",
    "organizer": "Tahaluf",
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "saudicon",
     "eventbrite"
@@ -5359,7 +5378,7 @@
    "url": "https://naturalworldexpo.com/",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "saudicon"
    ],
@@ -5377,7 +5396,7 @@
    "url": "https://saudi-sg.com",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "saudicon"
    ],
@@ -5395,7 +5414,7 @@
    "url": "http://www.saudimakesfuture.com/exhibitors/",
    "organizer": null,
    "start": "2026-12-14",
-   "end": "2026-12-14",
+   "end": "2026-12-16",
    "sources": [
     "saudicon"
    ],
@@ -5413,7 +5432,7 @@
    "url": "https://oananews.org/node/709820",
    "organizer": null,
    "start": "2026-12-18",
-   "end": "2026-12-18",
+   "end": "2026-12-20",
    "sources": [
     "saudicon"
    ],
@@ -5488,7 +5507,7 @@
    "url": "http://mail.eyeofriyadh.com/events/details/jeddah-international-beauty-expo-2026",
    "organizer": null,
    "start": "2026-12-19",
-   "end": "2026-12-19",
+   "end": "2026-12-21",
    "sources": [
     "saudicon"
    ],
@@ -5506,7 +5525,7 @@
    "url": "https://www.tradechina.com/chinahomelifeSaudiArabia",
    "organizer": null,
    "start": "2026-12-20",
-   "end": "2026-12-20",
+   "end": "2026-12-22",
    "sources": [
     "saudicon"
    ],
@@ -5524,7 +5543,7 @@
    "url": "https://ngiotex.com",
    "organizer": null,
    "start": "2026-12-21",
-   "end": "2026-12-21",
+   "end": "2026-12-23",
    "sources": [
     "saudicon"
    ],
@@ -5542,7 +5561,7 @@
    "url": "https://deal-riyadh.com",
    "organizer": null,
    "start": "2026-12-26",
-   "end": "2026-12-26",
+   "end": "2026-12-29",
    "sources": [
     "saudicon"
    ],
