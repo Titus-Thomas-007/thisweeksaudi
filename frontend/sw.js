@@ -1,7 +1,11 @@
 /* ThisWeekSaudi service worker: app-shell cache + offline data fallback. */
-const V = 'tws-v3';
-const SHELL = ['/index.html', '/app.js', '/styles.css', '/logo.svg',
-               '/manifest.json', '/icon-512.png', '/apple-touch-icon.png'];
+const V = 'tws-v4';
+const SHELL = ['/index.html', '/app.js', '/discover.js', '/styles.css', '/discover.css', '/logo.svg',
+               '/manifest.json', '/icon-512.png', '/apple-touch-icon.png',
+               '/assets/cat-conference.jpg', '/assets/cat-concert.jpg', '/assets/cat-sports.jpg',
+               '/assets/cat-expo.jpg', '/assets/cat-meetup.jpg', '/assets/cat-workshop.jpg',
+               '/assets/cat-arts.jpg', '/assets/cat-comedy.jpg', '/assets/cat-festival.jpg',
+               '/assets/cat-food.jpg', '/assets/cat-other.jpg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

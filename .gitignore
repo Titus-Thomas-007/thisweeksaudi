@@ -9,3 +9,6 @@ backend/.vapid_private
 backend/.vapid_public
 
 qa/node_modules/
+
+# local reference only — not part of the deploy
+mockups/

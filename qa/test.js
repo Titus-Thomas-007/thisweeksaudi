@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v3', sw.includes("const V = 'tws-v3'"));
+  check('SW cache version bumped to tws-v4', sw.includes("const V = 'tws-v4'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -72,7 +72,10 @@ function check(name, ok, detail) {
   window.Element.prototype.animate = function () { return { finished: Promise.resolve(), cancel() {} }; };
 
   const appSrc = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
-  dom.window.eval(appSrc); // IIFE auto-boots (readyState is 'complete')
+  const dscSrc = fs.readFileSync(path.join(FRONT, 'discover.js'), 'utf8');
+  // single eval: jsdom drops const/let across separate eval() calls, but a real
+  // browser shares the global lexical env between classic scripts — one eval mirrors that
+  dom.window.eval(appSrc + '\n;\n' + dscSrc); // IIFE auto-boots (readyState is 'complete')
   await new Promise(r => setTimeout(r, 300));
 
   const $ = (s) => window.document.querySelector(s);
@@ -133,13 +136,105 @@ function check(name, ok, detail) {
   check('every aha card has art layer behind photo',
     ahaCards.every(c => c.querySelector('.cat-art')), 'some lack .cat-art');
   const emojiRe = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}]/u;
+  const relRe = /TODAY|TOMORROW|IN \d+ DAYS|ON NOW/;
   const ahaHTML = $('#aha-cards').innerHTML;
   check('no emoji anywhere in aha stack', !emojiRe.test(ahaHTML), 'emoji found');
 
-  // start swiping → home deck
+  // start exploring → discover home (mosaic default)
   const startBtn = $('#aha-go');
   if (startBtn) { startBtn.click(); await new Promise(r => setTimeout(r, 700)); }
-  check('deck view reached', $('#view-deck').classList.contains('active'));
+  check('discover view reached', $('#view-discover').classList.contains('active'));
+  check('view switcher has 5 views', $$('#dsc-switch button').length === 5,
+    'found ' + $$('#dsc-switch button').length);
+  check('deck header moved into discover', !!$('#dsc-head-slot .deck-nav'), 'deck-nav missing');
+
+  // ---- 3a. mosaic: tiles, hero, every tile has an image layer ----
+  const tiles = $$('#dp-mosaic .mz-tile');
+  check('mosaic has tiles', tiles.length > 0, 'none');
+  check('mosaic has hero tile', !!$('#dp-mosaic .mz-tile.hero'), 'no hero');
+  check('every mosaic tile has an image layer',
+    tiles.length > 0 && tiles.every(t => {
+      const d = t.querySelector('.dimg');
+      return d && /url\(/.test(d.style.backgroundImage);
+    }), 'some tiles lack .dimg background');
+  check('mosaic tiles show countdown pills',
+    $$('#dp-mosaic .dpill').length > 0 && $$('#dp-mosaic .dpill').every(p => relRe.test(p.textContent)),
+    'pill text off');
+  check('no emoji in mosaic', !emojiRe.test($('#dp-mosaic').innerHTML), 'emoji found');
+  // tile opens detail sheet, history-back closes it
+  const tileTitle = tiles[0].querySelector('h3').textContent;
+  tiles[0].click();
+  await new Promise(r => setTimeout(r, 200));
+  check('mosaic tile opens detail sheet',
+    !$('#detail-sheet').classList.contains('hidden') && $('#detail-sheet').textContent.includes(tileTitle),
+    'sheet did not open');
+  window.history.back();
+  await new Promise(r => setTimeout(r, 300));
+  check('sheet closed via history (mosaic)', $('#detail-sheet').classList.contains('hidden'));
+  // save toggle from a mosaic tile
+  const mzSave = $('#dp-mosaic [data-save]');
+  if(mzSave){
+    const wasSaved = mzSave.classList.contains('saved');
+    mzSave.click();
+    await new Promise(r => setTimeout(r, 100));
+    check('mosaic save button toggles', mzSave.classList.contains('saved') !== wasSaved);
+    mzSave.click(); // restore
+    await new Promise(r => setTimeout(r, 100));
+  }
+
+  // ---- 3b. week view ----
+  $('#dsc-switch button[data-v="week"]').click();
+  await new Promise(r => setTimeout(r, 400));
+  check('week pane active', $('#dp-week').classList.contains('on'));
+  const wdays = $$('#dp-week .wk-day');
+  const wrows = $$('#dp-week .wk-row');
+  check('week has day headers', wdays.length > 0, 'none');
+  check('week has event rows', wrows.length > 0, 'none');
+  check('every week row has an image layer',
+    wrows.length > 0 && wrows.every(r => r.querySelector('.dimg') && /url\(/.test(r.querySelector('.dimg').style.backgroundImage)),
+    'some rows lack image');
+  check('weekend days tagged', wdays.some(d => /weekend/.test(d.textContent)), 'no weekend tag');
+  if(wrows.length){
+    const rt = wrows[0].querySelector('h3').textContent;
+    wrows[0].click();
+    await new Promise(r => setTimeout(r, 200));
+    check('week row opens detail sheet',
+      !$('#detail-sheet').classList.contains('hidden') && $('#detail-sheet').textContent.includes(rt),
+      'sheet did not open');
+    window.history.back();
+    await new Promise(r => setTimeout(r, 300));
+  }
+
+  // ---- 3c. stories view ----
+  $('#dsc-switch button[data-v="stories"]').click();
+  await new Promise(r => setTimeout(r, 400));
+  check('stories pane active', $('#dp-stories').classList.contains('on'));
+  const dsts = $$('#dp-stories .dst');
+  check('stories has cards', dsts.length > 0, 'none');
+  check('first story marked seen (animations armed)', !!$('#dp-stories .dst.seen'), 'no .seen');
+  check('every story has an image layer',
+    dsts.length > 0 && dsts.every(s => s.querySelector('.dimg') && /url\(/.test(s.querySelector('.dimg').style.backgroundImage)),
+    'some stories lack image');
+  check('stories have Details + Save CTAs',
+    dsts.every(s => s.querySelector('[data-story-open]') && s.querySelector('[data-save]')), 'CTA missing');
+  const stOpen = dsts[0].querySelector('[data-story-open]');
+  stOpen.click();
+  await new Promise(r => setTimeout(r, 200));
+  check('story Details opens detail sheet', !$('#detail-sheet').classList.contains('hidden'));
+  window.history.back();
+  await new Promise(r => setTimeout(r, 300));
+
+  // ---- 3d. map view (jsdom: no Leaflet → graceful message) ----
+  $('#dsc-switch button[data-v="map"]').click();
+  await new Promise(r => setTimeout(r, 400));
+  check('map pane active', $('#dp-map').classList.contains('on'));
+  check('map degrades gracefully without Leaflet',
+    /could not load/i.test($('#dmap-status').textContent), $('#dmap-status').textContent);
+
+  // ---- 3e. deck pane (moved DOM still works) ----
+  $('#dsc-switch button[data-v="deck"]').click();
+  await new Promise(r => setTimeout(r, 700));
+  check('deck pane active', $('#dp-deck').classList.contains('on'));
   const cards = $$('#deck-zone .swipe-card');
   check('deck has cards', cards.length > 0, 'none');
   const deckHTML = $('#deck-zone').innerHTML;
@@ -148,13 +243,12 @@ function check(name, ok, detail) {
     $$('#deck-zone .cat-art').every(a => a.querySelector('svg') && !emojiRe.test(a.innerHTML)),
     'bad fallback art');
 
-  // ---- 3b. countdown pills on deck cards ----
-  const relRe = /TODAY|TOMORROW|IN \d+ DAYS|ON NOW/;
+  // ---- 3f. countdown pills on deck cards ----
   const pills = $$('#deck-zone .card-date-pill').map(p => p.textContent);
   check('deck card pills show countdown label', pills.length > 0 && pills.every(t => relRe.test(t)),
     JSON.stringify(pills.slice(0, 3)));
 
-  // ---- 3c. weekend spotlight ----
+  // ---- 3g. weekend spotlight ----
   const spot = $('#weekend-spot');
   check('weekend spotlight element exists', !!spot);
   if(spot && !spot.classList.contains('hidden')){
@@ -178,7 +272,7 @@ function check(name, ok, detail) {
     check('spotlight visible (prefs were chosen to match weekend events)', false, 'spot hidden');
   }
 
-  // ---- 3d. deck search button → list view with search focused ----
+  // ---- 3h. deck search button → list view with search focused ----
   const btnSearch = $('#btn-search');
   check('deck header has search button', !!btnSearch);
   if(btnSearch){

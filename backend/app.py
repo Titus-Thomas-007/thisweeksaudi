@@ -109,6 +109,38 @@ def _with_image(ev: dict) -> dict:
     return ev
 
 
+# City centers — used ONLY to detect when Nominatim backs off to a
+# city-level result for an unknown venue. Such results are rejected (the
+# map must never show city-centre/approximate pins), so coordinates only
+# need to be roughly right here.
+CITY_COORDS = {
+    "riyadh": (24.7136, 46.6753), "jeddah": (21.4858, 39.1925),
+    "dammam": (26.4207, 50.0888), "khobar": (26.2172, 50.1971),
+    "medina": (24.5247, 39.5692), "taif": (21.4901, 40.5482),
+    "abha": (18.2465, 42.5117), "khamis mushait": (18.3093, 42.7299),
+    "tabuk": (28.3835, 36.5662), "buraydah": (26.3592, 43.9819),
+    "unaizah": (26.0848, 43.9935), "al qassim": (26.3488, 43.7650),
+    "al ahsa": (25.4288, 49.6211), "al majma'a": (25.9006, 45.3459),
+    "alula": (26.6140, 37.9167), "al ula": (26.6140, 37.9167),
+    "jubail": (27.0046, 49.6455), "mecca": (21.4225, 39.8262),
+    "hail": (27.5114, 41.7208), "yanbu": (24.0232, 38.0618),
+    "jazan": (16.8892, 42.5706), "najran": (17.4933, 44.1277),
+}
+
+
+def _haversine_km(a, b) -> float:
+    from math import radians, sin, cos, asin, sqrt
+    la1, lo1, la2, lo2 = map(radians, (a[0], a[1], b[0], b[1]))
+    h = sin((la2 - la1) / 2) ** 2 + cos(la1) * cos(la2) * sin((lo2 - lo1) / 2) ** 2
+    return 2 * 6371.0 * asin(sqrt(h))
+
+
+def _is_city_centre_fallback(lat: float, lng: float, city: str) -> bool:
+    """True if a geocode hit is really just the city center, not the venue."""
+    cc = CITY_COORDS.get((city or "").strip().lower())
+    return bool(cc) and _haversine_km((lat, lng), cc) < 1.2
+
+
 def geocode_nominatim(venue: str, city: str) -> tuple[float, float] | None:
     q = f"{venue}, {city}, Saudi Arabia" if venue else f"{city}, Saudi Arabia"
     try:
@@ -121,7 +153,10 @@ def geocode_nominatim(venue: str, city: str) -> tuple[float, float] | None:
             items = json.loads(r.read().decode("utf-8"))
         if items:
             time.sleep(1.1)  # Nominatim usage policy
-            return float(items[0]["lat"]), float(items[0]["lon"])
+            lat, lng = float(items[0]["lat"]), float(items[0]["lon"])
+            if _is_city_centre_fallback(lat, lng, city):
+                return None  # venue unknown to OSM — never fake a pin
+            return lat, lng
     except Exception as e:
         print("geocode failed:", type(e).__name__, e)
     return None
@@ -230,26 +265,29 @@ def geocode(venue: str = Query(""), city: str = Query("")):
     live Nominatim (venue precision). Unresolved venues return nulls: we
     never invent coordinates, so the map only plots genuinely verified
     venue locations. (Cache namespace bumped to geo2: to drop stale
-    city-center fallback entries.) Precise hits cache forever; nulls are
-    retried after 24h."""
+    city-center fallback entries.) Nominatim hits landing within 1.2km of
+    the city center are rejected as unverified backoffs. Precise hits cache
+    forever; nulls are retried after 24h. `src` is 'baked' for the
+    hand-verified venue table, 'geo' for venue-level Nominatim hits."""
     key = "geo2:" + hashlib.sha256(f"{venue}|{city}".encode()).hexdigest()
     # VENUE_COORDS (baked by geocode_seed.py) uses raw sha256 keys, no prefix.
     raw = key[5:]
     if raw in VENUE_COORDS:
         lat, lng = VENUE_COORDS[raw][:2]  # entries may carry a provenance note as 3rd element
-        return {"lat": lat, "lng": lng}
+        return {"lat": lat, "lng": lng, "src": "baked"}
     with _db_lock, db() as con:
         row = con.execute("SELECT v, ts FROM kv WHERE k=?", (key,)).fetchone()
     if row:
         d = json.loads(row["v"])
         if d.get("lat") is not None:
-            return {"lat": d["lat"], "lng": d["lng"]}
+            return {"lat": d["lat"], "lng": d["lng"], "src": "geo"}
         if time.time() - row["ts"] < 86400:
-            return {"lat": None, "lng": None}
+            return {"lat": None, "lng": None, "src": "none"}
     res = geocode_nominatim(venue, city)
     payload = {"lat": res[0], "lng": res[1]} if res else {"lat": None, "lng": None}
     kv_set(key, json.dumps(payload))
-    return {"lat": payload["lat"], "lng": payload["lng"]}
+    payload["src"] = "geo" if res else "none"
+    return payload
 
 
 class Patch(BaseModel):
@@ -558,12 +596,12 @@ if _table_count() == 0 and SEED_SNAPSHOT and Path(SEED_SNAPSHOT).exists():
         from seed import seed_db
     seed_db(DB_PATH, Path(SEED_SNAPSHOT))
     print(f"seeded {_table_count()} events from snapshot")
-# Cache-busting: index.html references assets as app.js?v=__V__ / styles.css?v=__V__.
-# __V__ is a hash of the asset contents, so every deploy with changed JS/CSS
-# gets fresh URLs and phones stop showing stale cached code.
+# Cache-busting: index.html references assets as app.js?v=__V__ / styles.css?v=__V__
+# (+ discover.js / discover.css). __V__ is a hash of the asset contents, so every
+# deploy with changed JS/CSS gets fresh URLs and phones stop showing stale cached code.
 def _asset_version():
     h = hashlib.sha256()
-    for name in ("app.js", "styles.css"):
+    for name in ("app.js", "styles.css", "discover.js", "discover.css"):
         p = FRONTEND_DIR / name
         if p.exists():
             h.update(p.read_bytes())

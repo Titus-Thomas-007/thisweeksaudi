@@ -254,6 +254,7 @@ function navTo(id, dir){
   showView(id, dir || 'fwd');
 }
 function enterDeck(first, replace){
+  if(window.__twsEnterDeck) return window.__twsEnterDeck(first, replace);
   buildDeck();
   if(first || !hist.length){ _replaceHist({kind:'view', id:'view-deck'}); }
   else if(replace){ _replaceHist({kind:'view', id:'view-deck'}); }
@@ -782,7 +783,8 @@ function wireDeck(){
     const s = $('#list-search'); if(s) s.focus(); // in the tap gesture so iOS opens the keyboard
   });
   document.addEventListener('keydown', e => {
-    if(!$('#view-deck').classList.contains('active') || state.sheetOpen) return;
+    const deckOpen = $('#view-discover').classList.contains('active') && $('#dp-deck').classList.contains('on');
+    if(!deckOpen || state.sheetOpen) return;
     if(e.key === 'ArrowRight') decide('save');
     else if(e.key === 'ArrowLeft') decide('pass');
     else if(e.key === 'ArrowUp'){ const t = topCard(); if(t) openDetail(state.stack.find(x=>x.id===t.dataset.id), 'deck'); }
@@ -1385,7 +1387,7 @@ async function geocode(ev){
   try{
     const r = await fetch('/api/geocode?venue=' + encodeURIComponent(ev.venue || '') + '&city=' + encodeURIComponent(ev.city || ''));
     const j = await r.json();
-    const ll = (j && j.lat != null && j.lng != null) ? {lat: j.lat, lon: j.lng} : null;
+    const ll = (j && j.lat != null && j.lng != null) ? {lat: j.lat, lon: j.lng, src: j.src || 'geo'} : null;
     geoCache[key] = ll;
     return ll;
   }catch(e){ geoCache[key] = null; return null; }
@@ -1447,6 +1449,17 @@ function wireGlobal(){
   // warm caches after first paint
   setTimeout(warmGeocode, 2500);
 }
+
+/* public surface for discover.js (4-pane home) — everything it needs, nothing more */
+window.TWS = {
+  $, $$, esc, state, storeGet, storeSet,
+  dstr, localISO, datePill, niceDate, fmtPrice,
+  filteredEvents, rankedEvents, weekendRange,
+  openDetail, toggleSave, buildDeck, buildList, navTo, showView,
+  geocode, reduceMotion, beacon, decide, topCard,
+  _pushHist, _replaceHist,
+  get hist(){ return hist; }
+};
 
 /* ---------- go ---------- */
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

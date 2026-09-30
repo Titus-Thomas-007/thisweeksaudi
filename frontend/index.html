@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 <link rel="stylesheet" href="styles.css?v=__V__">
+<link rel="stylesheet" href="discover.css?v=__V__">
 </head>
 <body>
 
@@ -106,7 +107,7 @@
     <div class="aha-count" id="aha-count"></div>
     <div class="aha-stage" id="aha-cards"></div>
     <div class="aha-foot">
-      <button class="btn-gold hidden" id="aha-go">Start swiping</button>
+      <button class="btn-gold hidden" id="aha-go">Explore events</button>
       <button class="link-quiet hidden" id="aha-replay">Replay</button>
     </div>
   </div>
@@ -161,6 +162,34 @@
     </button>
   </div>
   <button id="deck-browse-all" class="link-quiet" style="margin-top:2px;margin-bottom:calc(8px + env(safe-area-inset-bottom))">Browse all events</button>
+</section>
+
+<!-- ============ DISCOVER (4-pane home) ============ -->
+<section id="view-discover" class="view">
+  <div id="dsc-head-slot"></div>
+  <div class="dsc-switch" id="dsc-switch" role="tablist" aria-label="Discovery views">
+    <button data-v="mosaic" role="tab">Mosaic</button>
+    <button data-v="week" role="tab">Week</button>
+    <button data-v="map" role="tab">Map</button>
+    <button data-v="stories" role="tab">Stories</button>
+    <button data-v="deck" role="tab">Deck</button>
+  </div>
+  <div class="dsc-panes">
+    <div class="dpane dp-mosaic" id="dp-mosaic"></div>
+    <div class="dpane dp-week" id="dp-week"></div>
+    <div class="dpane dp-map" id="dp-map">
+      <div class="dmap-wrap">
+        <div id="dmap"></div>
+        <div class="dmap-status" id="dmap-status">Plotting events</div>
+      </div>
+      <div class="dmap-sheet">
+        <div class="dmap-head"><h2>Plotting events…</h2><p></p></div>
+        <div class="dmap-cards" id="dmap-cards"></div>
+      </div>
+    </div>
+    <div class="dpane dp-stories" id="dp-stories"><div class="dst-wrap" id="dst-wrap"></div></div>
+    <div class="dpane" id="dp-deck"></div>
+  </div>
 </section>
 
 <!-- ============ SAVED ============ -->
@@ -259,5 +288,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script src="app.js?v=__V__"></script>
+<script src="discover.js?v=__V__"></script>
 </body>
 </html>
