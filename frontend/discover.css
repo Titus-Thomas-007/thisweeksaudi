@@ -197,3 +197,8 @@
 #dmap .leaflet-control-attribution{font-size:9px;line-height:1.4;padding:1px 6px;
   background:rgba(8,8,10,.55);color:#77777f;border-radius:8px 0 0 0}
 #dmap .leaflet-control-attribution a{color:#9a9aa5}
+
+/* cluster badge: same-venue pins grouped — tap to expand (spiderfy) */
+.dclust{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:800;color:#141414;background:linear-gradient(135deg,#f0c96a,#d9a441);
+  border:3px solid #000;box-shadow:0 0 0 2px var(--gold),0 8px 20px rgba(0,0,0,.6);cursor:pointer}

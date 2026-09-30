@@ -23,8 +23,7 @@ var VIEWS = [
   {id:'mosaic',  label:'Mosaic'},
   {id:'week',    label:'Week'},
   {id:'map',     label:'Map'},
-  {id:'stories', label:'Stories'},
-  {id:'deck',    label:'Deck'}
+  {id:'stories', label:'Stories'}
 ];
 var DSC = {
   view: (typeof storeGet === 'function' && storeGet('tws_dview')) || 'mosaic',
@@ -165,7 +164,9 @@ function buildMosaic(){
     if(!items.length) return;
     html += '<div class="mz-sec">' + sec.title + '<small>' + sec.sub + ' · ' + sec.items.length + ' events</small></div><div class="mz-grid">';
     items.forEach(function(ev, i){
-      var cls = (si === 0 && i === 0) ? 'hero' : ((ti % 5 === 3) ? 'tall' : '');
+      /* tall tiles only when 3+ items follow in the same section — otherwise the
+         tile's second row overhangs with black space beside it (mosaic gap) */
+      var cls = (si === 0 && i === 0) ? 'hero' : ((ti % 5 === 3 && i < items.length - 3) ? 'tall' : '');
       html += '<div class="mz-tile ' + cls + '" data-ev="' + ev.id + '" data-rv style="--d:' + ((ti % 8) * 45) + 'ms">' +
         dimgHTML(ev) + saveBtnHTML(ev) +
         '<div class="mz-meta">' + pillHTML(ev) + '<h3>' + esc(ev.title) + '</h3>' + metaLine(ev) + '</div></div>';
@@ -234,6 +235,26 @@ function buildMap(){
       maxZoom: 18,
       attribution: 'Esri, HERE, Garmin, OpenStreetMap contributors'
     }).addTo(DSC.map);
+    /* same-venue pins cluster into a count badge; tapping expands them (spiderfy) */
+    DSC.cluster = L.markerClusterGroup({
+      showCoverageOnHover:false, maxClusterRadius:52, spiderfyOnMaxZoom:true,
+      iconCreateFunction:function(c){
+        return L.divIcon({className:'', html:'<div class="dclust">' + c.getChildCount() + '</div>', iconSize:[46,46], iconAnchor:[23,23]});
+      }
+    });
+    DSC.map.addLayer(DSC.cluster);
+    DSC.map.on('movestart', function(){ DSC.touched = true; });
+    /* location permission granted → drop a "you are here" dot and zoom to them */
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(function(pos){
+        if(!DSC.map) return;
+        var ll = [pos.coords.latitude, pos.coords.longitude];
+        L.circleMarker(ll, {radius:8, color:'#fff', weight:2, fillColor:'#2b7fff', fillOpacity:1})
+          .addTo(DSC.map).bindPopup('You are here');
+        DSC.userCentered = true;
+        DSC.map.setView(ll, 11);
+      }, function(){}, {timeout:8000, maximumAge:600000});
+    }
     setTimeout(function(){ DSC.map.invalidateSize(); }, 120);
   } else {
     setTimeout(function(){ DSC.map.invalidateSize(); }, 60);
@@ -246,7 +267,8 @@ async function plotDiscoverMap(){
   var status = $('#dmap-status'), cards = $('#dmap-cards');
   status.style.opacity = 1; status.textContent = 'Plotting events…';
   var list = rankedEvents().slice(0, 150);
-  if(DSC._markers) DSC._markers.forEach(function(m){ DSC.map.removeLayer(m); });
+  if(DSC.cluster) DSC.cluster.clearLayers();
+  else if(DSC._markers) DSC._markers.forEach(function(m){ DSC.map.removeLayer(m); });
   DSC._markers = []; DSC._pinEvents = [];
   cards.innerHTML = '';
   var n = 0, queue = list.slice();
@@ -258,8 +280,12 @@ async function plotDiscoverMap(){
         if(!ll || !isFinite(ll.lat) || !isFinite(ll.lon)) continue;
         var i = n++;
         var icon = L.divIcon({className:'', html:dPinHTML(ev, i), iconSize:[46,46], iconAnchor:[23,23]});
-        var m = L.marker([ll.lat, ll.lon], {icon:icon}).addTo(DSC.map);
-        m.on('click', function(){ selectDPin(i); });
+        var m = L.marker([ll.lat, ll.lon], {icon:icon});
+        DSC.cluster.addLayer(m);
+        m.on('click', function(){
+          /* expand the cluster if needed so the tapped pin is the one selected */
+          DSC.cluster.zoomToShowLayer(m, function(){ selectDPin(i); });
+        });
         DSC._markers.push(m); DSC._pinEvents.push(ev);
         var card = document.createElement('div');
         card.className = 'dmap-card'; card.dataset.pini = i;
@@ -278,7 +304,7 @@ async function plotDiscoverMap(){
   await Promise.all(workers);
   var head = $('.dmap-head', $('#dp-map'));
   if(head) head.innerHTML = '<h2>' + n + ' events on the map</h2><p>Tap a pin or a card — cards open details</p>';
-  if(n && DSC._markers.length){
+  if(n && DSC._markers.length && !DSC.touched && !DSC.userCentered){
     var b = L.latLngBounds(DSC._markers.map(function(m){ return m.getLatLng(); }));
     if(b.isValid()) DSC.map.fitBounds(b.pad(0.18));
   }
@@ -294,8 +320,8 @@ function selectDPin(i){
     c.classList.toggle('sel', on);
     if(on) c.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
   });
-  var m = DSC._markers[i];
-  if(m) DSC.map.flyTo(m.getLatLng(), Math.max(DSC.map.getZoom(), 12), {duration:.7});
+  /* no map flyTo here — the map stays where the user put it; tapping a pin
+     only highlights it and scrolls the card strip to the matching card */
 }
 
 /* ---------- STORIES ---------- */

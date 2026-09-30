@@ -144,7 +144,7 @@ function check(name, ok, detail) {
   const startBtn = $('#aha-go');
   if (startBtn) { startBtn.click(); await new Promise(r => setTimeout(r, 700)); }
   check('discover view reached', $('#view-discover').classList.contains('active'));
-  check('view switcher has 5 views', $$('#dsc-switch button').length === 5,
+  check('view switcher has 4 views (deck removed)', $$('#dsc-switch button').length === 4,
     'found ' + $$('#dsc-switch button').length);
   check('deck header moved into discover', !!$('#dsc-head-slot .deck-nav'), 'deck-nav missing');
 
@@ -231,17 +231,35 @@ function check(name, ok, detail) {
   check('map degrades gracefully without Leaflet',
     /could not load/i.test($('#dmap-status').textContent), $('#dmap-status').textContent);
 
-  // ---- 3e. deck pane (moved DOM still works) ----
-  $('#dsc-switch button[data-v="deck"]').click();
-  await new Promise(r => setTimeout(r, 700));
-  check('deck pane active', $('#dp-deck').classList.contains('on'));
-  const cards = $$('#deck-zone .swipe-card');
-  check('deck has cards', cards.length > 0, 'none');
-  const deckHTML = $('#deck-zone').innerHTML;
-  check('no emoji in deck cards', !emojiRe.test(deckHTML), 'emoji found');
-  check('fallback cards use SVG line-icon art (no emoji)',
-    $$('#deck-zone .cat-art').every(a => a.querySelector('svg') && !emojiRe.test(a.innerHTML)),
-    'bad fallback art');
+  // ---- 3e. deck view removed from switcher (owner request 2026-09-30) ----
+  const tabIds = $$('#dsc-switch button').map(b => b.dataset.v);
+  check('switcher has exactly 4 tabs', tabIds.length === 4, tabIds.join(','));
+  check('switcher tabs are mosaic/week/map/stories (no deck)',
+    ['mosaic','week','map','stories'].every(v => tabIds.includes(v)) && !tabIds.includes('deck'),
+    tabIds.join(','));
+  // a stale persisted 'deck' choice must fall back to mosaic, not a dead pane
+  const fakeDeckBtn = window.document.createElement('button');
+  fakeDeckBtn.dataset.v = 'deck';
+  $('#dsc-switch').appendChild(fakeDeckBtn);
+  fakeDeckBtn.click();
+  await new Promise(r => setTimeout(r, 300));
+  check("stale 'deck' view falls back to mosaic", $('#dp-mosaic').classList.contains('on'));
+  fakeDeckBtn.remove();
+
+  // ---- 3f. mosaic never leaves a gap beside a tall tile ----
+  check('tall tiles require 3+ following items in their section',
+    dscSrc.includes('i < items.length - 3'), 'guard missing');
+
+  // ---- 3g. map: clustering, user-location zoom, no pin-tap flyTo ----
+  check('map uses markerClusterGroup with spiderfy for same-venue pins',
+    dscSrc.includes('L.markerClusterGroup') && dscSrc.includes('spiderfyOnMaxZoom'));
+  check('map zooms to user location when permission granted',
+    dscSrc.includes('getCurrentPosition') && dscSrc.includes("bindPopup('You are here')") &&
+    dscSrc.includes('setView(ll, 11)'));
+  check('pin tap does not yank the map (no flyTo in discovery code)',
+    !dscSrc.includes('.flyTo('));
+  check('fitBounds skipped after user touch or user-centering',
+    dscSrc.includes('!DSC.touched') && dscSrc.includes('!DSC.userCentered'));
 
   // ---- 3f. countdown pills on deck cards ----
   const pills = $$('#deck-zone .card-date-pill').map(p => p.textContent);
