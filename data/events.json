@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 328,
+ "count": 329,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -653,6 +653,25 @@
    "image": "https://nationalperiscope.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-11-at-6.12.50-PM.jpeg"
   },
   {
+   "title": "Unstable",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://mdlbeast.com/events/unstable",
+   "organizer": "MDLBEAST",
+   "start": "2026-09-30",
+   "end": "2026-10-01",
+   "sources": [
+    "mdlbeast"
+   ],
+   "id": "901d9742dee1",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27",
+   "image": "https://www.datocms-assets.com/66357/1779102205-1.jpg"
+  },
+  {
    "title": "360Food Syria",
    "city": "Riyadh",
    "venue": "Syrian Expo Center",
@@ -726,6 +745,25 @@
    "description": "Al-Farabi is more than just a band — it’s an artistic genre, an era, and a collective voice behind unforgettable nights. This intimate comeback night in Jeddah is a rare, strictly limited-seat experience to relive the memories and songs people still talk about.",
    "added_at": "2026-09-27",
    "image": "https://mail.eyeofriyadh.com/news_images/2022/11/23b1a20359e8e.jpg"
+  },
+  {
+   "title": "Beast House",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://mdlbeast.com/events/beast-house",
+   "organizer": "MDLBEAST",
+   "start": "2026-10-01",
+   "end": "2026-10-02",
+   "sources": [
+    "mdlbeast"
+   ],
+   "id": "429555866244",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27",
+   "image": "https://www.datocms-assets.com/66357/1753608398-1-aug-event-banners-01.webp"
   },
   {
    "title": "Healthon Digital Health Innovation 2026",
