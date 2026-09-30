@@ -328,6 +328,19 @@ function check(name, ok, detail) {
     $('#sheet-backdrop').classList.add('hidden');
   }
 
+  // ---- 13. map basemap + pin fallbacks (live-QA regressions, 2026-09-30) ----
+  check('discovery map uses keyless Esri dark tiles (not CARTO)',
+    dscSrc.includes('server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base') &&
+    !dscSrc.includes('basemaps.cartocdn.com'));
+  check('discovery map keeps tile attribution visible',
+    dscSrc.includes('attributionControl:true') && dscSrc.includes('OpenStreetMap contributors'));
+  check('pin HTML layers category art under remote photo (no blank pins)',
+    dscSrc.includes("\\'),url(\\'"));
+  check('stories pane has keyboard navigation (arrows)',
+    dscSrc.includes("$('#dst-wrap')") && dscSrc.includes('scrollIntoView'));
+  check('attribution styled subtle in discover.css',
+    fs.readFileSync(path.join(FRONT, 'discover.css'), 'utf8').includes('.leaflet-control-attribution'));
+
   const failed = results.filter(r => !r.ok);
   console.log(`\n${results.length - failed.length}/${results.length} passed`);
   process.exit(failed.length ? 1 : 0);

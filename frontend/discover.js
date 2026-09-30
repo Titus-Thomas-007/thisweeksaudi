@@ -217,17 +217,23 @@ function buildWeek(){
 
 /* ---------- MAP ---------- */
 function dPinHTML(ev, i){
+  /* layered backgrounds: if the remote photo fails to load, the category
+     artwork underneath still shows — a pin never renders blank */
+  var art = catArtFile(ev);
   var bg = ev.image
-    ? 'background-image:url(\'' + ev.image.replace(/'/g,'') + '\')'
-    : 'background-image:url(\'' + catArtFile(ev) + '\')';
+    ? 'background-image:url(\'' + ev.image.replace(/'/g,'') + '\'),url(\'' + art + '\')'
+    : 'background-image:url(\'' + art + '\')';
   return '<div class="dpin" data-pini="' + i + '" style="' + bg + ';--d:' + Math.min(i * 35, 1200) + 'ms"></div>';
 }
 function buildMap(){
   var pane = $('#dp-map');
   if(!DSC.map){
     if(typeof L === 'undefined'){ $('#dmap-status').textContent = 'Map could not load'; return; }
-    DSC.map = L.map('dmap', {zoomControl:false, attributionControl:false}).setView([24.65, 46.68], 6);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {maxZoom:18}).addTo(DSC.map);
+    DSC.map = L.map('dmap', {zoomControl:false, attributionControl:true}).setView([24.65, 46.68], 6);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18,
+      attribution: 'Esri, HERE, Garmin, OpenStreetMap contributors'
+    }).addTo(DSC.map);
     setTimeout(function(){ DSC.map.invalidateSize(); }, 120);
   } else {
     setTimeout(function(){ DSC.map.invalidateSize(); }, 60);
@@ -374,7 +380,22 @@ function initDiscover(){
       if(ev) openDetail(ev, 'discover');
     }
   });
-  /* arrow-key swiping is handled by app.js (it knows the deck pane state) */
+  /* arrow-key swiping is handled by app.js (it knows the deck pane state);
+     stories get their own arrows: left/up = previous, right/down = next */
+  document.addEventListener('keydown', function(e){
+    var storiesOn = $('#view-discover').classList.contains('active') && $('#dp-stories').classList.contains('on');
+    if(!storiesOn || state.sheetOpen) return;
+    var dir = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1
+            : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+    if(!dir) return;
+    var wrap = $('#dst-wrap'); if(!wrap) return;
+    var cur = $('.dst.seen', wrap) || $('.dst', wrap); if(!cur) return;
+    var sib = dir > 0 ? cur.nextElementSibling : cur.previousElementSibling;
+    if(sib && sib.classList.contains('dst')){
+      e.preventDefault();
+      sib.scrollIntoView({behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start'});
+    }
+  });
 }
 initDiscover();
 

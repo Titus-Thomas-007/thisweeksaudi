@@ -192,3 +192,8 @@
   .dst .bars i.now:after{animation:none;transform:scaleX(1)}
   .dpill.today{animation:none}
 }
+
+/* tile attribution: tiny and quiet on the dark map */
+#dmap .leaflet-control-attribution{font-size:9px;line-height:1.4;padding:1px 6px;
+  background:rgba(8,8,10,.55);color:#77777f;border-radius:8px 0 0 0}
+#dmap .leaflet-control-attribution a{color:#9a9aa5}
