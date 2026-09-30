@@ -19,6 +19,17 @@ function check(name, ok, detail) {
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
 
+  // ---- 0b. countdown + weekend helpers present; weekend chip is Fri–Sat ----
+  const appSrc0 = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
+  check('relDayLabel helper defined', appSrc0.includes('function relDayLabel('));
+  check('weekendRange helper defined (Saudi Fri–Sat)', appSrc0.includes('function weekendRange('));
+  check('buildDeck renders weekend spotlight', /function buildDeck\(\)\{[\s\S]*?renderWeekendSpot\(\)/.test(appSrc0),
+    'buildDeck missing renderWeekendSpot()');
+  check('weekend filter uses Fri–Sat (not Sat–Sun)',
+    appSrc0.includes("const [fri, sat] = weekendRange(); // Saudi weekend: Fri–Sat") &&
+    !appSrc0.includes('(6 - sat.getDay()'), 'old Sat–Sun calc still present');
+  check('deck header has search button', fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8').includes('id="btn-search"'));
+
   // ---- 1. boot the app in jsdom ----
   const html = fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8');
   const rawEvents = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'events.json'), 'utf8'));
@@ -75,10 +86,24 @@ function check(name, ok, detail) {
   check('step-1 dots show 2', $$('#ob-step-1 .ob-dots span').length === 2);
   check('step 3 hidden at boot', $('#ob-step-3').classList.contains('hidden') || $('#ob-step-3').hidden);
 
+  // pick a city + categories guaranteed to hold weekend events (deterministic spotlight)
+  const isoD = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const nowD = new Date();
+  const friD = new Date(nowD); friD.setDate(nowD.getDate() + ((5 - nowD.getDay() + 7) % 7));
+  const satD = new Date(friD); satD.setDate(friD.getDate() + 1);
+  const friS = isoD(friD), satS = isoD(satD);
+  const wkSeed = events.filter(e => {
+    const s = (e.start||'').slice(0,10), en = (e.end||'').slice(0,10) || s;
+    return s && s <= satS && en >= friS;
+  });
+  check('seed has weekend events for spotlight test', wkSeed.length > 0, 'none in ' + friS + '–' + satS);
+  const wkCity = wkSeed.length ? wkSeed[0].city : null;
+  const wkCats = wkSeed.length ? [...new Set(wkSeed.filter(e => e.city === wkCity).map(e => e.category))].slice(0, 2) : [];
+
   // scroll position carry-over: scroll step 1 down, go to step 2, must reset
   const view = $('#view-onboard');
   window.scrollTo(0, 0); scrollCalls = [];
-  const cityBtn = $$('#ob-city-list button')[0];
+  const cityBtn = $$('#ob-city-list button').find(b => b.getAttribute('data-city') === wkCity) || $$('#ob-city-list button')[0];
   cityBtn.click();
   await new Promise(r => setTimeout(r, 50));
   $('#ob-next-1').click(); // Continue → step 2
@@ -89,9 +114,10 @@ function check(name, ok, detail) {
   check('kicker says "2 of 2"', $('#ob-step-2 .ob-kicker').textContent.trim() === '2 of 2');
   check('step 3 still hidden on step 2', $('#ob-step-3').classList.contains('hidden'));
 
-  // pick interests, Continue → deck directly (no step 3)
-  $$('#ob-cat-grid .cat-tile')[0].click();
-  $$('#ob-cat-grid .cat-tile')[1].click();
+  // pick interests (weekend-event categories first), Continue → deck directly (no step 3)
+  const catTiles = $$('#ob-cat-grid .cat-tile');
+  const picked = catTiles.filter(t => wkCats.includes(t.getAttribute('data-cat')));
+  (picked.length ? picked : catTiles.slice(0, 2)).slice(0, 2).forEach(t => t.click());
   $('#ob-next-2').click();
   await new Promise(r => setTimeout(r, 800));
   check('Continue on step 2 goes straight to aha/deck (step 3 skipped)',
@@ -121,6 +147,60 @@ function check(name, ok, detail) {
   check('fallback cards use SVG line-icon art (no emoji)',
     $$('#deck-zone .cat-art').every(a => a.querySelector('svg') && !emojiRe.test(a.innerHTML)),
     'bad fallback art');
+
+  // ---- 3b. countdown pills on deck cards ----
+  const relRe = /TODAY|TOMORROW|IN \d+ DAYS|ON NOW/;
+  const pills = $$('#deck-zone .card-date-pill').map(p => p.textContent);
+  check('deck card pills show countdown label', pills.length > 0 && pills.every(t => relRe.test(t)),
+    JSON.stringify(pills.slice(0, 3)));
+
+  // ---- 3c. weekend spotlight ----
+  const spot = $('#weekend-spot');
+  check('weekend spotlight element exists', !!spot);
+  if(spot && !spot.classList.contains('hidden')){
+    const wkCards = $$('#weekend-track .wk-card');
+    check('spotlight shows 1–3 weekend cards', wkCards.length >= 1 && wkCards.length <= 3,
+      'count=' + wkCards.length);
+    check('spotlight cards show countdown labels',
+      wkCards.every(c => relRe.test(c.querySelector('.wk-s').textContent)),
+      'missing rel label');
+    const wkTitle = wkCards[0].querySelector('.wk-t').textContent;
+    wkCards[0].click();
+    await new Promise(r => setTimeout(r, 200));
+    check('spotlight card opens detail sheet',
+      !$('#detail-sheet').classList.contains('hidden') &&
+      $('#detail-sheet').textContent.includes(wkTitle),
+      'sheet did not open for ' + wkTitle);
+    window.history.back(); // close sheet through the history-owned path (keeps hist consistent)
+    await new Promise(r => setTimeout(r, 300));
+    check('sheet closed via history', $('#detail-sheet').classList.contains('hidden'));
+  } else {
+    check('spotlight visible (prefs were chosen to match weekend events)', false, 'spot hidden');
+  }
+
+  // ---- 3d. deck search button → list view with search focused ----
+  const btnSearch = $('#btn-search');
+  check('deck header has search button', !!btnSearch);
+  if(btnSearch){
+    btnSearch.click();
+    await new Promise(r => setTimeout(r, 400));
+    check('search button opens All events list', $('#view-list').classList.contains('active'));
+    check('search input focused on open', window.document.activeElement === $('#list-search'),
+      'activeElement=' + (window.document.activeElement && window.document.activeElement.id));
+    // search actually filters: type a query, rows shrink
+    const allRows = $$('#event-list .ev-row').length;
+    const si = $('#list-search');
+    si.value = 'PFL MENA';
+    si.dispatchEvent(new window.Event('input', { bubbles: true }));
+    await new Promise(r => setTimeout(r, 500));
+    const qRows = $$('#event-list .ev-row');
+    check('search filters the list', qRows.length > 0 && qRows.length < allRows,
+      'all=' + allRows + ' q=' + qRows.length);
+    check('search result shows countdown', qRows.every(r => relRe.test(r.querySelector('.ev-sub').textContent.toUpperCase())),
+      'ev-sub missing rel label');
+    window.history.back(); // return to deck for the remind-me checks below
+    await new Promise(r => setTimeout(r, 300));
+  }
 
   // ---- 4. remind-me nudge: popup (not toast), shows every time, closable ----
   // not-installed state: matchMedia stub returns false, navigator.standalone undefined

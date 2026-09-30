@@ -224,6 +224,26 @@ button{transition:transform .12s ease}
 .deck-empty{position:absolute;text-align:center;padding:30px;max-width:340px;z-index:5}
 .deck-empty-title{font-size:24px;font-weight:700;margin-bottom:10px;letter-spacing:-.4px}
 .deck-empty p{color:var(--muted);font-size:15px;line-height:1.6;margin:0 0 22px}
+
+/* ---------- weekend spotlight ---------- */
+.weekend-spot{flex:none;width:100%;max-width:462px;margin:0 auto;padding:2px 16px 8px}
+.weekend-title{font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);margin:2px 2px 8px}
+.weekend-track{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.weekend-track::-webkit-scrollbar{display:none}
+.wk-card{
+  flex:0 0 210px;display:flex;gap:10px;align-items:center;text-align:left;cursor:pointer;
+  background:var(--surface);border:.5px solid var(--line);border-radius:16px;padding:8px;
+  color:var(--text);font-family:var(--font);
+}
+.wk-card:active{transform:scale(.97)}
+.wk-thumb{
+  width:48px;height:48px;flex:none;border-radius:12px;background-color:var(--surface2);
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--gold);
+}
+.wk-info{min-width:0}
+.wk-t{font-size:13px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wk-s{font-size:11px;color:var(--muted);margin-top:4px;font-weight:700;letter-spacing:.5px}
 .undo-pill{
   position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:60;
   display:flex;align-items:center;gap:8px;

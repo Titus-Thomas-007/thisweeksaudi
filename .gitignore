@@ -7,3 +7,5 @@ backend/.ingest_key
 backend/.render_key
 backend/.vapid_private
 backend/.vapid_public
+
+qa/node_modules/

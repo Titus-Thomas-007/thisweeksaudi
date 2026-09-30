@@ -51,6 +51,31 @@ function niceDate(ev){
   if(isNaN(d)) return 'Date TBA';
   return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
 }
+/* device-local YYYY-MM-DD (event dates are date-only; UTC math drifts near midnight) */
+function localISO(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+/* relative countdown: TODAY / TOMORROW / IN N DAYS / ON NOW (already started) */
+function relDayLabel(ev){
+  const s = dstr(ev);
+  if(!s) return '';
+  const diff = Math.round((new Date(s+'T00:00:00') - new Date(localISO(new Date())+'T00:00:00'))/86400000);
+  if(diff < 0) return 'ON NOW';
+  if(diff === 0) return 'TODAY';
+  if(diff === 1) return 'TOMORROW';
+  return 'IN ' + diff + ' DAYS';
+}
+function datePill(ev){
+  const rel = relDayLabel(ev);
+  return esc(niceDate(ev)).toUpperCase() + (rel ? ' · ' + rel : '');
+}
+/* Saudi weekend: Friday–Saturday. Returns [friISO, satISO] of the coming weekend. */
+function weekendRange(){
+  const d = new Date(), dow = d.getDay();
+  const fri = new Date(d); fri.setDate(d.getDate() + ((5 - dow + 7) % 7));
+  const sat = new Date(fri); sat.setDate(fri.getDate() + 1);
+  return [localISO(fri), localISO(sat)];
+}
 function previewURL(ev){
   if(ev.image) return ev.image;  // curated/stored image from image search
   return '/api/preview?url=' + encodeURIComponent(ev.reg_url || ev.source_url || ev.url || '');
@@ -460,7 +485,7 @@ async function runAha(){
     d.innerHTML = catArtHTML(ev.category) +
       '<div class="aha-photo" style="background-image:url(\'' + imgUrl.replace(/'/g,'') + '\')"></div>' +
       '<div class="aha-card-info"><div class="t">' + esc(ev.title) + '</div>' +
-      '<div class="s">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + '</div></div>';
+      '<div class="s">' + esc(niceDate(ev)) + (relDayLabel(ev) ? ' · ' + relDayLabel(ev).toLowerCase() : '') + ' · ' + esc(ev.city||'') + '</div></div>';
     stage.appendChild(d);
     const img = new Image();
     img.onerror = () => { const p = d.querySelector('.aha-photo'); if(p) p.remove(); };
@@ -510,11 +535,42 @@ function buildDeck(){
   state.stack = rankedEvents();
   state.undo = null;
   renderStack();
+  renderWeekendSpot();
   updateSavedBadge();
   const prog = $('#deck-progress');
   prog.textContent = state.stack.length ? '1 of ' + state.stack.length : '';
   $('#deck-empty').classList.toggle('hidden', state.stack.length > 0);
   hideUndo();
+}
+/* "This weekend" spotlight: up to 3 prefs-matched events overlapping Fri–Sat, above the deck */
+function renderWeekendSpot(){
+  const box = $('#weekend-spot');
+  if(!box) return;
+  const [fri, sat] = weekendRange();
+  const list = rankedEvents().filter(e => {
+    const s = dstr(e), en = (e.date_end || '').slice(0, 10) || s;
+    return s && s <= sat && en >= fri;
+  }).sort((a,b) => (a.date_start || 'zzzz').localeCompare(b.date_start || 'zzzz')).slice(0, 3);
+  if(!list.length){ box.classList.add('hidden'); return; }
+  box.classList.remove('hidden');
+  $('#weekend-track').innerHTML = list.map(ev => {
+    const rel = relDayLabel(ev);
+    return '<button class="wk-card" data-wk="' + ev.id + '">' +
+      '<div class="wk-thumb" data-wkthumb="' + ev.id + '">' + esc(initials(ev.title)) + '</div>' +
+      '<div class="wk-info"><div class="wk-t">' + esc(ev.title) + '</div>' +
+      '<div class="wk-s">' + (rel ? rel + ' · ' : '') + esc(ev.city || '') + '</div></div></button>';
+  }).join('');
+  $$('.wk-card', box).forEach(c => c.addEventListener('click', () => {
+    const ev = state.events.find(e => e.id === c.getAttribute('data-wk'));
+    if(ev) openDetail(ev, 'deck');
+  }));
+  $$('[data-wkthumb]', box).forEach(t => {
+    const ev = state.events.find(e => e.id === t.getAttribute('data-wkthumb'));
+    if(!ev) return;
+    const img = new Image();
+    img.onload = () => { t.style.backgroundImage = 'url("' + previewURL(ev).replace(/"/g,'') + '")'; t.textContent = ''; };
+    img.src = previewURL(ev);
+  });
 }
 function updateSavedBadge(){
   const b = $('#saved-count');
@@ -542,7 +598,7 @@ function cardEl(ev, depth){
   const imgUrl = previewURL(ev);
   el.innerHTML =
     '<div class="card-img" style="background-image:url(\'' + imgUrl.replace(/'/g,'') + '\')"></div>' +
-    '<div class="card-date-pill">' + esc(niceDate(ev)).toUpperCase() + '</div>' +
+    '<div class="card-date-pill">' + datePill(ev) + '</div>' +
     '<button class="card-bookmark' + (state.saved.includes(ev.id) ? ' saved' : '') + '" aria-label="Save">' +
     '<svg viewBox="0 0 24 24" width="19" height="19" fill="' + (state.saved.includes(ev.id) ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>' +
     '<div class="card-panel"><h3>' + esc(ev.title) + '</h3>' +
@@ -721,6 +777,10 @@ function wireDeck(){
   $('#btn-prefs').addEventListener('click', () => { initOnboard(); navTo('view-onboard', 'back'); });
   $('#btn-rebuild').addEventListener('click', () => { initOnboard(); navTo('view-onboard', 'back'); });
   $('#deck-browse-all').addEventListener('click', () => { buildList(); navTo('view-list', 'fwd'); });
+  $('#btn-search').addEventListener('click', () => {
+    buildList(); navTo('view-list', 'fwd');
+    const s = $('#list-search'); if(s) s.focus(); // in the tap gesture so iOS opens the keyboard
+  });
   document.addEventListener('keydown', e => {
     if(!$('#view-deck').classList.contains('active') || state.sheetOpen) return;
     if(e.key === 'ArrowRight') decide('save');
@@ -770,7 +830,7 @@ function buildSheetBody(ev){
     '<div class="sheet-hero" id="sheet-hero">' +
       '<div class="hero-scrim"></div>' +
       '<div class="sheet-meta-pills" style="position:absolute;top:56px;left:22px;right:22px;padding:0">' +
-        '<span class="meta-pill">' + esc(niceDate(ev)) + '</span>' +
+        '<span class="meta-pill">' + esc(niceDate(ev)) + (relDayLabel(ev) ? ' · ' + relDayLabel(ev) : '') + '</span>' +
         (ev.city ? '<span class="meta-pill">' + esc(ev.city) + '</span>' : '') +
       '</div>' +
       '<h2 class="sheet-title">' + esc(ev.title) + '</h2>' +
@@ -778,7 +838,7 @@ function buildSheetBody(ev){
     '<div class="sheet-content">' +
       '<div class="detail-row">' +
         '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>' +
-        '<div><div class="k">Date</div><div class="v">' + esc(niceDate(ev)) + (ev.date_end && ev.date_end.slice(0,10) !== dstr(ev) ? ' — ' + esc(new Date(ev.date_end).toLocaleDateString('en-US',{month:'short',day:'numeric'})) : '') + '</div></div>' +
+        '<div><div class="k">Date</div><div class="v">' + esc(niceDate(ev)) + (ev.date_end && ev.date_end.slice(0,10) !== dstr(ev) ? ' — ' + esc(new Date(ev.date_end).toLocaleDateString('en-US',{month:'short',day:'numeric'})) : '') + (relDayLabel(ev) ? ' · ' + relDayLabel(ev).toLowerCase() : '') + '</div></div>' +
       '</div>' +
       '<div class="detail-row">' +
         '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>' +
@@ -908,7 +968,7 @@ function renderRails(){
       '<button class="rail-card" data-rail="' + ev.id + '">' +
       '<div class="rail-thumb" data-thumb="' + ev.id + '">' + esc(initials(ev.title)) + '</div>' +
       '<div class="rail-info"><div class="rail-t">' + esc(ev.title) + '</div>' +
-      '<div class="rail-s">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + '</div></div></button>').join('') +
+      '<div class="rail-s">' + esc(niceDate(ev)) + (relDayLabel(ev) ? ' · ' + relDayLabel(ev).toLowerCase() : '') + ' · ' + esc(ev.city||'') + '</div></div></button>').join('') +
     '</div></div>' : '';
   rails.innerHTML = mk('Happening soon', upcoming) + mk('Free & under SAR 50', cheap);
   $$('.rail-card', rails).forEach(c => c.addEventListener('click', () => {
@@ -939,10 +999,8 @@ function matchesList(ev){
       if(!ds || ds < iso(now) || ds > iso(end)) return false;
     }
     if(state.fDate === 'weekend'){
-      const sat = new Date(now), sun = new Date(now);
-      sat.setDate(sat.getDate() + ((6 - sat.getDay() + 7) % 7));
-      sun.setDate(sun.getDate() + ((7 - sun.getDay()) % 7));
-      if(!ds || ds < iso(sat) || ds > iso(sun)) return false;
+      const [fri, sat] = weekendRange(); // Saudi weekend: Fri–Sat
+      if(!ds || ds < fri || ds > sat) return false;
     }
   }
   if(state.fQ){
@@ -986,7 +1044,7 @@ function eventRow(ev, i, from){
   return '<div class="ev-row" data-row="' + ev.id + '" data-from="' + from + '" style="--i:' + Math.min(i,12) + '">' +
     '<div class="ev-thumb" data-ethumb="' + ev.id + '">' + esc(initials(ev.title)) + '</div>' +
     '<div class="ev-info"><div class="ev-title">' + hi(ev.title, state.fQ) + '</div>' +
-    '<div class="ev-sub">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + ' · ' + esc(fmtPrice(ev)) + '</div></div>' +
+    '<div class="ev-sub">' + esc(niceDate(ev)) + (relDayLabel(ev) ? ' · ' + relDayLabel(ev).toLowerCase() : '') + ' · ' + esc(ev.city||'') + ' · ' + esc(fmtPrice(ev)) + '</div></div>' +
     '<div class="row-chev">›</div></div>';
 }
 function wireRows(box, from){
@@ -1058,7 +1116,7 @@ function savedRow(ev, i){
   return '<div class="ev-row" data-row="' + id + '" data-from="saved" style="--i:' + Math.min(i,12) + '">' +
     '<div class="ev-thumb" data-ethumb="' + id + '">' + esc(initials(ev.title)) + '</div>' +
     '<div class="ev-info"><div class="ev-title">' + esc(ev.title) + '</div>' +
-    '<div class="ev-sub">' + esc(niceDate(ev)) + ' · ' + esc(ev.city||'') + ' · ' + esc(fmtPrice(ev)) + '</div></div>' +
+    '<div class="ev-sub">' + esc(niceDate(ev)) + (relDayLabel(ev) ? ' · ' + relDayLabel(ev).toLowerCase() : '') + ' · ' + esc(ev.city||'') + ' · ' + esc(fmtPrice(ev)) + '</div></div>' +
     '<div class="ev-actions">' +
     (future ? '<button class="remind-btn' + (reminded?' on':'') + '" data-remind="' + id + '" aria-label="Remind me">' +
       '<svg viewBox="0 0 24 24" width="17" height="17" fill="' + (reminded?'currentColor':'none') + '" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg></button>' : '') +
