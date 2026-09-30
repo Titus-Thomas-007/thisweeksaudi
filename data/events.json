@@ -1055,7 +1055,7 @@
    "category": "meetup",
    "price": "TBA",
    "url": "https://allevents.in/riyadh/gap-caravan-to-al-khobar/200030719500757",
-   "organizer": "",
+   "organizer": "G.A.P Beauty Artistry",
    "start": "2026-10-03",
    "end": "2026-10-03",
    "sources": [
@@ -1063,8 +1063,9 @@
    ],
    "id": "29f05dbb2fc9",
    "domain": "business",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "G.A.P Beauty Artistry's beauty caravan comes to Khobar on Oct 3-4 — message the organizers on WhatsApp to book a slot.",
+   "added_at": "2026-09-27",
+   "image": "https://cdn-az.allevents.in/events2/banners/82ab50dc93d8dd66dc89847e9c0d898ea60dbe4d5e951bfa660263801d5587c5-rimg-w1200-h675-dc080808-gmir?v=1789927617"
   },
   {
    "title": "Ghida Knio Night",
