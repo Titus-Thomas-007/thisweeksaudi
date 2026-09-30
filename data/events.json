@@ -1262,7 +1262,7 @@
   {
    "title": "Middle East Education & Training Exhibition (MEETES)",
    "city": "Jeddah",
-   "venue": "",
+   "venue": "Jeddah Center for Exhibitions and Events",
    "category": "expo",
    "price": "Free",
    "url": "https://e.meetes-sa.com",
@@ -1274,7 +1274,7 @@
    ],
    "id": "52ab3dd9f10e",
    "domain": "education",
-   "description": "",
+   "description": "Join us at the 7th Middle East Education and Training Exhibition 2026 at the Jeddah Center for Exhibitions and Events. Showcase your educational programs, interact with students and parents, and build strategic partnerships with other educational institutions and education service providers.",
    "added_at": "2026-09-27",
    "image": "https://www.mohe.gov.jo/EBV4.0/Root_Storage/AR/EB_News/MEETES2.jpeg"
   },
@@ -1285,7 +1285,7 @@
    "category": "conference",
    "price": "Free",
    "url": "https://entarabi.com/en/2026/09/second-edition-of-the-global-csr-forum-to-convene-world-leaders-in-riyadh-moving-corporate-responsibility-from-commitment-to-impact/",
-   "organizer": null,
+   "organizer": "Ministry of Human Resources and Social Development",
    "start": "2026-10-05",
    "end": "2026-10-06",
    "sources": [
@@ -1293,7 +1293,7 @@
    ],
    "id": "845bd75405ad",
    "domain": "sustain",
-   "description": "",
+   "description": "Under the patronage of King Salman bin Abdulaziz Al Saud, Riyadh hosts the second Global CSR Forum on 5–6 October 2026. More than 3,000 participants and 100 speakers advance corporate social responsibility from commitments to measurable impact.",
    "added_at": "2026-09-27",
    "image": "https://www.afronews24.com/wp-content/uploads/2024/10/1000210229.jpg"
   },
@@ -1312,8 +1312,9 @@
    ],
    "id": "9d3840df7d4f",
    "domain": "education",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "The University of Manchester - Dubai invites you to an information session on the Manchester Global MBA Programme, built to empower working professionals with lifelong, future-ready skills. Learn how the programme fits around a busy schedule and accelerates your career.",
+   "added_at": "2026-09-27",
+   "image": "https://www.manchester.edu.hk/upload/images/news2/20260529162331_5027.jpg"
   },
   {
    "title": "International Family Medicine Symposium",
@@ -1350,16 +1351,17 @@
    "id": "3cae9dbc19b2",
    "domain": "logistics",
    "description": "",
-   "added_at": "2026-09-27"
+   "added_at": "2026-09-27",
+   "image": "https://indiashippingnews.com/wp-content/uploads/2024/05/2-International-Port-Marine-Development-Conference.jpeg"
   },
   {
    "title": "SAJEX",
    "city": "Jeddah",
-   "venue": "",
+   "venue": "Jeddah Superdome",
    "category": "expo",
    "price": "Free",
    "url": "https://gjepc.org/sajex",
-   "organizer": null,
+   "organizer": "GJEPC",
    "start": "2026-10-06",
    "end": "2026-10-08",
    "sources": [
@@ -1367,7 +1369,7 @@
    ],
    "id": "623e124c6ed2",
    "domain": "foodagri",
-   "description": "",
+   "description": "SAJEX is the ultimate B2B jewellery destination — a 3-day trade expo at Jeddah Superdome where Indian jewellery exporters meet international trade buyers. Set against a Saudi jewellery market projected to reach US$ 8.34 billion by 2030.",
    "added_at": "2026-09-27",
    "image": "https://gjepc.org/solitaire/wp-content/uploads/2025/09/SAJEX-2025-450x270.jpg"
   },
