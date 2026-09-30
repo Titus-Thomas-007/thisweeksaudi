@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 321,
+ "count": 328,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -80,6 +80,24 @@
    "description": "Kings League MENA's first full league season brings together 10 teams from six Arab countries in a 7-a-side competition that blends football with digital culture. Nine league rounds run September 18 to October 30, with teams led by regional streamers and content creators, culminating in the Final Four.",
    "added_at": "2026-09-27",
    "image": "https://www.alyaum.com/uploads/images/2025/11/01/2709985.jpg"
+  },
+  {
+   "title": "Qissa bi Qissa (Swap a Story)",
+   "city": "AlUla",
+   "venue": "AlUla",
+   "category": "arts",
+   "price": "Free",
+   "url": "https://www.experiencealula.com/en/whats-on/events/qissa-bi-qissa",
+   "organizer": "Experience AlUla",
+   "start": "2026-09-24",
+   "end": "2026-12-31",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "44fc0db3cceb",
+   "domain": "entertainment",
+   "description": "Intimate storytelling and cultural exchange in AlUla.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Okhtabotiya Kids",
@@ -3994,6 +4012,25 @@
    "image": "https://whatsonsaudiarabia.com/wp-content/uploads/2026/05/AlUla-Skies-Festival-main.jpg"
   },
   {
+   "title": "AlUla Skyrise",
+   "city": "AlUla",
+   "venue": "Hegra",
+   "category": "other",
+   "price": "From SAR 990",
+   "url": "https://www.experiencealula.com/en/whats-on/events/alula-skyrise",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-06",
+   "end": "2026-11-15",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "a008d0812526",
+   "domain": "entertainment",
+   "description": "Sunrise hot air balloon journey over Hegra's ancient sites.",
+   "added_at": "2026-09-27",
+   "image": "https://s7g10.scene7.com/is/image/rcu/0016_Hot_Air_Balloon-Desktop-Hero-2880x1620-1"
+  },
+  {
    "title": "Candlelight: The Best of Fairouz",
    "city": "Riyadh",
    "venue": "Bab Samhan",
@@ -4012,6 +4049,25 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Hot Air Balloon Glow Show",
+   "city": "AlUla",
+   "venue": "AlUla",
+   "category": "arts",
+   "price": "From SAR 30",
+   "url": "https://www.experiencealula.com/en/whats-on/events/hot-air-balloons-glow-show",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-06",
+   "end": "2026-11-14",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "ecf3249c30ed",
+   "domain": "entertainment",
+   "description": "Night-time show with glowing balloons and music.",
+   "added_at": "2026-09-27",
+   "image": "https://www.ahlanwasahlan.world/sites/default/files/styles/400x271/public/2025-03/16-Balloons-Skies-Festival-Alula-Moments-12-5-23-SG_5B_0195.jpg"
+  },
+  {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Al-Qassim",
    "city": "Al Qassim",
    "venue": "",
@@ -4028,6 +4084,44 @@
    "domain": "entertainment",
    "description": "",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "Stargazing at AlUla Fort",
+   "city": "AlUla",
+   "venue": "AlUla Fort",
+   "category": "other",
+   "price": "Free",
+   "url": "https://www.experiencealula.com/en/whats-on/events/stargazing-at-alula-fort",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-06",
+   "end": "2026-11-14",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "79f7f776f6f9",
+   "domain": "entertainment",
+   "description": "Guided stargazing from historic AlUla Fort.",
+   "added_at": "2026-09-27",
+   "image": "https://mysauditours.com/assets/images/detailslider/stargazing-night-experience-alula-7.jpg"
+  },
+  {
+   "title": "Tethered Hot Air Balloon Experience",
+   "city": "AlUla",
+   "venue": "Al Manshiyah Plaza, AlUla",
+   "category": "other",
+   "price": "From SAR 100",
+   "url": "https://www.experiencealula.com/en/whats-on/events/tethered-hot-air-balloon-experience",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-06",
+   "end": "2026-11-15",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "51910e4da5dd",
+   "domain": "entertainment",
+   "description": "Take in AlUla from 50m up at Al Manshiyah Plaza.",
+   "added_at": "2026-09-27",
+   "image": "https://luxtionary.com/wp-content/uploads/2026/08/balloons-over-alula-at-the-skies-festival-2048x1152.jpg"
   },
   {
    "title": "Wagef! Nemr Live Comedy Show in Riyadh",
@@ -4510,6 +4604,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Sunset Stillness: Meditation & Sound Immersion",
+   "city": "AlUla",
+   "venue": "AlUla Desert",
+   "category": "other",
+   "price": "From SAR 50",
+   "url": "https://www.experiencealula.com/en/whats-on/events/sunset-stillness-meditation-sound-immersion",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-13",
+   "end": "2026-11-14",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "cb507b82465b",
+   "domain": "entertainment",
+   "description": "Sunset breathwork and sound bath in the AlUla desert.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Visitor of Saudi Indoor Rowing Championship 2026 in Jeddah",
    "city": "Jeddah",
    "venue": "NASA International Schools",
@@ -4546,6 +4658,25 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://www.akhbar.today/wp-content/uploads/2025/04/490995969_1366216904714458_8905331451060724327_n.jpg"
+  },
+  {
+   "title": "Leonid Meteor Shower at Jabal Ikmah",
+   "city": "AlUla",
+   "venue": "Jabal Ikmah, AlUla",
+   "category": "other",
+   "price": "Free",
+   "url": "https://www.experiencealula.com/en/whats-on/events/leonid-meteor-shower-at-jabal-ikmah",
+   "organizer": "Experience AlUla",
+   "start": "2026-11-15",
+   "end": "2026-11-15",
+   "sources": [
+    "experiencealula"
+   ],
+   "id": "af2254cb6fa8",
+   "domain": "entertainment",
+   "description": "Guided meteor shower stargazing at Jabal Ikmah.",
+   "added_at": "2026-09-27",
+   "image": "https://mysauditours.com/assets/images/detailslider/stargazing-night-experience-alula-3.jpg"
   },
   {
    "title": "2nd Edition AI Powered Finance Transformation Masterclass 2026",
