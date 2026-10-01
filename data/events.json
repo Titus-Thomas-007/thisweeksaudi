@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 337,
+ "count": 338,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -1372,6 +1372,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://indiashippingnews.com/wp-content/uploads/2024/05/2-International-Port-Marine-Development-Conference.jpeg"
+  },
+  {
+   "title": "MENA Industrial Futures Forum 2026",
+   "city": "Khobar",
+   "venue": "Le Méridien Al Khobar",
+   "category": "conference",
+   "price": "Free",
+   "url": "https://saudicon.app/en/events/mena-industrial-futures-forum-2026",
+   "organizer": "",
+   "start": "2026-10-06",
+   "end": "2026-10-07",
+   "sources": [
+    "saudicon"
+   ],
+   "id": "beb4207a64fa",
+   "domain": "industry",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "SAJEX",
