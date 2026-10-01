@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 329,
+ "count": 337,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -549,11 +549,12 @@
    "start": "2026-09-30",
    "end": "2026-10-24",
    "sources": [
-    "platinumlist"
+    "platinumlist",
+    "factmagazines"
    ],
    "id": "eca78c1aad34",
    "domain": "entertainment",
-   "description": "",
+   "description": "Cirque du Liban's Fontana Circus continues its Riyadh residency at Al Nakheel Mall with daily shows. The touring water-circus spectacular performs daily through its October run.",
    "added_at": "2026-09-27",
    "image": "https://curlytales.com/wp-content/uploads/2024/09/Fontana-Circus-1.jpg"
   },
@@ -1012,6 +1013,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://cdn.platinumlist.net/upload/banner/25690_54fb9b501fd76c044b4b46498e0b33e2-0-en1788525757.jpg"
+  },
+  {
+   "title": "Desert Sounds: Indira Paganotto",
+   "city": "Riyadh",
+   "venue": "Riyadh Golf Club, Riyadh",
+   "category": "concert",
+   "price": "From SAR 300",
+   "url": "https://riyadh.platinumlist.net",
+   "organizer": "Desert Sounds",
+   "start": "2026-10-02",
+   "end": "2026-10-02",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "9a127fac8d3a",
+   "domain": "entertainment",
+   "description": "Desert Sounds returns to Riyadh Golf Club for another open-air electronic music experience. Spanish DJ and producer Indira Paganotto headlines the evening with her high-energy sound.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "FAWERHA",
@@ -1545,6 +1564,24 @@
    "image": "https://kalamalqahira.com/app/uploads//2025/09/IMG_7116.jpeg"
   },
   {
+   "title": "Ahmed Amin Live in Riyadh",
+   "city": "Riyadh",
+   "venue": "InterContinental Riyadh, King Saud Road, Al Mutamarat, Riyadh",
+   "category": "comedy",
+   "price": "From SAR 300",
+   "url": "https://riyadh.platinumlist.net",
+   "organizer": "",
+   "start": "2026-10-08",
+   "end": "2026-10-08",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "55700d3225fe",
+   "domain": "entertainment",
+   "description": "Egyptian actor and comedian Ahmed Amin takes centre stage at InterContinental Riyadh for a one-night-only stand-up show, bringing observational comedy and clever social commentary from his television and digital work.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "HR World Summit 2026",
    "city": "Riyadh",
    "venue": "Riyadh Marriott Hotel",
@@ -1655,6 +1692,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://cairoscene.com/Content/Admin/Uploads/Articles/ArticlesMainPhotoThumbnail/1170052/1b11622f-b171-40c2-8149-f0ec8da8f2a9.jpg"
+  },
+  {
+   "title": "IN ACT Riyadh",
+   "city": "Riyadh",
+   "venue": "Plot K, JAX District, Diriyah, Riyadh",
+   "category": "concert",
+   "price": "From SAR 250",
+   "url": "https://riyadh.platinumlist.net",
+   "organizer": "IN ACT",
+   "start": "2026-10-09",
+   "end": "2026-10-09",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "32adc5c08061",
+   "domain": "entertainment",
+   "description": "An underground electronic music night from IN ACT takes over Plot K in the creative JAX District for an all-night journey through cutting-edge sound, headlined by international techno artist Innellea alongside melodic house producer Rafael Cerato and local Saudi favourites.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Alkhobar",
@@ -1915,6 +1970,24 @@
    "id": "8d50f2c86a45",
    "domain": "industry",
    "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Jewels of the World 2026",
+   "city": "Riyadh",
+   "venue": "Mandarin Oriental Al Faisaliah, Al Olaya, Riyadh",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://jowsaudi.com",
+   "organizer": "",
+   "start": "2026-10-11",
+   "end": "2026-10-15",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "96ad97ee2c7e",
+   "domain": "business",
+   "description": "Jewels of the World returns to Mandarin Oriental Al Faisaliah for its autumn edition. The prestigious showcase gathers around 100 international jewellery houses under one roof, open daily from 4pm to 11pm.",
    "added_at": "2026-09-27"
   },
   {
@@ -2450,6 +2523,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://d18qjk21m0yx5q.cloudfront.net/wp-content/uploads/2025/09/si_article_builder_3807282564.png"
+  },
+  {
+   "title": "Riyadh Fashion Week 2026",
+   "city": "Riyadh",
+   "venue": "Various locations across Riyadh",
+   "category": "festival",
+   "price": "TBA",
+   "url": "",
+   "organizer": "Saudi Fashion Commission",
+   "start": "2026-10-15",
+   "end": "2026-10-20",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "635e15d6f2a3",
+   "domain": "entertainment",
+   "description": "Riyadh Fashion Week returns for its fourth edition, placing Saudi style firmly in the spotlight. Organised by the Saudi Fashion Commission under the Ministry of Culture, the multi-day event showcases designers from across the Kingdom at various locations across Riyadh.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Al Ittihad x Al Hilal",
@@ -3081,6 +3172,24 @@
    "image": "https://sahmnews.com.sa/wp-content/uploads/2024/10/IMG-20241020-WA0117-1-1024x672.jpg"
   },
   {
+   "title": "The Art of Butterfly Preservation",
+   "city": "Riyadh",
+   "venue": "FoodSphere, Prince Muhammad Ibn Abd Al Aziz Road, Riyadh",
+   "category": "workshop",
+   "price": "TBA",
+   "url": "https://www.riyadhoases.com",
+   "organizer": "FoodSphere",
+   "start": "2026-10-21",
+   "end": "2026-10-28",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "258423d6dfec",
+   "domain": "business",
+   "description": "Led by nature-inspired artist Khalid AlSowayan, this hands-on workshop begins with a visit to the Butterfly Dome, where participants learn the art of butterfly preservation. Sessions run daily from 6pm to 8pm at FoodSphere.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Feena Nehke? Stand Up Comedy by John Achkar in Riyadh",
    "city": "Riyadh",
    "venue": "Riyadh Schools Theater",
@@ -3098,6 +3207,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://cdn.platinumlist.net/upload/event/promo/70825_upload6a4204667f8a5_1782711398-0-en1782711414.jpg"
+  },
+  {
+   "title": "John Achkar: Feena Nehke?",
+   "city": "Riyadh",
+   "venue": "Riyadh Schools Theater, An Namudhajiyah, Riyadh",
+   "category": "comedy",
+   "price": "TBA",
+   "url": "https://riyadh.platinumlist.net",
+   "organizer": "",
+   "start": "2026-10-22",
+   "end": "2026-10-22",
+   "sources": [
+    "factmagazines"
+   ],
+   "id": "911df5f35cfb",
+   "domain": "entertainment",
+   "description": "Lebanese comedian John Achkar returns to the stage with Feena Nehke? (Can We Talk?), an Arabic stand-up show that turns everyday anxieties into comedy and explores identity in one of his most personal productions.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Lahd Yadri: Stand Up Comedy Special by Osama Bazaid in Jeddah",
@@ -5505,6 +5632,24 @@
    "description": "The region's biggest music festival returns to Riyadh, transforming Banban into a desert playground of music, lights and late-night energy with international superstars, regional favourites and local talent across multiple stages; tickets from SAR 269, lineup TBA.",
    "added_at": "2026-09-27",
    "image": "https://static.pollstar.com/wp-content/uploads/2025/04/Soundstorm-Festival-MDLBEAST.jpg"
+  },
+  {
+   "title": "Candlelight: The Best of Chopin",
+   "city": "Riyadh",
+   "venue": "Bab Samhan",
+   "category": "concert",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/candlelight-أفضل-أعمال-شوبان/2700030389295",
+   "organizer": "Candlelight",
+   "start": "2026-12-04",
+   "end": "2026-12-04",
+   "sources": [
+    "allevents"
+   ],
+   "id": "e3acaf980629",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
   },
   {
    "title": "Candlelight: The Best of Hans Zimmer",
