@@ -1407,8 +1407,9 @@
    ],
    "id": "07963b572438",
    "domain": "entertainment",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "An hour of spoken Saudi Arabic, built for people starting from zero. No grammar drills, no textbook — just the phrases you would actually use, practised out loud with people doing the same. Free to attend, but please register so we know to expect you.",
+   "added_at": "2026-09-27",
+   "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=420/event-social/n9/7728b2c0-2e64-4a21-a885-b0337f1d980b.png"
   },
   {
    "title": "VCs across the Globe | In person - Online | Jeddah",
@@ -1452,11 +1453,11 @@
   {
    "title": "Energy Hackathon 2026",
    "city": "Riyadh",
-   "venue": "",
+   "venue": "Riyadh Front Exhibition & Conference Center",
    "category": "meetup",
    "price": "Free",
    "url": "https://www.saudiarabiapr.com/business-news/193582-ministry-of-energy-launches-first-energy-hackathon-ahead-of-25th-wpc-energy-cong",
-   "organizer": null,
+   "organizer": "Ministry of Energy",
    "start": "2026-10-07",
    "end": "2026-10-13",
    "sources": [
@@ -1464,7 +1465,7 @@
    ],
    "id": "9def74b7752d",
    "domain": "energy",
-   "description": "",
+   "description": "The Ministry of Energy's first Energy Hackathon, held in the lead-up to the 25th WPC Energy Congress. It tackles six challenges across three tracks — operational efficiency, transformative innovation and intelligent control — with expert-led workshops, mentoring sessions and prototype judging; winners are honoured at the Congress closing ceremony.",
    "added_at": "2026-09-27",
    "image": "https://al-hadath.com/photos/shares/0000000jpg/693df1e67018e.jpeg"
   },
@@ -1483,7 +1484,7 @@
    ],
    "id": "c5b990580bb6",
    "domain": "security",
-   "description": "",
+   "description": "The GCF Annual Meeting 2026 convenes global leaders, decision-makers and experts to advance systems-led, institutional collaboration on critical cyberspace issues, including the announcement of the Women in Cyber Awards winners.",
    "added_at": "2026-09-27"
   },
   {
@@ -1521,7 +1522,7 @@
    ],
    "id": "f8e8009caab0",
    "domain": "retail",
-   "description": "",
+   "description": "Saudi Arabia's B2B retail innovation summit focusing on retail technology, e-commerce, AI analytics and supply-chain solutions.",
    "added_at": "2026-09-27",
    "image": "https://www.expocaptive.com/wp-content/uploads/2026/08/Retail-Show-Saudi.png"
   },
@@ -1532,7 +1533,7 @@
    "category": "conference",
    "price": "From SAR 5,750",
    "url": "http://mail.eyeofriyadh.com/events/details/saudi-procurement-conference-2026",
-   "organizer": null,
+   "organizer": "Gulf Forums",
    "start": "2026-10-07",
    "end": "2026-10-08",
    "sources": [
@@ -1541,7 +1542,7 @@
    ],
    "id": "409033d89898",
    "domain": "legal",
-   "description": "",
+   "description": "The Saudi Procurement Conference brings together professionals and experts from around the world with diverse fields to present the latest innovations and technologies, discuss the industry challenges, introduce new solutions and generate business opportunities between all participants.",
    "added_at": "2026-09-27"
   },
   {
