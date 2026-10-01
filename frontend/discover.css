@@ -193,6 +193,82 @@
   .dpill.today{animation:none}
 }
 
+/* ---------- cold-start skeletons ---------- */
+@keyframes skshimmer{to{background-position:-200% 0}}
+.skel{background:linear-gradient(110deg,#101013 35%,#1e1e24 50%,#101013 65%) !important;
+  background-size:200% 100% !important;animation:skshimmer 1.5s linear infinite;border:0 !important}
+.skel:before,.skel:after{display:none !important}
+.mz-tile.skel{min-height:172px;cursor:default}
+.mz-tile.skel.hero{min-height:252px}
+.skel-row{display:flex;gap:12px;align-items:center;padding:11px 2px;border-bottom:1px solid var(--line)}
+.skel-row .b{border-radius:12px}
+.skel-th{width:88px;height:88px;border-radius:14px;flex:none}
+.skel-lines{flex:1;display:flex;flex-direction:column;gap:8px}
+.skel-bar{height:13px;border-radius:7px}
+.dst.skel-full{background:linear-gradient(110deg,#0c0c0e 35%,#1a1a1f 50%,#0c0c0e 65%) !important;
+  background-size:200% 100% !important;animation:skshimmer 1.5s linear infinite}
+.wake-note{display:none;margin:26px auto 8px;max-width:340px;text-align:center;font-size:13px;line-height:1.6;
+  color:var(--muted);background:rgba(217,164,65,.07);border:1px solid rgba(217,164,65,.25);
+  padding:13px 18px;border-radius:16px}
+.wake-note b{color:var(--gold);display:block;margin-bottom:3px;font-size:13.5px}
+#view-discover.waking .wake-note{display:block}
+@media (prefers-reduced-motion:reduce){.skel,.dst.skel-full{animation:none}}
+
+/* ---------- NEW badge (added in last 72h) ---------- */
+.dnew{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.09em;color:#1a1206;
+  background:linear-gradient(135deg,#f0c96a,#d9a441);padding:3px 8px;border-radius:999px;
+  text-transform:uppercase;margin-left:7px;vertical-align:2px;white-space:nowrap}
+
+/* ---------- filter button + drawer ---------- */
+#dsc-filter{flex:0 0 auto !important;position:relative;display:flex;align-items:center;justify-content:center;
+  width:38px;padding:9px 0 !important}
+#dsc-filter .fdot{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;
+  background:var(--gold);display:none;box-shadow:0 0 8px rgba(217,164,65,.9)}
+#dsc-filter.active{border-color:var(--gold);color:var(--gold)}
+#dsc-filter.active .fdot{display:block}
+#dsc-drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:900;opacity:1;transition:opacity .25s}
+#dsc-drawer-bg.hidden{opacity:0;pointer-events:none;display:block !important}
+#dsc-drawer{position:fixed;left:0;right:0;bottom:0;z-index:901;background:#131316;
+  border-top:1px solid var(--line);border-radius:22px 22px 0 0;
+  padding:6px 20px calc(20px + env(safe-area-inset-bottom));max-height:76dvh;overflow-y:auto;
+  transform:translateY(0);transition:transform .32s var(--spring);box-shadow:0 -18px 60px rgba(0,0,0,.6)}
+#dsc-drawer.hidden{transform:translateY(105%);display:block !important;pointer-events:none}
+.dr-grip{width:42px;height:4px;border-radius:99px;background:#3a3a3e;margin:8px auto 4px}
+.dr-head{display:flex;align-items:center;justify-content:space-between;padding:8px 0 4px}
+.dr-head b{font-size:17px;letter-spacing:-.01em}
+.dr-head span{display:flex;align-items:center;gap:14px}
+.dr-x{border:1px solid var(--line);background:var(--surface);color:var(--text);width:32px;height:32px;
+  border-radius:50%;font-size:14px;cursor:pointer}
+.dr-sec{margin:14px 0}
+.dr-label{display:block;font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--muted);
+  text-transform:uppercase;margin-bottom:9px}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:transparent;color:var(--muted);font-family:var(--font);
+  font-size:12.5px;font-weight:700;padding:9px 4px;border-radius:10px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--gold);color:var(--gold-ink)}
+#dsc-drawer .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+#dsc-drawer .chips::-webkit-scrollbar{display:none}
+#dsc-drawer .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700;font-family:var(--font);
+  cursor:pointer;white-space:nowrap}
+#dsc-drawer .chip.on{background:rgba(217,164,65,.16);border-color:var(--gold);color:var(--gold)}
+.dr-count{margin:16px 0 4px;text-align:center;font-size:12.5px;color:var(--muted)}
+.dr-count b{color:var(--gold)}
+@media (min-width:720px){
+  #dsc-drawer{left:50%;right:auto;bottom:50%;transform:translate(-50%,50%);width:440px;border-radius:22px;
+    border:1px solid var(--line);max-height:80dvh}
+  #dsc-drawer.hidden{transform:translate(-50%,58%)}
+}
+
+/* ---------- map: near-me button + distance ---------- */
+#dmap-nearme{position:absolute;right:14px;bottom:16px;z-index:800;width:46px;height:46px;border-radius:50%;
+  border:1px solid rgba(217,164,65,.55);background:rgba(18,18,20,.92);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#dmap-nearme:active{transform:scale(.93)}
+.dmap-card .cbd .dist{color:var(--gold);font-weight:700}
+@media (min-width:1080px){#dmap-nearme{bottom:20px}}
+
 /* tile attribution: tiny and quiet on the dark map */
 #dmap .leaflet-control-attribution{font-size:9px;line-height:1.4;padding:1px 6px;
   background:rgba(8,8,10,.55);color:#77777f;border-radius:8px 0 0 0}

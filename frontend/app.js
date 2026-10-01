@@ -156,6 +156,26 @@ function toast(msg){
 let booted = false;
 async function boot(){
   if(booted) return; booted = true;
+  const deep = location.hash.match(/#e=([\w-]+)/);
+  /* cold start: render the app shell immediately so the user sees skeletons,
+     not a blank screen, while /api/events wakes up (~30-60s after idle) */
+  const earlyPrefs = !deep && ((prefs.cities && prefs.cities.length) || (prefs.interests && prefs.interests.length));
+  let wired = false;
+  const wireAll = () => {
+    if(wired) return; wired = true;
+    wireGlobal();
+    wireOnboard(); wireDeck(); wireList(); wireSaved(); wireSheet(); wireMap(); wirePWA();
+    state.cities = prefs.cities || [];
+    state.interests = prefs.interests || [];
+    state.domains = prefs.domains || [];
+  };
+  if(earlyPrefs){
+    wireAll();
+    window.__twsLoading = true;
+    enterDeck(true); // panes render shimmer skeletons until data arrives
+  } else if(!deep){
+    showView('view-onboard'); // static shell now; cities populate when meta arrives
+  }
   try{
     const [er, mr] = await Promise.all([
       fetch('/api/events?limit=2000'),
@@ -200,23 +220,22 @@ async function boot(){
     });
   }catch(e){
     toast('Could not load events — check your connection.');
+    window.__twsLoading = false;
+    window.__twsLoadError = true;
+    if(window.__twsDiscoverReady) window.__twsDiscoverReady();
     return;
   }
-  state.cities = prefs.cities || [];
-  state.interests = prefs.interests || [];
-  state.domains = prefs.domains || [];
+  wireAll();
   const hasPrefs = (prefs.cities && prefs.cities.length) || (prefs.interests && prefs.interests.length);
-  wireGlobal();
-  wireOnboard(); wireDeck(); wireList(); wireSaved(); wireSheet(); wireMap(); wirePWA();
-  const deep = location.hash.match(/#e=([\w-]+)/);
-  if(deep){
+  if(window.__twsLoading && window.__twsDiscoverReady){
+    window.__twsDiscoverReady(); // swap skeletons for real panes
+  } else if(deep){
     const ev = state.events.find(e => e.id === deep[1]);
     enterDeck(true);
     if(ev) openDetail(ev, 'deck');
   } else if(hasPrefs){
     enterDeck(true);
   } else {
-    showView('view-onboard');
     initOnboard();
   }
   bootPush();
@@ -905,25 +924,40 @@ function wireSheet(){
     if(dy > 110) history.back();
   });
 }
-function downloadICS(ev){
-  const dt = s => { const d = new Date(s); return isNaN(d) ? null :
-    d.getUTCFullYear() + String(d.getUTCMonth()+1).padStart(2,'0') + String(d.getUTCDate()).padStart(2,'0') + 'T' +
-    String(d.getUTCHours()).padStart(2,'0') + String(d.getUTCMinutes()).padStart(2,'0') + '00Z'; };
-  const ds = dt(ev.date_start), de = dt(ev.date_end) || ds;
-  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ThisWeekSaudi//EN','BEGIN:VEVENT',
+const icsDT = s => { const d = new Date(s); return isNaN(d) ? null :
+  d.getUTCFullYear() + String(d.getUTCMonth()+1).padStart(2,'0') + String(d.getUTCDate()).padStart(2,'0') + 'T' +
+  String(d.getUTCHours()).padStart(2,'0') + String(d.getUTCMinutes()).padStart(2,'0') + '00Z'; };
+const icsEsc = s => String(s == null ? '' : s).replace(/[,;\\]/g, ' ');
+function eventICS(ev){
+  const ds = icsDT(ev.date_start), de = icsDT(ev.date_end) || ds;
+  return ['BEGIN:VEVENT',
     'UID:' + ev.id + '@thisweeksaudi',
-    'DTSTAMP:' + dt(new Date().toISOString()),
+    'DTSTAMP:' + icsDT(new Date().toISOString()),
     ds ? 'DTSTART:' + ds : null, de ? 'DTEND:' + de : null,
-    'SUMMARY:' + String(ev.title||'').replace(/[,;]/g,' '),
-    'LOCATION:' + String((ev.venue||'') + ', ' + (ev.city||'')).replace(/[,;]/g,' '),
-    'DESCRIPTION:' + String(ev.reg_url || ev.source_url || ev.url || '').replace(/[,;]/g,' '),
-    'END:VEVENT','END:VCALENDAR'].filter(Boolean).join('\r\n');
+    'SUMMARY:' + icsEsc(ev.title),
+    'LOCATION:' + icsEsc((ev.venue||'') + (ev.city ? ', ' + ev.city : '')),
+    'DESCRIPTION:' + icsEsc(ev.reg_url || ev.source_url || ev.url || ''),
+    'END:VEVENT'].filter(Boolean).join('\r\n');
+}
+function downloadICSFile(name, body){
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
-  a.download = 'event-' + ev.id + '.ics';
+  a.href = URL.createObjectURL(new Blob([body], {type:'text/calendar'}));
+  a.download = name;
   document.body.appendChild(a); a.click(); a.remove();
+}
+function downloadICS(ev){
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ThisWeekSaudi//EN', eventICS(ev), 'END:VCALENDAR'].join('\r\n');
+  downloadICSFile('event-' + ev.id + '.ics', ics);
   beacon('ics', {id: ev.id});
   toast('Calendar file downloaded');
+}
+/* export the whole saved list as one calendar file — the itinerary builder */
+function downloadICSList(evs){
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ThisWeekSaudi//EN']
+    .concat(evs.map(eventICS)).concat(['END:VCALENDAR']).join('\r\n');
+  downloadICSFile('thisweeksaudi-saved.ics', ics);
+  beacon('ics', {id: 'saved-all', n: evs.length});
+  toast('Calendar file downloaded — ' + evs.length + ' events');
 }
 async function shareEvent(ev){
   const url = location.origin + location.pathname + '#e=' + ev.id;
@@ -1136,7 +1170,20 @@ function renderSaved(q){
     box.innerHTML = '<div class="ev-empty">' + (ql ? 'Nothing saved matches.' : 'Nothing saved yet.<br>Swipe right or tap the heart on anything you like.') + '</div>';
     return;
   }
-  box.innerHTML = list.map((ev,i) => savedRow(ev, i)).join('');
+  /* group by day — the saved list becomes a day-by-day itinerary */
+  const groups = {};
+  list.forEach(ev => { const d = (ev.date_start||'').slice(0,10) || 'nodate'; (groups[d] = groups[d] || []).push(ev); });
+  const days = Object.keys(groups).sort();
+  let html = '<div class="sv-tools"><button class="btn-gold" id="saved-export-all">Export all (.ics)</button></div>';
+  let i = 0;
+  days.forEach(d => {
+    const gevs = groups[d];
+    const head = d === 'nodate' ? 'Date TBA'
+      : esc(niceDate(gevs[0])) + (relDayLabel(gevs[0]) ? ' · ' + relDayLabel(gevs[0]) : '');
+    html += '<div class="sv-day">' + head + '</div>' + gevs.map(ev => savedRow(ev, i++)).join('');
+  });
+  box.innerHTML = html;
+  $('#saved-export-all', box).addEventListener('click', () => downloadICSList(list));
   wireRows(box, 'saved');
   $$('[data-unsave]', box).forEach(b => b.addEventListener('click', async e => {
     e.stopPropagation();
@@ -1452,8 +1499,8 @@ function wireGlobal(){
 
 /* public surface for discover.js (4-pane home) — everything it needs, nothing more */
 window.TWS = {
-  $, $$, esc, state, storeGet, storeSet,
-  dstr, localISO, datePill, niceDate, fmtPrice,
+  $, $$, esc, state, storeGet, storeSet, toast,
+  dstr, localISO, datePill, niceDate, fmtPrice, catLabel,
   filteredEvents, rankedEvents, weekendRange,
   openDetail, toggleSave, buildDeck, buildList, navTo, showView,
   geocode, reduceMotion, beacon, decide, topCard,

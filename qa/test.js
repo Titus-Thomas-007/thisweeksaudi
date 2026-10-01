@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v4', sw.includes("const V = 'tws-v4'"));
+  check('SW cache version bumped to tws-v5', sw.includes("const V = 'tws-v5'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -34,6 +34,9 @@ function check(name, ok, detail) {
   const html = fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8');
   const rawEvents = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'events.json'), 'utf8'));
   const events = Array.isArray(rawEvents) ? rawEvents : rawEvents.events;
+  // seed added_at to today so the 72h NEW badge renders on every tile in this run
+  const todayISO = new Date().toISOString().slice(0, 10);
+  events.forEach(e => { e.added_at = todayISO; });
   const dom = new JSDOM(html, { url: 'https://thisweeksaudi.onrender.com/', runScripts: 'outside-only', pretendToBeVisual: true });
   const { window } = dom;
 
@@ -144,8 +147,8 @@ function check(name, ok, detail) {
   const startBtn = $('#aha-go');
   if (startBtn) { startBtn.click(); await new Promise(r => setTimeout(r, 700)); }
   check('discover view reached', $('#view-discover').classList.contains('active'));
-  check('view switcher has 4 views (deck removed)', $$('#dsc-switch button').length === 4,
-    'found ' + $$('#dsc-switch button').length);
+  check('view switcher has 4 views (deck removed)', $$('#dsc-switch button[data-v]').length === 4,
+    'found ' + $$('#dsc-switch button[data-v]').length);
   check('deck header moved into discover', !!$('#dsc-head-slot .deck-nav'), 'deck-nav missing');
 
   // ---- 3a. mosaic: tiles, hero, every tile has an image layer ----
@@ -232,7 +235,7 @@ function check(name, ok, detail) {
     /could not load/i.test($('#dmap-status').textContent), $('#dmap-status').textContent);
 
   // ---- 3e. deck view removed from switcher (owner request 2026-09-30) ----
-  const tabIds = $$('#dsc-switch button').map(b => b.dataset.v);
+  const tabIds = $$('#dsc-switch button[data-v]').map(b => b.dataset.v);
   check('switcher has exactly 4 tabs', tabIds.length === 4, tabIds.join(','));
   check('switcher tabs are mosaic/week/map/stories (no deck)',
     ['mosaic','week','map','stories'].every(v => tabIds.includes(v)) && !tabIds.includes('deck'),
@@ -260,6 +263,72 @@ function check(name, ok, detail) {
     !dscSrc.includes('.flyTo('));
   check('fitBounds skipped after user touch or user-centering',
     dscSrc.includes('!DSC.touched') && dscSrc.includes('!DSC.userCentered'));
+
+  // ---- 3h. cold-start skeleton path (source-level: jsdom boots with instant fetch) ----
+  check('boot renders shell before fetch resolves (skeleton path)',
+    appSrc0.includes('__twsLoading') && appSrc0.includes('enterDeck(true); // panes render shimmer skeletons'));
+  check('discover exposes ready() to swap skeletons for real panes',
+    dscSrc.includes('__twsDiscoverReady') && dscSrc.includes('skelMosaicHTML') &&
+    dscSrc.includes('skelWeekHTML') && dscSrc.includes('skel-full'));
+  check('skeleton shows warm "waking up" message', dscSrc.includes('Waking up the server'));
+  check('failed load shows retry state (not endless skeletons)',
+    dscSrc.includes('__twsLoadError') && dscSrc.includes('loadErrorHTML'));
+
+  // ---- 3i. NEW badge (72h from added_at) ----
+  check('new-badge helper uses 72h window on added_at',
+    /72 \* 3600 \* 1000/.test(dscSrc) && dscSrc.includes('newBadgeHTML'));
+  check('mosaic tiles render NEW badges', $$('#dp-mosaic .dnew').length > 0,
+    'no .dnew in mosaic (added_at seeded to today in harness)');
+  check('week rows render NEW badges', $$('#dp-week .dnew').length > 0, 'no .dnew in week');
+
+  // ---- 3j. filter drawer ----
+  check('filter button present in switcher', !!$('#dsc-filter'), 'missing');
+  $('#dsc-filter').click();
+  await new Promise(r => setTimeout(r, 100));
+  check('filter button opens drawer', !$('#dsc-drawer').classList.contains('hidden'), 'drawer stayed hidden');
+  check('drawer has price/date/category/city sections',
+    !!$('#dr-price') && !!$('#dr-date') && !!$('#dr-cats') && !!$('#dr-cities'), 'section missing');
+  $('#dsc-drawer [data-fp="free"]').click();
+  await new Promise(r => setTimeout(r, 100));
+  check('applying a filter marks the button active', $('#dsc-filter').classList.contains('active'), 'not active');
+  check('drawer shows match count', /match/.test($('#dr-count').textContent), $('#dr-count').textContent);
+  $('#dr-clear').click();
+  await new Promise(r => setTimeout(r, 100));
+  check('clear-all resets the filter button', !$('#dsc-filter').classList.contains('active'), 'still active');
+  $('#dr-close').click();
+  await new Promise(r => setTimeout(r, 100));
+  check('drawer closes', $('#dsc-drawer').classList.contains('hidden'), 'drawer stayed open');
+
+  // ---- 3k. stories swipe gestures (source-level) ----
+  check('stories has touch swipe handlers',
+    dscSrc.includes("addEventListener('touchstart'") && dscSrc.includes("addEventListener('touchend'"));
+  check('horizontal swipe moves between stories',
+    dscSrc.includes('cur.nextElementSibling') && dscSrc.includes('previousElementSibling'), 'nav missing');
+  check('swipe-down at first story returns to Mosaic',
+    /wrap\.scrollTop <= 4/.test(dscSrc) && dscSrc.includes("setDView('mosaic')"), 'dismiss missing');
+
+  // ---- 3l. map: near-me button ----
+  check('map has near-me button', !!$('#dmap-nearme'), 'missing');
+  check('near-me re-centers on user location (no auto-open of details)',
+    dscSrc.includes("$('#dmap-nearme')") && dscSrc.includes('setView(DSC.userLL, 13)') &&
+    !/nearme[\s\S]{0,400}openDetail/.test(dscSrc), 'auto-open or missing');
+  check('map cards show distance when location known', dscSrc.includes('km away'));
+
+  // ---- 3m. saved: day-grouped itinerary + export-all ----
+  const svBtn = $('#dsc-switch [data-v="mosaic"]'); // ensure we're on discover home
+  if(svBtn) svBtn.click();
+  await new Promise(r => setTimeout(r, 200));
+  const mzSave2 = $('#dp-mosaic [data-save]');
+  if(mzSave2 && !mzSave2.classList.contains('saved')) mzSave2.click();
+  await new Promise(r => setTimeout(r, 200));
+  $('#btn-saved').click();
+  await new Promise(r => setTimeout(r, 300));
+  check('saved view reached', $('#view-saved').classList.contains('active'));
+  check('saved events grouped by day', $$('#saved-list .sv-day').length > 0, 'no day groups');
+  check('saved has export-all (.ics) button', !!$('#saved-export-all'), 'missing');
+  check('ics builder supports multi-event export', appSrc0.includes('function downloadICSList('));
+  window.history.back();
+  await new Promise(r => setTimeout(r, 300));
 
   // ---- 3f. countdown pills on deck cards ----
   const pills = $$('#deck-zone .card-date-pill').map(p => p.textContent);
