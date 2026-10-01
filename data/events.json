@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 338,
+ "count": 342,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -2014,6 +2014,24 @@
    "image": "https://bunny-wp-pullzone-bykgmamdur.b-cdn.net/wp-content/uploads/2026/06/Jewels-of-the-World_Riyadh_12-scaled.jpg"
   },
   {
+   "title": "Metalflow Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://prolines.sa/events/",
+   "organizer": "",
+   "start": "2026-10-11",
+   "end": "2026-10-14",
+   "sources": [
+    "prolines"
+   ],
+   "id": "705bcce603b7",
+   "domain": "industry",
+   "description": "Metal processing, steel, fabrication, machinery, production technologies, and industrial solutions.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "RSL 26/27 - Abha vs Al Faisaly",
    "city": "Khamis Mushait",
    "venue": "",
@@ -3690,6 +3708,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Routes World 2026",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://prolines.sa/events/",
+   "organizer": "",
+   "start": "2026-10-27",
+   "end": "2026-10-29",
+   "sources": [
+    "prolines"
+   ],
+   "id": "1909e9e54a06",
+   "domain": "logistics",
+   "description": "Global aviation route development event bringing together airlines, airports, tourism authorities, and aviation professionals.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "15th Middle East Enterprise AI & Analytics Summit",
    "city": "Riyadh",
    "venue": "Radisson Blu Hotel & Convention Center, Riyadh Minhal",
@@ -3891,6 +3927,24 @@
    "description": "",
    "added_at": "2026-09-27",
    "image": "https://resources.saudi-pro-league.pulselive.com/saudi-pro-league/photo/2026/02/13/f60c0a7a-d017-488d-a04d-2e56179ab19d/1000309466.jpg"
+  },
+  {
+   "title": "Mexico vs. The World: Canelo Alvarez vs Christian Mbilli",
+   "city": "Riyadh",
+   "venue": "The Venue, Riyadh",
+   "category": "sports",
+   "price": "From SAR 50",
+   "url": "https://www.listmag.com/en/see-do/events-entertainment/unmissable-events-already-confirmed-for-riyadh-season-3741",
+   "organizer": "General Entertainment Authority",
+   "start": "2026-10-31",
+   "end": "2026-10-31",
+   "sources": [
+    "listmag"
+   ],
+   "id": "eeea6439af7f",
+   "domain": "sportsbiz",
+   "description": "Riyadh Season brings a blockbuster night of elite boxing to The Venue on October 31, 2026, headlined by 'Mexico vs. The World'. In the main event, pound-for-pound icon Canelo Álvarez takes on undefeated Cameroonian-Canadian power-puncher Christian Mbilli.",
+   "added_at": "2026-09-27"
   },
   {
    "title": "RSL 26/27 - Al Taawoun vs Al Ettifaq",
@@ -4721,6 +4775,24 @@
    "id": "a463c2c37d06",
    "domain": "build",
    "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Saudi International Medlab Expo",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://prolines.sa/events/",
+   "organizer": "",
+   "start": "2026-11-12",
+   "end": "2026-11-14",
+   "sources": [
+    "prolines"
+   ],
+   "id": "31c12908b105",
+   "domain": "health",
+   "description": "Laboratory medicine, diagnostics, medical laboratory equipment, healthcare technology, and clinical solutions.",
    "added_at": "2026-09-27"
   },
   {
