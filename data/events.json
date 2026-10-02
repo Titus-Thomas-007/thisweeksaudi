@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 342,
+ "count": 346,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -4210,6 +4210,24 @@
    "image": "https://cdn.gccbusinessnews.com/wp-content/uploads/2025/11/08102625/Jewelry-Salon-2025-in-Riyadh.jpg"
   },
   {
+   "title": "نهائي كاس السودان المحلي",
+   "city": "Riyadh",
+   "venue": "",
+   "category": "sports",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/نهائي-كاس-السودان-المحلي/200030219598736",
+   "organizer": "",
+   "start": "2026-11-04",
+   "end": "2026-11-04",
+   "sources": [
+    "allevents"
+   ],
+   "id": "97a39c9a09d9",
+   "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "5th Scientific Academy of Aesthetic Medicine Conference and Exhibition",
    "city": "Riyadh",
    "venue": "Fairmont Riyadh",
@@ -6298,6 +6316,42 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "The 2th ABC&MOM EXPO Saudi Arabia",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/the-2th-abcandmom-expo-saudi-arabia/200029936065153",
+   "organizer": "",
+   "start": "2026-12-20",
+   "end": "2026-12-20",
+   "sources": [
+    "allevents"
+   ],
+   "id": "b8a2d514d3fd",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "The 2th DEFU EXPO SAUDI ARABIA",
+   "city": "Riyadh",
+   "venue": "Riyadh Front Exhibition & Conference Center",
+   "category": "expo",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/the-2th-defu-expo-saudi-arabia/200029881273607",
+   "organizer": "",
+   "start": "2026-12-20",
+   "end": "2026-12-20",
+   "sources": [
+    "allevents"
+   ],
+   "id": "b24f18fc084c",
+   "domain": "business",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "Next Generation IoT Expo 2026",
    "city": "Riyadh",
    "venue": "Riyadh International Convention & Exhibition Center",
@@ -6348,6 +6402,24 @@
    ],
    "id": "e1713bb84fa6",
    "domain": "entertainment",
+   "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "Mercado Fam, New Year Eve Party",
+   "city": "Riyadh",
+   "venue": "Al Faisaliah",
+   "category": "other",
+   "price": "TBA",
+   "url": "https://allevents.in/riyadh/mercado-famnew-year-eve-party/200030413745745",
+   "organizer": "",
+   "start": "2026-12-31",
+   "end": "2026-12-31",
+   "sources": [
+    "allevents"
+   ],
+   "id": "edeb5527e334",
+   "domain": "business",
    "description": "",
    "added_at": "2026-09-27"
   }
