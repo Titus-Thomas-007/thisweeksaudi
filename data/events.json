@@ -2202,8 +2202,9 @@
    ],
    "id": "41becc502a95",
    "domain": "tech",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "ISA Saudi Automation Conference 2026 — \"Autonomous: Vision to Reality.\" Join 12–14 Oct at Kempinski Al Othman Hotel, Al Khobar, KSA. Automation, ICS security & data analytics.",
+   "added_at": "2026-09-27",
+   "image": "https://framerusercontent.com/images/spSNZCVHS5Es9BiyBOgVoMu5MbI.png"
   },
   {
    "title": "Industrial Special Welding Applications",
@@ -2240,7 +2241,8 @@
    "id": "26af174906fc",
    "domain": "gov",
    "description": "",
-   "added_at": "2026-09-27"
+   "added_at": "2026-09-27",
+   "image": "https://www.eyeofriyadh.com/events/events_images/2026/08/16ca96c1d5ea4.jpg"
   },
   {
    "title": "Saudi International Pharma Expo",
@@ -2264,7 +2266,7 @@
   {
    "title": "Global Industrial Waste to Value Expo 2026",
    "city": "Dammam",
-   "venue": "",
+   "venue": "Dhahran Expo, Khobar",
    "category": "expo",
    "price": "Free",
    "url": "https://www.tradefairdates.com/Global-Industrial-Waste-to-Value-Expo-M6575/Dammam.html",
@@ -2276,7 +2278,7 @@
    ],
    "id": "b774398fa0ac",
    "domain": "sustain",
-   "description": "",
+   "description": "Trade fair for industrial circular economy, resource recovery, and waste-to-value technologies",
    "added_at": "2026-09-27"
   },
   {
