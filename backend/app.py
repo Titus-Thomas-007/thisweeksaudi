@@ -361,7 +361,7 @@ def analytics(b: Beacon):
     if b.type not in {"view", "save", "unsave", "register", "share",
                       "search", "undo", "report", "remind", "jserror",
                       "pageview", "swipe", "detail", "ics", "map_open", "map_plot",
-                      "dview", "dfilter", "nearme", "dmap_plot"}:
+                      "dview", "dfilter", "nearme", "dmap_plot", "plan_share"}:
         raise HTTPException(400, "bad beacon type")
     with _db_lock, db() as con:
         con.execute("INSERT INTO analytics(ts,type,ref,meta) VALUES(?,?,?,?)",
@@ -577,6 +577,116 @@ def event_page(event_id: str):
 <p>{esc_d}</p>
 <p><a href={deeplink}>View this event on ThisWeekSaudi →</a></p>
 </main></body></html>"""
+    return HTMLResponse(page)
+
+
+@app.get("/p/{plan_ids}", include_in_schema=False)
+def plan_page(plan_ids: str, t: str = ""):
+    """Shareable weekend plan (WhatsApp growth loop): /p/id1,id2,id3?t=Title
+
+    Server-rendered with OG tags so chat apps unfurl a rich preview card.
+    noindex (never in sitemap) — plans are public-by-link only. IDs are
+    validated against the DB; unknown IDs are skipped; no valid events → 404.
+    All user input (title) is HTML-escaped."""
+    from fastapi.responses import HTMLResponse
+    import re as _re
+    ids = [i for i in _re.split(r"[^a-f0-9]", plan_ids.lower()) if i][:6]
+    if not ids:
+        raise HTTPException(404, "empty plan")
+    evs = []
+    with _db_lock, db() as con:
+        for eid in ids:
+            row = con.execute("SELECT data FROM events WHERE id=?", (eid,)).fetchone()
+            if row:
+                try:
+                    evs.append(_with_image(json.loads(row["data"])))
+                except Exception:
+                    pass
+    if not evs:
+        raise HTTPException(404, "plan not found")
+    base = os.environ.get("PUBLIC_BASE", "https://thisweeksaudi.onrender.com")
+    title = (t or "").strip()[:60] or "A weekend plan"
+    esc_t = html.escape(title, quote=True)
+    url = f"{base}/p/{','.join(e['id'] for e in evs)}"
+    if t:
+        url += "?t=" + urllib.parse.quote(t.strip()[:60])
+
+    def _nice(iso):
+        try:
+            dt = datetime.fromisoformat((iso or "")[:16])
+            return dt.strftime("%a, %b %d")
+        except Exception:
+            return (iso or "")[:10]
+
+    today = date.today().isoformat()
+    upcoming = [e for e in evs if (e.get("start") or "")[:10] >= today]
+    stale = not upcoming
+    cities = sorted({e.get("city") for e in evs if e.get("city")})
+    city_str = ", ".join(cities[:3])
+    og_title = f"{title} · {len(evs)} event{'s' if len(evs) != 1 else ''}" + (f" in {city_str}" if city_str else "")
+    og_desc = " · ".join(
+        f"{e.get('title', '')[:60]} ({_nice(e.get('start'))})" for e in evs[:3])
+    if len(evs) > 3:
+        og_desc += f" · +{len(evs) - 3} more"
+    img = (evs[0].get("image") or "") or f"{base}/icon-512.png"
+
+    cards = []
+    for e in evs:
+        eid = e["id"]
+        et = html.escape(e.get("title", "Event"), quote=True)
+        em = html.escape(", ".join(x for x in (e.get("venue"), e.get("city")) if x), quote=True)
+        pr = html.escape(e.get("price") or "", quote=True)
+        eimg = html.escape(e.get("image") or f"{base}/icon-512.png", quote=True)
+        cards.append(
+            f'<a class="plan-card" href="{base}/e/{html.escape(eid, quote=True)}">'
+            f'<img src="{eimg}" alt="" loading="lazy">'
+            f'<div><div class="plan-date">{html.escape(_nice(e.get("start")), quote=True)}</div>'
+            f'<div class="plan-title">{et}</div>'
+            f'<div class="plan-meta">{em}' + (f" · <b>{pr}</b>" if pr else "") + "</div></div></a>")
+    stale_note = ('<p class="stale">These dates have passed — '
+                  f'<a href="{base}/">browse this week\u2019s events</a> instead.</p>' if stale else "")
+    page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{esc_t} — ThisWeekSaudi</title>
+<meta name="description" content="{html.escape(og_desc, quote=True)}">
+<link rel="canonical" href="{html.escape(url, quote=True)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ThisWeekSaudi">
+<meta property="og:title" content="{html.escape(og_title, quote=True)}">
+<meta property="og:description" content="{html.escape(og_desc, quote=True)}">
+<meta property="og:url" content="{html.escape(url, quote=True)}">
+<meta property="og:image" content="{html.escape(img, quote=True)}">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+body{{margin:0;background:#0b0b0e;color:#f2ede3;font-family:-apple-system,system-ui,sans-serif}}
+.wrap{{max-width:620px;margin:0 auto;padding:28px 18px 60px}}
+.brand{{font-weight:800;letter-spacing:-.02em;font-size:15px;color:#d9a441;margin-bottom:26px}}
+.brand b{{color:#f2ede3}}
+h1{{font-size:30px;letter-spacing:-.02em;margin:0 0 6px}}
+.sub{{color:#9a958a;font-size:14px;margin:0 0 8px}}
+.stale{{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.4);border-radius:12px;
+  padding:12px 14px;font-size:14px;color:#e8c97a}}
+.stale a{{color:#e8c97a}}
+.plan-card{{display:flex;gap:14px;background:#141417;border:1px solid #26262b;border-radius:16px;
+  padding:12px;margin:14px 0;text-decoration:none;color:inherit}}
+.plan-card img{{width:88px;height:88px;object-fit:cover;border-radius:10px;flex:0 0 auto;background:#1d1d21}}
+.plan-date{{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#d9a441}}
+.plan-title{{font-size:16px;font-weight:700;margin:3px 0}}
+.plan-meta{{font-size:13px;color:#9a958a}}
+.plan-meta b{{color:#d9a441}}
+.cta{{display:block;text-align:center;background:linear-gradient(135deg,#f0c96a,#d9a441);color:#1a1206;
+  font-weight:800;font-size:16px;border-radius:14px;padding:15px;margin:30px 0 10px;text-decoration:none}}
+.foot{{text-align:center;color:#6b675e;font-size:12px;margin-top:26px}}
+</style></head><body><div class="wrap">
+<div class="brand">This<b>Week</b>Saudi</div>
+<h1>{esc_t}</h1>
+<p class="sub">{len(evs)} event{'s' if len(evs) != 1 else ''}{(' in ' + html.escape(city_str, quote=True)) if city_str else ''} · shared via ThisWeekSaudi</p>
+{stale_note}
+{''.join(cards)}
+<a class="cta" href="{base}/">Make your own weekend plan →</a>
+<div class="foot">Every conference, expo, concert and meetup across Saudi Arabia — this week and beyond.</div>
+</div></body></html>"""
     return HTMLResponse(page)
 
 

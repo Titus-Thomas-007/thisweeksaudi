@@ -969,6 +969,28 @@ async function shareEvent(ev){
     catch(e){ toast('Copy this link: ' + url); }
   }
 }
+/* shareable weekend plan: URL-encoded event ids, no server storage (v1) */
+async function sharePlan(savedList, title){
+  const today = localISO(new Date());
+  const ids = savedList
+    .filter(ev => (ev.date_start || '').slice(0,10) >= today)
+    .slice(0, 6).map(ev => ev.id);
+  if(!ids.length){ toast('No upcoming saved events to share'); return; }
+  if(title) storeSet('tws_plan_title', title);
+  const planTitle = title || 'A weekend plan';
+  const url = location.origin + '/p/' + ids.join(',') +
+    (title ? '?t=' + encodeURIComponent(title) : '');
+  const cities = [...new Set(savedList.map(ev => ev.city).filter(Boolean))].slice(0,2).join(', ');
+  const text = planTitle + ' · ' + ids.length + ' event' + (ids.length === 1 ? '' : 's') +
+    (cities ? ' in ' + cities : '') + ' — via ThisWeekSaudi';
+  if(navigator.share){
+    try{ await navigator.share({title: planTitle, text, url}); beacon('plan_share', {n: ids.length, via:'native'}); }
+    catch(e){}
+  } else {
+    try{ await navigator.clipboard.writeText(url); toast('Plan link copied — paste it in WhatsApp'); beacon('plan_share', {n: ids.length, via:'copy'}); }
+    catch(e){ toast('Copy this link: ' + url); }
+  }
+}
 
 /* ---------- all events list ---------- */
 function buildList(){
@@ -1174,7 +1196,11 @@ function renderSaved(q){
   const groups = {};
   list.forEach(ev => { const d = (ev.date_start||'').slice(0,10) || 'nodate'; (groups[d] = groups[d] || []).push(ev); });
   const days = Object.keys(groups).sort();
-  let html = '<div class="sv-tools"><button class="btn-gold" id="saved-export-all">Export all (.ics)</button></div>';
+  let html = '<div class="sv-tools"><button class="btn-gold" id="saved-export-all">Export all (.ics)</button>' +
+    '<button class="btn-ghost" id="saved-share">Share weekend plan</button></div>' +
+    '<div id="share-composer" class="share-composer hidden">' +
+    '<input id="share-title" type="text" maxlength="60" placeholder="Name your plan — e.g. Desert weekend" autocomplete="off">' +
+    '<button class="btn-gold" id="share-go">Share</button></div>';
   let i = 0;
   days.forEach(d => {
     const gevs = groups[d];
@@ -1184,6 +1210,19 @@ function renderSaved(q){
   });
   box.innerHTML = html;
   $('#saved-export-all', box).addEventListener('click', () => downloadICSList(list));
+  const shareBtn = $('#saved-share', box);
+  const composer = $('#share-composer', box);
+  const titleInput = $('#share-title', box);
+  if(shareBtn){
+    shareBtn.addEventListener('click', () => {
+      composer.classList.toggle('hidden');
+      if(!composer.classList.contains('hidden')){
+        titleInput.value = storeGet('tws_plan_title') || '';
+        titleInput.focus();
+      }
+    });
+    $('#share-go', box).addEventListener('click', () => sharePlan(list, titleInput.value.trim()));
+  }
   wireRows(box, 'saved');
   $$('[data-unsave]', box).forEach(b => b.addEventListener('click', async e => {
     e.stopPropagation();

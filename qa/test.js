@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v6', sw.includes("const V = 'tws-v6'"));
+  check('SW cache version bumped to tws-v7', sw.includes("const V = 'tws-v7'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -70,7 +70,26 @@ function check(name, ok, detail) {
     discJs.includes("$('#dr-price').innerHTML = phtml;"),
     'buildDrawer not atomic');
 
-  // ---- 0b. countdown + weekend helpers present; weekend chip is Fri–Sat ----
+  // ---- 0a4. weekend plan sharing (/p/ links) ----
+  check('backend serves /p/{ids} plan pages with OG tags + noindex',
+    appPy.includes('@app.get("/p/{plan_ids}"') && appPy.includes('content="noindex"') &&
+    appPy.includes('Make your own weekend plan'),
+    '/p/ route missing or incomplete');
+  check('plan page escapes title and caps ids at 6',
+    appPy.includes('html.escape(title, quote=True)') && appPy.includes('[:6]'),
+    'plan page hardening missing');
+  check('saved view has share-weekend-plan flow',
+    appJs.includes('id="saved-share"') && appJs.includes('function sharePlan(') &&
+    appJs.includes('navigator.share') && appJs.includes('tws_plan_title'),
+    'share flow missing from saved view');
+  check('plan_share beacon accepted by /api/analytics',
+    appPy.includes('"plan_share"'), 'plan_share not in analytics allowlist');
+
+  // ---- 0a5. reminder nudge renders above the detail sheet ----
+  check('modal-overlay z-index above detail sheet (410)',
+    /modal-overlay\{[^}]*z-index:700/.test(
+      fs.readFileSync(path.join(FRONT, 'styles.css'), 'utf8')),
+    'nudge popup still behind detail sheet');
   const appSrc0 = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
   check('relDayLabel helper defined', appSrc0.includes('function relDayLabel('));
   check('weekendRange helper defined (Saudi Fri–Sat)', appSrc0.includes('function weekendRange('));
