@@ -360,7 +360,8 @@ def analytics(b: Beacon):
     """Privacy-friendly usage beacons (no user identity stored)."""
     if b.type not in {"view", "save", "unsave", "register", "share",
                       "search", "undo", "report", "remind", "jserror",
-                      "pageview", "swipe", "detail", "ics", "map_open", "map_plot"}:
+                      "pageview", "swipe", "detail", "ics", "map_open", "map_plot",
+                      "dview", "dfilter", "nearme", "dmap_plot"}:
         raise HTTPException(400, "bad beacon type")
     with _db_lock, db() as con:
         con.execute("INSERT INTO analytics(ts,type,ref,meta) VALUES(?,?,?,?)",

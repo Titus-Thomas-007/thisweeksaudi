@@ -18,6 +18,14 @@ function check(name, ok, detail) {
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
+  const html0 = fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8');
+  check('PageSense snippet present in <head>',
+    html0.includes('id="pagesenseCode"') && html0.includes('cdn.pagesense.io/js/thisweeksaudi/'),
+    'snippet missing from index.html');
+  check('backend accepts discovery beacon types (dview/dfilter/nearme/dmap_plot)',
+    ['"dview"', '"dfilter"', '"nearme"', '"dmap_plot"'].every(t =>
+      fs.readFileSync(path.join(ROOT, 'backend', 'app.py'), 'utf8').includes(t)),
+    'allowlist missing new types');
 
   // ---- 0b. countdown + weekend helpers present; weekend chip is Fri–Sat ----
   const appSrc0 = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
