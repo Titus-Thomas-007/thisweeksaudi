@@ -22,15 +22,66 @@
 
 var MOODS = ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'];
 
-/* ---------------- character: real fluffy yeti heads (AI-generated from Titus's reference) ---------------- */
-var YETI_IMGS = {
-  rest: 'img/yeti-rest.webp', happy: 'img/yeti-happy.webp', excited: 'img/yeti-excited.webp',
-  love: 'img/yeti-love.webp', surprised: 'img/yeti-surprised.webp', wink: 'img/yeti-wink.webp',
-  proud: 'img/yeti-proud.webp', sleepy: 'img/yeti-sleepy.webp'
-};
-function mascotHTML(mood) {
-  var m = YETI_IMGS[mood] ? mood : 'rest';
-  return '<img class="mascot-img" src="' + YETI_IMGS[m] + '" alt="yeti" draggable="false">';
+/* ---------------- character: blank fluffy face + living vector features ----------------
+   The head photo NEVER moves. Only the face overlay animates: eyes blink and
+   look around, brows lift/angle, lips morph and "talk" while a bubble line shows.
+   Mood classes (.mascot-happy etc.) pick which eyes/mouth show and how brows sit. */
+var YETI_BLANK = 'img/yeti-blank.webp';
+function faceSVG() {
+  var ink = '#2b2620';
+  function dot(cx, cy, rx, ry) {
+    return '<ellipse class="m-eye" cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" fill="' + ink + '"/>' +
+      '<circle cx="' + (cx + rx * 0.3) + '" cy="' + (cy - ry * 0.3) + '" r="' + (rx * 0.32).toFixed(2) + '" fill="#fff" opacity="0.8"/>';
+  }
+  function heart(cx, cy) {
+    var h = 7;
+    return '<path d="M' + cx + ',' + (cy + h * 0.62) +
+      ' C' + (cx - h * 0.28) + ',' + (cy + h * 0.2) + ' ' + (cx - h * 0.78) + ',' + (cy - h * 0.08) + ' ' + (cx - h * 0.78) + ',' + (cy - h * 0.45) +
+      ' C' + (cx - h * 0.78) + ',' + (cy - h * 0.72) + ' ' + (cx - h * 0.52) + ',' + (cy - h * 0.92) + ' ' + (cx - h * 0.28) + ',' + (cy - h * 0.92) +
+      ' C' + (cx - h * 0.14) + ',' + (cy - h * 0.92) + ' ' + (cx - h * 0.04) + ',' + (cy - h * 0.85) + ' ' + cx + ',' + (cy - h * 0.75) +
+      ' C' + (cx + h * 0.04) + ',' + (cy - h * 0.85) + ' ' + (cx + h * 0.14) + ',' + (cy - h * 0.92) + ' ' + (cx + h * 0.28) + ',' + (cy - h * 0.92) +
+      ' C' + (cx + h * 0.52) + ',' + (cy - h * 0.92) + ' ' + (cx + h * 0.78) + ',' + (cy - h * 0.72) + ' ' + (cx + h * 0.78) + ',' + (cy - h * 0.45) +
+      ' C' + (cx + h * 0.78) + ',' + (cy - h * 0.08) + ' ' + (cx + h * 0.28) + ',' + (cy + h * 0.2) + ' ' + cx + ',' + (cy + h * 0.62) + ' Z" fill="#e2556b"/>';
+  }
+  function star(cx, cy, r) {
+    var p = [];
+    for (var i = 0; i < 8; i++) {
+      var a = (i / 8) * Math.PI * 2 - Math.PI / 2;
+      var rr = (i % 2 === 0) ? r : r * 0.42;
+      p.push((cx + Math.cos(a) * rr).toFixed(1) + ',' + (cy + Math.sin(a) * rr).toFixed(1));
+    }
+    return '<polygon points="' + p.join(' ') + '" fill="#d9a441"/>';
+  }
+  var eyes =
+    '<g class="m-eyes m-eyes-dots">' + dot(38, 43, 3.4, 4.2) + dot(62, 43, 3.4, 4.2) + '</g>' +
+    '<g class="m-eyes m-eyes-joy">' +
+      '<path d="M33.5,43 Q38,38.5 42.5,43" stroke="' + ink + '" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
+      '<path d="M57.5,43 Q62,38.5 66.5,43" stroke="' + ink + '" stroke-width="2.6" fill="none" stroke-linecap="round"/></g>' +
+    '<g class="m-eyes m-eyes-heart">' + heart(38, 43) + heart(62, 43) + '</g>' +
+    '<g class="m-eyes m-eyes-star">' + star(38, 43, 5.2) + star(62, 43, 5.2) + '</g>' +
+    '<g class="m-eyes m-eyes-wide">' + dot(38, 43, 4.6, 5.4) + dot(62, 43, 4.6, 5.4) + '</g>' +
+    '<g class="m-eyes m-eyes-wink">' + dot(38, 43, 3.4, 4.2) +
+      '<path d="M57.5,43 Q62,45.8 66.5,43" stroke="' + ink + '" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>' +
+    '<g class="m-eyes m-eyes-closed">' +
+      '<path d="M33.5,43 Q38,45.4 42.5,43" stroke="' + ink + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+      '<path d="M57.5,43 Q62,45.4 66.5,43" stroke="' + ink + '" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>';
+  var mouths =
+    '<path class="m-mouth m-mouth-smile" d="M42,58 Q50,64 58,58" stroke="' + ink + '" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+    '<path class="m-mouth m-mouth-big" d="M40,57 Q50,68.5 60,57" stroke="' + ink + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+    '<ellipse class="m-mouth m-mouth-open" cx="50" cy="60.5" rx="4.4" ry="5.2" fill="#4a3826"/>' +
+    '<ellipse class="m-mouth m-mouth-o" cx="50" cy="60.5" rx="2.7" ry="3.8" fill="#4a3826"/>' +
+    '<path class="m-mouth m-mouth-grin" d="M41,58 Q52,65.5 59,55" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+    '<path class="m-mouth m-mouth-smug" d="M43,59 Q52,63 58,56" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+    '<path class="m-mouth m-mouth-sleep" d="M45,60.5 Q50,62.2 55,60.5" stroke="' + ink + '" stroke-width="1.8" fill="none" stroke-linecap="round"/>' +
+    '<ellipse class="m-mouth m-mouth-talk" cx="50" cy="60.5" rx="3.8" ry="4.6" fill="#4a3826"/>';
+  var brows =
+    '<rect class="m-brow m-brow-l" x="31.5" y="30" width="12.5" height="2.4" rx="1.2" fill="' + ink + '" opacity="0.75"/>' +
+    '<rect class="m-brow m-brow-r" x="56" y="30" width="12.5" height="2.4" rx="1.2" fill="' + ink + '" opacity="0.75"/>';
+  return '<svg class="mascot-face" viewBox="0 0 100 100" aria-hidden="true">' + brows + eyes + mouths + '</svg>';
+}
+function mascotHTML() {
+  return '<span class="mascot-facewrap"><img class="mascot-img" src="' + YETI_BLANK + '" alt="yeti" draggable="false">' +
+    faceSVG() + '</span>';
 }
 
 /* ---------------- copy bank (no repeats within a session) ---------------- */
@@ -124,8 +175,6 @@ function setMood(mood) {
   nodes.forEach(function (n) {
     MOODS.forEach(function (m) { n.classList.remove('mascot-' + m); });
     if (mood && MOODS.indexOf(mood) !== -1) n.classList.add('mascot-' + mood);
-    var img = n.querySelector('.mascot-img');
-    if (img) img.src = YETI_IMGS[mood] || YETI_IMGS.rest;
   });
 }
 
@@ -145,7 +194,7 @@ function mount() {
   host.setAttribute('role', 'status');
   host.setAttribute('aria-live', 'polite');
   host.innerHTML =
-    '<div class="mascot-figure">' + mascotHTML('rest') + '</div>' +
+    '<div class="mascot-figure">' + mascotHTML() + '</div>' +
     '<div class="tws-mascot-bubble"></div>' +
     '<button class="tws-mascot-x" aria-label="Dismiss">×</button>';
   host.addEventListener('click', dismiss); // tap bubble to dismiss
@@ -164,7 +213,7 @@ function mountHead() {
   head.setAttribute('role', 'button');
   head.setAttribute('aria-label', 'Open Planner');
   head.setAttribute('tabindex', '0');
-  head.innerHTML = '<span class="mascot-figure">' + mascotHTML('rest') + '</span>';
+  head.innerHTML = '<span class="mascot-figure">' + mascotHTML() + '</span>';
   head.addEventListener('click', function () {
     react('love', 'head-pet');
     setTimeout(function () { btn.click(); }, 380);
@@ -194,6 +243,10 @@ function react(mood, trigger, vars) {
   host.classList.remove('hidden');
   var fig = host.querySelector('.mascot-figure');
   if (!REDUCED && (mood === 'excited' || mood === 'love') && fig) sparkleBurst(fig);
+  if (!REDUCED && fig) {
+    fig.classList.add('talking');
+    setTimeout(function () { fig.classList.remove('talking'); }, 2400);
+  }
   return true;
 }
 
@@ -297,13 +350,9 @@ function fridayReveal() {
   ov.className = 'tws-friday';
   ov.setAttribute('role', 'status');
   ov.innerHTML = '<div class="tws-friday-inner">' +
-    '<div class="tws-friday-mood"><img class="mascot-img" src="' + YETI_IMGS.happy + '" alt="yeti"></div>' +
+    '<div class="tws-friday-mood mascot-happy"><div class="mascot-figure">' + mascotHTML() + '</div></div>' +
     '<div class="tws-friday-title">Your weekend is here</div>' +
     '<div class="tws-friday-sub">Go make it a good one</div></div>';
-  try {
-    var fig = ov.querySelector('.tws-friday-mood');
-    if (fig) fig.classList.add('mascot-happy');
-  } catch (e) {}
   var done = false;
   function close() {
     if (done) return; done = true;

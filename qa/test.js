@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v11', sw.includes("const V = 'tws-v11'"));
+  check('SW cache version bumped to tws-v12', sw.includes("const V = 'tws-v12'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -151,22 +151,25 @@ function check(name, ok, detail) {
   check('TWS_MASCOT exposes react/dismiss/saveBurst/fridayReveal/mascotHTML',
     ['react: react', 'dismiss: dismiss', 'saveBurst: saveBurst', 'fridayReveal: fridayReveal', 'mascotHTML: mascotHTML']
       .every(k => msrc.includes(k)), 'public surface incomplete');
-  check('yeti heads are real images (8 files, one per mood)',
-    ['rest','happy','excited','love','surprised','wink','proud','sleepy'].every(m =>
-      msrc.includes("'img/yeti-" + m + ".webp'")) &&
-    ['rest','happy','excited','love','surprised','wink','proud','sleepy'].every(m =>
-      swSrc.includes("'/img/yeti-" + m + ".webp'")),
-    'yeti image set incomplete');
+  check('yeti uses blank photo + vector face overlay',
+    msrc.includes("'img/yeti-blank.webp'") && msrc.includes('function faceSVG()') &&
+    msrc.includes('m-eyes-dots') && msrc.includes('m-mouth-talk') && msrc.includes('m-brow') &&
+    swSrc.includes("'/img/yeti-blank.webp'"),
+    'composite mascot missing');
   check('copy bank covers all 7 moods, no sad',
     ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'].every(m => {
       const body = msrc.split(m + ': [')[1].split(']')[0];
       return (body.match(/"/g) || []).length >= 8;
     }) && !/\bsad:/.test(msrc.split('var COPY')[1].split('};')[0]), 'copy bank wrong');
-  check('mood system is container classes for 7 moods',
+  check('mood system: face parts picked per mood, head photo never animated',
     ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'].every(m =>
-      cssSrc.includes('.mascot-' + m + ' .mascot-figure')), 'mood CSS missing');
+      cssSrc.includes('.mascot-' + m + ' .m-eyes-')) &&
+    !/\.mascot-figure\s*\{[^}]*animation:(?!none)/.test(cssSrc),
+    'mood CSS wrong');
   check('mascot-img styled round + cover',
     cssSrc.includes('.mascot-img') && cssSrc.includes('border-radius:50%'), 'mascot-img CSS missing');
+  check('blink + talking-lips keyframes present',
+    cssSrc.includes('@keyframes mBlink') && cssSrc.includes('@keyframes mTalk'), 'face motion CSS missing');
   check('header head mount next to Planner button',
     msrc.includes('tws-mascot-head') && msrc.includes('mountHead') &&
     cssSrc.includes('.mascot-head'), 'header head missing');
@@ -620,15 +623,17 @@ function check(name, ok, detail) {
     const btn = wdoc.getElementById('btn-saved');
     return hh && btn && hh.previousElementSibling === btn && hh.querySelector('.mascot-img');
   })(), 'head misplaced');
-  // image swap: mascotHTML returns the right file per mood
-  check('mascotHTML returns per-mood image', M.MOODS.every(m => M.mascotHTML(m).includes('yeti-' + m + '.webp')) &&
-    M.mascotHTML('rest').includes('yeti-rest.webp'), 'image mapping wrong');
-  // setMood swaps the header head image
-  M.react('love', 'qa-img-swap');
-  check('react swaps header head image', (() => {
-    const img = wdoc.querySelector('#tws-mascot-head .mascot-img');
-    return img && img.src.includes('yeti-love.webp');
-  })(), 'head image not swapped');
+  // composite: blank photo + face overlay svg present
+  check('mascotHTML composites blank photo + face svg',
+    M.mascotHTML().includes('yeti-blank.webp') && M.mascotHTML().includes('mascot-face'),
+    'composite markup wrong');
+  // mood class on head drives the face; photo src never changes
+  M.react('love', 'qa-face-swap');
+  check('react sets love face, photo untouched', (() => {
+    const head = wdoc.getElementById('tws-mascot-head');
+    const img = head && head.querySelector('.mascot-img');
+    return head.classList.contains('mascot-love') && img && img.src.includes('yeti-blank.webp');
+  })(), 'face mood broken');
   // dismiss remembers
   M.dismiss();
   check('dismiss hides + remembers mute',
