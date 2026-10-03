@@ -555,22 +555,114 @@ def event_page(event_id: str):
     }
     if img:
         schema["image"] = img
-    esc_t = title.replace('"', '&quot;')
-    esc_d = desc.replace('"', '&quot;')[:300]
-    html = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+    esc_t = html.escape(title, quote=True)
+    esc_d = html.escape(desc[:300], quote=True)
+    schema_json = json.dumps(schema, ensure_ascii=False).replace("</", "<\\/")
+    deeplink = json.dumps("/#e=" + event_id)
+    page = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <title>{esc_t} — ThisWeekSaudi</title>
 <meta name="description" content="{esc_d}">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="ThisWeekSaudi">
 <meta property="og:title" content="{esc_t} — ThisWeekSaudi">
 <meta property="og:description" content="{esc_d}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{img}">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>
-</head><body><script>location.replace('/#e={event_id}')</script>
-<p><a href="/#e={event_id}">{esc_t}</a></p></body></html>"""
-    return HTMLResponse(html)
+<script type="application/ld+json">{schema_json}</script>
+</head><body><script>location.replace({deeplink})</script>
+<main style="font-family:system-ui;max-width:640px;margin:40px auto;padding:0 20px;color:#111">
+<h1>{esc_t}</h1>
+<p>{esc_d}</p>
+<p><a href={deeplink}>View this event on ThisWeekSaudi →</a></p>
+</main></body></html>"""
+    return HTMLResponse(page)
+
+
+@app.get("/robots.txt", include_in_schema=False)
+def robots_txt():
+    """Crawler welcome mat: allow everything, point at the sitemap."""
+    from fastapi.responses import PlainTextResponse
+    base = os.environ.get("PUBLIC_BASE", "https://thisweeksaudi.onrender.com")
+    return PlainTextResponse(
+        f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
+
+
+@app.get("/sitemap.xml", include_in_schema=False)
+def sitemap_xml():
+    """Live sitemap generated from the DB — always current, no build step,
+    so every ingest/deploy is reflected immediately (the 'keep updating' part)."""
+    from fastapi.responses import Response
+    base = os.environ.get("PUBLIC_BASE", "https://thisweeksaudi.onrender.com")
+    with _db_lock, db() as con:
+        rows = con.execute("SELECT id, data FROM events").fetchall()
+    parts = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+             f'  <url><loc>{base}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>']
+    for eid, data in rows:
+        try:
+            ev = json.loads(data)
+        except Exception:
+            continue
+        start = (ev.get("start") or "")[:10]
+        lastmod = f"<lastmod>{start}</lastmod>" if start else ""
+        parts.append(
+            f'  <url><loc>{base}/e/{html.escape(eid, quote=True)}</loc>'
+            f'{lastmod}<changefreq>weekly</changefreq><priority>0.8</priority></url>')
+    parts.append('</urlset>')
+    return Response(content="\n".join(parts), media_type="application/xml")
+
+
+@app.get("/llms.txt", include_in_schema=False)
+def llms_txt():
+    """Machine-readable site summary for AI crawlers/answer engines
+    (ChatGPT, Perplexity, Copilot...). Served live from the DB."""
+    from fastapi.responses import PlainTextResponse
+    base = os.environ.get("PUBLIC_BASE", "https://thisweeksaudi.onrender.com")
+    with _db_lock, db() as con:
+        rows = con.execute("SELECT id, data FROM events").fetchall()
+    evs = []
+    for eid, data in rows:
+        try:
+            ev = json.loads(data)
+        except Exception:
+            continue
+        ev["_eid"] = eid
+        evs.append(ev)
+    today = date.today().isoformat()
+    upcoming = sorted(
+        (e for e in evs if (e.get("start") or "")[:10] >= today),
+        key=lambda e: (e.get("start") or "")[:10])
+    lines = [
+        "# ThisWeekSaudi",
+        "",
+        "> Your week in Saudi, one swipe away. ThisWeekSaudi lists conferences,",
+        "> expos, concerts, meetups, workshops, festivals and sports events across",
+        "> Saudi Arabia — Riyadh, Jeddah, Dammam, Khobar, Mecca and more. Browse by",
+        "> week, map or stories; save events and export them to your calendar.",
+        "",
+        f"Site: {base}/",
+        f"Sitemap: {base}/sitemap.xml",
+        "",
+        "## Upcoming events",
+        "",
+    ]
+    for ev in upcoming:
+        eid = ev["_eid"]
+        title = (ev.get("title") or "Untitled event").replace("\n", " ").strip()
+        start = (ev.get("start") or "")[:10]
+        venue = (ev.get("venue") or "").replace("\n", " ").strip()
+        city = (ev.get("city") or "").strip()
+        price = (ev.get("price") or "").strip()
+        bits = [b for b in (start, ", ".join(x for x in (venue, city) if x), price) if b]
+        lines.append(f"- [{title}]({base}/e/{eid}) — {' · '.join(bits)}")
+    lines += ["",
+              "## Notes",
+              "- Prices are in SAR (Saudi Riyal) unless marked Free.",
+              "- Event details, images and availability change; verify on the event page.",
+              ""]
+    return PlainTextResponse("\n".join(lines))
 
 
 init_db()

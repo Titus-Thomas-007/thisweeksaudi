@@ -17,7 +17,7 @@ var $ = T.$, $$ = T.$$, esc = T.esc, state = T.state,
     geocode = T.geocode, reduceMotion = T.reduceMotion,
     beacon = T.beacon, decide = T.decide, topCard = T.topCard,
     _pushHist = T._pushHist, _replaceHist = T._replaceHist,
-    hist = T.hist, toast = T.toast, catLabel = T.catLabel;
+    hist = T.hist, toast = T.toast, catLabel = T.catLabel, siteFooterHTML = T.siteFooterHTML;
 
 var VIEWS = [
   {id:'mosaic',  label:'Mosaic'},
@@ -229,27 +229,33 @@ window.__twsDiscoverReady = function(){
 };
 
 /* ---------- filter drawer ---------- */
+/* NOTE: all HTML is built into strings first and assigned at the end, so a
+   throw (bad meta, missing helper) can never leave a half-populated drawer. */
 function buildDrawer(){
   var prices = [['all','All'],['free','Free'],['paid','Paid']];
   var dates = [['all','All'],['weekend','This weekend'],['nextweek','Next week'],['later','Later']];
-  $('#dr-price').innerHTML = prices.map(function(p){
+  var phtml = prices.map(function(p){
     return '<button data-fp="' + p[0] + '" class="' + (DSC.filters.price === p[0] ? 'on' : '') + '">' + p[1] + '</button>';
   }).join('');
-  $('#dr-date').innerHTML = dates.map(function(d){
+  var dhtml = dates.map(function(d){
     return '<button data-fd="' + d[0] + '" class="' + (DSC.filters.date === d[0] ? 'on' : '') + '">' + d[1] + '</button>';
   }).join('');
   var cats = (state.meta.categories || []).map(function(c){ return c.key || c; });
-  $('#dr-cats').innerHTML = '<button class="chip' + (!DSC.filters.cat ? ' on' : '') + '" data-fc="">All</button>' +
+  var chtml = '<button class="chip' + (!DSC.filters.cat ? ' on' : '') + '" data-fc="">All</button>' +
     cats.map(function(c){
       return '<button class="chip' + (DSC.filters.cat === c ? ' on' : '') + '" data-fc="' + esc(c) + '">' + esc(catLabel(c)) + '</button>';
     }).join('');
   var cities = state.meta.cities || [];
-  $('#dr-cities').innerHTML =
+  var cihtml =
     '<button class="chip' + (!DSC.filters.city ? ' on' : '') + '" data-fcity="">My cities</button>' +
     '<button class="chip' + (DSC.filters.city === '__all' ? ' on' : '') + '" data-fcity="__all">All cities</button>' +
     cities.map(function(c){
       return '<button class="chip' + (DSC.filters.city === c ? ' on' : '') + '" data-fcity="' + esc(c) + '">' + esc(c) + '</button>';
     }).join('');
+  $('#dr-price').innerHTML = phtml;
+  $('#dr-date').innerHTML = dhtml;
+  $('#dr-cats').innerHTML = chtml;
+  $('#dr-cities').innerHTML = cihtml;
   renderDrawerCounts();
 }
 function renderDrawerCounts(){
@@ -318,7 +324,7 @@ function buildMosaic(){
   });
   if(!ti) html = '<div class="dsc-empty"><b>Nothing matches</b>Try widening your cities or interests.</div>';
   else html += '<div style="text-align:center;margin-top:22px"><button class="link-quiet" id="dsc-browse-all">Browse all events →</button></div>';
-  pane.innerHTML = '<div class="dsc-constrain">' + html + '</div>';
+  pane.innerHTML = '<div class="dsc-constrain">' + html + siteFooterHTML() + '</div>';
   var ba = $('#dsc-browse-all', pane);
   if(ba) ba.addEventListener('click', function(){ buildList(); navTo('view-list', 'fwd'); });
   armReveal(pane);
@@ -363,7 +369,7 @@ function buildWeek(){
   });
   if(!days.length) html = '<div class="dsc-empty"><b>Nothing matches</b>Try widening your cities or interests.</div>';
   pane.innerHTML = '<div class="dsc-constrain"><div style="padding:14px 2px 4px"><div style="font-size:22px;font-weight:800;letter-spacing:-.02em">Your week</div>' +
-    '<div style="font-size:12px;color:var(--muted);margin-top:4px">Everything at once, soonest first</div></div>' + html + '</div>';
+    '<div style="font-size:12px;color:var(--muted);margin-top:4px">Everything at once, soonest first</div></div>' + html + siteFooterHTML() + '</div>';
   armReveal(pane);
 }
 
@@ -563,6 +569,9 @@ function initDiscover(){
   /* drawer controls */
   $('#dr-close').addEventListener('click', closeDrawer);
   $('#dsc-drawer-bg').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !$('#dsc-drawer').classList.contains('hidden')) closeDrawer();
+  });
   $('#dr-clear').addEventListener('click', clearFilters);
   $('#dsc-drawer').addEventListener('click', function(e){
     var b = e.target.closest('button'); if(!b) return;

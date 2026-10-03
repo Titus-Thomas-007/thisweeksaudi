@@ -1204,6 +1204,9 @@ function renderSaved(q){
 function wireSaved(){
   $('#btn-saved-back').addEventListener('click', () => history.back());
   $('#saved-search').addEventListener('input', e => renderSaved(e.target.value.trim()));
+  // shared footer (list-an-event + socials) at the end of the saved list
+  var sp = $('#view-saved .page-scroll');
+  if(sp && !$('.site-footer', sp)) sp.insertAdjacentHTML('beforeend', siteFooterHTML());
 }
 
 /* ---------- push ---------- */
@@ -1497,10 +1500,29 @@ function wireGlobal(){
   setTimeout(warmGeocode, 2500);
 }
 
+/* shared site footer: List-an-event CTA + social profiles — appended to every
+   scrollable view (mosaic/week panes, saved) so it's reachable everywhere */
+function siteFooterHTML(){
+  return '<div class="site-footer">' +
+    '<a class="list-event-link" href="https://survey.zohopublic.com/zs/jXjaEm" target="_blank" rel="noopener">+ List an event</a>' +
+    '<div class="creator-footer">' +
+      '<div>Created by <span class="c-name">Titus Thomas</span></div>' +
+      '<div class="creator-social">' +
+        '<a href="https://www.linkedin.com/in/stitusthomas/" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>' +
+          'LinkedIn</a>' +
+        '<a href="https://x.com/stitusthomas" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/></svg>' +
+          'X</a>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
 /* public surface for discover.js (4-pane home) — everything it needs, nothing more */
 window.TWS = {
   $, $$, esc, state, storeGet, storeSet, toast,
-  dstr, localISO, datePill, niceDate, fmtPrice, catLabel,
+  dstr, localISO, datePill, niceDate, fmtPrice, catLabel, siteFooterHTML,
   filteredEvents, rankedEvents, weekendRange,
   openDetail, toggleSave, buildDeck, buildList, navTo, showView,
   geocode, reduceMotion, beacon, decide, topCard,

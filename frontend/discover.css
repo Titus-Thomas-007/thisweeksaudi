@@ -219,6 +219,11 @@
   background:linear-gradient(135deg,#f0c96a,#d9a441);padding:3px 8px;border-radius:999px;
   text-transform:uppercase;margin-left:7px;vertical-align:2px;white-space:nowrap}
 
+/* ---------- shared site footer (list-an-event + socials) ---------- */
+.site-footer{padding:30px 0 calc(34px + env(safe-area-inset-bottom));text-align:center}
+.site-footer .list-event-link{margin-top:0}
+.site-footer .creator-footer{padding-bottom:0}
+
 /* ---------- filter button + drawer ---------- */
 #dsc-filter{flex:0 0 auto !important;position:relative;display:flex;align-items:center;justify-content:center;
   width:38px;padding:9px 0 !important}
@@ -256,8 +261,11 @@
 .dr-count b{color:var(--gold)}
 @media (min-width:720px){
   #dsc-drawer{left:50%;right:auto;bottom:50%;transform:translate(-50%,50%);width:440px;border-radius:22px;
-    border:1px solid var(--line);max-height:80dvh}
-  #dsc-drawer.hidden{transform:translate(-50%,58%)}
+    border:1px solid var(--line);max-height:80dvh;
+    transition:transform .32s var(--spring), opacity .22s ease, visibility 0s}
+  /* translate alone can't push a centered dialog off-screen, so hide with a fade instead */
+  #dsc-drawer.hidden{transform:translate(-50%,54%);opacity:0;visibility:hidden;pointer-events:none;
+    transition:transform .32s var(--spring), opacity .22s ease, visibility 0s linear .25s}
 }
 
 /* ---------- map: near-me button + distance ---------- */

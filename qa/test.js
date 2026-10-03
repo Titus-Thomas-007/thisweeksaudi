@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v5', sw.includes("const V = 'tws-v5'"));
+  check('SW cache version bumped to tws-v6', sw.includes("const V = 'tws-v6'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -26,6 +26,49 @@ function check(name, ok, detail) {
     ['"dview"', '"dfilter"', '"nearme"', '"dmap_plot"'].every(t =>
       fs.readFileSync(path.join(ROOT, 'backend', 'app.py'), 'utf8').includes(t)),
     'allowlist missing new types');
+
+  // ---- 0a. SEO endpoints + bot pages (served live from DB) ----
+  const appPy = fs.readFileSync(path.join(ROOT, 'backend', 'app.py'), 'utf8');
+  check('backend serves /robots.txt with sitemap reference',
+    appPy.includes('@app.get("/robots.txt"') && appPy.includes('/sitemap.xml'),
+    'robots.txt route missing');
+  check('backend serves /sitemap.xml generated from events DB',
+    appPy.includes('@app.get("/sitemap.xml"') && appPy.includes('<urlset'),
+    'sitemap.xml route missing');
+  check('backend serves /llms.txt for AI crawlers',
+    appPy.includes('@app.get("/llms.txt"') && appPy.includes('## Upcoming events'),
+    'llms.txt route missing');
+  check('event bot page escapes HTML (no XSS via title/desc)',
+    appPy.includes('html.escape(title, quote=True)') && appPy.includes('.replace("</", "<\\\\/")'),
+    'event_page escaping missing');
+  check('homepage has canonical + OG tags',
+    html0.includes('rel="canonical"') && html0.includes('og:title') && html0.includes('og:image'),
+    'homepage meta tags missing');
+
+  // ---- 0a2. shared footer across views ----
+  const appJs = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
+  const discJs = fs.readFileSync(path.join(FRONT, 'discover.js'), 'utf8');
+  const discCss = fs.readFileSync(path.join(FRONT, 'discover.css'), 'utf8');
+  check('siteFooterHTML defined + exported via TWS',
+    appJs.includes('function siteFooterHTML()') && appJs.includes('siteFooterHTML,'),
+    'footer helper missing');
+  check('footer appended in mosaic + week panes and saved view',
+    (discJs.match(/siteFooterHTML\(\)/g) || []).length >= 2 && appJs.includes("insertAdjacentHTML('beforeend', siteFooterHTML())"),
+    'footer not wired into all views');
+  check('footer opens links in new tab (rel=noopener)',
+    appJs.includes('rel="noopener"') && appJs.includes('survey.zohopublic.com/zs/jXjaEm'),
+    'footer links unsafe or missing');
+
+  // ---- 0a3. filter drawer: desktop hide + dismiss robustness ----
+  check('desktop drawer .hidden actually hides (opacity/visibility, not a nudge)',
+    discCss.includes('#dsc-drawer.hidden{transform:translate(-50%,54%);opacity:0;visibility:hidden'),
+    'desktop drawer still only nudged when closed');
+  check('drawer closes on Escape',
+    discJs.includes("e.key === 'Escape'") && discJs.includes('closeDrawer()'),
+    'Escape handler missing');
+  check('buildDrawer assigns innerHTML only after all strings built (no half-populated drawer)',
+    discJs.includes("$('#dr-price').innerHTML = phtml;"),
+    'buildDrawer not atomic');
 
   // ---- 0b. countdown + weekend helpers present; weekend chip is Fri–Sat ----
   const appSrc0 = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
