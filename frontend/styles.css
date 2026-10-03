@@ -467,42 +467,15 @@ textarea.rep-input{resize:vertical}
 /* the yeti heads are real photos now: the mood class picks which file shows */
 .mascot-img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;
   user-select:none;-webkit-user-drag:none}
-/* the head photo NEVER moves — only the vector face overlay animates */
-.mascot-facewrap{position:relative;display:block;width:100%;height:100%}
-.mascot-face{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.mascot-sleepy .mascot-figure{filter:drop-shadow(0 0 6px rgba(240,201,106,.18)) saturate(.7) brightness(.9)}
-/* --- face parts: hidden unless their mood selects them --- */
-.mascot-face .m-eyes,.mascot-face .m-mouth{display:none}
-.mascot-face .m-eyes-dots,.mascot-face .m-mouth-smile{display:block}
-.mascot-happy .m-eyes-dots,.mascot-excited .m-eyes-dots,.mascot-love .m-eyes-dots,
-.mascot-surprised .m-eyes-dots,.mascot-wink .m-eyes-dots,.mascot-proud .m-eyes-dots,
-.mascot-sleepy .m-eyes-dots{display:none}
-.mascot-happy .m-eyes-joy,.mascot-excited .m-eyes-star,.mascot-love .m-eyes-heart,
-.mascot-surprised .m-eyes-wide,.mascot-wink .m-eyes-wink,.mascot-sleepy .m-eyes-closed{display:block}
-.mascot-happy .m-mouth-smile,.mascot-excited .m-mouth-smile,.mascot-love .m-mouth-smile,
-.mascot-surprised .m-mouth-smile,.mascot-wink .m-mouth-smile,.mascot-proud .m-mouth-smile,
-.mascot-sleepy .m-mouth-smile{display:none}
-.mascot-happy .m-mouth-big,.mascot-excited .m-mouth-open,.mascot-surprised .m-mouth-o,
-.mascot-wink .m-mouth-grin,.mascot-proud .m-mouth-smug,.mascot-sleepy .m-mouth-sleep{display:block}
-/* --- brows: lift / angle per mood --- */
-.mascot-face .m-brow{transform-box:fill-box;transform-origin:center;transition:transform .3s}
-.mascot-surprised .m-brow{transform:translateY(-4px)}
-.mascot-excited .m-brow{transform:translateY(-2.5px)}
-.mascot-proud .m-brow-l{transform:rotate(-14deg) translateY(-1px)}
-.mascot-proud .m-brow-r{transform:translateY(1px)}
-.mascot-wink .m-brow-r{transform:translateY(-2.5px)}
-.mascot-sleepy .m-brow{transform:translateY(2px);opacity:.55}
-.mascot-happy .m-brow{transform:translateY(-1px)}
-/* --- eyes blink (dots + wide only); occasional glance --- */
-.mascot-face .m-eyes-dots .m-eye,.mascot-face .m-eyes-wide .m-eye{
-  transform-box:fill-box;transform-origin:center;animation:mBlink 4.8s infinite}
-@keyframes mBlink{0%,93%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.08)}98%{transform:scaleY(1)}}
-/* --- talking lips: while a bubble line shows --- */
-.mascot-face .m-mouth-talk{display:none}
-.talking .m-mouth{display:none!important}
-.talking .m-mouth-talk{display:block;transform-box:fill-box;transform-origin:center;
-  animation:mTalk .34s ease-in-out infinite alternate}
-@keyframes mTalk{from{transform:scaleY(.45)}to{transform:scaleY(1.15)}}
+/* wrapper motion per mood */
+.mascot-happy .mascot-figure{animation:mascotBounce 2.4s ease-in-out infinite}
+.mascot-excited .mascot-figure{animation:mascotJump .9s cubic-bezier(.3,1.6,.5,1) infinite}
+.mascot-love .mascot-figure{animation:mascotSway 2.8s ease-in-out infinite}
+.mascot-surprised .mascot-figure{animation:mascotShake .7s ease-in-out 2}
+.mascot-wink .mascot-figure{animation:mascotTilt 2.2s ease-in-out infinite}
+.mascot-proud .mascot-figure{animation:mascotBob 3s ease-in-out infinite}
+.mascot-sleepy .mascot-figure{animation:mascotDroop 3.4s ease-in-out infinite;
+  filter:drop-shadow(0 0 6px rgba(240,201,106,.18)) saturate(.7) brightness(.9)}
 @keyframes mascotSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 @keyframes mascotShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px) rotate(-3deg)}75%{transform:translateX(4px) rotate(3deg)}}
 @keyframes mascotTilt{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
@@ -517,7 +490,7 @@ textarea.rep-input{resize:vertical}
 .tws-friday-mood .mascot-img{width:84px;height:84px}
 .tws-friday-mood{display:flex;justify-content:center;margin-bottom:10px;
   filter:drop-shadow(0 0 18px rgba(240,201,106,.55))}
-
+.tws-friday-mood.mascot-happy{animation:mascotBounce 1.6s ease-in-out infinite}
 .tws-mascot-bubble{font-size:13.5px;line-height:1.45;color:var(--text);flex:1;min-width:0}
 .tws-mascot-x{flex:0 0 auto;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);
   background:var(--surface);color:var(--muted);font-size:14px;line-height:1;cursor:pointer}
