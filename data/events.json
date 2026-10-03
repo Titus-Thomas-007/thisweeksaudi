@@ -4,7 +4,7 @@
   "2026-09-27",
   "2026-12-31"
  ],
- "count": 346,
+ "count": 353,
  "events": [
   {
    "title": "Okhtabotiya",
@@ -1298,6 +1298,25 @@
    "image": "https://www.mohe.gov.jo/EBV4.0/Root_Storage/AR/EB_News/MEETES2.jpeg"
   },
   {
+   "title": "Soccer Meetup Evening",
+   "city": "Riyadh",
+   "venue": "Amaria Football Fields, AlAmaria Rd",
+   "category": "sports",
+   "price": "Free",
+   "url": "https://www.meetup.com/football-riyadh/events/316569778/",
+   "organizer": "Football Riyadh",
+   "start": "2026-10-05",
+   "end": "2026-12-31",
+   "sources": [
+    "meetup"
+   ],
+   "id": "bceb5f261874",
+   "domain": "entertainment",
+   "description": "Weekly pickup soccer every Monday and Thursday evening — a fast game to beat the heat. Scrimmage vests, goals, cones and real match balls provided; teams are chosen by skill and position.",
+   "added_at": "2026-09-27",
+   "image": "https://secure.meetupstatic.com/photos/event/d/1/3/a/highres_483533562.jpeg"
+  },
+  {
    "title": "The Global CSR Forum 2026",
    "city": "Riyadh",
    "venue": "Sofitel Riyadh Hotel & Convention Centre",
@@ -1601,6 +1620,24 @@
    "added_at": "2026-09-27"
   },
   {
+   "title": "Amaly Summer Night",
+   "city": "Riyadh",
+   "venue": "Toag Resort (منتجع امالي)",
+   "category": "other",
+   "price": "SAR 250",
+   "url": "https://www.meetup.com/riyadh-amalatours-meetup-group/",
+   "organizer": "Riyadh AmalyTours",
+   "start": "2026-10-08",
+   "end": "2026-10-08",
+   "sources": [
+    "meetup"
+   ],
+   "id": "5b4b8d4d1e25",
+   "domain": "entertainment",
+   "description": "A summer night filled with music, games, entertainment and social vibes every Thursday 9PM–2AM. Ticket includes an open dinner buffet.",
+   "added_at": "2026-09-27"
+  },
+  {
    "title": "HR World Summit 2026",
    "city": "Riyadh",
    "venue": "Riyadh Marriott Hotel",
@@ -1844,6 +1881,25 @@
    "description": "Discover the best coffee spots in Al Hamra, Riyadh with us and sip your way through the city's top cafes!",
    "added_at": "2026-09-27",
    "image": "https://cdn.evbuc.com/images/1192212071/181248638019/1/original.20260830-084658?crop=foca"
+  },
+  {
+   "title": "the bookclub | coffee & books",
+   "city": "Riyadh",
+   "venue": "سايبرس قهوة و محمصة",
+   "category": "meetup",
+   "price": "Free",
+   "url": "https://www.meetup.com/the-bookclub-sa/events/316621809/",
+   "organizer": "the bookclub | read. reflect. discuss.",
+   "start": "2026-10-09",
+   "end": "2026-12-31",
+   "sources": [
+    "meetup"
+   ],
+   "id": "7eeb6b2f199f",
+   "domain": "entertainment",
+   "description": "A bilingual (Arabic/English) reading community meeting every Friday 9:30–11:30 AM to share ideas and discuss books — no mandatory reading list, just come to listen or take part.",
+   "added_at": "2026-09-27",
+   "image": "https://secure.meetupstatic.com/photos/event/b/e/8/9/highres_535308777.jpeg"
   },
   {
    "title": "Ahmed Amin - Stand Up Comedy Show in Jeddah",
@@ -2452,6 +2508,25 @@
    "image": "https://www.arabisklondon.com/wp-content/uploads/2025/01/AN_86313image_story.jpg"
   },
   {
+   "title": "15th Middle East Enterprise AI & Analytics Summit",
+   "city": "Riyadh",
+   "venue": "Hyatt Regency Riyadh Olaya",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://www.eventbrite.com/e/15th-middle-east-enterprise-ai-analytics-summit-tickets-1992107787017",
+   "organizer": "",
+   "start": "2026-10-15",
+   "end": "2026-10-15",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "2f639efe6d26",
+   "domain": "tech",
+   "description": "Accelerating Innovation in Enterprises with Applied AI & Analytics Strategies.",
+   "added_at": "2026-09-27",
+   "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1187174793%2F2985335191770%2F1%2Foriginal.20260618-065105?crop=focalpoint&fit=crop&w=512&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.849&fp-y=0.411&s=0c2d7cf7670e40d84b20c14b72df088d08"
+  },
+  {
    "title": "Alaa El Sheikh Live in Riyadh",
    "city": "Riyadh",
    "venue": "Literary Club in Riyadh",
@@ -3041,6 +3116,25 @@
    "domain": "foodagri",
    "description": "",
    "added_at": "2026-09-27"
+  },
+  {
+   "title": "12th Digital Risk, Revenue Assurance & Fraud Management Summit",
+   "city": "Riyadh",
+   "venue": "Crowne Plaza Riyadh Palace",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://www.eventbrite.com/e/12th-digital-risk-revenue-assurance-fraud-management-summit-tickets-2001588877213",
+   "organizer": "",
+   "start": "2026-10-20",
+   "end": "2026-10-20",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "0bae1b049ef2",
+   "domain": "security",
+   "description": "",
+   "added_at": "2026-09-27",
+   "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193837840%2F3014614059150%2F1%2Foriginal.20260918-140101?crop=focalpoint&fit=crop&w=512&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=23180947b1327bc755d34821804c73cf"
   },
   {
    "title": "ARTDOM Riyadh - International Interior Design & Art Expo Congress",
@@ -3981,6 +4075,25 @@
    "image": "https://www.koraliveonline.net/wp-content/uploads/2026/02/featured-match-image-1219.png"
   },
   {
+   "title": "Exclusive CEO Roundtable",
+   "city": "Riyadh",
+   "venue": "The Globe",
+   "category": "meetup",
+   "price": "TBA",
+   "url": "https://www.eventbrite.co.uk/e/exclusive-ceo-roundtable-tickets-2002395628227",
+   "organizer": "",
+   "start": "2026-11-01",
+   "end": "2026-11-01",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "dc4f1cb40eba",
+   "domain": "business",
+   "description": "An Evening Of Strategic Connections.",
+   "added_at": "2026-09-27",
+   "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194471427%2F2684883875331%2F1%2Foriginal.20260927-202732?crop=focalpoint&fit=crop&w=512&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=dae91fc715251d5e1fe2555b8c37e824"
+  },
+  {
    "title": "IDRA World Congress 2026",
    "city": "Riyadh",
    "venue": "King Faisal Conference Hall",
@@ -4124,6 +4237,24 @@
    "id": "217c96f9c954",
    "domain": "energy",
    "description": "",
+   "added_at": "2026-09-27"
+  },
+  {
+   "title": "The 2nd Edition of the Middle East Shared Services Week (MESSW)",
+   "city": "Riyadh",
+   "venue": "Riyadh Marriott Hotel",
+   "category": "conference",
+   "price": "TBA",
+   "url": "https://www.eventbrite.com/e/the-2nd-edition-of-the-middle-east-shared-services-week-messw-tickets-2002235730970",
+   "organizer": "",
+   "start": "2026-11-02",
+   "end": "2026-11-02",
+   "sources": [
+    "eventbrite"
+   ],
+   "id": "1a0fd484911e",
+   "domain": "business",
+   "description": "Get ready to dive into the latest trends and network with the best at the 2nd edition Middle East Shared Services Week!",
    "added_at": "2026-09-27"
   },
   {
