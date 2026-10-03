@@ -24,73 +24,82 @@ var MOODS = ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy']
 
 /* ---------------- swappable character: yeti head shot ---------------- */
 function renderMascotSVG() {
-  var fur1 = '#f5f1e6', fur2 = '#f7f3ea', fur3 = '#faf6ec';
+  /* Fluffy yeti head matching Titus's reference: a ring of fluff tufts plus an
+     feTurbulence displacement filter gives the furry edge; faces stay minimal
+     (small dot eyes, subtle smile) like the reference. */
   var ink = '#23201a', mouth = '#3a352c';
-  var tufts =
-    '<circle cx="32" cy="33" r="20" fill="' + fur1 + '"/>' +
-    '<circle cx="16" cy="20" r="5" fill="' + fur2 + '"/>' +
-    '<circle cx="24" cy="11" r="5.5" fill="' + fur3 + '"/>' +
-    '<circle cx="34" cy="9" r="5.5" fill="' + fur2 + '"/>' +
-    '<circle cx="44" cy="13" r="5" fill="' + fur3 + '"/>' +
-    '<circle cx="52" cy="21" r="4.5" fill="' + fur2 + '"/>' +
-    '<circle cx="12" cy="32" r="4.5" fill="' + fur2 + '"/>' +
-    '<circle cx="52" cy="32" r="4.5" fill="' + fur2 + '"/>' +
-    '<circle cx="16" cy="47" r="4.5" fill="' + fur2 + '"/>' +
-    '<circle cx="48" cy="47" r="4.5" fill="' + fur2 + '"/>';
+  var defs = '<defs><filter id="twsFur" x="-25%" y="-25%" width="150%" height="150%">' +
+    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="7" result="n"/>' +
+    '<feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>' +
+    '</filter></defs>';
+  // ring of fluff tufts around the head (deterministic pseudo-random sizes)
+  var tufts = '', i, a, px, py, r;
+  var shades = ['#f5f1e6', '#f7f3ea', '#faf6ec', '#efe9d8'];
+  for (i = 0; i < 30; i++) {
+    a = (i / 30) * Math.PI * 2;
+    px = 32 + Math.cos(a) * 20.5;
+    py = 33 + Math.sin(a) * 18.5;
+    r = 3 + ((i * 37) % 30) / 10; // 3.0 - 5.9
+    tufts += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="' + shades[i % 4] + '"/>';
+  }
+  // soft inner shading for depth
+  var shading = '<ellipse cx="32" cy="38" rx="13" ry="10" fill="#ece4cf" opacity="0.55"/>';
+  var head = '<g filter="url(#twsFur)">' + tufts +
+    '<ellipse cx="32" cy="33" rx="19.5" ry="18" fill="#f5f1e6"/>' + shading + '</g>';
+
   function dot(cx, cy, r) {
     return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + ink + '"/>' +
-      '<circle cx="' + (cx + 0.9) + '" cy="' + (cy - 0.9) + '" r="' + (r * 0.33) + '" fill="#fff" opacity="0.85"/>';
+      '<circle cx="' + (cx + 0.8) + '" cy="' + (cy - 0.8) + '" r="' + (r * 0.32).toFixed(2) + '" fill="#fff" opacity="0.85"/>';
   }
   function heart(cx, cy) {
-    var x = cx - 5.5;
     return '<path d="M' + cx + ',' + (cy + 4.5) +
-      ' C' + (cx - 2) + ',' + (cy + 1.5) + ' ' + (x) + ',' + (cy - 0.5) + ' ' + (x) + ',' + (cy - 3.2) +
-      ' C' + (x) + ',' + (cy - 5.2) + ' ' + (x + 1.8) + ',' + (cy - 6.7) + ' ' + (cx - 2) + ',' + (cy - 6.7) +
+      ' C' + (cx - 2) + ',' + (cy + 1.5) + ' ' + (cx - 5.5) + ',' + (cy - 0.5) + ' ' + (cx - 5.5) + ',' + (cy - 3.2) +
+      ' C' + (cx - 5.5) + ',' + (cy - 5.2) + ' ' + (cx - 3.7) + ',' + (cy - 6.7) + ' ' + (cx - 2) + ',' + (cy - 6.7) +
       ' C' + (cx - 1) + ',' + (cy - 6.7) + ' ' + (cx - 0.3) + ',' + (cy - 6.2) + ' ' + cx + ',' + (cy - 5.5) +
       ' C' + (cx + 0.3) + ',' + (cy - 6.2) + ' ' + (cx + 1) + ',' + (cy - 6.7) + ' ' + (cx + 2) + ',' + (cy - 6.7) +
-      ' C' + (cx + 3.8) + ',' + (cy - 6.7) + ' ' + (cx + 5.5) + ',' + (cy - 5.2) + ' ' + (cx + 5.5) + ',' + (cy - 3.2) +
+      ' C' + (cx + 3.7) + ',' + (cy - 6.7) + ' ' + (cx + 5.5) + ',' + (cy - 5.2) + ' ' + (cx + 5.5) + ',' + (cy - 3.2) +
       ' C' + (cx + 5.5) + ',' + (cy - 0.5) + ' ' + (cx + 2) + ',' + (cy + 1.5) + ' ' + cx + ',' + (cy + 4.5) + ' Z" fill="#e2556b"/>';
   }
   function smile(d, w) {
-    return '<path d="' + d + '" stroke="' + mouth + '" stroke-width="' + (w || 1.7) + '" fill="none" stroke-linecap="round"/>';
+    return '<path d="' + d + '" stroke="' + mouth + '" stroke-width="' + (w || 1.6) + '" fill="none" stroke-linecap="round"/>';
   }
   var faces = {
-    rest: dot(25, 30, 2.7) + dot(39, 30, 2.7) + smile('M27,38 Q32,42 37,38'),
+    rest: dot(25.5, 30, 2.4) + dot(38.5, 30, 2.4) + smile('M28,37.5 Q32,40.5 36,37.5'),
     happy:
-      '<path d="M21,30 Q25,25.5 29,30" stroke="' + ink + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
-      '<path d="M35,30 Q39,25.5 43,30" stroke="' + ink + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
-      smile('M24,37 Q32,46 40,37', 2.2),
+      '<path d="M21.5,30 Q25.5,25.8 29.5,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+      '<path d="M34.5,30 Q38.5,25.8 42.5,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+      smile('M24.5,37 Q32,45.5 39.5,37', 2),
     excited:
-      '<path d="M25,24 L26.6,28.4 L31,30 L26.6,31.6 L25,36 L23.4,31.6 L19,30 L23.4,28.4 Z" fill="#d9a441"/>' +
-      '<path d="M39,24 L40.6,28.4 L45,30 L40.6,31.6 L39,36 L37.4,31.6 L33,30 L37.4,28.4 Z" fill="#d9a441"/>' +
-      '<ellipse cx="32" cy="41" rx="4.5" ry="5.5" fill="#4a3826"/>' +
-      '<ellipse cx="32" cy="43.5" rx="2.4" ry="1.8" fill="#e08a8a"/>' +
-      '<path class="m-spark" d="M12,14 l1.2,2.8 2.8,1.2 -2.8,1.2 -1.2,2.8 -1.2,-2.8 -2.8,-1.2 2.8,-1.2 Z" fill="#ffe9a8"/>' +
-      '<path class="m-spark" d="M52,14 l1.2,2.8 2.8,1.2 -2.8,1.2 -1.2,2.8 -1.2,-2.8 -2.8,-1.2 2.8,-1.2 Z" fill="#ffe9a8"/>',
+      '<path d="M25.5,24.5 L26.9,28.6 L31,30 L26.9,31.4 L25.5,35.5 L24.1,31.4 L20,30 L24.1,28.6 Z" fill="#d9a441"/>' +
+      '<path d="M38.5,24.5 L39.9,28.6 L44,30 L39.9,31.4 L38.5,35.5 L37.1,31.4 L33,30 L37.1,28.6 Z" fill="#d9a441"/>' +
+      '<ellipse cx="32" cy="40.5" rx="4.2" ry="5" fill="#4a3826"/>' +
+      '<ellipse cx="32" cy="42.8" rx="2.2" ry="1.7" fill="#e08a8a"/>' +
+      '<path class="m-spark" d="M11,13 l1.1,2.6 2.6,1.1 -2.6,1.1 -1.1,2.6 -1.1,-2.6 -2.6,-1.1 2.6,-1.1 Z" fill="#ffe9a8"/>' +
+      '<path class="m-spark" d="M53,13 l1.1,2.6 2.6,1.1 -2.6,1.1 -1.1,2.6 -1.1,-2.6 -2.6,-1.1 2.6,-1.1 Z" fill="#ffe9a8"/>',
     love:
-      heart(25, 30) + heart(39, 30) + smile('M27,38 Q32,42 37,38') +
+      heart(25.5, 30) + heart(38.5, 30) + smile('M28,37.5 Q32,40.5 36,37.5') +
       '<path class="m-float-h" d="M46,8 c-1.5,-2.2 -4.5,-2.2 -4.5,0.5 c0,2 3,3.5 4.5,5 c1.5,-1.5 4.5,-3 4.5,-5 c0,-2.7 -3,-2.7 -4.5,-0.5" fill="#e2556b" opacity="0.9"/>' +
       '<path class="m-float-h m-float-h2" d="M16,6 c-1.2,-1.8 -3.6,-1.8 -3.6,0.4 c0,1.6 2.4,2.8 3.6,4 c1.2,-1.2 3.6,-2.4 3.6,-4 c0,-2.2 -2.4,-2.2 -3.6,-0.4" fill="#e2556b" opacity="0.7"/>',
     surprised:
-      dot(25, 30, 4) + dot(39, 30, 4) +
-      '<ellipse cx="32" cy="41" rx="2.6" ry="3.6" fill="#4a3826"/>',
+      dot(25.5, 30, 3.8) + dot(38.5, 30, 3.8) +
+      '<ellipse cx="32" cy="40.5" rx="2.5" ry="3.4" fill="#4a3826"/>',
     wink:
-      dot(25, 30, 2.7) +
-      '<path d="M35,30 Q39,32.8 43,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
-      smile('M26,38 Q34,43.5 40,35', 2),
+      dot(25.5, 30, 2.4) +
+      '<path d="M34.5,30 Q38.5,32.6 42.5,30" stroke="' + ink + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>' +
+      smile('M26.5,37.5 Q34,43 39.5,34.5', 1.9),
     proud:
-      dot(25, 30, 2.7) + dot(39, 30, 2.7) +
-      '<path d="M20,21.5 L30,23.5" stroke="' + ink + '" stroke-width="2.6" stroke-linecap="round"/>' +
-      smile('M27,39 Q34,42 38,36.5', 2),
+      dot(25.5, 30, 2.4) + dot(38.5, 30, 2.4) +
+      '<path d="M20.5,21.5 L30,23.3" stroke="' + ink + '" stroke-width="2.5" stroke-linecap="round"/>' +
+      smile('M27.5,38.5 Q34,41.5 38,36', 1.9),
     sleepy:
-      '<path d="M21,30 Q25,32.6 29,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M35,30 Q39,32.6 43,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
-      smile('M29,40 Q32,41.6 35,40', 1.6) +
-      '<text class="m-z m-z1" x="49" y="22" font-size="10" fill="#9db4c8" font-family="sans-serif" font-weight="700">z</text>' +
-      '<text class="m-z m-z2" x="54" y="12" font-size="13" fill="#9db4c8" font-family="sans-serif" font-weight="700">z</text>'
+      '<path d="M21.5,30 Q25.5,32.4 29.5,30" stroke="' + ink + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>' +
+      '<path d="M34.5,30 Q38.5,32.4 42.5,30" stroke="' + ink + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>' +
+      smile('M29.5,39.5 Q32,41 34.5,39.5', 1.5) +
+      '<text class="m-z m-z1" x="49" y="21" font-size="10" fill="#9db4c8" font-family="sans-serif" font-weight="700">z</text>' +
+      '<text class="m-z m-z2" x="54" y="11" font-size="13" fill="#9db4c8" font-family="sans-serif" font-weight="700">z</text>'
   };
   var out = '<svg class="mascot-svg" viewBox="0 0 64 64" width="54" height="54" aria-hidden="true">' +
-    '<g>' + tufts + '</g>';
+    defs + head;
   Object.keys(faces).forEach(function (k) {
     out += '<g class="m-face m-face-' + k + '">' + faces[k] + '</g>';
   });

@@ -1,5 +1,5 @@
 /* ThisWeekSaudi service worker: app-shell cache + offline data fallback. */
-const V = 'tws-v9';
+const V = 'tws-v10';
 const SHELL = ['/index.html', '/app.js', '/discover.js', '/mascot.js', '/styles.css', '/discover.css', '/logo.svg',
                '/manifest.json', '/icon-512.png', '/apple-touch-icon.png',
                '/assets/cat-conference.jpg', '/assets/cat-concert.jpg', '/assets/cat-sports.jpg',

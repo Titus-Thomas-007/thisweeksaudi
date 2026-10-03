@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v9', sw.includes("const V = 'tws-v9'"));
+  check('SW cache version bumped to tws-v10', sw.includes("const V = 'tws-v10'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
