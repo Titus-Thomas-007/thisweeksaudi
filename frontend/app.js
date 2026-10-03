@@ -242,7 +242,14 @@ async function boot(){
   }
   bootPush();
   beacon('pageview', {n: state.events.length});
-  if(window.TWS_MASCOT) TWS_MASCOT.fridayReveal();
+  if(window.TWS_MASCOT){
+    TWS_MASCOT.mountHead();
+    try{
+      const today = new Date().toISOString().slice(0,10);
+      TWS_MASCOT.bootCheck(state.events.filter(e => (e.date_start||'') >= today).map(e => e.id));
+    }catch(e){}
+    TWS_MASCOT.fridayReveal();
+  }
 }
 
 /* ---------- history + direction-aware view transitions ---------- */
@@ -800,8 +807,9 @@ function toggleSave(id, srcEl){
       TWS_MASCOT.saveBurst(srcEl);
       if(state.saved.length === 1) TWS_MASCOT.react('excited', 'first-save');
       else if(state.saved.length === 3) TWS_MASCOT.react('happy', 'three-saves');
-    } else if(!state.saved.length){
-      TWS_MASCOT.react('sad', 'planner-empty');
+      else if(state.saved.length === 5) TWS_MASCOT.react('proud', 'five-saves');
+    } else {
+      TWS_MASCOT.react('wink', 'unsave');
     }
   }
 }
@@ -1209,7 +1217,7 @@ function renderSaved(q){
     .sort((a,b)=>(a.date_start||'zzzz').localeCompare(b.date_start||'zzzz'));
   if(!list.length){
     box.innerHTML = '<div class="ev-empty">' + (ql ? 'Nothing saved matches.' : 'Nothing planned yet.<br>Tap the heart on anything you like and it will land here.') + '</div>';
-    if(!ql && window.TWS_MASCOT) TWS_MASCOT.react('sad', 'planner-empty');
+    if(!ql && window.TWS_MASCOT) TWS_MASCOT.react('sleepy', 'planner-empty');
     return;
   }
   /* group by day — the saved list becomes a day-by-day itinerary */
