@@ -467,7 +467,7 @@ function check(name, ok, detail) {
     !/nearme[\s\S]{0,400}openDetail/.test(dscSrc), 'auto-open or missing');
   check('map cards show distance when location known', dscSrc.includes('km away'));
 
-  // ---- 3m. saved: day-grouped itinerary + export-all ----
+  // ---- 3m. saved: day-grouped itinerary + share (export-all removed) ----
   const svBtn = $('#dsc-switch [data-v="mosaic"]'); // ensure we're on discover home
   if(svBtn) svBtn.click();
   await new Promise(r => setTimeout(r, 200));
@@ -478,8 +478,8 @@ function check(name, ok, detail) {
   await new Promise(r => setTimeout(r, 300));
   check('saved view reached', $('#view-saved').classList.contains('active'));
   check('saved events grouped by day', $$('#saved-list .sv-day').length > 0, 'no day groups');
-  check('saved has export-all (.ics) button', !!$('#saved-export-all'), 'missing');
-  check('ics builder supports multi-event export', appSrc0.includes('function downloadICSList('));
+  check('export-all (.ics) removed, share kept', !$('#saved-export-all') && !!$('#saved-share'), 'export still present or share missing');
+  check('no multi-event ics builder left', !appSrc0.includes('function downloadICSList('), 'downloadICSList still present');
   window.history.back();
   await new Promise(r => setTimeout(r, 300));
 

@@ -976,14 +976,6 @@ function downloadICS(ev){
   beacon('ics', {id: ev.id});
   toast('Calendar file downloaded');
 }
-/* export the whole saved list as one calendar file — the itinerary builder */
-function downloadICSList(evs){
-  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ThisWeekSaudi//EN']
-    .concat(evs.map(eventICS)).concat(['END:VCALENDAR']).join('\r\n');
-  downloadICSFile('thisweeksaudi-saved.ics', ics);
-  beacon('ics', {id: 'saved-all', n: evs.length});
-  toast('Calendar file downloaded — ' + evs.length + ' events');
-}
 async function shareEvent(ev){
   const url = location.origin + location.pathname + '#e=' + ev.id;
   const data = {title: ev.title, text: ev.title + ' — ' + niceDate(ev), url};
@@ -1224,8 +1216,7 @@ function renderSaved(q){
   const groups = {};
   list.forEach(ev => { const d = (ev.date_start||'').slice(0,10) || 'nodate'; (groups[d] = groups[d] || []).push(ev); });
   const days = Object.keys(groups).sort();
-  let html = '<div class="sv-tools"><button class="btn-gold" id="saved-export-all">Export all (.ics)</button>' +
-    '<button class="btn-ghost" id="saved-share">Share weekend plan</button></div>' +
+  let html = '<div class="sv-tools"><button class="btn-gold" id="saved-share">Share weekend plan</button></div>' +
     '<div id="share-composer" class="share-composer hidden">' +
     '<input id="share-title" type="text" maxlength="60" placeholder="Name your plan — e.g. Desert weekend" autocomplete="off">' +
     '<button class="btn-gold" id="share-go">Share</button></div>';
@@ -1237,7 +1228,6 @@ function renderSaved(q){
     html += '<div class="sv-day">' + head + '</div>' + gevs.map(ev => savedRow(ev, i++)).join('');
   });
   box.innerHTML = html;
-  $('#saved-export-all', box).addEventListener('click', () => downloadICSList(list));
   const shareBtn = $('#saved-share', box);
   const composer = $('#share-composer', box);
   const titleInput = $('#share-title', box);
