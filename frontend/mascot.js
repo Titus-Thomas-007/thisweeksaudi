@@ -202,11 +202,11 @@ function mount() {
   return host;
 }
 
-/* Header head: tiny yeti next to the Planner button on the main screen */
+/* Header head: tiny yeti next to the ThisWeekSaudi logo on the main screen */
 function mountHead() {
   if (document.getElementById('tws-mascot-head')) return;
-  var btn = document.getElementById('btn-saved');
-  if (!btn || !btn.parentNode) return;
+  var logo = document.querySelector('.deck-nav .wordmark');
+  if (!logo || !logo.parentNode) return;
   var head = document.createElement('span');
   head.id = 'tws-mascot-head';
   head.className = 'mascot-head';
@@ -216,12 +216,13 @@ function mountHead() {
   head.innerHTML = '<span class="mascot-figure">' + mascotHTML() + '</span>';
   head.addEventListener('click', function () {
     react('love', 'head-pet');
-    setTimeout(function () { btn.click(); }, 380);
+    var btn = document.getElementById('btn-saved');
+    if (btn) setTimeout(function () { btn.click(); }, 380);
   });
   head.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); head.click(); }
   });
-  btn.parentNode.insertBefore(head, btn.nextSibling);
+  logo.parentNode.insertBefore(head, logo.nextSibling);
 }
 
 /* ---------------- react ---------------- */

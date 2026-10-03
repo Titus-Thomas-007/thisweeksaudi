@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v12', sw.includes("const V = 'tws-v12'"));
+  check('SW cache version bumped to tws-v13', sw.includes("const V = 'tws-v13'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -617,11 +617,11 @@ function check(name, ok, detail) {
     return ok && mhost.classList.contains('mascot-' + m) && hh && hh.classList.contains('mascot-' + m);
   });
   check('all 7 moods react on bubble + header head', moodsOk, 'mood react failed');
-  // header head is mounted next to the Planner button
-  check('header head mounted beside #btn-saved', (() => {
+  // header head is mounted next to the ThisWeekSaudi logo
+  check('header head mounted beside the wordmark logo', (() => {
     const hh = wdoc.getElementById('tws-mascot-head');
-    const btn = wdoc.getElementById('btn-saved');
-    return hh && btn && hh.previousElementSibling === btn && hh.querySelector('.mascot-img');
+    const logo = wdoc.querySelector('.deck-nav .wordmark');
+    return hh && logo && hh.previousElementSibling === logo && hh.querySelector('.mascot-img');
   })(), 'head misplaced');
   // composite: blank photo + face overlay svg present
   check('mascotHTML composites blank photo + face svg',

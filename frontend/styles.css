@@ -507,9 +507,10 @@ textarea.rep-input{resize:vertical}
 @keyframes mascotShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px) rotate(-3deg)}75%{transform:translateX(4px) rotate(3deg)}}
 @keyframes mascotTilt{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
 @keyframes mascotBob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.03)}}
-/* header head: tiny yeti perched next to the Planner button */
-.mascot-head{display:inline-flex;align-items:center;margin-left:-6px;margin-right:2px;
-  cursor:pointer;transform:translateY(-7px)}
+/* header head: tiny yeti next to the ThisWeekSaudi logo */
+.deck-nav .wordmark{margin-right:2px}
+.mascot-head{display:inline-flex;align-items:center;margin-right:auto;margin-left:6px;
+  cursor:pointer;transform:translateY(1px)}
 .mascot-head .mascot-figure{width:30px;height:30px;filter:drop-shadow(0 0 6px rgba(240,201,106,.5))}
 .mascot-head:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:50%}
 /* friday reveal mascot */
