@@ -124,15 +124,20 @@
 .dp-stories .ambient{position:absolute;inset:0;z-index:0;opacity:.5;filter:blur(60px) saturate(1.4);transform:scale(1.2);
   background-size:cover;background-position:center;transition:background-image .5s}
 .dp-stories .ambient:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55)}
-.dst-wrap{position:relative;z-index:1;height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none}
-.dst-wrap::-webkit-scrollbar{display:none}
-.dst{height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden;background:var(--surface)}
+.dst-wrap{position:relative;z-index:1;height:100%;overflow:hidden;touch-action:pan-y}
+/* pager: one full-screen card at a time, tap/swipe like WhatsApp stories */
+.dst{position:absolute;inset:0;overflow:hidden;background:var(--surface);visibility:hidden;z-index:1}
+.dst.seen{visibility:visible;z-index:2}
+.dst.seen.from-right{animation:storyInR .38s var(--spring)}
+.dst.seen.from-left{animation:storyInL .38s var(--spring)}
+@keyframes storyInR{from{transform:translateX(70px);opacity:.35}to{transform:none;opacity:1}}
+@keyframes storyInL{from{transform:translateX(-70px);opacity:.35}to{transform:none;opacity:1}}
 .dst .dimg img{transform:scale(1.12);transition:transform 1.4s var(--spring)}
 .dst.seen .dimg img{transform:scale(1)}
 .dst .bars{position:absolute;top:12px;left:14px;right:14px;display:flex;gap:5px;z-index:4}
 .dst .bars i{flex:1;height:3px;border-radius:99px;background:rgba(255,255,255,.3);overflow:hidden;position:relative}
 .dst .bars i.done{background:var(--gold)}
-.dst .bars i.now:after{content:"";position:absolute;inset:0;background:var(--gold);border-radius:99px;
+.dst.seen .bars i.now:after{content:"";position:absolute;inset:0;background:var(--gold);border-radius:99px;
   transform-origin:left;animation:barfill 6s linear forwards}
 @keyframes barfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .dst-meta{position:absolute;left:0;right:0;bottom:0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));z-index:3}
@@ -183,6 +188,7 @@
   /* week: comfortable reading width already constrained */
 }
 @media (prefers-reduced-motion:reduce){
+  .dst.seen.from-right,.dst.seen.from-left{animation:none}
   [data-rv]{opacity:1;transform:none;transition:none}
   .dpane.on{animation:none}
   .mz-tile.hero .dimg img{animation:none}

@@ -550,22 +550,27 @@ function buildStories(){
   var pane = $('#dp-stories');
   var amb = $('.ambient', pane);
   if(!amb){ amb = document.createElement('div'); amb.className = 'ambient'; pane.insertBefore(amb, wrap); }
-  if(DSC.storyIO) DSC.storyIO.disconnect();
-  var setSeen = function(el){
-    $$('.dst.seen', wrap).forEach(function(x){ x.classList.remove('seen'); });
+  /* pager: WhatsApp-style — one card visible, tap/swipe to move */
+  DSC.storyList = list;
+  DSC.storyGo = function(i, dir){
+    var cards = $$('.dst', wrap);
+    if(!cards.length) return;
+    i = Math.max(0, Math.min(cards.length - 1, i));
+    if(i === DSC.storyIdx && dir) return;
+    DSC.storyIdx = i;
+    cards.forEach(function(x){ x.classList.remove('seen', 'from-right', 'from-left'); });
+    var el = cards[i];
+    if(dir > 0) el.classList.add('from-right');
+    else if(dir < 0) el.classList.add('from-left');
     el.classList.add('seen');
     var ev = list[+el.dataset.si];
     if(ev) amb.style.backgroundImage = "url('" + (ev.image || catArtFile(ev)).replace(/'/g,'') + "')";
   };
-  DSC.storyIO = null;
-  if(typeof IntersectionObserver !== 'undefined'){
-    DSC.storyIO = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting && e.intersectionRatio > .55) setSeen(e.target); });
-    }, {root: wrap, threshold:[.55]});
-    $$('.dst', wrap).forEach(function(el){ DSC.storyIO.observe(el); });
-  }
-  var first = $('.dst', wrap);
-  if(first) setSeen(first);
+  DSC.storyStep = function(d){
+    DSC.storyGo((DSC.storyIdx || 0) + d, d);
+  };
+  DSC.storyIdx = 0;
+  DSC.storyGo(0, 0);
 }
 
 /* ---------- wiring ---------- */
@@ -590,27 +595,45 @@ function initDiscover(){
     else if(b.dataset.fc !== undefined){ DSC.filters.cat = b.dataset.fc; buildDrawer(); applyFilters(); }
     else if(b.dataset.fcity !== undefined){ DSC.filters.city = b.dataset.fcity; buildDrawer(); applyFilters(); }
   });
-  /* stories touch gestures: horizontal swipe = prev/next story,
-     swipe-down at the first story = back to Mosaic */
-  var sx = 0, sy = 0;
+  /* stories gestures (WhatsApp-style pager):
+     tap right 2/3 = next, tap left 1/3 = previous,
+     swipe left = next, swipe right = previous,
+     swipe-down on the first story = back to Mosaic */
   var wrap = $('#dst-wrap');
+  var tsx = 0, tsy = 0, tst = 0, lastTouchNav = 0;
+  var storiesOn = function(){
+    return $('#view-discover').classList.contains('active') &&
+           $('#dp-stories').classList.contains('on');
+  };
   wrap.addEventListener('touchstart', function(e){
-    var t = e.touches[0]; sx = t.clientX; sy = t.clientY;
+    var t = e.touches[0]; tsx = t.clientX; tsy = t.clientY; tst = Date.now();
   }, {passive:true});
   wrap.addEventListener('touchend', function(e){
+    if(!storiesOn()) return;
     var t = e.changedTouches[0]; if(!t) return;
-    var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(e.target.closest('button, a')) return; // let Details/Save handle it
+    var dx = t.clientX - tsx, dy = t.clientY - tsy, dt = Date.now() - tst;
     var adx = Math.abs(dx), ady = Math.abs(dy);
-    if(Math.max(adx, ady) < 70) return;
-    if(adx > ady * 1.4){
-      var cur = $('.dst.seen', wrap) || $('.dst', wrap); if(!cur) return;
-      var sib = dx < 0 ? cur.nextElementSibling : cur.previousElementSibling;
-      if(sib && sib.classList.contains('dst'))
-        sib.scrollIntoView({behavior: reduceMotion() ? 'auto' : 'smooth', block:'start'});
-    } else if(dy > 110 && wrap.scrollTop <= 4){
+    if(Math.max(adx, ady) < 14 && dt < 450){
+      // tap: left third = back, rest = forward
+      lastTouchNav = Date.now();
+      var r = wrap.getBoundingClientRect();
+      DSC.storyStep(t.clientX - r.left < r.width / 3 ? -1 : 1);
+    } else if(adx > 60 && adx > ady * 1.2){
+      lastTouchNav = Date.now();
+      DSC.storyStep(dx < 0 ? 1 : -1);
+    } else if(dy > 110 && (DSC.storyIdx || 0) === 0){
       setDView('mosaic');
     }
   }, {passive:true});
+  /* desktop: click zones mirror the tap behaviour (guarded against the
+     synthetic click that follows a touch tap) */
+  wrap.addEventListener('click', function(e){
+    if(!storiesOn() || Date.now() - lastTouchNav < 600) return;
+    if(e.target.closest('button, a')) return;
+    var r = wrap.getBoundingClientRect();
+    DSC.storyStep(e.clientX - r.left < r.width / 3 ? -1 : 1);
+  });
   $('#view-discover').addEventListener('click', function(e){
     var sv = e.target.closest('[data-save]');
     if(sv){
@@ -641,20 +664,17 @@ function initDiscover(){
   });
   /* arrow-key swiping is handled by app.js (it knows the deck pane state);
      stories get their own arrows: left/up = previous, right/down = next */
-  document.addEventListener('keydown', function(e){    var storiesOn = $('#view-discover').classList.contains('active') && $('#dp-stories').classList.contains('on');
-    if(!storiesOn || state.sheetOpen) return;
+  document.addEventListener('keydown', function(e){
+    if(!($('#view-discover').classList.contains('active') && $('#dp-stories').classList.contains('on'))) return;
+    if(state.sheetOpen) return;
     var dir = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1
             : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
-    if(!dir) return;
-    var wrap = $('#dst-wrap'); if(!wrap) return;
-    var cur = $('.dst.seen', wrap) || $('.dst', wrap); if(!cur) return;
-    var sib = dir > 0 ? cur.nextElementSibling : cur.previousElementSibling;
-    if(sib && sib.classList.contains('dst')){
-      e.preventDefault();
-      sib.scrollIntoView({behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start'});
-    }
+    if(!dir || typeof DSC.storyStep !== 'function') return;
+    e.preventDefault();
+    DSC.storyStep(dir);
   });
 }
 initDiscover();
+window.DSC = DSC; // exposed for QA automation
 
 })();

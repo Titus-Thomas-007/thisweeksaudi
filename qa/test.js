@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v15', sw.includes("const V = 'tws-v15'"));
+  check('SW cache version bumped to tws-v16', sw.includes("const V = 'tws-v16'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -379,6 +379,16 @@ function check(name, ok, detail) {
   const dsts = $$('#dp-stories .dst');
   check('stories has cards', dsts.length > 0, 'none');
   check('first story marked seen (animations armed)', !!$('#dp-stories .dst.seen'), 'no .seen');
+  check('pager shows exactly one story', $$('#dp-stories .dst.seen').length === 1, 'not a pager');
+  window.DSC.storyStep(1);
+  await new Promise(r => setTimeout(r, 100));
+  check('storyStep(1) advances to second story',
+    $$('#dp-stories .dst.seen').length === 1 && $$('#dp-stories .dst')[1].classList.contains('seen'),
+    'pager did not advance');
+  window.DSC.storyStep(-1);
+  await new Promise(r => setTimeout(r, 100));
+  check('storyStep(-1) goes back to first story',
+    $$('#dp-stories .dst')[0].classList.contains('seen'), 'pager did not go back');
   check('every story has an image layer',
     dsts.length > 0 && dsts.every(s => s.querySelector('.dimg') && /url\(/.test(s.querySelector('.dimg').style.backgroundImage)),
     'some stories lack image');
@@ -463,13 +473,24 @@ function check(name, ok, detail) {
   await new Promise(r => setTimeout(r, 100));
   check('drawer closes', $('#dsc-drawer').classList.contains('hidden'), 'drawer stayed open');
 
-  // ---- 3k. stories swipe gestures (source-level) ----
-  check('stories has touch swipe handlers',
+  // ---- 3k. stories pager gestures (WhatsApp-style: tap/swipe, no scroll) ----
+  check('stories has touch tap+swipe handlers',
     dscSrc.includes("addEventListener('touchstart'") && dscSrc.includes("addEventListener('touchend'"));
-  check('horizontal swipe moves between stories',
-    dscSrc.includes('cur.nextElementSibling') && dscSrc.includes('previousElementSibling'), 'nav missing');
+  check('stories pager API exists (storyGo/storyStep)',
+    dscSrc.includes('DSC.storyGo') && dscSrc.includes('DSC.storyStep'), 'pager missing');
+  check('tap left-third = prev, rest = next',
+    dscSrc.includes('clientX - r.left < r.width / 3'), 'tap zones missing');
+  check('swipe left = next, swipe right = prev',
+    dscSrc.includes('DSC.storyStep(dx < 0 ? 1 : -1)'), 'swipe nav missing');
+  check('taps on buttons do not navigate stories',
+    dscSrc.includes("e.target.closest('button, a')"), 'button guard missing');
   check('swipe-down at first story returns to Mosaic',
-    /wrap\.scrollTop <= 4/.test(dscSrc) && dscSrc.includes("setDView('mosaic')"), 'dismiss missing');
+    dscSrc.includes("(DSC.storyIdx || 0) === 0") && dscSrc.includes("setDView('mosaic')"), 'dismiss missing');
+  check('stories wrap is a non-scrolling pager (CSS)', (() => {
+    const dcss = fs.readFileSync(path.join(FRONT, 'discover.css'), 'utf8');
+    return dcss.includes('overflow:hidden;touch-action:pan-y') &&
+      dcss.includes('.dst.seen.from-right') && dcss.includes('@keyframes storyInR');
+  })(), 'pager CSS missing');
 
   // ---- 3l. map: near-me button ----
   check('map has near-me button', !!$('#dmap-nearme'), 'missing');

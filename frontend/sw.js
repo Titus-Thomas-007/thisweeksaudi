@@ -1,5 +1,5 @@
 /* ThisWeekSaudi service worker: app-shell cache + offline data fallback. */
-const V = 'tws-v15';
+const V = 'tws-v16';
 const SHELL = ['/index.html', '/app.js', '/discover.js', '/mascot.js', '/styles.css', '/discover.css', '/logo.svg',
                '/manifest.json', '/icon-512.png', '/apple-touch-icon.png',
                '/img/yeti-rest.webp', '/img/yeti-happy.webp', '/img/yeti-excited.webp',
