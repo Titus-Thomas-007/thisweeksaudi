@@ -1,7 +1,10 @@
 /* ThisWeekSaudi service worker: app-shell cache + offline data fallback. */
-const V = 'tws-v10';
+const V = 'tws-v11';
 const SHELL = ['/index.html', '/app.js', '/discover.js', '/mascot.js', '/styles.css', '/discover.css', '/logo.svg',
                '/manifest.json', '/icon-512.png', '/apple-touch-icon.png',
+               '/img/yeti-rest.webp', '/img/yeti-happy.webp', '/img/yeti-excited.webp',
+               '/img/yeti-love.webp', '/img/yeti-surprised.webp', '/img/yeti-wink.webp',
+               '/img/yeti-proud.webp', '/img/yeti-sleepy.webp',
                '/assets/cat-conference.jpg', '/assets/cat-concert.jpg', '/assets/cat-sports.jpg',
                '/assets/cat-expo.jpg', '/assets/cat-meetup.jpg', '/assets/cat-workshop.jpg',
                '/assets/cat-arts.jpg', '/assets/cat-comedy.jpg', '/assets/cat-festival.jpg',

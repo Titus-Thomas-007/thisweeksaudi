@@ -22,88 +22,15 @@
 
 var MOODS = ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'];
 
-/* ---------------- swappable character: yeti head shot ---------------- */
-function renderMascotSVG() {
-  /* Fluffy yeti head matching Titus's reference: a ring of fluff tufts plus an
-     feTurbulence displacement filter gives the furry edge; faces stay minimal
-     (small dot eyes, subtle smile) like the reference. */
-  var ink = '#23201a', mouth = '#3a352c';
-  var defs = '<defs><filter id="twsFur" x="-25%" y="-25%" width="150%" height="150%">' +
-    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="7" result="n"/>' +
-    '<feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>' +
-    '</filter></defs>';
-  // ring of fluff tufts around the head (deterministic pseudo-random sizes)
-  var tufts = '', i, a, px, py, r;
-  var shades = ['#f5f1e6', '#f7f3ea', '#faf6ec', '#efe9d8'];
-  for (i = 0; i < 30; i++) {
-    a = (i / 30) * Math.PI * 2;
-    px = 32 + Math.cos(a) * 20.5;
-    py = 33 + Math.sin(a) * 18.5;
-    r = 3 + ((i * 37) % 30) / 10; // 3.0 - 5.9
-    tufts += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="' + shades[i % 4] + '"/>';
-  }
-  // soft inner shading for depth
-  var shading = '<ellipse cx="32" cy="38" rx="13" ry="10" fill="#ece4cf" opacity="0.55"/>';
-  var head = '<g filter="url(#twsFur)">' + tufts +
-    '<ellipse cx="32" cy="33" rx="19.5" ry="18" fill="#f5f1e6"/>' + shading + '</g>';
-
-  function dot(cx, cy, r) {
-    return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + ink + '"/>' +
-      '<circle cx="' + (cx + 0.8) + '" cy="' + (cy - 0.8) + '" r="' + (r * 0.32).toFixed(2) + '" fill="#fff" opacity="0.85"/>';
-  }
-  function heart(cx, cy) {
-    return '<path d="M' + cx + ',' + (cy + 4.5) +
-      ' C' + (cx - 2) + ',' + (cy + 1.5) + ' ' + (cx - 5.5) + ',' + (cy - 0.5) + ' ' + (cx - 5.5) + ',' + (cy - 3.2) +
-      ' C' + (cx - 5.5) + ',' + (cy - 5.2) + ' ' + (cx - 3.7) + ',' + (cy - 6.7) + ' ' + (cx - 2) + ',' + (cy - 6.7) +
-      ' C' + (cx - 1) + ',' + (cy - 6.7) + ' ' + (cx - 0.3) + ',' + (cy - 6.2) + ' ' + cx + ',' + (cy - 5.5) +
-      ' C' + (cx + 0.3) + ',' + (cy - 6.2) + ' ' + (cx + 1) + ',' + (cy - 6.7) + ' ' + (cx + 2) + ',' + (cy - 6.7) +
-      ' C' + (cx + 3.7) + ',' + (cy - 6.7) + ' ' + (cx + 5.5) + ',' + (cy - 5.2) + ' ' + (cx + 5.5) + ',' + (cy - 3.2) +
-      ' C' + (cx + 5.5) + ',' + (cy - 0.5) + ' ' + (cx + 2) + ',' + (cy + 1.5) + ' ' + cx + ',' + (cy + 4.5) + ' Z" fill="#e2556b"/>';
-  }
-  function smile(d, w) {
-    return '<path d="' + d + '" stroke="' + mouth + '" stroke-width="' + (w || 1.6) + '" fill="none" stroke-linecap="round"/>';
-  }
-  var faces = {
-    rest: dot(25.5, 30, 2.4) + dot(38.5, 30, 2.4) + smile('M28,37.5 Q32,40.5 36,37.5'),
-    happy:
-      '<path d="M21.5,30 Q25.5,25.8 29.5,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
-      '<path d="M34.5,30 Q38.5,25.8 42.5,30" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
-      smile('M24.5,37 Q32,45.5 39.5,37', 2),
-    excited:
-      '<path d="M25.5,24.5 L26.9,28.6 L31,30 L26.9,31.4 L25.5,35.5 L24.1,31.4 L20,30 L24.1,28.6 Z" fill="#d9a441"/>' +
-      '<path d="M38.5,24.5 L39.9,28.6 L44,30 L39.9,31.4 L38.5,35.5 L37.1,31.4 L33,30 L37.1,28.6 Z" fill="#d9a441"/>' +
-      '<ellipse cx="32" cy="40.5" rx="4.2" ry="5" fill="#4a3826"/>' +
-      '<ellipse cx="32" cy="42.8" rx="2.2" ry="1.7" fill="#e08a8a"/>' +
-      '<path class="m-spark" d="M11,13 l1.1,2.6 2.6,1.1 -2.6,1.1 -1.1,2.6 -1.1,-2.6 -2.6,-1.1 2.6,-1.1 Z" fill="#ffe9a8"/>' +
-      '<path class="m-spark" d="M53,13 l1.1,2.6 2.6,1.1 -2.6,1.1 -1.1,2.6 -1.1,-2.6 -2.6,-1.1 2.6,-1.1 Z" fill="#ffe9a8"/>',
-    love:
-      heart(25.5, 30) + heart(38.5, 30) + smile('M28,37.5 Q32,40.5 36,37.5') +
-      '<path class="m-float-h" d="M46,8 c-1.5,-2.2 -4.5,-2.2 -4.5,0.5 c0,2 3,3.5 4.5,5 c1.5,-1.5 4.5,-3 4.5,-5 c0,-2.7 -3,-2.7 -4.5,-0.5" fill="#e2556b" opacity="0.9"/>' +
-      '<path class="m-float-h m-float-h2" d="M16,6 c-1.2,-1.8 -3.6,-1.8 -3.6,0.4 c0,1.6 2.4,2.8 3.6,4 c1.2,-1.2 3.6,-2.4 3.6,-4 c0,-2.2 -2.4,-2.2 -3.6,-0.4" fill="#e2556b" opacity="0.7"/>',
-    surprised:
-      dot(25.5, 30, 3.8) + dot(38.5, 30, 3.8) +
-      '<ellipse cx="32" cy="40.5" rx="2.5" ry="3.4" fill="#4a3826"/>',
-    wink:
-      dot(25.5, 30, 2.4) +
-      '<path d="M34.5,30 Q38.5,32.6 42.5,30" stroke="' + ink + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>' +
-      smile('M26.5,37.5 Q34,43 39.5,34.5', 1.9),
-    proud:
-      dot(25.5, 30, 2.4) + dot(38.5, 30, 2.4) +
-      '<path d="M20.5,21.5 L30,23.3" stroke="' + ink + '" stroke-width="2.5" stroke-linecap="round"/>' +
-      smile('M27.5,38.5 Q34,41.5 38,36', 1.9),
-    sleepy:
-      '<path d="M21.5,30 Q25.5,32.4 29.5,30" stroke="' + ink + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>' +
-      '<path d="M34.5,30 Q38.5,32.4 42.5,30" stroke="' + ink + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>' +
-      smile('M29.5,39.5 Q32,41 34.5,39.5', 1.5) +
-      '<text class="m-z m-z1" x="49" y="21" font-size="10" fill="#9db4c8" font-family="sans-serif" font-weight="700">z</text>' +
-      '<text class="m-z m-z2" x="54" y="11" font-size="13" fill="#9db4c8" font-family="sans-serif" font-weight="700">z</text>'
-  };
-  var out = '<svg class="mascot-svg" viewBox="0 0 64 64" width="54" height="54" aria-hidden="true">' +
-    defs + head;
-  Object.keys(faces).forEach(function (k) {
-    out += '<g class="m-face m-face-' + k + '">' + faces[k] + '</g>';
-  });
-  return out + '</svg>';
+/* ---------------- character: real fluffy yeti heads (AI-generated from Titus's reference) ---------------- */
+var YETI_IMGS = {
+  rest: 'img/yeti-rest.webp', happy: 'img/yeti-happy.webp', excited: 'img/yeti-excited.webp',
+  love: 'img/yeti-love.webp', surprised: 'img/yeti-surprised.webp', wink: 'img/yeti-wink.webp',
+  proud: 'img/yeti-proud.webp', sleepy: 'img/yeti-sleepy.webp'
+};
+function mascotHTML(mood) {
+  var m = YETI_IMGS[mood] ? mood : 'rest';
+  return '<img class="mascot-img" src="' + YETI_IMGS[m] + '" alt="yeti" draggable="false">';
 }
 
 /* ---------------- copy bank (no repeats within a session) ---------------- */
@@ -196,7 +123,9 @@ function setMood(mood) {
   if (h) nodes.push(h);
   nodes.forEach(function (n) {
     MOODS.forEach(function (m) { n.classList.remove('mascot-' + m); });
-    if (mood) n.classList.add('mascot-' + mood);
+    if (mood && MOODS.indexOf(mood) !== -1) n.classList.add('mascot-' + mood);
+    var img = n.querySelector('.mascot-img');
+    if (img) img.src = YETI_IMGS[mood] || YETI_IMGS.rest;
   });
 }
 
@@ -216,7 +145,7 @@ function mount() {
   host.setAttribute('role', 'status');
   host.setAttribute('aria-live', 'polite');
   host.innerHTML =
-    '<div class="mascot-figure">' + renderMascotSVG() + '</div>' +
+    '<div class="mascot-figure">' + mascotHTML('rest') + '</div>' +
     '<div class="tws-mascot-bubble"></div>' +
     '<button class="tws-mascot-x" aria-label="Dismiss">×</button>';
   host.addEventListener('click', dismiss); // tap bubble to dismiss
@@ -235,7 +164,7 @@ function mountHead() {
   head.setAttribute('role', 'button');
   head.setAttribute('aria-label', 'Open Planner');
   head.setAttribute('tabindex', '0');
-  head.innerHTML = '<span class="mascot-figure">' + renderMascotSVG() + '</span>';
+  head.innerHTML = '<span class="mascot-figure">' + mascotHTML('rest') + '</span>';
   head.addEventListener('click', function () {
     react('love', 'head-pet');
     setTimeout(function () { btn.click(); }, 380);
@@ -368,7 +297,7 @@ function fridayReveal() {
   ov.className = 'tws-friday';
   ov.setAttribute('role', 'status');
   ov.innerHTML = '<div class="tws-friday-inner">' +
-    '<div class="tws-friday-mood">' + renderMascotSVG() + '</div>' +
+    '<div class="tws-friday-mood"><img class="mascot-img" src="' + YETI_IMGS.happy + '" alt="yeti"></div>' +
     '<div class="tws-friday-title">Your weekend is here</div>' +
     '<div class="tws-friday-sub">Go make it a good one</div></div>';
   try {
@@ -409,7 +338,7 @@ window.TWS_MASCOT = {
   fridayReveal: fridayReveal,
   bootCheck: bootCheck,
   mountHead: mountHead,
-  renderMascotSVG: renderMascotSVG,
+  mascotHTML: mascotHTML,
   MOODS: MOODS
 };
 })();

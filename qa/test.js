@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v10', sw.includes("const V = 'tws-v10'"));
+  check('SW cache version bumped to tws-v11', sw.includes("const V = 'tws-v11'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -148,24 +148,25 @@ function check(name, ok, detail) {
   check('mascot.js loaded before app.js', htmlIdx.indexOf('mascot.js') !== -1 &&
     htmlIdx.indexOf('mascot.js') < htmlIdx.indexOf('app.js?v='), 'script tag missing/misordered');
   check('mascot.js in SW app shell', swSrc.includes("'/mascot.js'"), 'mascot.js not precached');
-  check('TWS_MASCOT exposes react/dismiss/saveBurst/fridayReveal',
-    ['react: react', 'dismiss: dismiss', 'saveBurst: saveBurst', 'fridayReveal: fridayReveal']
+  check('TWS_MASCOT exposes react/dismiss/saveBurst/fridayReveal/mascotHTML',
+    ['react: react', 'dismiss: dismiss', 'saveBurst: saveBurst', 'fridayReveal: fridayReveal', 'mascotHTML: mascotHTML']
       .every(k => msrc.includes(k)), 'public surface incomplete');
-  check('character art isolated in renderMascotSVG() (yeti head)',
-    msrc.includes('function renderMascotSVG()') && msrc.includes('m-face-') &&
-    msrc.includes('love:') && msrc.includes('sleepy:') && msrc.includes('m-z'),
-    'yeti head missing from renderMascotSVG');
+  check('yeti heads are real images (8 files, one per mood)',
+    ['rest','happy','excited','love','surprised','wink','proud','sleepy'].every(m =>
+      msrc.includes("'img/yeti-" + m + ".webp'")) &&
+    ['rest','happy','excited','love','surprised','wink','proud','sleepy'].every(m =>
+      swSrc.includes("'/img/yeti-" + m + ".webp'")),
+    'yeti image set incomplete');
   check('copy bank covers all 7 moods, no sad',
-    ['happy:', 'excited:', 'love:', 'surprised:', 'wink:', 'proud:', 'sleepy:'].every(m => {
-      const body = msrc.split(m)[1].split(']')[0];
+    ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'].every(m => {
+      const body = msrc.split(m + ': [')[1].split(']')[0];
       return (body.match(/"/g) || []).length >= 8;
     }) && !/\bsad:/.test(msrc.split('var COPY')[1].split('};')[0]), 'copy bank wrong');
   check('mood system is container classes for 7 moods',
     ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'].every(m =>
       cssSrc.includes('.mascot-' + m + ' .mascot-figure')), 'mood CSS missing');
-  check('face swapping CSS present for 7 moods',
-    ['happy', 'excited', 'love', 'surprised', 'wink', 'proud', 'sleepy'].every(m =>
-      cssSrc.includes('.mascot-' + m + ' .m-face-' + m)), 'face-swap CSS missing');
+  check('mascot-img styled round + cover',
+    cssSrc.includes('.mascot-img') && cssSrc.includes('border-radius:50%'), 'mascot-img CSS missing');
   check('header head mount next to Planner button',
     msrc.includes('tws-mascot-head') && msrc.includes('mountHead') &&
     cssSrc.includes('.mascot-head'), 'header head missing');
@@ -585,7 +586,7 @@ function check(name, ok, detail) {
   const M = window.TWS_MASCOT;
   const wdoc = window.document;
   check('TWS_MASCOT present with full API',
-    M && ['react','dismiss','saveBurst','fridayReveal','bootCheck','mountHead','renderMascotSVG'].every(k => typeof M[k] === 'function') &&
+    M && ['react','dismiss','saveBurst','fridayReveal','bootCheck','mountHead','mascotHTML'].every(k => typeof M[k] === 'function') &&
     Array.isArray(M.MOODS) && M.MOODS.length === 7 && M.MOODS.indexOf('sad') === -1,
     'API incomplete');
   check('mascot mounts only inside Planner view', (() => {
@@ -617,11 +618,17 @@ function check(name, ok, detail) {
   check('header head mounted beside #btn-saved', (() => {
     const hh = wdoc.getElementById('tws-mascot-head');
     const btn = wdoc.getElementById('btn-saved');
-    return hh && btn && hh.previousElementSibling === btn && hh.querySelector('.mascot-svg');
+    return hh && btn && hh.previousElementSibling === btn && hh.querySelector('.mascot-img');
   })(), 'head misplaced');
-  // face swap: love face group present in SVG markup
-  check('SVG carries 7 mood face groups', M.MOODS.every(m => M.renderMascotSVG().includes('m-face-' + m)),
-    'face groups missing');
+  // image swap: mascotHTML returns the right file per mood
+  check('mascotHTML returns per-mood image', M.MOODS.every(m => M.mascotHTML(m).includes('yeti-' + m + '.webp')) &&
+    M.mascotHTML('rest').includes('yeti-rest.webp'), 'image mapping wrong');
+  // setMood swaps the header head image
+  M.react('love', 'qa-img-swap');
+  check('react swaps header head image', (() => {
+    const img = wdoc.querySelector('#tws-mascot-head .mascot-img');
+    return img && img.src.includes('yeti-love.webp');
+  })(), 'head image not swapped');
   // dismiss remembers
   M.dismiss();
   check('dismiss hides + remembers mute',
