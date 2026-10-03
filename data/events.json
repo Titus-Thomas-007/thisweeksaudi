@@ -2288,7 +2288,7 @@
    "category": "conference",
    "price": "Free",
    "url": null,
-   "organizer": null,
+   "organizer": "Google Cloud",
    "start": "2026-10-13",
    "end": "2026-10-13",
    "sources": [
@@ -2296,9 +2296,9 @@
    ],
    "id": "3eac257360e9",
    "domain": "tech",
-   "description": "",
+   "description": "Google Cloud's flagship annual Saudi summit takes place in Riyadh on October 13, 2026 — a gathering of cloud and AI leaders, partners and customers exploring the future of cloud computing and AI in the Kingdom, with keynotes, breakout sessions and live demos.",
    "added_at": "2026-09-27",
-   "image": "https://aitnews.com/wp-content/uploads/2023/11/Google-cloud-region-has-arrived-to-Saudi-Arabia-768x432.jpg"
+   "image": "https://www.plainconcepts.com/wp-content/uploads/2024/11/google-summit-arabia-2010x1508.jpg"
   },
   {
    "title": "12th Middle East Banking AI & Analytics Summit 2026",
@@ -2315,8 +2315,9 @@
    ],
    "id": "974822fb048b",
    "domain": "finance",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "LetstalkB2b presents the 12th Middle East Banking AI & Analytics Summit 2026, taking place Wednesday, October 14, 2026, 8:30 AM–4:30 PM at the Hyatt Regency Riyadh Olaya, Riyadh.",
+   "added_at": "2026-09-27",
+   "image": "https://cdn.evbuc.com/images/1187174708/2985335191770/1/original.20260618-064647?w=940&auto=format,compress&q=75&sharp=10&s=062464781648d1d5e5278a3592dd335f"
   },
   {
    "title": "3rd Annual International Geotechnical Innovation Conference (IGIC 2026)",
@@ -2333,8 +2334,9 @@
    ],
    "id": "b91d1464e5c2",
    "domain": "build",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "The 3rd Annual International Geotechnical Innovation Conference (IGIC 2026) is MENA's leading geotechnical engineering platform, purpose-built to support the region's — especially Saudi Arabia's — unprecedented scale of infrastructure, urban, mining and giga-project developments.",
+   "added_at": "2026-09-27",
+   "image": "https://geotechnicalinnovationconference.com/wp-content/uploads/2026/02/DSC00422-scaled.jpg"
   },
   {
    "title": "AI & Data Centers Summit",
@@ -2351,7 +2353,7 @@
    ],
    "id": "3f195aed80e2",
    "domain": "tech",
-   "description": "",
+   "description": "The AI & Data Centers Summit (AIDC Summit) is a premier event that brings together leaders in artificial intelligence infrastructure, hyperscale computing, and cloud and edge technologies, held October 14–15, 2026 in Riyadh, Saudi Arabia.",
    "added_at": "2026-09-27"
   },
   {
@@ -2369,8 +2371,9 @@
    ],
    "id": "7e822c1c1f41",
    "domain": "sportsbiz",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "Athlete 360 Summit 2026 takes place 14–15 October 2026 at the Hilton Riyadh Hotel & Residences in Riyadh, Saudi Arabia.",
+   "added_at": "2026-09-27",
+   "image": "https://ksaevent.com/wp-content/uploads/2026/08/qma-athlete-360-alryad-2026-2.webp"
   },
   {
    "title": "International Trenchless Tunnelling Exhibition and Conference (ITTEC 2026)",
@@ -2379,7 +2382,7 @@
    "category": "expo",
    "price": "Free",
    "url": "https://saudiarabianewsnetwork.com/riyadh-infrastructure-projects-center-to-host-international-trenchless-tunnelling-conference-in-riyadh/",
-   "organizer": null,
+   "organizer": "Riyadh Infrastructure Projects Center",
    "start": "2026-10-14",
    "end": "2026-10-15",
    "sources": [
@@ -2387,8 +2390,9 @@
    ],
    "id": "943655a68e8a",
    "domain": "build",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "The International Trenchless Tunnelling Exhibition and Conference (ITTEC 2026) takes place October 14–15, 2026 at the Fairmont Riyadh, hosted by the Riyadh Infrastructure Projects Center — a specialized international platform showcasing the latest tunnelling technologies and innovations, with 25+ local and international speakers.",
+   "added_at": "2026-09-27",
+   "image": "https://www.trenchlessmiddleeast.com/wp-content/uploads/2023/02/0M6A3536.jpg"
   },
   {
    "title": "Retail World Forum 2026",
@@ -2397,7 +2401,7 @@
    "category": "conference",
    "price": "Free",
    "url": "https://retailworldforum.com/riyadh/",
-   "organizer": null,
+   "organizer": "Fast Company Middle East",
    "start": "2026-10-14",
    "end": "2026-10-14",
    "sources": [
@@ -2405,8 +2409,9 @@
    ],
    "id": "b266b3860c55",
    "domain": "retail",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "The Retail World Forum is where retail's boldest thinkers and builders come together to chart what's next — a full day of keynotes and deep-dive discussions highlighting the ideas, systems and innovations redefining how consumers shop and how brands win. The Riyadh edition takes place October 14, 2026 at the Riyadh Marriott Hotel.",
+   "added_at": "2026-09-27",
+   "image": "https://retailworldforum.com/wp-content/uploads/2026/04/Retail-World-Forum-Riyadh.jpeg"
   },
   {
    "title": "Riyadh Product Leaders Dinner",
@@ -2423,8 +2428,9 @@
    ],
    "id": "3ef17dc8028a",
    "domain": "tech",
-   "description": "",
-   "added_at": "2026-09-27"
+   "description": "Product People is hosting a Product Executive Dinner — an intimate dinner for 6–8 CPOs and Product VPs to connect and share insights.",
+   "added_at": "2026-09-27",
+   "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=420/event-social/5b/ee631e7f-f5b3-403f-afcb-2b26f5583d86.png"
   },
   {
    "title": "World Stadiums and Arenas Summit 2026",
