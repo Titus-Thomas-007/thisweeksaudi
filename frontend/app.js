@@ -157,9 +157,10 @@ let booted = false;
 async function boot(){
   if(booted) return; booted = true;
   const deep = location.hash.match(/#e=([\w-]+)/);
+  const weekendDeep = location.hash === '#weekend'; // thursday digest notification
   /* cold start: render the app shell immediately so the user sees skeletons,
      not a blank screen, while /api/events wakes up (~30-60s after idle) */
-  const earlyPrefs = !deep && ((prefs.cities && prefs.cities.length) || (prefs.interests && prefs.interests.length));
+  const earlyPrefs = !deep && !weekendDeep && ((prefs.cities && prefs.cities.length) || (prefs.interests && prefs.interests.length));
   let wired = false;
   const wireAll = () => {
     if(wired) return; wired = true;
@@ -173,7 +174,7 @@ async function boot(){
     wireAll();
     window.__twsLoading = true;
     enterDeck(true); // panes render shimmer skeletons until data arrives
-  } else if(!deep){
+  } else if(!deep && !weekendDeep){
     showView('view-onboard'); // static shell now; cities populate when meta arrives
   }
   try{
@@ -229,10 +230,11 @@ async function boot(){
   const hasPrefs = (prefs.cities && prefs.cities.length) || (prefs.interests && prefs.interests.length);
   if(window.__twsLoading && window.__twsDiscoverReady){
     window.__twsDiscoverReady(); // swap skeletons for real panes
-  } else if(deep){
-    const ev = state.events.find(e => e.id === deep[1]);
+  } else if(deep || weekendDeep){
+    const ev = deep && state.events.find(e => e.id === deep[1]);
     enterDeck(true);
     if(ev) openDetail(ev, 'deck');
+    /* #weekend: discover.js pre-seeded DSC view/filters from the hash at load */
   } else if(hasPrefs){
     enterDeck(true);
   } else {
@@ -240,6 +242,7 @@ async function boot(){
   }
   bootPush();
   beacon('pageview', {n: state.events.length});
+  if(window.TWS_MASCOT) TWS_MASCOT.fridayReveal();
 }
 
 /* ---------- history + direction-aware view transitions ---------- */
@@ -281,6 +284,10 @@ function enterDeck(first, replace){
   showView('view-deck', first ? 'fwd' : 'back');
 }
 const mapModal = () => document.getElementById('map-modal');
+/* thursday digest: notification tap on an already-open tab */
+window.addEventListener('hashchange', () => {
+  if(location.hash === '#weekend' && window.__twsShowWeekend) window.__twsShowWeekend();
+});
 window.addEventListener('popstate', () => {
   if(state.sheetOpen){ closeDetail(true); hist.pop(); return; }
   if(!mapModal().classList.contains('hidden')){ closeMap(true); hist.pop(); return; }
@@ -648,8 +655,8 @@ function cardEl(ev, depth){
   probe.src = imgUrl;
   $('.card-bookmark', el).addEventListener('click', e => {
     e.stopPropagation();
-    toggleSave(ev.id);
     const b = e.currentTarget;
+    toggleSave(ev.id, b);
     const on = state.saved.includes(ev.id);
     b.classList.toggle('saved', on);
     b.querySelector('svg').setAttribute('fill', on ? 'currentColor' : 'none');
@@ -781,12 +788,22 @@ function undo(){
   toast('Back in your deck');
   beacon('undo', {id: ev.id});
 }
-function toggleSave(id){
+function toggleSave(id, srcEl){
   const i = state.saved.indexOf(id);
   if(i >= 0){ state.saved.splice(i,1); if(state.remind[id]) toggleRemind(id, false); }
   else state.saved.unshift(id);
   saveSaved(); updateSavedBadge();
-  beacon(i >= 0 ? 'unsave' : 'save', {id});
+  const saved = i < 0;
+  beacon(saved ? 'save' : 'unsave', {id});
+  if(window.TWS_MASCOT){
+    if(saved){
+      TWS_MASCOT.saveBurst(srcEl);
+      if(state.saved.length === 1) TWS_MASCOT.react('excited', 'first-save');
+      else if(state.saved.length === 3) TWS_MASCOT.react('happy', 'three-saves');
+    } else if(!state.saved.length){
+      TWS_MASCOT.react('sad', 'planner-empty');
+    }
+  }
 }
 function wireDeck(){
   $('#btn-like').addEventListener('click', () => decide('save'));
@@ -822,7 +839,7 @@ function openDetail(ev, from, fromHist){
   const back = $('#sheet-back');
   if(state.detailFrom === 'map'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'Map'; }
   else if(state.detailFrom === 'list'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'All events'; }
-  else if(state.detailFrom === 'saved'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'Saved'; }
+  else if(state.detailFrom === 'saved'){ back.classList.remove('hidden'); back.querySelector('span').textContent = 'Planner'; }
   else back.classList.add('hidden');
   document.body.style.overflow = 'hidden';
   beacon('detail', {id: ev.id, from: state.detailFrom});
@@ -894,10 +911,10 @@ function buildSheetBody(ev){
   probe.onerror = () => { hero.classList.add('fallback'); hero.style.backgroundImage='none'; hero.insertAdjacentHTML('afterbegin', catArtHTML(ev.category)); };
   probe.src = imgUrl;
   $('#sheet-save-btn', body).addEventListener('click', () => {
-    toggleSave(ev.id);
+    toggleSave(ev.id, $('#sheet-save-btn', body));
     const on = state.saved.includes(ev.id);
     $('#sheet-save-btn', body).textContent = on ? 'Saved ✓' : 'Save this event';
-    toast(on ? 'Saved' : 'Removed from saved');
+    toast(on ? 'Saved to planner' : 'Removed from planner');
   });
   $('#sheet-remind-btn', body).addEventListener('click', () => toggleRemind(ev.id, !state.remind[ev.id]));
   $('#sheet-ics', body).addEventListener('click', () => downloadICS(ev));
@@ -984,10 +1001,12 @@ async function sharePlan(savedList, title){
   const text = planTitle + ' · ' + ids.length + ' event' + (ids.length === 1 ? '' : 's') +
     (cities ? ' in ' + cities : '') + ' — via ThisWeekSaudi';
   if(navigator.share){
-    try{ await navigator.share({title: planTitle, text, url}); beacon('plan_share', {n: ids.length, via:'native'}); }
+    try{ await navigator.share({title: planTitle, text, url}); beacon('plan_share', {n: ids.length, via:'native'});
+      if(window.TWS_MASCOT) TWS_MASCOT.react('excited', 'plan-shared'); }
     catch(e){}
   } else {
-    try{ await navigator.clipboard.writeText(url); toast('Plan link copied — paste it in WhatsApp'); beacon('plan_share', {n: ids.length, via:'copy'}); }
+    try{ await navigator.clipboard.writeText(url); toast('Plan link copied — paste it in WhatsApp'); beacon('plan_share', {n: ids.length, via:'copy'});
+      if(window.TWS_MASCOT) TWS_MASCOT.react('excited', 'plan-shared'); }
     catch(e){ toast('Copy this link: ' + url); }
   }
 }
@@ -1189,7 +1208,8 @@ function renderSaved(q){
     .filter(ev => !ql || (ev.title + ' ' + (ev.venue||'') + ' ' + (ev.city||'')).toLowerCase().includes(ql))
     .sort((a,b)=>(a.date_start||'zzzz').localeCompare(b.date_start||'zzzz'));
   if(!list.length){
-    box.innerHTML = '<div class="ev-empty">' + (ql ? 'Nothing saved matches.' : 'Nothing saved yet.<br>Swipe right or tap the heart on anything you like.') + '</div>';
+    box.innerHTML = '<div class="ev-empty">' + (ql ? 'Nothing saved matches.' : 'Nothing planned yet.<br>Tap the heart on anything you like and it will land here.') + '</div>';
+    if(!ql && window.TWS_MASCOT) TWS_MASCOT.react('sad', 'planner-empty');
     return;
   }
   /* group by day — the saved list becomes a day-by-day itinerary */

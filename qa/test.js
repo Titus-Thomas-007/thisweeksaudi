@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v7', sw.includes("const V = 'tws-v7'"));
+  check('SW cache version bumped to tws-v8', sw.includes("const V = 'tws-v8'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -90,6 +90,46 @@ function check(name, ok, detail) {
     /modal-overlay\{[^}]*z-index:700/.test(
       fs.readFileSync(path.join(FRONT, 'styles.css'), 'utf8')),
     'nudge popup still behind detail sheet');
+
+  // ---- 0a6. thursday weekend-digest push ----
+  check('digest endpoint exists, keyed, broadcasts to all subs',
+    appPy.includes('@app.post("/api/push/send-weekend-digest")') &&
+    appPy.includes('b.key != INGEST_KEY') &&
+    /SELECT endpoint,sub FROM push_subs/.test(appPy),
+    'send-weekend-digest route missing or incomplete');
+  check("digest excludes last week's picks; thin weekend sends fewer, never repeats",
+    appPy.includes('WHERE week < ? ORDER BY week DESC LIMIT 1') &&
+    appPy.includes('not in prev_ids'),
+    'dedup-against-last-week logic missing');
+  check('digest payload deep-links to /#weekend with stable tag',
+    appPy.includes('"url": "/#weekend"') && appPy.includes('"tag": "tws-weekend-digest"'),
+    'digest payload missing weekend deep link');
+  {
+    // extract the 5 mascot-voice variants from the DIGEST_COPY block only,
+    // render worst-case substitutions, enforce push length limits
+    const start = appPy.indexOf('DIGEST_COPY = [');
+    const region = appPy.slice(start, appPy.indexOf(']', start));
+    const variants = [...region.matchAll(/\{"title": "((?:[^"\\]|\\.)*)",\s*"body": "((?:[^"\\]|\\.)*)"\}/g)]
+      .map(x => ({title: x[1], body: x[2]}));
+    const unesc = s => s.replace(/\\u([0-9a-fA-F]{4})/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
+    const render = (t, sub) => unesc(t).replace(/\{n\}/g, sub.n).replace(/\{pick\}/g, sub.pick);
+    const worst = {n: '888', pick: 'X'.repeat(50)};
+    const okCount = variants.length === 5;
+    const okNonEmpty = variants.every(v => v.title.trim() && v.body.trim());
+    const okLen = variants.every(v => render(v.title, worst).length <= 50 && render(v.body, worst).length <= 150);
+    check('5 digest copy variants, non-empty, within push limits (title<=50, body<=150)',
+      okCount && okNonEmpty && okLen,
+      `variants=${variants.length} nonempty=${okNonEmpty} lengths-ok=${okLen}`);
+  }
+  check('#weekend deep link pre-seeds discover view+filter',
+    discJs.includes("location.hash === '#weekend'") && discJs.includes('__twsShowWeekend'),
+    'discover.js #weekend handling missing');
+  check('app.js boot + hashchange handle #weekend',
+    appJs.includes("location.hash === '#weekend'") && appJs.includes('__twsShowWeekend'),
+    'app.js #weekend handling missing');
+  check('sw.js honors payload tag so digests replace each other',
+    /d\.tag \|\|/.test(fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8')),
+    'sw.js ignores payload tag');
   const appSrc0 = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
   check('relDayLabel helper defined', appSrc0.includes('function relDayLabel('));
   check('weekendRange helper defined (Saudi Fri–Sat)', appSrc0.includes('function weekendRange('));
@@ -99,6 +139,42 @@ function check(name, ok, detail) {
     appSrc0.includes("const [fri, sat] = weekendRange(); // Saudi weekend: Fri–Sat") &&
     !appSrc0.includes('(6 - sat.getDay()'), 'old Sat–Sun calc still present');
   check('deck header has search button', fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8').includes('id="btn-search"'));
+
+  // ---- 0a6. planner mascot (character-agnostic) + save burst + friday reveal ----
+  const msrc = fs.readFileSync(path.join(FRONT, 'mascot.js'), 'utf8');
+  const htmlIdx = fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8');
+  const swSrc = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
+  const cssSrc = fs.readFileSync(path.join(FRONT, 'styles.css'), 'utf8');
+  check('mascot.js loaded before app.js', htmlIdx.indexOf('mascot.js') !== -1 &&
+    htmlIdx.indexOf('mascot.js') < htmlIdx.indexOf('app.js?v='), 'script tag missing/misordered');
+  check('mascot.js in SW app shell', swSrc.includes("'/mascot.js'"), 'mascot.js not precached');
+  check('TWS_MASCOT exposes react/dismiss/saveBurst/fridayReveal',
+    ['react: react', 'dismiss: dismiss', 'saveBurst: saveBurst', 'fridayReveal: fridayReveal']
+      .every(k => msrc.includes(k)), 'public surface incomplete');
+  check('character art isolated in renderMascotSVG() (fluffy yeti)',
+    msrc.includes('function renderMascotSVG()') && msrc.includes('m-eye') &&
+    msrc.includes('m-smile') && msrc.includes('m-frown'),
+    'yeti character missing from renderMascotSVG');
+  check('copy bank has 12 lines per mood',
+    ['happy:', 'excited:', 'sad:'].every(m => {
+      const body = msrc.split(m)[1].split(']')[0];
+      return (body.match(/"/g) || []).length >= 24;
+    }), 'copy bank short');
+  check('mood system is container classes (any SVG hooks in)',
+    cssSrc.includes('.mascot-happy .mascot-figure') && cssSrc.includes('.mascot-excited .mascot-figure') &&
+    cssSrc.includes('.mascot-sad .mascot-figure'), 'mood CSS missing');
+  check('dismissal remembered in localStorage (tws_mascot_muted)',
+    msrc.includes("tws_mascot_muted"), 'mute memory missing');
+  check('reduced-motion respected', msrc.includes('prefers-reduced-motion') && cssSrc.includes('prefers-reduced-motion'),
+    'no reduced-motion handling');
+  check('toggleSave passes source element for burst + reactions',
+    appSrc0.includes('function toggleSave(id, srcEl)') && appSrc0.includes('TWS_MASCOT.saveBurst(srcEl)'),
+    'toggleSave not wired');
+  check('discover save buttons pass element', fs.readFileSync(path.join(FRONT, 'discover.js'), 'utf8').includes('toggleSave(id, sv)'),
+    'discover.js not wired');
+  check('friday reveal keyed once-per-day (tws_friday_seen)',
+    msrc.includes('tws_friday_seen') && appSrc0.includes('TWS_MASCOT.fridayReveal()'),
+    'friday reveal not wired');
 
   // ---- 1. boot the app in jsdom ----
   const html = fs.readFileSync(path.join(FRONT, 'index.html'), 'utf8');
@@ -146,9 +222,10 @@ function check(name, ok, detail) {
 
   const appSrc = fs.readFileSync(path.join(FRONT, 'app.js'), 'utf8');
   const dscSrc = fs.readFileSync(path.join(FRONT, 'discover.js'), 'utf8');
+  const mascotSrc = fs.readFileSync(path.join(FRONT, 'mascot.js'), 'utf8');
   // single eval: jsdom drops const/let across separate eval() calls, but a real
   // browser shares the global lexical env between classic scripts — one eval mirrors that
-  dom.window.eval(appSrc + '\n;\n' + dscSrc); // IIFE auto-boots (readyState is 'complete')
+  dom.window.eval(mascotSrc + '\n;\n' + appSrc + '\n;\n' + dscSrc); // IIFE auto-boots (readyState is 'complete')
   await new Promise(r => setTimeout(r, 300));
 
   const $ = (s) => window.document.querySelector(s);
@@ -497,6 +574,63 @@ function check(name, ok, detail) {
     dscSrc.includes("$('#dst-wrap')") && dscSrc.includes('scrollIntoView'));
   check('attribution styled subtle in discover.css',
     fs.readFileSync(path.join(FRONT, 'discover.css'), 'utf8').includes('.leaflet-control-attribution'));
+
+  // ---- 14. mascot runtime: mount/react/guardrails/burst/friday (character-agnostic) ----
+  const M = window.TWS_MASCOT;
+  const wdoc = window.document;
+  check('TWS_MASCOT present with full API',
+    M && ['react','dismiss','saveBurst','fridayReveal','renderMascotSVG'].every(k => typeof M[k] === 'function'),
+    'API incomplete');
+  check('mascot mounts only inside Planner view', (() => {
+    const host = wdoc.getElementById('tws-mascot');
+    return !host || host.closest('#view-saved');
+  })(), 'mounted outside planner');
+  // react: happy shows bubble + mood class
+  const r1 = M.react('happy', 'qa-happy');
+  const mhost = wdoc.getElementById('tws-mascot');
+  check('react(happy) shows mascot with mood class + line',
+    r1 && mhost && !mhost.classList.contains('hidden') &&
+    mhost.classList.contains('mascot-happy') &&
+    mhost.querySelector('.tws-mascot-bubble').textContent.length > 5, 'react failed');
+  // guardrail: same trigger twice -> second is no-op
+  check('trigger fires max once per session', M.react('happy', 'qa-happy') === false, 'repeat not blocked');
+  // no-repeat copy: consecutive reacts avoid degenerate repetition
+  // (earlier test flows may have consumed some lines of a mood already)
+  const seen = new Set();
+  for (let i = 0; i < 12; i++) { M.react('happy', 'qa-happy-' + i); seen.add(wdoc.querySelector('.tws-mascot-bubble').textContent); }
+  check('copy bank avoids degenerate repetition', seen.size >= 11, 'only ' + seen.size + ' unique');
+  // dismiss remembers
+  M.dismiss();
+  check('dismiss hides + remembers mute',
+    wdoc.getElementById('tws-mascot').classList.contains('hidden') &&
+    window.localStorage.getItem('tws_mascot_muted') === '1', 'dismiss broken');
+  check('muted mascot stays silent', M.react('excited', 'qa-muted') === false, 'reacted while muted');
+  window.localStorage.removeItem('tws_mascot_muted');
+  // save burst spawns particles (reduced-motion off in this env)
+  const fakeBtn = wdoc.createElement('button');
+  fakeBtn.style.cssText = 'position:fixed;left:100px;top:100px;width:40px;height:40px';
+  fakeBtn.getBoundingClientRect = () => ({ left: 100, top: 100, width: 40, height: 40, right: 140, bottom: 140 });
+  wdoc.body.appendChild(fakeBtn);
+  M.saveBurst(fakeBtn);
+  check('saveBurst spawns gold particles', wdoc.querySelectorAll('.tws-particle').length >= 5,
+    'no particles');
+  fakeBtn.remove();
+  // friday reveal: fake a Riyadh Friday (2026-10-02 was a Friday)
+  const RealDate = window.Date;
+  const friNoon = new RealDate('2026-10-02T12:00:00+03:00').getTime();
+  window.Date = class extends RealDate {
+    constructor(...a) { super(...(a.length ? a : [friNoon])); }
+    static now() { return friNoon; }
+  };
+  window.localStorage.removeItem('tws_friday_seen');
+  const f1 = M.fridayReveal();
+  const friEl = wdoc.querySelector('.tws-friday');
+  check('friday reveal shows once on Riyadh Friday',
+    f1 && friEl && friEl.textContent.includes('Your weekend is here') &&
+    window.localStorage.getItem('tws_friday_seen') === '2026-10-02', 'reveal failed');
+  check('friday reveal does not repeat same day', M.fridayReveal() === false, 'repeated');
+  if (friEl) friEl.remove();
+  window.Date = RealDate;
 
   const failed = results.filter(r => !r.ok);
   console.log(`\n${results.length - failed.length}/${results.length} passed`);

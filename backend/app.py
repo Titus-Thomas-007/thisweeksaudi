@@ -67,6 +67,10 @@ def init_db():
         con.execute("""CREATE TABLE IF NOT EXISTS push_subs(
             endpoint TEXT PRIMARY KEY, sub TEXT NOT NULL,
             event_ids TEXT NOT NULL DEFAULT '[]', ts REAL NOT NULL)""")
+        # thursday weekend-digest: event ids featured each week (freshness:
+        # last week's picks are excluded from the next week's recommendations)
+        con.execute("""CREATE TABLE IF NOT EXISTS digest_log(
+            week TEXT PRIMARY KEY, ids TEXT NOT NULL DEFAULT '[]', ts REAL NOT NULL)""")
 
 
 # Precise venue coordinates, geocoded offline (backend/geocode_seed.py) and
@@ -520,6 +524,106 @@ def push_send_due(b: PushDue):
                 con.execute("DELETE FROM push_subs WHERE endpoint=?", (endpoint,))
                 pruned += 1
     return {"ok": True, "sent": sent, "pruned": pruned, "for_date": tomorrow}
+
+
+# ---------------------------------------------------------------------------
+# Thursday weekend-digest broadcast.
+# FRESHNESS RULE (owner requirement): every send is generated live from the DB
+# — this weekend's count, picks and cities are never recycled. Event ids
+# featured in the previous send are recorded in digest_log and excluded from
+# the next week's picks; on a thin weekend we send fewer picks, never repeats.
+# ---------------------------------------------------------------------------
+DIGEST_COPY = [
+    {"title": "Your weekend needs a plan",
+     "body": "Thursday check-in: {n} events this weekend and your Planner is empty. I'm not mad, just disappointed. Tap to fix it."},
+    {"title": "Don't you dare stay home",
+     "body": "{n} events this weekend. \u2018Nothing to do\u2019 is officially cancelled \u2014 go pick your favourite."},
+    {"title": "Psst\u2026 weekend intel inside",
+     "body": "This weekend: {n} events, including {pick}. Your couch will understand. Tap for the full list."},
+    {"title": "T-minus 1 day to Friday",
+     "body": "{n} things happening this weekend. I picked my top 3 \u2014 tap to see if I have taste."},
+    {"title": "Weekend loading\u2026 99%",
+     "body": "{n} events across Saudi this weekend, starring {pick}. One tap and Friday plans itself."},
+]
+DIGEST_PRO_CATS = {"conference", "expo", "workshop", "meetup"}
+
+
+@app.post("/api/push/send-weekend-digest")
+def push_send_weekend_digest(b: PushDue):
+    """Broadcast the Thursday weekend digest to ALL push subscriptions.
+    Called by the weekly cron with the ingest key. One bad subscription
+    never kills the broadcast (per-sub try/except, dead endpoints pruned)."""
+    if not INGEST_KEY or b.key != INGEST_KEY:
+        raise HTTPException(403, "bad key")
+    priv = _vapid_private()
+    if not priv:
+        raise HTTPException(503, "push not configured")
+    from pywebpush import webpush, WebPushException
+    from zoneinfo import ZoneInfo
+    import random as _random
+    now = datetime.now(ZoneInfo("Asia/Riyadh"))
+    fri = (now + timedelta(days=(4 - now.weekday()) % 7)).date()
+    sat = fri + timedelta(days=1)
+    fri_s, sat_s = fri.isoformat(), sat.isoformat()
+    with _db_lock, db() as con:
+        rows = con.execute("SELECT id,data FROM events").fetchall()
+        prev = con.execute(
+            "SELECT ids FROM digest_log WHERE week < ? ORDER BY week DESC LIMIT 1",
+            (fri_s,)).fetchone()
+    prev_ids = set(json.loads(prev[0])) if prev else set()
+    weekend = []
+    for eid, data in rows:
+        try:
+            ev = json.loads(data)
+        except Exception:
+            continue
+        if fri_s <= (ev.get("start") or "")[:10] <= sat_s:
+            ev["_eid"] = eid
+            weekend.append(ev)
+    if not weekend:
+        return {"ok": True, "sent": 0, "reason": "no weekend events"}
+    pool = [e for e in weekend if e["_eid"] not in prev_ids]  # thin weekend: fewer picks, never repeats
+    picks = sorted(
+        pool,
+        key=lambda e: (1 if e.get("image") else 0,
+                       1 if str(e.get("category") or "").lower() in DIGEST_PRO_CATS else 0),
+        reverse=True)[:3]
+    n = len(weekend)
+    pick_title = (picks[0].get("title") or "")[:50] if picks else ""
+    eligible = [v for v in DIGEST_COPY if "{pick}" not in v["body"] or pick_title]
+    v = _random.choice(eligible)
+    title = v["title"].replace("{n}", str(n))
+    body = v["body"].replace("{n}", str(n)).replace("{pick}", pick_title)
+    payload = json.dumps({"title": title, "body": body, "url": "/#weekend",
+                          "tag": "tws-weekend-digest"})
+    with _db_lock, db() as con:
+        subs = con.execute("SELECT endpoint,sub FROM push_subs").fetchall()
+    sent, pruned, failed = 0, 0, 0
+    claims = {"sub": "https://thisweeksaudi.onrender.com"}
+    for endpoint, sub_json in subs:
+        try:
+            sub = json.loads(sub_json)
+        except Exception:
+            failed += 1
+            continue
+        try:
+            webpush(sub, payload, vapid_private_key=priv, vapid_claims=claims)
+            sent += 1
+        except WebPushException as e:
+            if e.response is not None and e.response.status_code in (404, 410):
+                with _db_lock, db() as con:
+                    con.execute("DELETE FROM push_subs WHERE endpoint=?", (endpoint,))
+                pruned += 1
+            else:
+                failed += 1
+        except Exception:
+            failed += 1
+    with _db_lock, db() as con:
+        con.execute("INSERT OR REPLACE INTO digest_log(week,ids,ts) VALUES(?,?,?)",
+                    (fri_s, json.dumps([e["_eid"] for e in picks]), time.time()))
+    return {"ok": True, "sent": sent, "pruned": pruned, "failed": failed,
+            "weekend": f"{fri_s}..{sat_s}", "events": n,
+            "picks": [e.get("title") for e in picks]}
 
 
 @app.get("/e/{event_id}", response_class=None, include_in_schema=False)

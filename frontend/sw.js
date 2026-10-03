@@ -1,6 +1,6 @@
 /* ThisWeekSaudi service worker: app-shell cache + offline data fallback. */
-const V = 'tws-v7';
-const SHELL = ['/index.html', '/app.js', '/discover.js', '/styles.css', '/discover.css', '/logo.svg',
+const V = 'tws-v8';
+const SHELL = ['/index.html', '/app.js', '/discover.js', '/mascot.js', '/styles.css', '/discover.css', '/logo.svg',
                '/manifest.json', '/icon-512.png', '/apple-touch-icon.png',
                '/assets/cat-conference.jpg', '/assets/cat-concert.jpg', '/assets/cat-sports.jpg',
                '/assets/cat-expo.jpg', '/assets/cat-meetup.jpg', '/assets/cat-workshop.jpg',
@@ -48,7 +48,7 @@ self.addEventListener('push', e => {
     icon: '/icon-512.png',
     badge: '/icon-512.png',
     data: { url: d.url || '/' },
-    tag: 'tws-reminder-' + (d.event_id || Date.now()),
+    tag: d.tag || ('tws-reminder-' + (d.event_id || Date.now())),
   }));
 });
 self.addEventListener('notificationclick', e => {

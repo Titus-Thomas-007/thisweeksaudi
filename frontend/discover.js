@@ -25,11 +25,21 @@ var VIEWS = [
   {id:'map',     label:'Map'},
   {id:'stories', label:'Stories'}
 ];
+/* Thursday digest deep link: /#weekend opens the Week view pre-filtered to
+   this weekend. Pre-seeded here so every boot path (cold start, skeletons,
+   data-ready rebuilds) lands correctly without touching stored prefs. */
+var _weekendDeep = (typeof location !== 'undefined' && location.hash === '#weekend');
 var DSC = {
-  view: (typeof storeGet === 'function' && storeGet('tws_dview')) || 'mosaic',
+  view: _weekendDeep ? 'week' : ((typeof storeGet === 'function' && storeGet('tws_dview')) || 'mosaic'),
   shellBuilt:false, dirty:true, built:{},
   io:null, map:null, mapPlotted:false, storyIO:null,
-  userLL:null, filters:{price:'all', date:'all', cat:'', city:''}
+  userLL:null, filters:{price:'all', date: _weekendDeep ? 'weekend' : 'all', cat:'', city:''}
+};
+/* same deep link while the app is already open (notification tap on a live tab) */
+window.__twsShowWeekend = function(){
+  DSC.filters.date = 'weekend';
+  setDView('week');
+  applyFilters();
 };
 if(!VIEWS.some(function(v){return v.id===DSC.view;})) DSC.view = 'mosaic';
 
@@ -606,7 +616,7 @@ function initDiscover(){
     if(sv){
       e.stopPropagation();
       var id = sv.dataset.save;
-      toggleSave(id);
+      toggleSave(id, sv);
       var on = state.saved.indexOf(id) !== -1;
       $$('#view-discover [data-save="' + id + '"]').forEach(function(x){
         x.classList.toggle('saved', on);
