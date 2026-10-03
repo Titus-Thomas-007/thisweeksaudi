@@ -626,6 +626,38 @@ def push_send_weekend_digest(b: PushDue):
             "picks": [e.get("title") for e in picks]}
 
 
+def _offers_ld(price_raw, url):
+    """Build schema.org Offer from the raw price string, mirroring the
+    frontend's SAR conversion exactly (USDx3.75, EURx4.05, GBPx4.75)."""
+    import re as _re
+    p = (price_raw or "").strip()
+    if not p:
+        return None
+    pl = p.lower()
+    if pl == "free":
+        return {"@type": "Offer", "price": "0", "priceCurrency": "SAR",
+                "availability": "https://schema.org/InStock", "url": url}
+    if pl == "tba":
+        return None
+    m = _re.search(r"([\d,]+\.?\d*)", p)
+    if not m:
+        return None
+    v = float(m.group(1).replace(",", ""))
+    if not v or v <= 0:
+        return None
+    if "$" in p:
+        v *= 3.75
+    elif "\u20ac" in p:
+        v *= 4.05
+    elif "\u00a3" in p:
+        v *= 4.75
+    # JS Math.round parity (round half up), matching frontend fmtPrice
+    sar = int(v + 0.5)
+    return {"@type": "Offer", "price": str(sar),
+            "priceCurrency": "SAR",
+            "availability": "https://schema.org/InStock", "url": url}
+
+
 @app.get("/e/{event_id}", response_class=None, include_in_schema=False)
 def event_page(event_id: str):
     """Shareable, indexable event page: crawlers get OG tags + Event
@@ -649,6 +681,7 @@ def event_page(event_id: str):
         "@context": "https://schema.org", "@type": "Event",
         "name": title, "description": desc, "url": url,
         "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "startDate": ev.get("start"), "endDate": ev.get("end"),
         "location": {"@type": "Place", "name": loc,
                      "address": {"@type": "PostalAddress",
@@ -659,6 +692,9 @@ def event_page(event_id: str):
     }
     if img:
         schema["image"] = img
+    offers = _offers_ld(ev.get("price"), ev.get("url") or url)
+    if offers:
+        schema["offers"] = offers
     esc_t = html.escape(title, quote=True)
     esc_d = html.escape(desc[:300], quote=True)
     schema_json = json.dumps(schema, ensure_ascii=False).replace("</", "<\\/")

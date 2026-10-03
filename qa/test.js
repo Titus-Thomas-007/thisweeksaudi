@@ -14,7 +14,7 @@ function check(name, ok, detail) {
 (async () => {
   // ---- 0. service worker: version bumped + network-first shell ----
   const sw = fs.readFileSync(path.join(FRONT, 'sw.js'), 'utf8');
-  check('SW cache version bumped to tws-v14', sw.includes("const V = 'tws-v14'"));
+  check('SW cache version bumped to tws-v15', sw.includes("const V = 'tws-v15'"));
   check('SW app shell is network-first (no stale code on phones)',
     !sw.includes('cache first, then network') && sw.includes('network first for'),
     'shell still cache-first');
@@ -41,6 +41,10 @@ function check(name, ok, detail) {
   check('event bot page escapes HTML (no XSS via title/desc)',
     appPy.includes('html.escape(title, quote=True)') && appPy.includes('.replace("</", "<\\\\/")'),
     'event_page escaping missing');
+  check('event JSON-LD has attendance mode + SAR offers (rich-result eligible)',
+    appPy.includes('OfflineEventAttendanceMode') && appPy.includes('_offers_ld') &&
+    appPy.includes('"priceCurrency": "SAR"') && appPy.includes('int(v + 0.5)'),
+    'event JSON-LD incomplete');
   check('homepage has canonical + OG tags',
     html0.includes('rel="canonical"') && html0.includes('og:title') && html0.includes('og:image'),
     'homepage meta tags missing');
